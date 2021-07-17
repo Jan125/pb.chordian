@@ -8,7 +8,7 @@
   <section name="data">
     <explorer view="..\..\PNB2\_src\" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2021-07-17 12:42" user="Dino" host="HUSKLET"/>
+    <lastopen date="2021-07-17 13:12" user="Dino" host="HUSKLET"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
@@ -23,8 +23,9 @@
       <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
       <executable value="..\chordian.exe"/>
       <options unicode="1" xpskin="1" debug="1"/>
-      <compilecount enable="1" value="1"/>
-      <buildcount enable="1" value="1"/>
+      <icon enable="1">chordian.ico</icon>
+      <compilecount enable="1" value="2"/>
+      <buildcount enable="1" value="2"/>
     </target>
     <target name="x64" enabled="1" default="0">
       <inputfile value="chordian.pb"/>
@@ -32,8 +33,9 @@
       <compiler version="PureBasic 5.46 LTS (Windows - x64)"/>
       <executable value="..\chordian64.exe"/>
       <options unicode="1" xpskin="1" debug="1"/>
-      <compilecount enable="1" value="1"/>
-      <buildcount enable="1" value="1"/>
+      <icon enable="1">chordian.ico</icon>
+      <compilecount enable="1" value="2"/>
+      <buildcount enable="1" value="2"/>
     </target>
   </section>
 </project>
