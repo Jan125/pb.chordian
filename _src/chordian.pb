@@ -381,6 +381,9 @@ Enumeration 0
   #Dat_Harp11
   #Dat_Harp12
   #Dat_Harp13
+  #Dat_DrumBD
+  #Dat_DrumHiHat
+  #Dat_DrumSnare
 EndEnumeration
 
 Enumeration 1
@@ -400,6 +403,8 @@ Enumeration #PB_Event_FirstCustomValue
 ; Each key event usually a value of 0 to 255. 65535 is just to be on the secure end, with Unicode and whatnot.
   Global Dim Keys.a(65535)
   Global LastKey.u = 0
+  
+  ; This is used for creating a variable keymap for the chord buttons.
   Global Dim ChordKeys.u(#Chord_7th, #Note_B)
   ChordKeys(#Chord_Maj, #Note_Db) = #PB_Shortcut_1
   ChordKeys(#Chord_Min, #Note_Db) = #PB_Shortcut_Q
@@ -497,7 +502,11 @@ Global Value_VolumeChords.f = 1.0
 ;   Chord Button Section
 ;   Harp Section Sectin
 
-;These are used for program flow.
+; These are used for Harp/Trigger control.
+Global Dim Status_SoundCurrent(#Dat_Harp13)
+Global Dim Status_SoundPrevious(#Dat_Harp13)
+
+; These are used for program flow.
 Define Event.l
 Define CurrentNote.l
 Define CurrentChord.l
@@ -576,6 +585,36 @@ Procedure.l UpdateFrequencies(Chord, Note)
     ProcedureReturn 0
   EndIf
 EndProcedure
+Procedure UpdateVolume()
+  Static Dim VolumeStatus.f(#Dat_DrumSnare)
+  Static TimeCurrent.q
+  Static TimePrevious.q
+  Static FirstRun.l = 1
+  Protected i.l
+  
+  TimePrevious = TimeCurrent
+  TimeCurrent = ElapsedMilliseconds()
+  If FirstRun
+    TimePrevious = TimeCurrent
+    FirstRun = 0
+  EndIf
+  
+  Select Value_Power
+    Case 0
+      For i = 0 To ArraySize(VolumeStatus())
+        VolumeStatus(i) = 0.0
+      Next
+    Case 1
+      For i = #Dat_Harp1 To #Dat_Harp13
+        If Status_SoundCurrent(i) = 1 And Status_SoundPrevious(i) = 0
+          VolumeStatus(i) = 1.0
+        Else
+          VolumeStatus(i) = VolumeStatus(i)
+        EndIf
+      Next
+  EndSelect
+EndProcedure
+
 
 
 ;-Initialization
@@ -602,6 +641,7 @@ If InitSound()
   
   CatchImage(#Img_LED_Off, ?Img_LED_Off)
   CatchImage(#Img_LED_On, ?Img_LED_On)
+  
   
   ;-Get Sounds
   CatchSound(#Snd_BassNorm, ?Snd_Bass)
@@ -637,6 +677,7 @@ If InitSound()
   CatchSound(#Snd_Harp13N, ?Snd_Harp)
   CatchSound(#Snd_Harp13F, ?Snd_Harp)
   
+  
   ;-Play all sounds
   PlaySound(#Snd_BassNorm, #PB_Sound_Loop, 40)
   PlaySound(#Snd_BassHigh, #PB_Sound_Loop, 0)
@@ -671,8 +712,8 @@ If InitSound()
   PlaySound(#Snd_Harp13N, #PB_Sound_Loop, 0)
   PlaySound(#Snd_Harp13F, #PB_Sound_Loop, 0)
   
-  ;-Window
   
+  ;-Window
   If OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 600, "Chordian", #PB_Window_SystemMenu)
     If CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main), #PB_Canvas_Keyboard)
       SetActiveGadget(#Gad_Canvas)
@@ -680,9 +721,10 @@ If InitSound()
         Event = WindowEvent()
         Select Event
           Case #PB_Event_Gadget
-            ;-Gadget Actions
+            ;--Gadget Actions
             Select EventGadget()
               Case #Gad_Canvas
+            ;---Canvas Actions
                 Select EventType()
                   Case #PB_EventType_KeyDown
                     If Keys(GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)) = 0
@@ -696,11 +738,12 @@ If InitSound()
                     
                   Case #PB_EventType_LeftButtonDown
                     MouseButtonLeftPrevious=MouseButtonLeftCurrent
-                    
+                    If Value_Power = 1
                     If MousePositionXCurrent >= 689 And MousePositionXCurrent <= 777
                       Trigger_Harp = 1
                     EndIf
-                    
+                  EndIf
+                  
                     ;Master Volume Knob
                     If Sqr(Pow(MousePositionXCurrent-190, 2)+Pow(MousePositionYCurrent-116, 2)) <= 21
                       Trigger_KnobVolumeMaster = 1
@@ -757,7 +800,7 @@ If InitSound()
                 EndSelect
             EndSelect
           Case #Event_HandleTriggers
-            ;-HandleTriggers
+            ;--HandleTriggers
             If Trigger_KnobVolumeMaster
                       Value_VolumeMaster+(MousePositionYPrevious-MousePositionYCurrent)/400.0
                       If Value_VolumeMaster > 1.0
@@ -837,7 +880,7 @@ If InitSound()
                     EndIf
                     
                   Case #Event_HandleKeys
-                    ;-HandleKeys
+                    ;--HandleKeys
                     Select LastKey
                       Case ChordKeys(#Chord_Maj, #Note_Db), ChordKeys(#Chord_Min, #Note_Db), ChordKeys(#Chord_7th, #Note_Db)
                         CurrentNote = #Note_Db
@@ -880,7 +923,7 @@ If InitSound()
                       UpdateFrequencies(#Chord_7th, CurrentNote)
                     EndIf
           Case #PB_Event_Repaint
-            ;-Repaint
+            ;--Repaint
             If StartDrawing(CanvasOutput(#Gad_Canvas))
               DrawImage(ImageID(#Img_Base), 0, 0)
               
