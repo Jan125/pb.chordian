@@ -503,8 +503,8 @@ Global Value_VolumeChords.f = 1.0
 ;   Harp Section Sectin
 
 ; These are used for Harp/Trigger control.
-Global Dim Status_SoundCurrent(#Dat_Harp13)
-Global Dim Status_SoundPrevious(#Dat_Harp13)
+Global Dim Status_SoundCurrent(#Dat_DrumSnare)
+Global Dim Status_SoundPrevious(#Dat_DrumSnare)
 
 ; These are used for program flow.
 Define Event.l
@@ -577,6 +577,38 @@ Procedure.l UpdateFrequencies(Chord, Note)
       SetSoundFrequency(#Snd_Harp13F, Frequency(#Dat_Harp13))
       SetSoundPosition(#Snd_Harp13N, 0)
       SetSoundPosition(#Snd_Harp13F, 7)
+    Else
+      SoundVolume(#Snd_BassNorm, 0)
+      SoundVolume(#Snd_BassHigh, 0)
+      SoundVolume(#Snd_Chord1, 0)
+      SoundVolume(#Snd_Chord2, 0)
+      SoundVolume(#Snd_Chord3, 0)
+      SoundVolume(#Snd_Harp1N, 0)
+      SoundVolume(#Snd_Harp1F, 0)
+      SoundVolume(#Snd_Harp2N, 0)
+      SoundVolume(#Snd_Harp2F, 0)
+      SoundVolume(#Snd_Harp3N, 0)
+      SoundVolume(#Snd_Harp3F, 0)
+      SoundVolume(#Snd_Harp4N, 0)
+      SoundVolume(#Snd_Harp4F, 0)
+      SoundVolume(#Snd_Harp5N, 0)
+      SoundVolume(#Snd_Harp5F, 0)
+      SoundVolume(#Snd_Harp6N, 0)
+      SoundVolume(#Snd_Harp6F, 0)
+      SoundVolume(#Snd_Harp7N, 0)
+      SoundVolume(#Snd_Harp7F, 0)
+      SoundVolume(#Snd_Harp8N, 0)
+      SoundVolume(#Snd_Harp8F, 0)
+      SoundVolume(#Snd_Harp9N, 0)
+      SoundVolume(#Snd_Harp9F, 0)
+      SoundVolume(#Snd_Harp10N, 0)
+      SoundVolume(#Snd_Harp10F, 0)
+      SoundVolume(#Snd_Harp11N, 0)
+      SoundVolume(#Snd_Harp11F, 0)
+      SoundVolume(#Snd_Harp12N, 0)
+      SoundVolume(#Snd_Harp12F, 0)
+      SoundVolume(#Snd_Harp13N, 0)
+      SoundVolume(#Snd_Harp13F, 0)
     EndIf
     PreviousChord = Chord
     PreviousNote = Note
@@ -589,7 +621,9 @@ Procedure UpdateVolume()
   Static Dim VolumeStatus.f(#Dat_DrumSnare)
   Static TimeCurrent.q
   Static TimePrevious.q
+  Static TimeDelta.q
   Static FirstRun.l = 1
+  Static Phase.f
   Protected i.l
   
   TimePrevious = TimeCurrent
@@ -598,24 +632,91 @@ Procedure UpdateVolume()
     TimePrevious = TimeCurrent
     FirstRun = 0
   EndIf
-  
+  TimeDelta = TimeCurrent-TimePrevious
+  Phase+828.0*(TimeDelta/1000.0)
   Select Value_Power
     Case 0
       For i = 0 To ArraySize(VolumeStatus())
+        SoundVolume(i, 0)
         VolumeStatus(i) = 0.0
+        Status_SoundCurrent(i) = 0
+        Status_SoundPrevious(i) = 0
       Next
     Case 1
+      If Status_SoundCurrent(#Dat_Bass_Norm) = 1 And Status_SoundPrevious(#Dat_Bass_Norm) = 0
+        VolumeStatus(#Dat_Bass_Norm) = 1.0
+      Else
+        ;memory sustain
+      EndIf
+      For i = #Dat_Chord1 To #Dat_Chord3
+      If Status_SoundCurrent(i) = 1 And Status_SoundPrevious(i) = 0
+        VolumeStatus(i) = 1.0
+      ElseIf (Status_SoundCurrent(i) = 1 And Status_SoundPrevious(i) = 1)
+        If VolumeStatus(i) > 0.8
+          VolumeStatus(i)-1.0*(TimeDelta/333.0)
+        If VolumeStatus(i) < 0.8
+          VolumeStatus(i) = 0.8
+        EndIf
+        EndIf
+        
+      EndIf
+      Next
+      
       For i = #Dat_Harp1 To #Dat_Harp13
         If Status_SoundCurrent(i) = 1 And Status_SoundPrevious(i) = 0
           VolumeStatus(i) = 1.0
         Else
-          VolumeStatus(i) = VolumeStatus(i)
+          VolumeStatus(i)-1.0*(TimeDelta/(366.0+2734.0*Value_Sustain))
+          If VolumeStatus(i) < 0.0
+            VolumeStatus(i) = 0.0
+          EndIf
         EndIf
       Next
+      For i = #Dat_DrumBD To #Dat_DrumSnare
+        If Status_SoundCurrent(i) = 1 And Status_SoundPrevious(i) = 0
+          VolumeStatus(i) = 1.0
+        EndIf
+      Next
+      For i = 0 To #Dat_DrumSnare
+        Status_SoundPrevious(i) = Status_SoundCurrent(i)
+        Status_SoundCurrent(i) = 0
+      Next
+      
   EndSelect
+  
+  SoundVolume(#Snd_BassNorm, 100.0*Value_VolumeMaster*Value_VolumeChords*VolumeStatus(#Dat_Bass_Norm))
+  SoundVolume(#Snd_BassHigh, 100.0*Value_VolumeMaster*Value_VolumeChords*VolumeStatus(#Dat_Bass_High))
+  SoundVolume(#Snd_Chord1, 100.0*Value_VolumeMaster*Value_VolumeChords*VolumeStatus(#Dat_Chord1))
+  SoundVolume(#Snd_Chord2, 100.0*Value_VolumeMaster*Value_VolumeChords*VolumeStatus(#Dat_Chord2))
+  SoundVolume(#Snd_Chord3, 100.0*Value_VolumeMaster*Value_VolumeChords*VolumeStatus(#Dat_Chord3))
+  
+  SoundVolume(#Snd_Harp1N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*1.00*VolumeStatus(#Dat_Harp1))
+  SoundVolume(#Snd_Harp1F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*1.00*VolumeStatus(#Dat_Harp1)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp2N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.98*VolumeStatus(#Dat_Harp2))
+  SoundVolume(#Snd_Harp2F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.98*VolumeStatus(#Dat_Harp2)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp3N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.96*VolumeStatus(#Dat_Harp3))
+  SoundVolume(#Snd_Harp3F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.96*VolumeStatus(#Dat_Harp3)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp4N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.94*VolumeStatus(#Dat_Harp4))
+  SoundVolume(#Snd_Harp4F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.94*VolumeStatus(#Dat_Harp4)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp5N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.92*VolumeStatus(#Dat_Harp5))
+  SoundVolume(#Snd_Harp5F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.92*VolumeStatus(#Dat_Harp5)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp6N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.90*VolumeStatus(#Dat_Harp6))
+  SoundVolume(#Snd_Harp6F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.90*VolumeStatus(#Dat_Harp6)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp7N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.88*VolumeStatus(#Dat_Harp7))
+  SoundVolume(#Snd_Harp7F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.88*VolumeStatus(#Dat_Harp7)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp8N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.86*VolumeStatus(#Dat_Harp8))
+  SoundVolume(#Snd_Harp8F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.86*VolumeStatus(#Dat_Harp8)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp9N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.84*VolumeStatus(#Dat_Harp9))
+  SoundVolume(#Snd_Harp9F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.84*VolumeStatus(#Dat_Harp9)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp10N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.82*VolumeStatus(#Dat_Harp10))
+  SoundVolume(#Snd_Harp10F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.82*VolumeStatus(#Dat_Harp10)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp11N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.80*VolumeStatus(#Dat_Harp11))
+  SoundVolume(#Snd_Harp11F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.80*VolumeStatus(#Dat_Harp11)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp12N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.78*VolumeStatus(#Dat_Harp12))
+  SoundVolume(#Snd_Harp12F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.78*VolumeStatus(#Dat_Harp12)*(0.7-0.3*Sin(Radian(Phase))))
+  SoundVolume(#Snd_Harp13N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.76*VolumeStatus(#Dat_Harp13))
+  SoundVolume(#Snd_Harp13F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.76*VolumeStatus(#Dat_Harp13)*(0.7-0.3*Sin(Radian(Phase))))
 EndProcedure
-
-
 
 ;-Initialization
 If InitSound()
@@ -679,11 +780,11 @@ If InitSound()
   
   
   ;-Play all sounds
-  PlaySound(#Snd_BassNorm, #PB_Sound_Loop, 40)
+  PlaySound(#Snd_BassNorm, #PB_Sound_Loop, 0)
   PlaySound(#Snd_BassHigh, #PB_Sound_Loop, 0)
-  PlaySound(#Snd_Chord1, #PB_Sound_Loop, 40)
-  PlaySound(#Snd_Chord2, #PB_Sound_Loop, 40)
-  PlaySound(#Snd_Chord3, #PB_Sound_Loop, 40)
+  PlaySound(#Snd_Chord1, #PB_Sound_Loop, 0)
+  PlaySound(#Snd_Chord2, #PB_Sound_Loop, 0)
+  PlaySound(#Snd_Chord3, #PB_Sound_Loop, 0)
   
   PlaySound(#Snd_Harp1N, #PB_Sound_Loop, 0)
   PlaySound(#Snd_Harp1F, #PB_Sound_Loop, 0)
@@ -862,18 +963,31 @@ If InitSound()
                       Else
                         Select MousePositionYCurrent
                           Case 92 To 100
+                            Status_SoundCurrent(#Dat_Harp13) = 1
                           Case 101 To 124
+                            Status_SoundCurrent(#Dat_Harp12) = 1
                           Case 125 To 148
+                            Status_SoundCurrent(#Dat_Harp11) = 1
                           Case 149 To 172
+                            Status_SoundCurrent(#Dat_Harp10) = 1
                           Case 173 To 196
+                            Status_SoundCurrent(#Dat_Harp9) = 1
                           Case 197 To 220
+                            Status_SoundCurrent(#Dat_Harp8) = 1
                           Case 221 To 244
+                            Status_SoundCurrent(#Dat_Harp7) = 1
                           Case 245 To 268
+                            Status_SoundCurrent(#Dat_Harp6) = 1
                           Case 269 To 292
+                            Status_SoundCurrent(#Dat_Harp5) = 1
                           Case 293 To 316
+                            Status_SoundCurrent(#Dat_Harp4) = 1
                           Case 317 To 340
+                            Status_SoundCurrent(#Dat_Harp3) = 1
                           Case 341 To 364
+                            Status_SoundCurrent(#Dat_Harp2) = 1
                           Case 365 To 388
+                            Status_SoundCurrent(#Dat_Harp1) = 1
                         EndSelect
                         
                       EndIf
@@ -909,18 +1023,53 @@ If InitSound()
                     EndSelect
                     If Keys(ChordKeys(#Chord_Maj, CurrentNote)) And Keys(ChordKeys(#Chord_Min, CurrentNote)) And Keys(ChordKeys(#Chord_7th, CurrentNote))
                       UpdateFrequencies(#Chord_Aug, CurrentNote)
+                      Status_SoundCurrent(#Dat_Bass_Norm) = 1
+                      Status_SoundCurrent(#Dat_Chord1) = 1
+                      Status_SoundCurrent(#Dat_Chord2) = 1
+                      Status_SoundCurrent(#Dat_Chord3) = 1
+                      UpdateVolume()
                     ElseIf Keys(ChordKeys(#Chord_Maj, CurrentNote)) And Keys(ChordKeys(#Chord_Min, CurrentNote))
                       UpdateFrequencies(#Chord_Dim, CurrentNote)
+                      Status_SoundCurrent(#Dat_Bass_Norm) = 1
+                      Status_SoundCurrent(#Dat_Chord1) = 1
+                      Status_SoundCurrent(#Dat_Chord2) = 1
+                      Status_SoundCurrent(#Dat_Chord3) = 1
+                      UpdateVolume()
                     ElseIf Keys(ChordKeys(#Chord_Maj, CurrentNote)) And Keys(ChordKeys(#Chord_7th, CurrentNote))
                       UpdateFrequencies(#Chord_Ma7, CurrentNote)
+                      Status_SoundCurrent(#Dat_Bass_Norm) = 1
+                      Status_SoundCurrent(#Dat_Chord1) = 1
+                      Status_SoundCurrent(#Dat_Chord2) = 1
+                      Status_SoundCurrent(#Dat_Chord3) = 1
+                      UpdateVolume()
                     ElseIf Keys(ChordKeys(#Chord_Min, CurrentNote)) And Keys(ChordKeys(#Chord_7th, CurrentNote))
                       UpdateFrequencies(#Chord_Mi7, CurrentNote)
+                      Status_SoundCurrent(#Dat_Bass_Norm) = 1
+                      Status_SoundCurrent(#Dat_Chord1) = 1
+                      Status_SoundCurrent(#Dat_Chord2) = 1
+                      Status_SoundCurrent(#Dat_Chord3) = 1
+                      UpdateVolume()
                     ElseIf Keys(ChordKeys(#Chord_Maj, CurrentNote))
                       UpdateFrequencies(#Chord_Maj, CurrentNote)
+                      Status_SoundCurrent(#Dat_Bass_Norm) = 1
+                      Status_SoundCurrent(#Dat_Chord1) = 1
+                      Status_SoundCurrent(#Dat_Chord2) = 1
+                      Status_SoundCurrent(#Dat_Chord3) = 1
+                      UpdateVolume()
                     ElseIf Keys(ChordKeys(#Chord_Min, CurrentNote))
                       UpdateFrequencies(#Chord_Min, CurrentNote)
+                      Status_SoundCurrent(#Dat_Bass_Norm) = 1
+                      Status_SoundCurrent(#Dat_Chord1) = 1
+                      Status_SoundCurrent(#Dat_Chord2) = 1
+                      Status_SoundCurrent(#Dat_Chord3) = 1
+                      UpdateVolume()
                     ElseIf Keys(ChordKeys(#Chord_7th, CurrentNote))
                       UpdateFrequencies(#Chord_7th, CurrentNote)
+                      Status_SoundCurrent(#Dat_Bass_Norm) = 1
+                      Status_SoundCurrent(#Dat_Chord1) = 1
+                      Status_SoundCurrent(#Dat_Chord2) = 1
+                      Status_SoundCurrent(#Dat_Chord3) = 1
+                      UpdateVolume()
                     EndIf
           Case #PB_Event_Repaint
             ;--Repaint
@@ -966,6 +1115,7 @@ If InitSound()
           Case #PB_Event_CloseWindow
             Break
           Default
+            UpdateVolume()
             Delay(1)
         EndSelect
       ForEver
