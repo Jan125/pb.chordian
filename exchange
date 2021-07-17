@@ -12,3 +12,10 @@ If Volume(1) > 0.8
     EndIf
   Next
     Phase+1116*(TimeDelta/1000.0)
+
+
+
+  SoundVolume(#Sound_Chord3, Volume(1)*MasterVolume*100*0.8)
+  
+  SoundVolume(#Sound_Note1N, Volume(2)*MasterVolume*100*1.00*VolVoice1)
+  SoundVolume(#Sound_Note1F, Volume(2)*MasterVolume*100*1.00*(0.7-0.3*Sin(Radian(Phase)))*VolVoice2)
