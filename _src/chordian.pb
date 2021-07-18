@@ -46,7 +46,7 @@ DataSection
   IncludeBinary "snd\chordian_base.wav"
   Snd_Harp:
   IncludeBinary "snd\chordian_harp.wav"
-  Snd_Drum_Base:
+  Snd_Drum_BD:
   IncludeBinary "snd\chordian_drum_bd.wav"
   Snd_Drum_HiHat:
   IncludeBinary "snd\chordian_drum_hihat.wav"
@@ -360,6 +360,10 @@ Enumeration 1
   #Snd_Harp12F
   #Snd_Harp13N
   #Snd_Harp13F
+  
+  #Snd_Drum_BD
+  #Snd_Drum_HiHat
+  #Snd_Drum_Snare
 EndEnumeration
 
 Enumeration 1
@@ -507,6 +511,9 @@ Global Trigger_KnobVolumeChords.l
 ;   Lower Section
 ;   Chord Button Section
 ;   Harp Section Section
+Global Trigger_ButtonChordMajor.l
+Global Trigger_ButtonChordMinor.l
+Global Trigger_ButtonChord7th.l
 Global Trigger_Harp.l
 
 ; These are the different settings.
@@ -591,38 +598,7 @@ Procedure.l UpdateFrequencies(Chord, Note)
       SetSoundFrequency(#Snd_Harp13N, Frequency(#Dat_Harp13))
       SetSoundFrequency(#Snd_Harp13F, Frequency(#Dat_Harp13))
       SetSoundPosition(#Snd_Harp13F, GetSoundPosition(#Snd_Harp13N)+7)
-    Else
-      SoundVolume(#Snd_BassNorm, 0)
-      SoundVolume(#Snd_BassHigh, 0)
-      SoundVolume(#Snd_Chord1, 0)
-      SoundVolume(#Snd_Chord2, 0)
-      SoundVolume(#Snd_Chord3, 0)
-      SoundVolume(#Snd_Harp1N, 0)
-      SoundVolume(#Snd_Harp1F, 0)
-      SoundVolume(#Snd_Harp2N, 0)
-      SoundVolume(#Snd_Harp2F, 0)
-      SoundVolume(#Snd_Harp3N, 0)
-      SoundVolume(#Snd_Harp3F, 0)
-      SoundVolume(#Snd_Harp4N, 0)
-      SoundVolume(#Snd_Harp4F, 0)
-      SoundVolume(#Snd_Harp5N, 0)
-      SoundVolume(#Snd_Harp5F, 0)
-      SoundVolume(#Snd_Harp6N, 0)
-      SoundVolume(#Snd_Harp6F, 0)
-      SoundVolume(#Snd_Harp7N, 0)
-      SoundVolume(#Snd_Harp7F, 0)
-      SoundVolume(#Snd_Harp8N, 0)
-      SoundVolume(#Snd_Harp8F, 0)
-      SoundVolume(#Snd_Harp9N, 0)
-      SoundVolume(#Snd_Harp9F, 0)
-      SoundVolume(#Snd_Harp10N, 0)
-      SoundVolume(#Snd_Harp10F, 0)
-      SoundVolume(#Snd_Harp11N, 0)
-      SoundVolume(#Snd_Harp11F, 0)
-      SoundVolume(#Snd_Harp12N, 0)
-      SoundVolume(#Snd_Harp12F, 0)
-      SoundVolume(#Snd_Harp13N, 0)
-      SoundVolume(#Snd_Harp13F, 0)
+    
     EndIf
     PreviousChord = Chord
     PreviousNote = Note
@@ -651,7 +627,6 @@ Procedure UpdateVolume()
   Select Value_Power
     Case 0
       For i = 0 To ArraySize(VolumeStatus())
-        SoundVolume(i, 0)
         VolumeStatus(i) = 0.0
         Status_SoundCurrent(i) = 0
         Status_SoundPrevious(i) = 0
@@ -792,6 +767,10 @@ If InitSound()
   CatchSound(#Snd_Harp13N, ?Snd_Harp)
   CatchSound(#Snd_Harp13F, ?Snd_Harp)
   
+  CatchSound(#Snd_Drum_BD, ?Snd_Drum_BD)
+  CatchSound(#Snd_Drum_HiHat, ?Snd_Drum_HiHat)
+  CatchSound(#Snd_Drum_Snare, ?Snd_Drum_Snare)
+  
   
   ;-Play all sounds
   PlaySound(#Snd_BassNorm, #PB_Sound_Loop, 0)
@@ -851,15 +830,14 @@ If InitSound()
                     
                   Case #PB_EventType_KeyUp
                     Keys(GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)) = 0
+                      PostEvent(#PB_Event_Repaint)
                     
                   Case #PB_EventType_LeftButtonDown
                     MouseButtonLeftPrevious=MouseButtonLeftCurrent
-                    If Value_Power = 1
-                      If MousePositionXCurrent >= 689 And MousePositionXCurrent <= 777
-                        Trigger_Harp = 1
+                    ;Power Button
+                    If MousePositionXCurrent >= 126 And MousePositionXCurrent <= 145 And MousePositionYCurrent >= 113 And MousePositionYCurrent <= 137
+                      Trigger_ButtonPower = 1
                       EndIf
-                    EndIf
-                    
                     ;Master Volume Knob
                     If Sqr(Pow(MousePositionXCurrent-190, 2)+Pow(MousePositionYCurrent-116, 2)) <= 21
                       Trigger_KnobVolumeMaster = 1
@@ -889,6 +867,23 @@ If InitSound()
                       EndIf
                     EndIf
                     
+                    If MousePositionXCurrent >= 271 And MousePositionXCurrent <= 631 And MousePositionYCurrent >= 240 And MousePositionYCurrent <= 264
+                      Trigger_ButtonChordMajor = 1
+                    EndIf
+                    If MousePositionXCurrent >= 286 And MousePositionXCurrent <= 646 And MousePositionYCurrent >= 283 And MousePositionYCurrent <= 307
+                      Trigger_ButtonChordMinor = 1
+                    EndIf
+                    If MousePositionXCurrent >= 301 And MousePositionXCurrent <= 661 And MousePositionYCurrent >= 326 And MousePositionYCurrent <= 350
+                      Trigger_ButtonChord7th = 1
+                    EndIf
+                    
+                    ;Harp Strip
+                    If Value_Power = 1
+                      If MousePositionXCurrent >= 689 And MousePositionXCurrent <= 777
+                        Trigger_Harp = 1
+                      EndIf
+                    EndIf
+                    
                     PostEvent(#Event_HandleTriggers)
                     
                   Case #PB_EventType_LeftButtonUp
@@ -900,6 +895,9 @@ If InitSound()
                     Trigger_KnobSustain = 0
                     Trigger_KnobVolumeKeyboard = 0
                     Trigger_KnobVolumeChords = 0
+                    Trigger_ButtonChordMajor = 0
+                    Trigger_ButtonChordMinor = 0
+                    Trigger_ButtonChord7th = 0
                     Trigger_Harp = 0
                     For i = 0 To #Harp_13
                       Status_Harp(i) = 0
@@ -919,6 +917,19 @@ If InitSound()
             EndSelect
           Case #Event_HandleTriggers
             ;--HandleTriggers
+            If Trigger_ButtonPower
+              Value_Power = Bool(Not Value_Power)
+              Trigger_ButtonPower = 0
+              CurrentChord = -1
+              CurrentNote = -1
+              For i = 0 To #Note_B
+                  For n = 0 To #Chord_7th
+                    Keys(ChordKeys(n, i)) = 0
+                  Next
+                Next
+              PostEvent(#PB_Event_Repaint)
+            EndIf
+            
             If Trigger_KnobVolumeMaster
               Value_VolumeMaster+(MousePositionYPrevious-MousePositionYCurrent)/400.0
               If Value_VolumeMaster > 1.0
@@ -974,10 +985,649 @@ If InitSound()
               PostEvent(#PB_Event_Repaint)
             EndIf
             
+            If Trigger_ButtonChordMajor
+              Trigger_ButtonChordMajor = 0
+              If (MousePositionXCurrent-271)%31 <= 20
+                Select (MousePositionXCurrent-271)/31
+                  Case #NoteOrder_Db
+                    If Keys(ChordKeys(#Chord_Maj, #Note_Db)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Db
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_Db)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_Db)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_Db)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Ab
+                    If Keys(ChordKeys(#Chord_Maj, #Note_Ab)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Ab
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_Ab)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_Ab)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_Ab)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Eb
+                    If Keys(ChordKeys(#Chord_Maj, #Note_Eb)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Eb
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_Eb)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_Eb)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_Eb)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Bb
+                    If Keys(ChordKeys(#Chord_Maj, #Note_Bb)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Bb
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_Bb)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_Bb)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_Bb)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_F
+                    If Keys(ChordKeys(#Chord_Maj, #Note_F)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_F
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_F)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_F)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_F)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_C
+                    If Keys(ChordKeys(#Chord_Maj, #Note_C)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_C
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_C)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_C)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_C)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_G
+                    If Keys(ChordKeys(#Chord_Maj, #Note_G)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_G
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_G)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_G)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_G)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_D
+                    If Keys(ChordKeys(#Chord_Maj, #Note_D)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_D
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_D)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_D)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_D)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_A
+                    If Keys(ChordKeys(#Chord_Maj, #Note_A)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_A
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_A)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_A)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_A)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_E
+                    If Keys(ChordKeys(#Chord_Maj, #Note_E)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_E
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_E)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_E)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_E)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_B
+                    If Keys(ChordKeys(#Chord_Maj, #Note_B)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_B
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_B)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_B)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_B)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Fc
+                    If Keys(ChordKeys(#Chord_Maj, #Note_Fc)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Fc
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Maj, #Note_Fc)) = 1
+                      LastKey = ChordKeys(#Chord_Maj, #Note_Fc)
+                    Else
+                      Keys(ChordKeys(#Chord_Maj, #Note_Fc)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                EndSelect
+              EndIf
+            EndIf
+            If Trigger_ButtonChordMinor
+              Trigger_ButtonChordMinor = 0
+              If (MousePositionXCurrent-286)%31 <= 20
+                Select (MousePositionXCurrent-286)/31
+                  Case #NoteOrder_Db
+                    If Keys(ChordKeys(#Chord_Min, #Note_Db)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Db
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_Db)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_Db)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_Db)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Ab
+                    If Keys(ChordKeys(#Chord_Min, #Note_Ab)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Ab
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_Ab)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_Ab)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_Ab)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Eb
+                    If Keys(ChordKeys(#Chord_Min, #Note_Eb)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Eb
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_Eb)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_Eb)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_Eb)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Bb
+                    If Keys(ChordKeys(#Chord_Min, #Note_Bb)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Bb
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_Bb)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_Bb)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_Bb)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_F
+                    If Keys(ChordKeys(#Chord_Min, #Note_F)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_F
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_F)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_F)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_F)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_C
+                    If Keys(ChordKeys(#Chord_Min, #Note_C)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_C
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_C)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_C)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_C)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_G
+                    If Keys(ChordKeys(#Chord_Min, #Note_G)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_G
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_G)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_G)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_G)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_D
+                    If Keys(ChordKeys(#Chord_Min, #Note_D)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_D
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_D)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_D)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_D)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_A
+                    If Keys(ChordKeys(#Chord_Min, #Note_A)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_A
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_A)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_A)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_A)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_E
+                    If Keys(ChordKeys(#Chord_Min, #Note_E)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_E
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_E)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_E)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_E)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_B
+                    If Keys(ChordKeys(#Chord_Min, #Note_B)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_B
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_B)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_B)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_B)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Fc
+                    If Keys(ChordKeys(#Chord_Min, #Note_Fc)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Fc
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_Min, #Note_Fc)) = 1
+                      LastKey = ChordKeys(#Chord_Min, #Note_Fc)
+                    Else
+                      Keys(ChordKeys(#Chord_Min, #Note_Fc)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                EndSelect
+              EndIf
+            EndIf
+            If Trigger_ButtonChord7th
+              Trigger_ButtonChord7th = 0
+              If (MousePositionXCurrent-301)%31 <= 20
+                Select (MousePositionXCurrent-301)/31
+                  Case #NoteOrder_Db
+                    If Keys(ChordKeys(#Chord_7th, #Note_Db)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Db
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_Db)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_Db)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_Db)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Ab
+                    If Keys(ChordKeys(#Chord_7th, #Note_Ab)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Ab
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_Ab)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_Ab)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_Ab)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Eb
+                    If Keys(ChordKeys(#Chord_7th, #Note_Eb)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Eb
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_Eb)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_Eb)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_Eb)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Bb
+                    If Keys(ChordKeys(#Chord_7th, #Note_Bb)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Bb
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_Bb)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_Bb)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_Bb)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_F
+                    If Keys(ChordKeys(#Chord_7th, #Note_F)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_F
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_F)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_F)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_F)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_C
+                    If Keys(ChordKeys(#Chord_7th, #Note_C)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_C
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_C)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_C)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_C)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_G
+                    If Keys(ChordKeys(#Chord_7th, #Note_G)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_G
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_G)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_G)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_G)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_D
+                    If Keys(ChordKeys(#Chord_7th, #Note_D)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_D
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_D)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_D)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_D)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_A
+                    If Keys(ChordKeys(#Chord_7th, #Note_A)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_A
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_A)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_A)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_A)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_E
+                    If Keys(ChordKeys(#Chord_7th, #Note_E)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_E
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_E)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_E)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_E)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_B
+                    If Keys(ChordKeys(#Chord_7th, #Note_B)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_B
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_B)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_B)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_B)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                  Case #NoteOrder_Fc
+                    If Keys(ChordKeys(#Chord_7th, #Note_Fc)) = 0
+                      For i = 0 To #Note_B
+                        If i = #Note_Fc
+                          Continue
+                        EndIf
+                        For n = 0 To #Chord_7th
+                          Keys(ChordKeys(n, i)) = 0
+                          Next
+                      Next
+                      Keys(ChordKeys(#Chord_7th, #Note_Fc)) = 1
+                      LastKey = ChordKeys(#Chord_7th, #Note_Fc)
+                    Else
+                      Keys(ChordKeys(#Chord_7th, #Note_Fc)) = 0
+                    EndIf
+                    PostEvent(#Event_HandleKeys)
+                    PostEvent(#PB_Event_Repaint)
+                EndSelect
+              EndIf
+            EndIf
+            
             If Trigger_Harp
               If MousePositionXCurrent >= 749 And MousePositionXCurrent <= 777 And MousePositionYCurrent >= 130 And MousePositionYCurrent <= 150
                 CurrentChord = -1
                 CurrentNote = -1
+                For i = 0 To #Note_B
+                  For n = 0 To #Chord_7th
+                    Keys(ChordKeys(n, i)) = 0
+                  Next
+                Next
                 PostEvent(#PB_Event_Repaint)
               Else
                 Select MousePositionYCurrent
@@ -1091,6 +1741,7 @@ If InitSound()
             
           Case #Event_HandleKeys
             ;--HandleKeys
+            If Value_Power
             Select LastKey
               Case ChordKeys(#Chord_Maj, #Note_Db), ChordKeys(#Chord_Min, #Note_Db), ChordKeys(#Chord_7th, #Note_Db)
                 CurrentNote = #Note_Db
@@ -1176,6 +1827,7 @@ If InitSound()
                 UpdateVolume()
               EndIf
             EndIf
+            EndIf
           Case #PB_Event_Repaint
             ;--Repaint
             If StartDrawing(CanvasOutput(#Gad_Canvas))
@@ -1214,9 +1866,9 @@ If InitSound()
               DrawAlphaImage(ImageID(#Img_Knob_Small), 177, 178)
               Line(190, 191, Sin(Radian(-Value_VolumeChords*270-45))*13+Sign(Sin(Radian(-Value_VolumeChords*270-45)))*Bool(Abs(Sin(Radian(-Value_VolumeChords*270-45))*13) <= 0.5), Cos(Radian(-Value_VolumeChords*270-45))*13+Sign(Cos(Radian(-Value_VolumeChords*270-45)))*Bool(Abs(Cos(Radian(-Value_VolumeChords*270-45))*13) <= 0.5))
               
-              ;Chord Buttons
+              
+              ;Chord Buttons 2
               For i = 0 To #NoteOrder_Fc
-                Debug i
                 Select i
                   Case #NoteOrder_Db
                     n = #Note_Db
@@ -1243,84 +1895,35 @@ If InitSound()
                   Case #NoteOrder_Fc
                     n = #Note_Fc
                 EndSelect
-                If CurrentNote = n
-                  Select CurrentChord
-                    Case #Chord_Maj
-                      DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
-                      Select n
-                        Case #Note_Db, #Note_Bb, #Note_D, #Note_B
-                          DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286+i*31, 283)
-                        Default
-                          DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 286+i*31, 283)
-                      EndSelect
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
-                    Case #Chord_Min
-                      DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
-                      Select n
-                        Case #Note_Db, #Note_Bb, #Note_D, #Note_B
-                          DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
-                        Default
-                          DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286+i*31, 283)
-                      EndSelect
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
-                    Case #Chord_7th
-                      DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
-                      Select n
-                        Case #Note_Db, #Note_Bb, #Note_D, #Note_B
-                          DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286+i*31, 283)
-                        Default
-                          DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 286+i*31, 283)
-                      EndSelect
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
-                    Case #Chord_Dim
-                      DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
-                      Select n
-                        Case #Note_Db, #Note_Bb, #Note_D, #Note_B
-                          DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
-                        Default
-                          DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286+i*31, 283)
-                      EndSelect
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
-                    Case #Chord_Ma7
-                      DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
-                      Select n
-                        Case #Note_Db, #Note_Bb, #Note_D, #Note_B
-                          DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286+i*31, 283)
-                        Default
-                          DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 286+i*31, 283)
-                      EndSelect
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
-                    Case #Chord_Mi7
-                      DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
-                      Select n
-                        Case #Note_Db, #Note_Bb, #Note_D, #Note_B
-                          DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
-                        Default
-                          DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286+i*31, 283)
-                      EndSelect
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
-                    Case #Chord_Aug
-                      DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
-                      Select n
-                        Case #Note_Db, #Note_Bb, #Note_D, #Note_B
-                          DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
-                        Default
-                          DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286+i*31, 283)
-                      EndSelect
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
-                  EndSelect
+                If Keys(ChordKeys(#Chord_Maj, n)) = 1
+                  DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
                 Else
                   DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
-                  Select n
-                    Case #Note_Db, #Note_Bb, #Note_D, #Note_B
+                EndIf
+                
+                Select n
+                  Case #Note_Db, #Note_Bb, #Note_D, #Note_B
+                    If Keys(ChordKeys(#Chord_Min, n)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
+                    Else
                       DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286+i*31, 283)
-                    Default
+                    EndIf
+                  Default
+                    If Keys(ChordKeys(#Chord_Min, n)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286+i*31, 283)
+                    Else
                       DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 286+i*31, 283)
-                  EndSelect
+                    EndIf
+                EndSelect
+                
+                If Keys(ChordKeys(#Chord_7th, n)) = 1
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
+                Else
                   DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
                 EndIf
                 
               Next
+              
               
               
               StopDrawing()
@@ -1343,8 +1946,8 @@ Else
 EndIf
 End
 ; IDE Options = PureBasic 5.46 LTS (Windows - x86)
-; CursorPosition = 1326
-; FirstLine = 1298
+; CursorPosition = 832
+; FirstLine = 817
 ; Folding = -
 ; EnableUnicode
 ; EnableXP
