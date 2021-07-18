@@ -680,31 +680,31 @@ Procedure UpdateVolume()
   SoundVolume(#Snd_Chord3, 100.0*Value_VolumeMaster*Value_VolumeChords*VolumeStatus(#Dat_Chord3)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   
   SoundVolume(#Snd_Harp1N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*1.00*VolumeStatus(#Dat_Harp1)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp1F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*1.00*VolumeStatus(#Dat_Harp1)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp1F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*1.00*VolumeStatus(#Dat_Harp1)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp2N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.98*VolumeStatus(#Dat_Harp2)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp2F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.98*VolumeStatus(#Dat_Harp2)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp2F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.98*VolumeStatus(#Dat_Harp2)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp3N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.96*VolumeStatus(#Dat_Harp3)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp3F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.96*VolumeStatus(#Dat_Harp3)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp3F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.96*VolumeStatus(#Dat_Harp3)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp4N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.94*VolumeStatus(#Dat_Harp4)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp4F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.94*VolumeStatus(#Dat_Harp4)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp4F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.94*VolumeStatus(#Dat_Harp4)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp5N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.92*VolumeStatus(#Dat_Harp5)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp5F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.92*VolumeStatus(#Dat_Harp5)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp5F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.92*VolumeStatus(#Dat_Harp5)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp6N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.90*VolumeStatus(#Dat_Harp6)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp6F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.90*VolumeStatus(#Dat_Harp6)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp6F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.90*VolumeStatus(#Dat_Harp6)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp7N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.88*VolumeStatus(#Dat_Harp7)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp7F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.88*VolumeStatus(#Dat_Harp7)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp7F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.88*VolumeStatus(#Dat_Harp7)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp8N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.86*VolumeStatus(#Dat_Harp8)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp8F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.86*VolumeStatus(#Dat_Harp8)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp8F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.86*VolumeStatus(#Dat_Harp8)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp9N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.84*VolumeStatus(#Dat_Harp9)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp9F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.84*VolumeStatus(#Dat_Harp9)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp9F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.84*VolumeStatus(#Dat_Harp9)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp10N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.82*VolumeStatus(#Dat_Harp10)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp10F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.82*VolumeStatus(#Dat_Harp10)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp10F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.82*VolumeStatus(#Dat_Harp10)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp11N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.80*VolumeStatus(#Dat_Harp11)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp11F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.80*VolumeStatus(#Dat_Harp11)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp11F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.80*VolumeStatus(#Dat_Harp11)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp12N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.78*VolumeStatus(#Dat_Harp12)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp12F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.78*VolumeStatus(#Dat_Harp12)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp12F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.78*VolumeStatus(#Dat_Harp12)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
   SoundVolume(#Snd_Harp13N, 100.0*Value_VolumeMaster*Value_VolumeHarp1*0.76*VolumeStatus(#Dat_Harp13)*Bool(CurrentChord <> -1 And CurrentNote <> -1))
-  SoundVolume(#Snd_Harp13F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.76*VolumeStatus(#Dat_Harp13)*(0.7-0.3*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
+  SoundVolume(#Snd_Harp13F, 100.0*Value_VolumeMaster*Value_VolumeHarp2*0.76*VolumeStatus(#Dat_Harp13)*(0.75-0.25*Sin(Radian(Phase)))*Bool(CurrentChord <> -1 And CurrentNote <> -1))
 EndProcedure
 
 ;-Initialization
@@ -846,9 +846,9 @@ If InitSound()
                     ;Harp Voice Volume Knobs
                     If Sqr(Pow(MousePositionXCurrent-94, 2)+Pow(MousePositionYCurrent-191, 2)) <= 21
                       If Sqr(Pow(MousePositionXCurrent-94, 2)+Pow(MousePositionYCurrent-191, 2)) <= 13
-                        Trigger_KnobVolumeHarp2 = 1
-                      Else
                         Trigger_KnobVolumeHarp1 = 1
+                      Else
+                        Trigger_KnobVolumeHarp2 = 1
                       EndIf
                     EndIf
                     
@@ -1848,12 +1848,12 @@ If InitSound()
               DrawAlphaImage(ImageID(#Img_Knob_Big), 169, 95)
               Line(190, 116, Sin(Radian(-Value_VolumeMaster*270-45))*21+Sign(Sin(Radian(-Value_VolumeMaster*270-45)))*Bool(Abs(Sin(Radian(-Value_VolumeMaster*270-45))*21) <= 0.5), Cos(Radian(-Value_VolumeMaster*270-45))*21+Sign(Cos(Radian(-Value_VolumeMaster*270-45)))*Bool(Abs(Cos(Radian(-Value_VolumeMaster*270-45))*21) <= 0.5))
               
-              ;Harp Voice 1 Volume Knob
-              DrawAlphaImage(ImageID(#Img_Knob_Ring), 73, 170)
-              Line(94, 191, Sin(Radian(-Value_VolumeHarp1*270-45))*21+Sign(Sin(Radian(-Value_VolumeHarp1*270-45)))*Bool(Abs(Sin(Radian(-Value_VolumeHarp1*270-45))*21) <= 0.5), Cos(Radian(-Value_VolumeHarp1*270-45))*21+Sign(Cos(Radian(-Value_VolumeHarp1*270-45)))*Bool(Abs(Cos(Radian(-Value_VolumeHarp1*270-45))*21) <= 0.5))
               ;Harp Voice 2 Volume Knob
+              DrawAlphaImage(ImageID(#Img_Knob_Ring), 73, 170)
+              Line(94, 191, Sin(Radian(-Value_VolumeHarp2*270-45))*21+Sign(Sin(Radian(-Value_VolumeHarp2*270-45)))*Bool(Abs(Sin(Radian(-Value_VolumeHarp2*270-45))*21) <= 0.5), Cos(Radian(-Value_VolumeHarp2*270-45))*21+Sign(Cos(Radian(-Value_VolumeHarp2*270-45)))*Bool(Abs(Cos(Radian(-Value_VolumeHarp2*270-45))*21) <= 0.5))
+              ;Harp Voice 1 Volume Knob
               DrawAlphaImage(ImageID(#Img_Knob_Small), 81, 178)
-              Line(94, 191, Sin(Radian(-Value_VolumeHarp2*270-45))*13+Sign(Sin(Radian(-Value_VolumeHarp2*270-45)))*Bool(Abs(Sin(Radian(-Value_VolumeHarp2*270-45))*13) <= 0.5), Cos(Radian(-Value_VolumeHarp2*270-45))*13+Sign(Cos(Radian(-Value_VolumeHarp2*270-45)))*Bool(Abs(Cos(Radian(-Value_VolumeHarp2*270-45))*13) <= 0.5))
+              Line(94, 191, Sin(Radian(-Value_VolumeHarp1*270-45))*13+Sign(Sin(Radian(-Value_VolumeHarp1*270-45)))*Bool(Abs(Sin(Radian(-Value_VolumeHarp1*270-45))*13) <= 0.5), Cos(Radian(-Value_VolumeHarp1*270-45))*13+Sign(Cos(Radian(-Value_VolumeHarp1*270-45)))*Bool(Abs(Cos(Radian(-Value_VolumeHarp1*270-45))*13) <= 0.5))
               
               ;Harp Sustain Knob
               DrawAlphaImage(ImageID(#Img_Knob_Big), 121, 170)
@@ -1946,8 +1946,8 @@ Else
 EndIf
 End
 ; IDE Options = PureBasic 5.46 LTS (Windows - x86)
-; CursorPosition = 832
-; FirstLine = 817
+; CursorPosition = 580
+; FirstLine = 554
 ; Folding = -
 ; EnableUnicode
 ; EnableXP
