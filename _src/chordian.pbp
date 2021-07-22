@@ -8,34 +8,23 @@
   <section name="data">
     <explorer view="..\..\PNB2\_src\" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2021-07-18 16:19" user="Dino" host="DESKTOP-FTD7II1"/>
+    <lastopen date="2021-07-22 23:46" user="Dino" host="DESKTOP-FTD7II1"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="c34e54fa2155cee2ce587a0189f74c71"/>
+      <fingerprint md5="d66ca4706455d3486786778064712bc5"/>
     </file>
   </section>
   <section name="targets">
-    <target name="x86" enabled="1" default="1">
+    <target name="Stable" enabled="1" default="1">
       <inputfile value="chordian.pb"/>
       <outputfile value="..\chordian.exe"/>
-      <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
       <executable value="..\chordian.exe"/>
       <options unicode="1" xpskin="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
-      <compilecount enable="1" value="120"/>
-      <buildcount enable="1" value="20"/>
-    </target>
-    <target name="x64" enabled="1" default="0">
-      <inputfile value="chordian.pb"/>
-      <outputfile value="..\chordian64.exe"/>
-      <compiler version="PureBasic 5.46 LTS (Windows - x64)"/>
-      <executable value="..\chordian64.exe"/>
-      <options unicode="1" xpskin="1" debug="1"/>
-      <icon enable="1">chordian.ico</icon>
-      <compilecount enable="1" value="20"/>
-      <buildcount enable="1" value="20"/>
+      <compilecount enable="1" value="196"/>
+      <buildcount enable="1" value="33"/>
     </target>
   </section>
 </project>
