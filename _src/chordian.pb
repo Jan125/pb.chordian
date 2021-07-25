@@ -1937,23 +1937,23 @@ For i = #Note_First To #Note_Last
 Next
 
 For n = 0 To 15
-    Patterns(0, #Rhythm_Disco, #Note_Db, n, #Pattern_Frequency) = 1
-  Next
+  Patterns(0, #Rhythm_Disco, #Note_Db, n, #Pattern_Frequency) = 1
+Next
 For n = 0 To 15
-    Patterns(0, #Rhythm_Disco, #Note_Eb, n, #Pattern_Frequency) = 1
-  Next
+  Patterns(0, #Rhythm_Disco, #Note_Eb, n, #Pattern_Frequency) = 1
+Next
 For n = 0 To 15
-    Patterns(0, #Rhythm_Disco, #Note_C, n, #Pattern_Frequency) = 1
-  Next
+  Patterns(0, #Rhythm_Disco, #Note_C, n, #Pattern_Frequency) = 1
+Next
 For n = 0 To 15
-    Patterns(0, #Rhythm_Disco, #Note_F, n, #Pattern_Frequency) = 1
-  Next
+  Patterns(0, #Rhythm_Disco, #Note_F, n, #Pattern_Frequency) = 1
+Next
 For n = 0 To 15
-    Patterns(0, #Rhythm_Disco, #Note_D, n, #Pattern_Frequency) = 1
-  Next
+  Patterns(0, #Rhythm_Disco, #Note_D, n, #Pattern_Frequency) = 1
+Next
 For n = 0 To 15
-    Patterns(0, #Rhythm_Disco, #Note_E, n, #Pattern_Frequency) = 1
-  Next
+  Patterns(0, #Rhythm_Disco, #Note_E, n, #Pattern_Frequency) = 1
+Next
 
 ;-Variables
 ; These are used for program flow.
@@ -2212,55 +2212,55 @@ Procedure UpdateVolume()
       If Tick >= 16.0
         Tick-16.0
       EndIf
-    EndSelect
-    
+  EndSelect
+  
   If NewTick
     NewTick = 0
     Select Value_Rhythm_Pattern
       Case #Rhythm_None
         Value_Rhythm_Bass = 0
-    NewChord = 1
+        NewChord = 1
         Status_Sound(#Dat_Bass_1) = #Curve_Trigger
         Status_Sound(#Dat_Chord_1) = #Curve_Trigger
         Status_Sound(#Dat_Chord_2) = #Curve_Trigger
         Status_Sound(#Dat_Chord_3) = #Curve_Trigger
       Default
         If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None
-        If Value_Rhythm_AutoBassSync
-          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency) = 1 And Value_Rhythm_Bass <> 0
-            Value_Rhythm_Bass = 0
-            NewChord = 1
-          ElseIf Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency) = 2 And Value_Rhythm_Bass <> 1
-            Value_Rhythm_Bass = 1
-            NewChord = 1
+          If Value_Rhythm_AutoBassSync
+            If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency) = 1 And Value_Rhythm_Bass <> 0
+              Value_Rhythm_Bass = 0
+              NewChord = 1
+            ElseIf Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency) = 2 And Value_Rhythm_Bass <> 1
+              Value_Rhythm_Bass = 1
+              NewChord = 1
+            EndIf
+            
+            
+            If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Bass) = 1
+              Status_Sound(#Dat_Bass_1) = #Curve_Trigger
+            Else
+              Status_Sound(#Dat_Bass_1) = #Curve_Release
+            EndIf
+            
+            If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords) = 1
+              Status_Sound(#Dat_Chord_1) = #Curve_Trigger
+              Status_Sound(#Dat_Chord_2) = #Curve_Trigger
+              Status_Sound(#Dat_Chord_3) = #Curve_Trigger
+            Else
+              Status_Sound(#Dat_Chord_1) = #Curve_Release
+              Status_Sound(#Dat_Chord_2) = #Curve_Release
+              Status_Sound(#Dat_Chord_3) = #Curve_Release
+            EndIf
           EndIf
-          
-          
-          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Bass) = 1
-            Status_Sound(#Dat_Bass_1) = #Curve_Trigger
-          Else
-            Status_Sound(#Dat_Bass_1) = #Curve_Release
+          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_BD) = 1
+            Status_Sound(#Dat_Drum_BD) = #Curve_Trigger
           EndIf
-          
-          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords) = 1
-            Status_Sound(#Dat_Chord_1) = #Curve_Trigger
-            Status_Sound(#Dat_Chord_2) = #Curve_Trigger
-            Status_Sound(#Dat_Chord_3) = #Curve_Trigger
-          Else
-            Status_Sound(#Dat_Chord_1) = #Curve_Release
-            Status_Sound(#Dat_Chord_2) = #Curve_Release
-            Status_Sound(#Dat_Chord_3) = #Curve_Release
+          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_HiHat) = 1
+            Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger
           EndIf
-        EndIf
-        If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_BD) = 1
-          Status_Sound(#Dat_Drum_BD) = #Curve_Trigger
-        EndIf
-        If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_HiHat) = 1
-          Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger
-        EndIf
-        If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_Snare) = 1
-          Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger
-        EndIf
+          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_Snare) = 1
+            Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger
+          EndIf
         EndIf
     EndSelect
   EndIf
@@ -2568,6 +2568,16 @@ If InitSound()
                     MouseButtonLeftCurrent = 0
                     PostEvent(#Event_GetTriggers)
                     
+                  Case #PB_EventType_RightButtonDown
+                    MouseButtonRightPrevious = MouseButtonRightCurrent
+                    MouseButtonRightCurrent = 1
+                    PostEvent(#Event_GetTriggers)
+                    
+                  Case #PB_EventType_RightButtonUp
+                    MouseButtonRightPrevious = MouseButtonRightCurrent
+                    MouseButtonRightCurrent = 0
+                    PostEvent(#Event_GetTriggers)
+                    
                   Case #PB_EventType_MouseMove
                     MousePositionXPrevious = MousePositionXCurrent
                     MousePositionYPrevious = MousePositionYCurrent
@@ -2593,7 +2603,7 @@ If InitSound()
             PostEvent(#PB_Event_Repaint)
             If Not Value_Memory_Playback_Record
               PostEvent(#Event_HandleKeys)
-              EndIf
+            EndIf
             
           Case #Event_GetTriggers
             ;--GetTriggers
@@ -2810,7 +2820,7 @@ If InitSound()
             EndIf
             
             ;rhythm
-            If Trigger_Rhythm_Button_Select = 1
+            If Trigger_Rhythm_Button_Select
               Trigger_Rhythm_Button_Select = 0
               If (MousePositionXCurrent-68)%32 <= 20
                 If (MousePositionXCurrent-68)/32 = Value_Rhythm_Pattern
@@ -2820,11 +2830,11 @@ If InitSound()
                   NewTick = 1
                 Else
                   Value_Rhythm_Pattern = (MousePositionXCurrent-68)/32
-                Tick = 0
-                NewChord = 1
-                NewTick = 1
+                  Tick = 0
+                  NewChord = 1
+                  NewTick = 1
                 EndIf
-                  UpdateVolume()
+                UpdateVolume()
               EndIf
               PostEvent(#PB_Event_Repaint)
             EndIf
@@ -2905,6 +2915,61 @@ If InitSound()
                   PostEvent(#Event_HandleKeys)
                 EndIf
               EndIf
+            ElseIf Trigger_Chord_Button_Major = 2
+              Trigger_Chord_Button_Major = 0
+              If (MousePositionXCurrent-271)%31 <= 20
+                StartDrawing(CanvasOutput(#Gad_Canvas))
+                DrawAlphaImage(ImageID(#Img_Button_Red_On), 271+((MousePositionXCurrent-271)/31)*31, 240)
+                StopDrawing()
+                Repeat
+                  Event = WindowEvent()
+                  Select Event
+                    Case #PB_Event_Gadget
+                      Select EventGadget()
+                        Case #Gad_Canvas
+                          Select EventType()
+                            Case #PB_EventType_KeyUp
+                              Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                Case #PB_Shortcut_Escape
+                                  PostEvent(#PB_Event_Repaint)
+                                  Break
+                                Default
+                                  ChordKeys(#Chord_Maj, (MousePositionXCurrent-271)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                  PostEvent(#PB_Event_Repaint)
+                                  Break
+                              EndSelect
+                              
+                            Case #PB_EventType_LeftButtonDown
+                              MouseButtonLeftPrevious = MouseButtonLeftCurrent
+                              MouseButtonLeftCurrent = 1
+                              PostEvent(#PB_Event_Repaint)
+                              Break
+                              
+                            Case #PB_EventType_LeftButtonUp
+                              MouseButtonLeftPrevious = MouseButtonLeftCurrent
+                              MouseButtonLeftCurrent = 0
+                              
+                            Case #PB_EventType_RightButtonDown
+                              MouseButtonRightPrevious = MouseButtonRightCurrent
+                              MouseButtonRightCurrent = 1
+                              PostEvent(#PB_Event_Repaint)
+                              Break
+                              
+                            Case #PB_EventType_RightButtonUp
+                              MouseButtonRightPrevious = MouseButtonRightCurrent
+                              MouseButtonRightCurrent = 0
+                              
+                          EndSelect
+                      EndSelect
+                    Case #PB_Event_CloseWindow
+                      Break 2
+                    Default
+                      If Not UpdateVolume()
+                        Delay(1)
+                      EndIf
+                  EndSelect
+                ForEver
+              EndIf
             EndIf
             
             If Trigger_Chord_Button_Minor = 1
@@ -2925,6 +2990,61 @@ If InitSound()
                   PostEvent(#Event_HandleKeys)
                 EndIf
               EndIf
+            ElseIf Trigger_Chord_Button_Minor = 2
+              Trigger_Chord_Button_Minor = 0
+              If (MousePositionXCurrent-286)%31 <= 20
+                StartDrawing(CanvasOutput(#Gad_Canvas))
+                DrawAlphaImage(ImageID(#Img_Button_Red_On), 286+((MousePositionXCurrent-286)/31)*31, 283)
+                StopDrawing()
+                Repeat
+                  Event = WindowEvent()
+                  Select Event
+                    Case #PB_Event_Gadget
+                      Select EventGadget()
+                        Case #Gad_Canvas
+                          Select EventType()
+                            Case #PB_EventType_KeyUp
+                              Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                Case #PB_Shortcut_Escape
+                                  PostEvent(#PB_Event_Repaint)
+                                  Break
+                                Default
+                                  ChordKeys(#Chord_Min, (MousePositionXCurrent-286)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                  PostEvent(#PB_Event_Repaint)
+                                  Break
+                              EndSelect
+                              
+                            Case #PB_EventType_LeftButtonDown
+                              MouseButtonLeftPrevious = MouseButtonLeftCurrent
+                              MouseButtonLeftCurrent = 1
+                              PostEvent(#PB_Event_Repaint)
+                              Break
+                              
+                            Case #PB_EventType_LeftButtonUp
+                              MouseButtonLeftPrevious = MouseButtonLeftCurrent
+                              MouseButtonLeftCurrent = 0
+                              
+                            Case #PB_EventType_RightButtonDown
+                              MouseButtonRightPrevious = MouseButtonRightCurrent
+                              MouseButtonRightCurrent = 1
+                              PostEvent(#PB_Event_Repaint)
+                              Break
+                              
+                            Case #PB_EventType_RightButtonUp
+                              MouseButtonRightPrevious = MouseButtonRightCurrent
+                              MouseButtonRightCurrent = 0
+                              
+                          EndSelect
+                      EndSelect
+                    Case #PB_Event_CloseWindow
+                      Break 2
+                    Default
+                      If Not UpdateVolume()
+                        Delay(1)
+                      EndIf
+                  EndSelect
+                ForEver
+              EndIf
             EndIf
             
             If Trigger_Chord_Button_7th = 1
@@ -2944,6 +3064,61 @@ If InitSound()
                   PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31))
                   PostEvent(#Event_HandleKeys)
                 EndIf
+              EndIf
+            ElseIf Trigger_Chord_Button_7th = 2
+              Trigger_Chord_Button_7th = 0
+              If (MousePositionXCurrent-301)%31 <= 20
+                StartDrawing(CanvasOutput(#Gad_Canvas))
+                DrawAlphaImage(ImageID(#Img_Button_Red_On), 301+((MousePositionXCurrent-301)/31)*31, 326)
+                StopDrawing()
+                Repeat
+                  Event = WindowEvent()
+                  Select Event
+                    Case #PB_Event_Gadget
+                      Select EventGadget()
+                        Case #Gad_Canvas
+                          Select EventType()
+                            Case #PB_EventType_KeyUp
+                              Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                Case #PB_Shortcut_Escape
+                                  PostEvent(#PB_Event_Repaint)
+                                  Break
+                                Default
+                                  ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                  PostEvent(#PB_Event_Repaint)
+                                  Break
+                              EndSelect
+                              
+                            Case #PB_EventType_LeftButtonDown
+                              MouseButtonLeftPrevious = MouseButtonLeftCurrent
+                              MouseButtonLeftCurrent = 1
+                              PostEvent(#PB_Event_Repaint)
+                              Break
+                              
+                            Case #PB_EventType_LeftButtonUp
+                              MouseButtonLeftPrevious = MouseButtonLeftCurrent
+                              MouseButtonLeftCurrent = 0
+                              
+                            Case #PB_EventType_RightButtonDown
+                              MouseButtonRightPrevious = MouseButtonRightCurrent
+                              MouseButtonRightCurrent = 1
+                              PostEvent(#PB_Event_Repaint)
+                              Break
+                              
+                            Case #PB_EventType_RightButtonUp
+                              MouseButtonRightPrevious = MouseButtonRightCurrent
+                              MouseButtonRightCurrent = 0
+                              
+                          EndSelect
+                      EndSelect
+                    Case #PB_Event_CloseWindow
+                      Break 2
+                    Default
+                      If Not UpdateVolume()
+                        Delay(1)
+                      EndIf
+                  EndSelect
+                ForEver
               EndIf
             EndIf
             
@@ -3153,10 +3328,10 @@ If InitSound()
                 ElseIf Not Value_Memory_Playback_Record
                   Value_Chord_Note = #Note_None
                   Value_Chord_Chord = #Chord_None
-                Value_Master_Power = 0
-                Tick = 0
-                UpdateVolume()
-                Value_Master_Power = 1
+                  Value_Master_Power = 0
+                  Tick = 0
+                  UpdateVolume()
+                  Value_Master_Power = 1
                 EndIf
               EndIf
             EndIf
@@ -3307,7 +3482,7 @@ If InitSound()
           Default
             If Not UpdateVolume()
               Delay(1)
-              EndIf
+            EndIf
         EndSelect
       ForEver
     Else
