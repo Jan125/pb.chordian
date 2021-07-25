@@ -65,6 +65,7 @@ Enumeration -1
   #Chord_Maj = #Chord_First
   #Chord_Min
   #Chord_7th
+  #Chord_Middle = #Chord_7th
   #Chord_Dim
   #Chord_Ma7
   #Chord_Mi7
@@ -73,58 +74,26 @@ Enumeration -1
 EndEnumeration
 
 Enumeration -1
-  #Order_Chord_None
-  #Order_Chord_First
-  #Order_Chord_Maj = #Order_Chord_First
-  #Order_Chord_Min
-  #Order_Chord_7th
-  #Order_Chord_Last = #Order_Chord_7th
-EndEnumeration
-
-Enumeration -1
   #Note_None
   #Note_First
-  #Note_C = #Note_First
-  #Note_Cc
+  #Note_Cc = #Note_First
   #Note_Db = #Note_Cc
-  #Note_D
-  #Note_Dc
-  #Note_Eb = #Note_Dc
-  #Note_E
-  #Note_F
-  #Note_Fc
-  #Note_Gb = #Note_Fc
-  #Note_G
   #Note_Gc
   #Note_Ab = #Note_Gc
-  #Note_A
+  #Note_Dc
+  #Note_Eb = #Note_Dc
   #Note_Ac
   #Note_Bb = #Note_Ac
+  #Note_F
+  #Note_C
+  #Note_G
+  #Note_D
+  #Note_A
+  #Note_E
   #Note_B
-  #Note_Last = #Note_B
-EndEnumeration
-
-Enumeration -1
-  #Order_Note_None
-  #Order_Note_First
-  #Order_Note_Cc = #Order_Note_First
-  #Order_Note_Db = #Order_Note_Cc
-  #Order_Note_Gc
-  #Order_Note_Ab = #Order_Note_Gc
-  #Order_Note_Dc
-  #Order_Note_Eb = #Order_Note_Dc
-  #Order_Note_Ac
-  #Order_Note_Bb = #Order_Note_Ac
-  #Order_Note_F
-  #Order_Note_C
-  #Order_Note_G
-  #Order_Note_D
-  #Order_Note_A
-  #Order_Note_E
-  #Order_Note_B
-  #Order_Note_Fc
-  #Order_Note_Gb = #Order_Note_Fc
-  #Order_Note_Last = #Order_Note_Gb
+  #Note_Fc
+  #Note_Gb = #Note_Fc
+  #Note_Last = #Note_Gb
 EndEnumeration
 
 Enumeration -1
@@ -147,50 +116,31 @@ Enumeration -1
 EndEnumeration
 
 Enumeration -1
-  #Order_Harp_None
-  #Order_Harp_First
-  #Order_Harp_1 = #Order_Harp_First
-  #Order_Harp_2
-  #Order_Harp_3
-  #Order_Harp_4
-  #Order_Harp_5
-  #Order_Harp_6
-  #Order_Harp_7
-  #Order_Harp_8
-  #Order_Harp_9
-  #Order_Harp_10
-  #Order_Harp_11
-  #Order_Harp_12
-  #Order_Harp_13
-  #Order_Harp_Last = #Order_Harp_13
+  #Rhythm_None
+  #Rhythm_First
+  #Rhythm_Rock1 = #Rhythm_First
+  #Rhythm_March = #Rhythm_Rock1
+  #Rhythm_Rock2
+  #Rhythm_Tango = #Rhythm_Rock2
+  #Rhythm_Disco
+  #Rhythm_Blues = #Rhythm_Disco
+  #Rhythm_Latin
+  #Rhythm_Swing = #Rhythm_Latin
+  #Rhythm_Country
+  #Rhythm_Waltz = #Rhythm_Country
+  #Rhythm_Last = #Rhythm_Waltz
 EndEnumeration
 
 Enumeration -1
-  #Order_Rhythm_None
-  #Order_Rhythm_First
-  #Order_Rhythm_Rock1 = #Order_Rhythm_First
-  #Order_Rhythm_March = #Order_Rhythm_Rock1
-  #Order_Rhythm_Rock2
-  #Order_Rhythm_Tango = #Order_Rhythm_Rock2
-  #Order_Rhythm_Disco
-  #Order_Rhythm_Blues = #Order_Rhythm_Disco
-  #Order_Rhythm_Latin
-  #Order_Rhythm_Swing = #Order_Rhythm_Latin
-  #Order_Rhythm_Country
-  #Order_Rhythm_Waltz = #Order_Rhythm_Country
-  #Order_Rhythm_Last = #Order_Rhythm_Waltz
-EndEnumeration
-
-Enumeration -1
-  #Order_Pattern_None
-  #Order_Pattern_First
-  #Order_Pattern_Frequency = #Order_Pattern_First
-  #Order_Pattern_Bass
-  #Order_Pattern_Chords
-  #Order_Pattern_Drum_BD
-  #Order_Pattern_Drum_HiHat
-  #Order_Pattern_Drum_Snare
-  #Order_Pattern_Last = #Order_Pattern_Drum_Snare
+  #Pattern_None
+  #Pattern_First
+  #Pattern_Frequency = #Pattern_First
+  #Pattern_Bass
+  #Pattern_Chords
+  #Pattern_Drum_BD
+  #Pattern_Drum_HiHat
+  #Pattern_Drum_Snare
+  #Pattern_Last = #Pattern_Drum_Snare
 EndEnumeration
 
 Enumeration 1
@@ -1941,68 +1891,68 @@ Frequencies(#Note_B, #Chord_Aug, #Dat_Harp_13) = 1203854336
 ;--Pattern Data
 ; This is used for pattern data.
 
-Global Dim Patterns.a(1, #Order_Rhythm_Last, #Note_Last, 15, #Order_Pattern_Last)
+Global Dim Patterns.a(1, #Rhythm_Last, #Note_Last, 15, #Pattern_Last)
 
 For i = #Note_First To #Note_Last
   For n = 0 To 15
-    Patterns(0, #Order_Rhythm_Disco, i, n, #Order_Pattern_Frequency) = 0
+    Patterns(0, #Rhythm_Disco, i, n, #Pattern_Frequency) = 0
   Next
-  Patterns(0, #Order_Rhythm_Disco, i, 0, #Order_Pattern_Bass) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 4, #Order_Pattern_Bass) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 8, #Order_Pattern_Bass) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 12, #Order_Pattern_Bass) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 14, #Order_Pattern_Bass) = 1
+  Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Bass) = 1
+  Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Bass) = 1
+  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Bass) = 1
+  Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Bass) = 1
+  Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Bass) = 1
   
-  Patterns(0, #Order_Rhythm_Disco, i, 2, #Order_Pattern_Chords) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 5, #Order_Pattern_Chords) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 8, #Order_Pattern_Chords) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 11, #Order_Pattern_Chords) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 14, #Order_Pattern_Chords) = 1
+  Patterns(0, #Rhythm_Disco, i, 2, #Pattern_Chords) = 1
+  Patterns(0, #Rhythm_Disco, i, 5, #Pattern_Chords) = 1
+  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Chords) = 1
+  Patterns(0, #Rhythm_Disco, i, 11, #Pattern_Chords) = 1
+  Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Chords) = 1
   
-  Patterns(0, #Order_Rhythm_Disco, i, 0, #Order_Pattern_Drum_BD) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 7, #Order_Pattern_Drum_BD) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 8, #Order_Pattern_Drum_BD) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 13, #Order_Pattern_Drum_BD) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 15, #Order_Pattern_Drum_BD) = 1
+  Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Drum_BD) = 1
+  Patterns(0, #Rhythm_Disco, i, 7, #Pattern_Drum_BD) = 1
+  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Drum_BD) = 1
+  Patterns(0, #Rhythm_Disco, i, 13, #Pattern_Drum_BD) = 1
+  Patterns(0, #Rhythm_Disco, i, 15, #Pattern_Drum_BD) = 1
   
-  Patterns(0, #Order_Rhythm_Disco, i, 0, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 1, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 2, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 3, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 4, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 5, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 6, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 7, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 8, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 9, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 10, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 11, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 12, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 13, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 14, #Order_Pattern_Drum_HiHat) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 15, #Order_Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 1, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 2, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 3, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 5, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 6, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 7, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 9, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 10, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 11, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 13, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 15, #Pattern_Drum_HiHat) = 1
   
-  Patterns(0, #Order_Rhythm_Disco, i, 4, #Order_Pattern_Drum_Snare) = 1
-  Patterns(0, #Order_Rhythm_Disco, i, 12, #Order_Pattern_Drum_Snare) = 1
+  Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Drum_Snare) = 1
+  Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Drum_Snare) = 1
 Next
 
 For n = 0 To 15
-    Patterns(0, #Order_Rhythm_Disco, #Note_Db, n, #Order_Pattern_Frequency) = 1
+    Patterns(0, #Rhythm_Disco, #Note_Db, n, #Pattern_Frequency) = 1
   Next
 For n = 0 To 15
-    Patterns(0, #Order_Rhythm_Disco, #Note_Eb, n, #Order_Pattern_Frequency) = 1
+    Patterns(0, #Rhythm_Disco, #Note_Eb, n, #Pattern_Frequency) = 1
   Next
 For n = 0 To 15
-    Patterns(0, #Order_Rhythm_Disco, #Note_C, n, #Order_Pattern_Frequency) = 1
+    Patterns(0, #Rhythm_Disco, #Note_C, n, #Pattern_Frequency) = 1
   Next
 For n = 0 To 15
-    Patterns(0, #Order_Rhythm_Disco, #Note_F, n, #Order_Pattern_Frequency) = 1
+    Patterns(0, #Rhythm_Disco, #Note_F, n, #Pattern_Frequency) = 1
   Next
 For n = 0 To 15
-    Patterns(0, #Order_Rhythm_Disco, #Note_D, n, #Order_Pattern_Frequency) = 1
+    Patterns(0, #Rhythm_Disco, #Note_D, n, #Pattern_Frequency) = 1
   Next
 For n = 0 To 15
-    Patterns(0, #Order_Rhythm_Disco, #Note_E, n, #Order_Pattern_Frequency) = 1
+    Patterns(0, #Rhythm_Disco, #Note_E, n, #Pattern_Frequency) = 1
   Next
 
 ;-Variables
@@ -2024,54 +1974,54 @@ Global NewTick.l = 0
 Global NewChord.l = 0
 
 ; This is used for creating a variable keymap for the chord buttons.
-Global Dim ChordKeys.u(#Order_Chord_Last, #Order_Note_Last)
-ChordKeys(#Order_Chord_Maj, #Order_Note_Db) = #PB_Shortcut_1
-ChordKeys(#Order_Chord_Min, #Order_Note_Db) = #PB_Shortcut_Q
-ChordKeys(#Order_Chord_7th, #Order_Note_Db) = #PB_Shortcut_A
+Global Dim ChordKeys.u(#Chord_Last, #Note_Last)
+ChordKeys(#Chord_Maj, #Note_Db) = #PB_Shortcut_1
+ChordKeys(#Chord_Min, #Note_Db) = #PB_Shortcut_Q
+ChordKeys(#Chord_7th, #Note_Db) = #PB_Shortcut_A
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_Ab) = #PB_Shortcut_2
-ChordKeys(#Order_Chord_Min, #Order_Note_Ab) = #PB_Shortcut_W
-ChordKeys(#Order_Chord_7th, #Order_Note_Ab) = #PB_Shortcut_S
+ChordKeys(#Chord_Maj, #Note_Ab) = #PB_Shortcut_2
+ChordKeys(#Chord_Min, #Note_Ab) = #PB_Shortcut_W
+ChordKeys(#Chord_7th, #Note_Ab) = #PB_Shortcut_S
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_Eb) = #PB_Shortcut_3
-ChordKeys(#Order_Chord_Min, #Order_Note_Eb) = #PB_Shortcut_E
-ChordKeys(#Order_Chord_7th, #Order_Note_Eb) = #PB_Shortcut_D
+ChordKeys(#Chord_Maj, #Note_Eb) = #PB_Shortcut_3
+ChordKeys(#Chord_Min, #Note_Eb) = #PB_Shortcut_E
+ChordKeys(#Chord_7th, #Note_Eb) = #PB_Shortcut_D
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_Bb) = #PB_Shortcut_4
-ChordKeys(#Order_Chord_Min, #Order_Note_Bb) = #PB_Shortcut_R
-ChordKeys(#Order_Chord_7th, #Order_Note_Bb) = #PB_Shortcut_F
+ChordKeys(#Chord_Maj, #Note_Bb) = #PB_Shortcut_4
+ChordKeys(#Chord_Min, #Note_Bb) = #PB_Shortcut_R
+ChordKeys(#Chord_7th, #Note_Bb) = #PB_Shortcut_F
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_F) = #PB_Shortcut_5
-ChordKeys(#Order_Chord_Min, #Order_Note_F) = #PB_Shortcut_T
-ChordKeys(#Order_Chord_7th, #Order_Note_F) = #PB_Shortcut_G
+ChordKeys(#Chord_Maj, #Note_F) = #PB_Shortcut_5
+ChordKeys(#Chord_Min, #Note_F) = #PB_Shortcut_T
+ChordKeys(#Chord_7th, #Note_F) = #PB_Shortcut_G
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_C) = #PB_Shortcut_6
-ChordKeys(#Order_Chord_Min, #Order_Note_C) = #PB_Shortcut_Z
-ChordKeys(#Order_Chord_7th, #Order_Note_C) = #PB_Shortcut_H
+ChordKeys(#Chord_Maj, #Note_C) = #PB_Shortcut_6
+ChordKeys(#Chord_Min, #Note_C) = #PB_Shortcut_Z
+ChordKeys(#Chord_7th, #Note_C) = #PB_Shortcut_H
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_G) = #PB_Shortcut_7
-ChordKeys(#Order_Chord_Min, #Order_Note_G) = #PB_Shortcut_U
-ChordKeys(#Order_Chord_7th, #Order_Note_G) = #PB_Shortcut_J
+ChordKeys(#Chord_Maj, #Note_G) = #PB_Shortcut_7
+ChordKeys(#Chord_Min, #Note_G) = #PB_Shortcut_U
+ChordKeys(#Chord_7th, #Note_G) = #PB_Shortcut_J
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_D) = #PB_Shortcut_8
-ChordKeys(#Order_Chord_Min, #Order_Note_D) = #PB_Shortcut_I
-ChordKeys(#Order_Chord_7th, #Order_Note_D) = #PB_Shortcut_K
+ChordKeys(#Chord_Maj, #Note_D) = #PB_Shortcut_8
+ChordKeys(#Chord_Min, #Note_D) = #PB_Shortcut_I
+ChordKeys(#Chord_7th, #Note_D) = #PB_Shortcut_K
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_A) = #PB_Shortcut_9
-ChordKeys(#Order_Chord_Min, #Order_Note_A) = #PB_Shortcut_O
-ChordKeys(#Order_Chord_7th, #Order_Note_A) = #PB_Shortcut_L
+ChordKeys(#Chord_Maj, #Note_A) = #PB_Shortcut_9
+ChordKeys(#Chord_Min, #Note_A) = #PB_Shortcut_O
+ChordKeys(#Chord_7th, #Note_A) = #PB_Shortcut_L
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_E) = #PB_Shortcut_0
-ChordKeys(#Order_Chord_Min, #Order_Note_E) = #PB_Shortcut_P
-ChordKeys(#Order_Chord_7th, #Order_Note_E) = 192
+ChordKeys(#Chord_Maj, #Note_E) = #PB_Shortcut_0
+ChordKeys(#Chord_Min, #Note_E) = #PB_Shortcut_P
+ChordKeys(#Chord_7th, #Note_E) = 192
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_B) = 219
-ChordKeys(#Order_Chord_Min, #Order_Note_B) = 186
-ChordKeys(#Order_Chord_7th, #Order_Note_B) = 222
+ChordKeys(#Chord_Maj, #Note_B) = 219
+ChordKeys(#Chord_Min, #Note_B) = 186
+ChordKeys(#Chord_7th, #Note_B) = 222
 
-ChordKeys(#Order_Chord_Maj, #Order_Note_Fc) = 221
-ChordKeys(#Order_Chord_Min, #Order_Note_Fc) = 187
-ChordKeys(#Order_Chord_7th, #Order_Note_Fc) = 191
+ChordKeys(#Chord_Maj, #Note_Fc) = 221
+ChordKeys(#Chord_Min, #Note_Fc) = 187
+ChordKeys(#Chord_7th, #Note_Fc) = 191
 
 
 
@@ -2143,7 +2093,7 @@ Global Value_Level_Volume_Chords.f = 1.0
 
 ;   Middle-Lower Section
 Global Value_Rhythm_Alternate.l
-Global Value_Rhythm_Pattern.l = #Order_Rhythm_None
+Global Value_Rhythm_Pattern.l = #Rhythm_None
 Global Value_Rhythm_AutoBassSync.l = 1
 Global Value_Rhythm_Tempo.f = 0.5
 Global Value_Rhythm_Volume.f = 1.0
@@ -2156,11 +2106,11 @@ Global Value_Memory_Repeat_Delete.l
 Global Value_Memory_Playback_Enter.l
 
 ;   Chord Button Section
-Global Value_Chord_Chord.l = #Order_Chord_None
-Global Value_Chord_Note.l = #Order_Note_None
+Global Value_Chord_Chord.l = #Chord_None
+Global Value_Chord_Note.l = #Note_None
 
 ;   Harp Section
-Global Dim Value_Harp_Plate.l(#Order_Harp_Last)
+Global Dim Value_Harp_Plate.l(#Harp_Last)
 
 ; These are used for Harp/Trigger control.
 Global Dim Status_Sound.l(#Dat_Last)
@@ -2176,13 +2126,12 @@ Global Dim Status_Harp.l(#Harp_13)
 
 ;-Procedures
 Procedure.l UpdateFrequencies()
-  Debug "called"
-  If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Chord_None
+  If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None
     Select Value_Rhythm_Pattern
-      Case #Order_Rhythm_None
+      Case #Rhythm_None
         SetSoundFrequency(#Snd_Bass, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Bass_1)))
       Default
-        Select Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Order_Pattern_Frequency)
+        Select Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency)
           Case 0
             SetSoundFrequency(#Snd_Bass, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Bass_1)))
           Case 1
@@ -2254,7 +2203,7 @@ Procedure UpdateVolume()
   Phase+828.0*(TimeDelta/1000.0)
   
   Select Value_Rhythm_Pattern
-    Case #Order_Rhythm_None
+    Case #Rhythm_None
     Default
       If Int(Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)) > Int(Tick)
         NewTick = 1
@@ -2268,7 +2217,7 @@ Procedure UpdateVolume()
   If NewTick
     NewTick = 0
     Select Value_Rhythm_Pattern
-      Case #Order_Rhythm_None
+      Case #Rhythm_None
         Value_Rhythm_Bass = 0
     NewChord = 1
         Status_Sound(#Dat_Bass_1) = #Curve_Trigger
@@ -2278,22 +2227,22 @@ Procedure UpdateVolume()
       Default
         If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None
         If Value_Rhythm_AutoBassSync
-          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Order_Pattern_Frequency) = 1 And Value_Rhythm_Bass <> 0
+          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency) = 1 And Value_Rhythm_Bass <> 0
             Value_Rhythm_Bass = 0
             NewChord = 1
-          ElseIf Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Order_Pattern_Frequency) = 2 And Value_Rhythm_Bass <> 1
+          ElseIf Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency) = 2 And Value_Rhythm_Bass <> 1
             Value_Rhythm_Bass = 1
             NewChord = 1
           EndIf
           
           
-          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Order_Pattern_Bass) = 1
+          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Bass) = 1
             Status_Sound(#Dat_Bass_1) = #Curve_Trigger
           Else
             Status_Sound(#Dat_Bass_1) = #Curve_Release
           EndIf
           
-          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Order_Pattern_Chords) = 1
+          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords) = 1
             Status_Sound(#Dat_Chord_1) = #Curve_Trigger
             Status_Sound(#Dat_Chord_2) = #Curve_Trigger
             Status_Sound(#Dat_Chord_3) = #Curve_Trigger
@@ -2303,13 +2252,13 @@ Procedure UpdateVolume()
             Status_Sound(#Dat_Chord_3) = #Curve_Release
           EndIf
         EndIf
-        If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Order_Pattern_Drum_BD) = 1
+        If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_BD) = 1
           Status_Sound(#Dat_Drum_BD) = #Curve_Trigger
         EndIf
-        If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Order_Pattern_Drum_HiHat) = 1
+        If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_HiHat) = 1
           Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger
         EndIf
-        If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Order_Pattern_Drum_Snare) = 1
+        If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_Snare) = 1
           Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger
         EndIf
         EndIf
@@ -2340,7 +2289,7 @@ Procedure UpdateVolume()
           Case #Curve_Trigger
             VolumeStatus(i) = 1.0
             Select Value_Rhythm_Pattern
-              Case #Order_Rhythm_None
+              Case #Rhythm_None
                 Status_Sound(i) = #Curve_Attack
               Default
                 If Value_Rhythm_AutoBassSync
@@ -2372,7 +2321,7 @@ Procedure UpdateVolume()
           Case #Curve_Trigger
             VolumeStatus(i) = 1.0
             Select Value_Rhythm_Pattern
-              Case #Order_Rhythm_None
+              Case #Rhythm_None
                 Status_Sound(i) = #Curve_Attack
               Default
                 If Value_Rhythm_AutoBassSync
@@ -2491,69 +2440,6 @@ Procedure UpdateVolume()
   EndIf
   
   ProcedureReturn TimeDelta
-EndProcedure
-
-
-Procedure.l OrderToNote(n.l)
-  Select n
-    Case #Order_Note_Db
-      ProcedureReturn #Note_Db
-    Case #Order_Note_Ab
-      ProcedureReturn #Note_Ab
-    Case #Order_Note_Eb
-      ProcedureReturn #Note_Eb
-    Case #Order_Note_Bb
-      ProcedureReturn #Note_Bb
-    Case #Order_Note_F
-      ProcedureReturn #Note_F
-    Case #Order_Note_C
-      ProcedureReturn #Note_C
-    Case #Order_Note_G
-      ProcedureReturn #Note_G
-    Case #Order_Note_D
-      ProcedureReturn #Note_D
-    Case #Order_Note_A
-      ProcedureReturn #Note_A
-    Case #Order_Note_E
-      ProcedureReturn #Note_E
-    Case #Order_Note_B
-      ProcedureReturn #Note_B
-    Case #Order_Note_Fc
-      ProcedureReturn #Note_Fc
-    Default
-      ProcedureReturn #Note_None
-  EndSelect
-EndProcedure
-
-Procedure.l NoteToOrder(n.l)
-  Select n
-    Case #Note_Db
-      ProcedureReturn #Order_Note_Db
-    Case #Note_Ab
-      ProcedureReturn #Order_Note_Ab
-    Case #Note_Eb
-      ProcedureReturn #Order_Note_Eb
-    Case #Note_Bb
-      ProcedureReturn #Order_Note_Bb
-    Case #Note_F
-      ProcedureReturn #Order_Note_F
-    Case #Note_C
-      ProcedureReturn #Order_Note_C
-    Case #Note_G
-      ProcedureReturn #Order_Note_G
-    Case #Note_D
-      ProcedureReturn #Order_Note_D
-    Case #Note_A
-      ProcedureReturn #Order_Note_A
-    Case #Note_E
-      ProcedureReturn #Order_Note_E
-    Case #Note_B
-      ProcedureReturn #Order_Note_B
-    Case #Note_Fc
-      ProcedureReturn #Order_Note_Fc
-    Default
-      ProcedureReturn #Order_Note_None
-  EndSelect
 EndProcedure
 
 ;-Initialization
@@ -2825,8 +2711,8 @@ If InitSound()
               Value_Master_Power = Bool(Not Value_Master_Power)
               Value_Chord_Chord = #Chord_None
               Value_Chord_Note = #Note_None
-              For i = #Order_Note_First To #Order_Note_Last
-                For n = #Order_Chord_First To #Order_Chord_Last
+              For i = #Note_First To #Note_Last
+                For n = #Chord_First To #Chord_Last
                   Keys(ChordKeys(n, i)) = 0
                 Next
               Next
@@ -2905,7 +2791,7 @@ If InitSound()
               Trigger_Rhythm_Button_Select = 0
               If (MousePositionXCurrent-68)%32 <= 20
                 If (MousePositionXCurrent-68)/32 = Value_Rhythm_Pattern
-                  Value_Rhythm_Pattern = #Order_Rhythm_None
+                  Value_Rhythm_Pattern = #Rhythm_None
                   Value_Rhythm_Bass = 0
                   NewChord = 1
                   NewTick = 1
@@ -2956,18 +2842,18 @@ If InitSound()
             If Trigger_Chord_Button_Major = 1
               Trigger_Chord_Button_Major = 0
               If (MousePositionXCurrent-271)%31 <= 20
-                If Keys(ChordKeys(#Order_Chord_Maj, (MousePositionXCurrent-271)/31)) = 0
-                  For i = #Order_Note_First To #Order_Note_Last
+                If Keys(ChordKeys(#Chord_Maj, (MousePositionXCurrent-271)/31)) = 0
+                  For i = #Note_First To #Note_Last
                     If i = (MousePositionXCurrent-271)/31
                       Continue
                     EndIf
-                    For n = #Order_Chord_First To #Order_Chord_Last
+                    For n = #Chord_First To #Chord_Last
                       Keys(ChordKeys(n, i)) = 0
                     Next
-                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Order_Chord_Maj, (MousePositionXCurrent-271)/31))
+                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Chord_Maj, (MousePositionXCurrent-271)/31))
                   Next
                 Else
-                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Order_Chord_Maj, (MousePositionXCurrent-271)/31))
+                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Chord_Maj, (MousePositionXCurrent-271)/31))
                   PostEvent(#Event_HandleKeys)
                 EndIf
               EndIf
@@ -2976,18 +2862,18 @@ If InitSound()
             If Trigger_Chord_Button_Minor = 1
               Trigger_Chord_Button_Minor = 0
               If (MousePositionXCurrent-286)%31 <= 20
-                If Keys(ChordKeys(#Order_Chord_Min, (MousePositionXCurrent-286)/31)) = 0
-                  For i = #Order_Note_First To #Order_Note_Last
+                If Keys(ChordKeys(#Chord_Min, (MousePositionXCurrent-286)/31)) = 0
+                  For i = #Note_First To #Note_Last
                     If i = (MousePositionXCurrent-286)/31
                       Continue
                     EndIf
-                    For n = #Order_Chord_First To #Order_Chord_Last
+                    For n = #Chord_First To #Chord_Last
                       Keys(ChordKeys(n, i)) = 0
                     Next
-                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Order_Chord_Min, (MousePositionXCurrent-286)/31))
+                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Chord_Min, (MousePositionXCurrent-286)/31))
                   Next
                 Else
-                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Order_Chord_Min, (MousePositionXCurrent-286)/31))
+                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Chord_Min, (MousePositionXCurrent-286)/31))
                   PostEvent(#Event_HandleKeys)
                 EndIf
               EndIf
@@ -2996,18 +2882,18 @@ If InitSound()
             If Trigger_Chord_Button_7th = 1
               Trigger_Chord_Button_7th = 0
               If (MousePositionXCurrent-301)%31 <= 20
-                If Keys(ChordKeys(#Order_Chord_7th, (MousePositionXCurrent-301)/31)) = 0
-                  For i = #Order_Note_First To #Order_Note_Last
+                If Keys(ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31)) = 0
+                  For i = #Note_First To #Note_Last
                     If i = (MousePositionXCurrent-301)/31
                       Continue
                     EndIf
-                    For n = #Order_Chord_First To #Order_Chord_Last
+                    For n = #Chord_First To #Chord_Last
                       Keys(ChordKeys(n, i)) = 0
                     Next
-                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Order_Chord_7th, (MousePositionXCurrent-301)/31))
+                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31))
                   Next
                 Else
-                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Order_Chord_7th, (MousePositionXCurrent-301)/31))
+                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31))
                   PostEvent(#Event_HandleKeys)
                 EndIf
               EndIf
@@ -3018,8 +2904,8 @@ If InitSound()
               If MousePositionXCurrent >= 749 And MousePositionXCurrent <= 777 And MousePositionYCurrent >= 130 And MousePositionYCurrent <= 150
                 Value_Chord_Chord = #Chord_None
                 Value_Chord_Note = #Note_None
-                For i = #Order_Note_First To #Order_Note_Last
-                  For n = #Order_Chord_First To #Order_Chord_Last
+                For i = #Note_First To #Note_Last
+                  For n = #Chord_First To #Chord_Last
                     Keys(ChordKeys(n, i)) = 0
                   Next
                 Next
@@ -3141,73 +3027,78 @@ If InitSound()
           Case #Event_HandleKeys
             ;--HandleKeys
             If Value_Master_Power
+              If Value_Chord_Chord = #Chord_None Or Value_Chord_Note = #Note_None
+                NewTick = 1
+                Tick = 0
+              EndIf
+              
               Select LastKey
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_Db), ChordKeys(#Order_Chord_Min, #Order_Note_Db), ChordKeys(#Order_Chord_7th, #Order_Note_Db)
+                Case ChordKeys(#Chord_Maj, #Note_Db), ChordKeys(#Chord_Min, #Note_Db), ChordKeys(#Chord_7th, #Note_Db)
                   Value_Chord_Note = #Note_Db
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_Ab), ChordKeys(#Order_Chord_Min, #Order_Note_Ab), ChordKeys(#Order_Chord_7th, #Order_Note_Ab)
+                Case ChordKeys(#Chord_Maj, #Note_Ab), ChordKeys(#Chord_Min, #Note_Ab), ChordKeys(#Chord_7th, #Note_Ab)
                   Value_Chord_Note = #Note_Ab
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_Eb), ChordKeys(#Order_Chord_Min, #Order_Note_Eb), ChordKeys(#Order_Chord_7th, #Order_Note_Eb)
+                Case ChordKeys(#Chord_Maj, #Note_Eb), ChordKeys(#Chord_Min, #Note_Eb), ChordKeys(#Chord_7th, #Note_Eb)
                   Value_Chord_Note = #Note_Eb
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_Bb), ChordKeys(#Order_Chord_Min, #Order_Note_Bb), ChordKeys(#Order_Chord_7th, #Order_Note_Bb)
+                Case ChordKeys(#Chord_Maj, #Note_Bb), ChordKeys(#Chord_Min, #Note_Bb), ChordKeys(#Chord_7th, #Note_Bb)
                   Value_Chord_Note = #Note_Bb
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_F), ChordKeys(#Order_Chord_Min, #Order_Note_F), ChordKeys(#Order_Chord_7th, #Order_Note_F)
+                Case ChordKeys(#Chord_Maj, #Note_F), ChordKeys(#Chord_Min, #Note_F), ChordKeys(#Chord_7th, #Note_F)
                   Value_Chord_Note = #Note_F
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_C), ChordKeys(#Order_Chord_Min, #Order_Note_C), ChordKeys(#Order_Chord_7th, #Order_Note_C)
+                Case ChordKeys(#Chord_Maj, #Note_C), ChordKeys(#Chord_Min, #Note_C), ChordKeys(#Chord_7th, #Note_C)
                   Value_Chord_Note = #Note_C
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_G), ChordKeys(#Order_Chord_Min, #Order_Note_G), ChordKeys(#Order_Chord_7th, #Order_Note_G)
+                Case ChordKeys(#Chord_Maj, #Note_G), ChordKeys(#Chord_Min, #Note_G), ChordKeys(#Chord_7th, #Note_G)
                   Value_Chord_Note = #Note_G
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_D), ChordKeys(#Order_Chord_Min, #Order_Note_D), ChordKeys(#Order_Chord_7th, #Order_Note_D)
+                Case ChordKeys(#Chord_Maj, #Note_D), ChordKeys(#Chord_Min, #Note_D), ChordKeys(#Chord_7th, #Note_D)
                   Value_Chord_Note = #Note_D
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_A), ChordKeys(#Order_Chord_Min, #Order_Note_A), ChordKeys(#Order_Chord_7th, #Order_Note_A)
+                Case ChordKeys(#Chord_Maj, #Note_A), ChordKeys(#Chord_Min, #Note_A), ChordKeys(#Chord_7th, #Note_A)
                   Value_Chord_Note = #Note_A
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_E), ChordKeys(#Order_Chord_Min, #Order_Note_E), ChordKeys(#Order_Chord_7th, #Order_Note_E)
+                Case ChordKeys(#Chord_Maj, #Note_E), ChordKeys(#Chord_Min, #Note_E), ChordKeys(#Chord_7th, #Note_E)
                   Value_Chord_Note = #Note_E
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_B), ChordKeys(#Order_Chord_Min, #Order_Note_B), ChordKeys(#Order_Chord_7th, #Order_Note_B)
+                Case ChordKeys(#Chord_Maj, #Note_B), ChordKeys(#Chord_Min, #Note_B), ChordKeys(#Chord_7th, #Note_B)
                   Value_Chord_Note = #Note_B
-                Case ChordKeys(#Order_Chord_Maj, #Order_Note_Fc), ChordKeys(#Order_Chord_Min, #Order_Note_Fc), ChordKeys(#Order_Chord_7th, #Order_Note_Fc)
+                Case ChordKeys(#Chord_Maj, #Note_Fc), ChordKeys(#Chord_Min, #Note_Fc), ChordKeys(#Chord_7th, #Note_Fc)
                   Value_Chord_Note = #Note_Fc
               EndSelect
               If Value_Chord_Note <> #Note_None
-                If Keys(ChordKeys(#Order_Chord_Maj, NoteToOrder(Value_Chord_Note))) And Keys(ChordKeys(#Order_Chord_Min, NoteToOrder(Value_Chord_Note))) And Keys(ChordKeys(#Order_Chord_7th, NoteToOrder(Value_Chord_Note)))
+                If Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
                   Value_Chord_Chord = #Chord_Aug
                   NewChord = 1
-                  If Value_Rhythm_Pattern = #Order_Rhythm_None
+                  If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
-                ElseIf Keys(ChordKeys(#Order_Chord_Maj, NoteToOrder(Value_Chord_Note))) And Keys(ChordKeys(#Order_Chord_Min, NoteToOrder(Value_Chord_Note)))
+                ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
                   Value_Chord_Chord = #Chord_Dim
                   NewChord = 1
-                  If Value_Rhythm_Pattern = #Order_Rhythm_None
+                  If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
-                ElseIf Keys(ChordKeys(#Order_Chord_Maj, NoteToOrder(Value_Chord_Note))) And Keys(ChordKeys(#Order_Chord_7th, NoteToOrder(Value_Chord_Note)))
+                ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
                   Value_Chord_Chord = #Chord_Ma7
                   NewChord = 1
-                  If Value_Rhythm_Pattern = #Order_Rhythm_None
+                  If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
-                ElseIf Keys(ChordKeys(#Order_Chord_Min, NoteToOrder(Value_Chord_Note))) And Keys(ChordKeys(#Order_Chord_7th, NoteToOrder(Value_Chord_Note)))
+                ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
                   Value_Chord_Chord = #Chord_Mi7
                   NewChord = 1
-                  If Value_Rhythm_Pattern = #Order_Rhythm_None
+                  If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
-                ElseIf Keys(ChordKeys(#Order_Chord_Maj, NoteToOrder(Value_Chord_Note)))
+                ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note))
                   Value_Chord_Chord = #Chord_Maj
                   NewChord = 1
-                  If Value_Rhythm_Pattern = #Order_Rhythm_None
+                  If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
-                ElseIf Keys(ChordKeys(#Order_Chord_Min, NoteToOrder(Value_Chord_Note)))
+                ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
                   Value_Chord_Chord = #Chord_Min
                   NewChord = 1
-                  If Value_Rhythm_Pattern = #Order_Rhythm_None
+                  If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
-                ElseIf Keys(ChordKeys(#Order_Chord_7th, NoteToOrder(Value_Chord_Note)))
+                ElseIf Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
                   Value_Chord_Chord = #Chord_7th
                   NewChord = 1
-                  If Value_Rhythm_Pattern = #Order_Rhythm_None
+                  If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
                 EndIf
@@ -3263,7 +3154,7 @@ If InitSound()
               
               
               ;Rhythm Button
-              For i = #Order_Rhythm_First To #Order_Rhythm_Last
+              For i = #Rhythm_First To #Rhythm_Last
                 If i = Value_Rhythm_Pattern
                   DrawAlphaImage(ImageID(#Img_Button_Dark_On), 68+i*32, 274)
                 Else
@@ -3321,29 +3212,29 @@ If InitSound()
               EndSelect
               
               ;Chord Buttons
-              For i = #Order_Note_First To #Order_Note_Fc
-                If Keys(ChordKeys(#Order_Chord_Maj, i)) = 1
+              For i = #Note_First To #Note_Fc
+                If Keys(ChordKeys(#Chord_Maj, i)) = 1
                   DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
                 Else
                   DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
                 EndIf
                 
                 Select i
-                  Case #Order_Note_Db, #Order_Note_Bb, #Order_Note_D, #Order_Note_B
-                    If Keys(ChordKeys(#Order_Chord_Min, i)) = 1
+                  Case #Note_Db, #Note_Bb, #Note_D, #Note_B
+                    If Keys(ChordKeys(#Chord_Min, i)) = 1
                       DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
                     Else
                       DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286+i*31, 283)
                     EndIf
                   Default
-                    If Keys(ChordKeys(#Order_Chord_Min, i)) = 1
+                    If Keys(ChordKeys(#Chord_Min, i)) = 1
                       DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286+i*31, 283)
                     Else
                       DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 286+i*31, 283)
                     EndIf
                 EndSelect
                 
-                If Keys(ChordKeys(#Order_Chord_7th, i)) = 1
+                If Keys(ChordKeys(#Chord_7th, i)) = 1
                   DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
                 Else
                   DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
