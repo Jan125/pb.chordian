@@ -8,12 +8,12 @@
   <section name="data">
     <explorer view="..\..\PNB2\_src\" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2021-07-25 14:59" user="Dino" host="DESKTOP-FTD7II1"/>
+    <lastopen date="2021-07-25 21:03" user="Dino" host="DESKTOP-FTD7II1"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="691e831fe0e4c3162a20ca4fe57158be"/>
+      <fingerprint md5="267e4eb43b7c2028f0442bc10d9a2b4a"/>
     </file>
   </section>
   <section name="targets">
@@ -23,8 +23,8 @@
       <executable value="..\chordian.exe"/>
       <options unicode="1" xpskin="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
-      <compilecount enable="1" value="416"/>
-      <buildcount enable="1" value="58"/>
+      <compilecount enable="1" value="432"/>
+      <buildcount enable="1" value="60"/>
     </target>
   </section>
 </project>

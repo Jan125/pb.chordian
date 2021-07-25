@@ -2101,7 +2101,7 @@ Global Value_Rhythm_Bass.l = 0
 
 ;   Lower Section
 Global Value_Memory_Enable.l
-Global Value_Memory_Playback_Record.l
+Global Value_Memory_Playback_Record.l = 1
 Global Value_Memory_Repeat_Delete.l
 Global Value_Memory_Playback_Enter.l
 
@@ -2591,6 +2591,9 @@ If InitSound()
             ;--GeneralKeyUp
             Keys(EventData()) = 0
             PostEvent(#PB_Event_Repaint)
+            If Not Value_Memory_Playback_Record
+              PostEvent(#Event_HandleKeys)
+              EndIf
             
           Case #Event_GetTriggers
             ;--GetTriggers
@@ -2680,6 +2683,26 @@ If InitSound()
             ;Rhythm Volume Knob
             If Sqr(Pow(MousePositionXCurrent-190, 2)+Pow(MousePositionYCurrent-339, 2)) <= 21
               Trigger_Rhythm_Knob_Volume = 1*Bool(MouseButtonLeftCurrent = 1)+2*Bool(MouseButtonRightCurrent = 1)+4*Bool(MouseButtonMiddleCurrent = 1)
+            EndIf
+            
+            ;Memory On Off Button
+            If MousePositionXCurrent >= 126 And MousePositionXCurrent <= 145 And MousePositionYCurrent >= 424 And MousePositionYCurrent <= 448 And MouseButtonLeftPrevious = 0
+              Trigger_Memory_Button_On_Off = 1*Bool(MouseButtonLeftCurrent = 1)+2*Bool(MouseButtonRightCurrent = 1)+4*Bool(MouseButtonMiddleCurrent = 1)
+            EndIf
+            
+            ;Memory Playback Record Button
+            If MousePositionXCurrent >= 159 And MousePositionXCurrent <= 178 And MousePositionYCurrent >= 424 And MousePositionYCurrent <= 448 And MouseButtonLeftPrevious = 0
+              Trigger_Memory_Button_Playback_Record = 1*Bool(MouseButtonLeftCurrent = 1)+2*Bool(MouseButtonRightCurrent = 1)+4*Bool(MouseButtonMiddleCurrent = 1)
+            EndIf
+            
+            ;Memory Repeat Delete Button
+            If MousePositionXCurrent >= 192 And MousePositionXCurrent <= 424 And MousePositionYCurrent >= 424 And MousePositionYCurrent <= 448 And MouseButtonLeftPrevious = 0
+              Trigger_Memory_Button_Repeat_Delete = 1*Bool(MouseButtonLeftCurrent = 1)+2*Bool(MouseButtonRightCurrent = 1)+4*Bool(MouseButtonMiddleCurrent = 1)
+            EndIf
+            
+            ;Memory Playback Enter Button
+            If MousePositionXCurrent >= 162 And MousePositionXCurrent <= 206 And MousePositionYCurrent >= 480 And MousePositionYCurrent <= 505 And MouseButtonLeftPrevious = 0
+              Trigger_Memory_Button_Playback_Enter = 1*Bool(MouseButtonLeftCurrent = 1)+2*Bool(MouseButtonRightCurrent = 1)+4*Bool(MouseButtonMiddleCurrent = 1)
             EndIf
             
             ;Chord buttons
@@ -2836,6 +2859,31 @@ If InitSound()
               ElseIf Value_Rhythm_Volume < 0.0
                 Value_Rhythm_Volume = 0.0
               EndIf
+              PostEvent(#PB_Event_Repaint)
+            EndIf
+            
+            If Trigger_Memory_Button_On_Off
+              Trigger_Memory_Button_On_Off = 0
+              Value_Memory_Enable = Bool(Not Value_Memory_Enable)
+              PostEvent(#PB_Event_Repaint)
+            EndIf
+            
+            If Trigger_Memory_Button_Playback_Record
+              Trigger_Memory_Button_Playback_Record = 0
+              Value_Memory_Playback_Record = Bool(Not Value_Memory_Playback_Record)
+              PostEvent(#Event_HandleKeys)
+              PostEvent(#PB_Event_Repaint)
+            EndIf
+            
+            If Trigger_Memory_Button_Repeat_Delete
+              Trigger_Memory_Button_Repeat_Delete = 0
+              Value_Memory_Repeat_Delete = Bool(Not Value_Memory_Repeat_Delete)
+              PostEvent(#PB_Event_Repaint)
+            EndIf
+            
+            If Trigger_Memory_Button_Playback_Enter
+              Trigger_Memory_Button_Playback_Enter = 0
+              Value_Memory_Playback_Enter = Bool(Not Value_Memory_Playback_Enter)
               PostEvent(#PB_Event_Repaint)
             EndIf
             
@@ -3101,6 +3149,14 @@ If InitSound()
                   If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
+                  
+                ElseIf Not Value_Memory_Playback_Record
+                  Value_Chord_Note = #Note_None
+                  Value_Chord_Chord = #Chord_None
+                Value_Master_Power = 0
+                Tick = 0
+                UpdateVolume()
+                Value_Master_Power = 1
                 EndIf
               EndIf
             EndIf
