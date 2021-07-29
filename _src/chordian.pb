@@ -16,6 +16,18 @@ DataSection
   IncludeBinary "img\button_dark_off.png"
   Img_Button_Dark_On:
   IncludeBinary "img\button_dark_on.png"
+  Img_Button_Dark_C_Off:
+  IncludeBinary "img\button_dark_c_off.png"
+  Img_Button_Dark_C_On:
+  IncludeBinary "img\button_dark_c_on.png"
+  Img_Button_Dark_X_Off:
+  IncludeBinary "img\button_dark_x_off.png"
+  Img_Button_Dark_X_On:
+  IncludeBinary "img\button_dark_x_on.png"
+  Img_Button_Dark_Tri_Off:
+  IncludeBinary "img\button_dark_tri_off.png"
+  Img_Button_Dark_Tri_On:
+  IncludeBinary "img\button_dark_tri_on.png"
   Img_Button_Red_Off:
   IncludeBinary "img\button_red_off.png"
   Img_Button_Red_On:
@@ -24,6 +36,22 @@ DataSection
   IncludeBinary "img\button_light_off.png"
   Img_Button_Light_On:
   IncludeBinary "img\button_light_on.png"
+  Img_Button_Light_Up_Off:
+  IncludeBinary "img\button_light_up_off.png"
+  Img_Button_Light_Up_On:
+  IncludeBinary "img\button_light_up_on.png"
+  Img_Button_Light_Down_Off:
+  IncludeBinary "img\button_light_down_off.png"
+  Img_Button_Light_Down_On:
+  IncludeBinary "img\button_light_down_on.png"
+  Img_Button_Light_O_Off:
+  IncludeBinary "img\button_light_o_off.png"
+  Img_Button_Light_O_On:
+  IncludeBinary "img\button_light_o_on.png"
+  Img_Button_Light_C_Off:
+  IncludeBinary "img\button_light_c_off.png"
+  Img_Button_Light_C_On:
+  IncludeBinary "img\button_light_c_on.png"
   
   Img_Button_Wide_Off:
   IncludeBinary "img\button_wide_off.png"
@@ -46,8 +74,9 @@ EndDataSection
 ;--Sound Data
 DataSection
   Snd_Bass:
+  IncludeBinary "snd\chordian_bass.wav"
   Snd_Chord:
-  IncludeBinary "snd\chordian_base.wav"
+  IncludeBinary "snd\chordian_chord.wav"
   Snd_Harp:
   IncludeBinary "snd\chordian_harp.wav"
   Snd_Drum_BD:
@@ -191,10 +220,24 @@ Enumeration 1
   #Img_Button_Blue_On
   #Img_Button_Dark_Off
   #Img_Button_Dark_On
+  #Img_Button_Dark_C_Off
+  #Img_Button_Dark_C_On
+  #Img_Button_Dark_X_Off
+  #Img_Button_Dark_X_On
+  #Img_Button_Dark_Tri_Off
+  #Img_Button_Dark_Tri_On
   #Img_Button_Red_Off
   #Img_Button_Red_On
   #Img_Button_Light_Off
   #Img_Button_Light_On
+  #Img_Button_Light_Up_Off
+  #Img_Button_Light_Up_On
+  #Img_Button_Light_Down_Off
+  #Img_Button_Light_Down_On
+  #Img_Button_Light_O_Off
+  #Img_Button_Light_O_On
+  #Img_Button_Light_C_Off
+  #Img_Button_Light_C_On
   
   #Img_Button_Wide_Off
   #Img_Button_Wide_On
@@ -2453,10 +2496,24 @@ If InitSound()
   CatchImage(#Img_Button_Blue_On, ?Img_Button_Blue_On)
   CatchImage(#Img_Button_Dark_Off, ?Img_Button_Dark_Off)
   CatchImage(#Img_Button_Dark_On, ?Img_Button_Dark_On)
+  CatchImage(#Img_Button_Dark_C_Off, ?Img_Button_Dark_C_Off)
+  CatchImage(#Img_Button_Dark_C_On, ?Img_Button_Dark_C_On)
+  CatchImage(#Img_Button_Dark_X_Off, ?Img_Button_Dark_X_Off)
+  CatchImage(#Img_Button_Dark_X_On, ?Img_Button_Dark_X_On)
+  CatchImage(#Img_Button_Dark_Tri_Off, ?Img_Button_Dark_Tri_Off)
+  CatchImage(#Img_Button_Dark_Tri_On, ?Img_Button_Dark_Tri_On)
   CatchImage(#Img_Button_Red_Off, ?Img_Button_Red_Off)
   CatchImage(#Img_Button_Red_On, ?Img_Button_Red_On)
   CatchImage(#Img_Button_Light_Off, ?Img_Button_Light_Off)
   CatchImage(#Img_Button_Light_On, ?Img_Button_Light_On)
+  CatchImage(#Img_Button_Light_Up_Off, ?Img_Button_Light_Up_Off)
+  CatchImage(#Img_Button_Light_Up_On, ?Img_Button_Light_Up_On)
+  CatchImage(#Img_Button_Light_Down_Off, ?Img_Button_Light_Down_Off)
+  CatchImage(#Img_Button_Light_Down_On, ?Img_Button_Light_Down_On)
+  CatchImage(#Img_Button_Light_O_Off, ?Img_Button_Light_O_Off)
+  CatchImage(#Img_Button_Light_O_On, ?Img_Button_Light_O_On)
+  CatchImage(#Img_Button_Light_C_Off, ?Img_Button_Light_C_Off)
+  CatchImage(#Img_Button_Light_C_On, ?Img_Button_Light_C_On)
   
   CatchImage(#Img_Button_Wide_Off, ?Img_Button_Wide_Off)
   CatchImage(#Img_Button_Wide_On, ?Img_Button_Wide_On)
@@ -2576,6 +2633,16 @@ If InitSound()
                   Case #PB_EventType_RightButtonUp
                     MouseButtonRightPrevious = MouseButtonRightCurrent
                     MouseButtonRightCurrent = 0
+                    PostEvent(#Event_GetTriggers)
+                    
+                  Case #PB_EventType_MiddleButtonDown
+                    MouseButtonMiddlePrevious = MouseButtonMiddleCurrent
+                    MouseButtonMiddleCurrent = 1
+                    PostEvent(#Event_GetTriggers)
+                    
+                  Case #PB_EventType_MiddleButtonUp
+                    MouseButtonMiddlePrevious = MouseButtonMiddleCurrent
+                    MouseButtonMiddleCurrent = 0
                     PostEvent(#Event_GetTriggers)
                     
                   Case #PB_EventType_MouseMove
@@ -2706,7 +2773,7 @@ If InitSound()
             EndIf
             
             ;Memory Repeat Delete Button
-            If MousePositionXCurrent >= 192 And MousePositionXCurrent <= 424 And MousePositionYCurrent >= 424 And MousePositionYCurrent <= 448 And MouseButtonLeftPrevious = 0
+            If MousePositionXCurrent >= 192 And MousePositionXCurrent <= 211 And MousePositionYCurrent >= 424 And MousePositionYCurrent <= 448 And MouseButtonLeftPrevious = 0
               Trigger_Memory_Button_Repeat_Delete = 1*Bool(MouseButtonLeftCurrent = 1)+2*Bool(MouseButtonRightCurrent = 1)+4*Bool(MouseButtonMiddleCurrent = 1)
             EndIf
             
@@ -2901,18 +2968,9 @@ If InitSound()
               Trigger_Chord_Button_Major = 0
               If (MousePositionXCurrent-271)%31 <= 20
                 If Keys(ChordKeys(#Chord_Maj, (MousePositionXCurrent-271)/31)) = 0
-                  For i = #Note_First To #Note_Last
-                    If i = (MousePositionXCurrent-271)/31
-                      Continue
-                    EndIf
-                    For n = #Chord_First To #Chord_Last
-                      Keys(ChordKeys(n, i)) = 0
-                    Next
-                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Chord_Maj, (MousePositionXCurrent-271)/31))
-                  Next
+                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Chord_Maj, (MousePositionXCurrent-271)/31))
                 Else
                   PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Chord_Maj, (MousePositionXCurrent-271)/31))
-                  PostEvent(#Event_HandleKeys)
                 EndIf
               EndIf
             ElseIf Trigger_Chord_Button_Major = 2
@@ -2956,8 +3014,18 @@ If InitSound()
                               Break
                               
                             Case #PB_EventType_RightButtonUp
-                              MouseButtonRightPrevious = MouseButtonRightCurrent
+                              MouseButtonMiddlePrevious = MouseButtonMiddleCurrent
                               MouseButtonRightCurrent = 0
+                              
+                            Case #PB_EventType_MiddleButtonDown
+                              MouseButtonMiddlePrevious = MouseButtonMiddleCurrent
+                              MouseButtonMiddleCurrent = 1
+                              PostEvent(#PB_Event_Repaint)
+                              Break
+                              
+                            Case #PB_EventType_MiddleButtonUp
+                              MouseButtonRightPrevious = MouseButtonMiddleCurrent
+                              MouseButtonMiddleCurrent = 0
                               
                           EndSelect
                       EndSelect
@@ -2976,18 +3044,9 @@ If InitSound()
               Trigger_Chord_Button_Minor = 0
               If (MousePositionXCurrent-286)%31 <= 20
                 If Keys(ChordKeys(#Chord_Min, (MousePositionXCurrent-286)/31)) = 0
-                  For i = #Note_First To #Note_Last
-                    If i = (MousePositionXCurrent-286)/31
-                      Continue
-                    EndIf
-                    For n = #Chord_First To #Chord_Last
-                      Keys(ChordKeys(n, i)) = 0
-                    Next
-                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Chord_Min, (MousePositionXCurrent-286)/31))
-                  Next
+                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Chord_Min, (MousePositionXCurrent-286)/31))
                 Else
                   PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Chord_Min, (MousePositionXCurrent-286)/31))
-                  PostEvent(#Event_HandleKeys)
                 EndIf
               EndIf
             ElseIf Trigger_Chord_Button_Minor = 2
@@ -3034,6 +3093,16 @@ If InitSound()
                               MouseButtonRightPrevious = MouseButtonRightCurrent
                               MouseButtonRightCurrent = 0
                               
+                            Case #PB_EventType_MiddleButtonDown
+                              MouseButtonMiddlePrevious = MouseButtonMiddleCurrent
+                              MouseButtonMiddleCurrent = 1
+                              PostEvent(#PB_Event_Repaint)
+                              Break
+                              
+                            Case #PB_EventType_MiddleButtonUp
+                              MouseButtonRightPrevious = MouseButtonMiddleCurrent
+                              MouseButtonMiddleCurrent = 0
+                              
                           EndSelect
                       EndSelect
                     Case #PB_Event_CloseWindow
@@ -3051,18 +3120,9 @@ If InitSound()
               Trigger_Chord_Button_7th = 0
               If (MousePositionXCurrent-301)%31 <= 20
                 If Keys(ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31)) = 0
-                  For i = #Note_First To #Note_Last
-                    If i = (MousePositionXCurrent-301)/31
-                      Continue
-                    EndIf
-                    For n = #Chord_First To #Chord_Last
-                      Keys(ChordKeys(n, i)) = 0
-                    Next
-                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31))
-                  Next
+                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31))
                 Else
                   PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31))
-                  PostEvent(#Event_HandleKeys)
                 EndIf
               EndIf
             ElseIf Trigger_Chord_Button_7th = 2
@@ -3109,6 +3169,16 @@ If InitSound()
                               MouseButtonRightPrevious = MouseButtonRightCurrent
                               MouseButtonRightCurrent = 0
                               
+                            Case #PB_EventType_MiddleButtonDown
+                              MouseButtonMiddlePrevious = MouseButtonMiddleCurrent
+                              MouseButtonMiddleCurrent = 1
+                              PostEvent(#PB_Event_Repaint)
+                              Break
+                              
+                            Case #PB_EventType_MiddleButtonUp
+                              MouseButtonRightPrevious = MouseButtonMiddleCurrent
+                              MouseButtonMiddleCurrent = 0
+                              
                           EndSelect
                       EndSelect
                     Case #PB_Event_CloseWindow
@@ -3138,112 +3208,209 @@ If InitSound()
                 
                 PostEvent(#PB_Event_Repaint)
               Else
-                Select MousePositionYCurrent
-                  Case 92 To 100
-                    If Status_Harp(#Harp_13) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_13) = 1
-                      Status_Sound(#Dat_Harp_13) = #Curve_Trigger
-                    EndIf
-                  Case 101 To 124
-                    If Status_Harp(#Harp_12) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_12) = 1
-                      Status_Sound(#Dat_Harp_12) = #Curve_Trigger
-                    EndIf
-                  Case 125 To 148
-                    If Status_Harp(#Harp_11) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_11) = 1
-                      Status_Sound(#Dat_Harp_11) = #Curve_Trigger
-                    EndIf
-                  Case 149 To 172
-                    If Status_Harp(#Harp_10) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_10) = 1
-                      Status_Sound(#Dat_Harp_10) = #Curve_Trigger
-                    EndIf
-                  Case 173 To 196
-                    If Status_Harp(#Harp_9) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_9) = 1
-                      Status_Sound(#Dat_Harp_9) = #Curve_Trigger
-                    EndIf
-                  Case 197 To 220
-                    If Status_Harp(#Harp_8) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_8) = 1
-                      Status_Sound(#Dat_Harp_8) = #Curve_Trigger
-                    EndIf
-                  Case 221 To 244
-                    If Status_Harp(#Harp_7) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_7) = 1
-                      Status_Sound(#Dat_Harp_7) = #Curve_Trigger
-                    EndIf
-                  Case 245 To 268
-                    If Status_Harp(#Harp_6) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_6) = 1
-                      Status_Sound(#Dat_Harp_6) = #Curve_Trigger
-                    EndIf
-                  Case 269 To 292
-                    If Status_Harp(#Harp_5) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_5) = 1
-                      Status_Sound(#Dat_Harp_5) = #Curve_Trigger
-                    EndIf
-                  Case 293 To 316
-                    If Status_Harp(#Harp_4) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_4) = 1
-                      Status_Sound(#Dat_Harp_4) = #Curve_Trigger
-                    EndIf
-                  Case 317 To 340
-                    If Status_Harp(#Harp_3) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_3) = 1
-                      Status_Sound(#Dat_Harp_3) = #Curve_Trigger
-                    EndIf
-                  Case 341 To 364
-                    If Status_Harp(#Harp_2) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_2) = 1
-                      Status_Sound(#Dat_Harp_2) = #Curve_Trigger
-                    EndIf
-                  Case 365 To 388
-                    If Status_Harp(#Harp_1) = 0
-                      For i = 0 To #Harp_13
-                        Status_Harp(i) = 0
-                      Next
-                      Status_Harp(#Harp_1) = 1
-                      Status_Sound(#Dat_Harp_1) = #Curve_Trigger
-                    EndIf
-                EndSelect
+                
+                
+                
+                
+                If Trigger_Harp_Plate
+                  Select MousePositionYCurrent
+                    Case 92 To 100
+                      If Status_Harp(#Harp_13) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_13) = 1
+                        Status_Sound(#Dat_Harp_13) = #Curve_Trigger
+                      EndIf
+                    Case 101 To 124
+                      If Status_Harp(#Harp_12) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_12) = 1
+                        Status_Sound(#Dat_Harp_12) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_13) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 125 To 148
+                      If Status_Harp(#Harp_11) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_11) = 1
+                        Status_Sound(#Dat_Harp_11) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_12) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_13) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_13) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 149 To 172
+                      If Status_Harp(#Harp_10) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_10) = 1
+                        Status_Sound(#Dat_Harp_10) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_11) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_12) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_12) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 173 To 196
+                      If Status_Harp(#Harp_9) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_9) = 1
+                        Status_Sound(#Dat_Harp_9) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_10) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_11) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_11) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_13) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 197 To 220
+                      If Status_Harp(#Harp_8) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_8) = 1
+                        Status_Sound(#Dat_Harp_8) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_9) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_10) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_10) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_12) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 221 To 244
+                      If Status_Harp(#Harp_7) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_7) = 1
+                        Status_Sound(#Dat_Harp_7) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_8) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_9) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_9) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_11) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 245 To 268
+                      If Status_Harp(#Harp_6) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_6) = 1
+                        Status_Sound(#Dat_Harp_6) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_7) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_8) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_8) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_10) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 269 To 292
+                      If Status_Harp(#Harp_5) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_5) = 1
+                        Status_Sound(#Dat_Harp_5) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_6) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_7) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_7) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_9) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 293 To 316
+                      If Status_Harp(#Harp_4) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_4) = 1
+                        Status_Sound(#Dat_Harp_4) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_5) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_6) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_6) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_8) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 317 To 340
+                      If Status_Harp(#Harp_3) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_3) = 1
+                        Status_Sound(#Dat_Harp_3) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_4) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_5) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_5) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_7) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 341 To 364
+                      If Status_Harp(#Harp_2) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_2) = 1
+                        Status_Sound(#Dat_Harp_2) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_3) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_4) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_4) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_6) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                    Case 365 To 388
+                      If Status_Harp(#Harp_1) = 0
+                        For i = 0 To #Harp_13
+                          Status_Harp(i) = 0
+                        Next
+                        Status_Harp(#Harp_1) = 1
+                        Status_Sound(#Dat_Harp_1) = #Curve_Trigger
+                        If Trigger_Harp_Plate & 2
+                          Status_Sound(#Dat_Harp_2) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_3) = #Curve_Trigger
+                        EndIf
+                        If Trigger_Harp_Plate & 4
+                          Status_Sound(#Dat_Harp_3) = #Curve_Trigger
+                          Status_Sound(#Dat_Harp_5) = #Curve_Trigger
+                        EndIf
+                      EndIf
+                  EndSelect
+                  
+                
+                EndIf
               EndIf
             EndIf
             
@@ -3444,18 +3611,51 @@ If InitSound()
               
               ;Chord Buttons
               For i = #Note_First To #Note_Fc
-                If Keys(ChordKeys(#Chord_Maj, i)) = 1
-                  DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
-                Else
-                  DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
-                EndIf
+                Select i
+                  Case #Note_Eb
+                    If Keys(ChordKeys(#Chord_Maj, i)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Light_Down_On), 271+i*31, 240)
+                    Else
+                      DrawAlphaImage(ImageID(#Img_Button_Light_Down_Off), 271+i*31, 240)
+                    EndIf
+                  Case #Note_Bb
+                    If Keys(ChordKeys(#Chord_Maj, i)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Light_Up_On), 271+i*31, 240)
+                    Else
+                      DrawAlphaImage(ImageID(#Img_Button_Light_Up_Off), 271+i*31, 240)
+                    EndIf
+                  Case #Note_A, #Note_E, #Note_B
+                    If Keys(ChordKeys(#Chord_Maj, i)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Light_O_On), 271+i*31, 240)
+                    Else
+                      DrawAlphaImage(ImageID(#Img_Button_Light_O_Off), 271+i*31, 240)
+                    EndIf
+                  Default
+                    If Keys(ChordKeys(#Chord_Maj, i)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
+                    Else
+                      DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
+                    EndIf
+                EndSelect
                 
                 Select i
-                  Case #Note_Db, #Note_Bb, #Note_D, #Note_B
+                  Case #Note_Db, #Note_Bb, #Note_D
                     If Keys(ChordKeys(#Chord_Min, i)) = 1
                       DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
                     Else
                       DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286+i*31, 283)
+                    EndIf
+                  Case #Note_A, #Note_E
+                    If Keys(ChordKeys(#Chord_Min, i)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Dark_C_On), 286+i*31, 283)
+                    Else
+                      DrawAlphaImage(ImageID(#Img_Button_Dark_C_Off), 286+i*31, 283)
+                    EndIf
+                  Case #Note_B
+                    If Keys(ChordKeys(#Chord_Min, i)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Light_C_On), 286+i*31, 283)
+                    Else
+                      DrawAlphaImage(ImageID(#Img_Button_Light_C_Off), 286+i*31, 283)
                     EndIf
                   Default
                     If Keys(ChordKeys(#Chord_Min, i)) = 1
@@ -3465,11 +3665,26 @@ If InitSound()
                     EndIf
                 EndSelect
                 
-                If Keys(ChordKeys(#Chord_7th, i)) = 1
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
-                Else
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
-                EndIf
+                Select i
+                  Case #Note_F, #Note_C, #Note_G
+                    If Keys(ChordKeys(#Chord_7th, i)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_On), 301+i*31, 326)
+                    Else
+                      DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_Off), 301+i*31, 326)
+                    EndIf
+                  Case #Note_A, #Note_E, #Note_B
+                    If Keys(ChordKeys(#Chord_7th, i)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Dark_X_On), 301+i*31, 326)
+                    Else
+                      DrawAlphaImage(ImageID(#Img_Button_Dark_X_Off), 301+i*31, 326)
+                    EndIf
+                  Default
+                    If Keys(ChordKeys(#Chord_7th, i)) = 1
+                      DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
+                    Else
+                      DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
+                    EndIf
+                EndSelect
               Next
               
               ;Harp Plate
