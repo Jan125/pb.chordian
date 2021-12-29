@@ -8,12 +8,12 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2021-07-29 21:22" user="Dino" host="DESKTOP-FTD7II1"/>
+    <lastopen date="2021-12-29 21:36" user="Dino" host="DESKTOP-FTD7II1"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="ae2e3506d1964fb228a00055e8c26fa4"/>
+      <fingerprint md5="fe508914eda6ecc0c2dc0d6cb4a00a65"/>
     </file>
   </section>
   <section name="targets">
@@ -21,10 +21,10 @@
       <inputfile value="chordian.pb"/>
       <outputfile value="..\chordian.exe"/>
       <executable value="..\chordian.exe"/>
-      <options unicode="1" xpskin="1" debug="1"/>
+      <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
-      <compilecount enable="1" value="488"/>
-      <buildcount enable="1" value="73"/>
+      <compilecount enable="1" value="574"/>
+      <buildcount enable="1" value="84"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>

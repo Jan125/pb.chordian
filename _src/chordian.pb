@@ -286,7 +286,8 @@ Enumeration -1
   #Curve_Decay
   #Curve_Sustain
   #Curve_Release
-  #Curve_Last
+  #Curve_Oneshot
+  #Curve_Last = #Curve_Oneshot
 EndEnumeration
 
 Enumeration 1
@@ -302,12 +303,23 @@ Enumeration #PB_Event_FirstCustomValue
   #Event_HandleTriggers
   #Event_GeneralKeyDown
   #Event_GeneralKeyUp
-  #Event_HandleKeys
+  #Event_HandleChordKeys
+  #Event_HandleHarpKeys
 EndEnumeration
 
 ;-Loop Variables
 Define i.l
 Define n.l
+Define s.l
+Define p.l
+Define r.l
+
+;-Temp Variables
+Define TempString.s
+Define TempLong1.l
+Define TempLong2.l
+Define TempFloat.f
+
 
 ;--Frequency Data
 Global Dim Frequencies.l(#Note_Last, #Chord_Last, #Dat_Last)
@@ -1934,89 +1946,203 @@ Frequencies(#Note_B, #Chord_Aug, #Dat_Harp_13) = 1203854336
 ;--Pattern Data
 ; This is used for pattern data.
 
-Global Dim Patterns.a(1, #Rhythm_Last, #Note_Last, 15, #Pattern_Last)
+Global Dim Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
+
+For s = 0 To 1
+  For r = #Rhythm_First To #Rhythm_Last
+    For n = #Note_First To #Note_Last
+      For i = 0 To 31
+        For p = #Pattern_First To #Pattern_Last
+          Patterns(s, r, n, i, p) = #Curve_Release
+        Next
+        Patterns(s, r, n, i, #Pattern_Frequency) = 0
+      Next
+    Next
+  Next
+Next
+
 
 For i = #Note_First To #Note_Last
-  For n = 0 To 15
+  For n = 0 To 31
     Patterns(0, #Rhythm_Disco, i, n, #Pattern_Frequency) = 0
   Next
-  Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Bass) = 1
-  Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Bass) = 1
-  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Bass) = 1
-  Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Bass) = 1
-  Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Bass) = 1
+  Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Bass) = #Curve_Oneshot
   
-  Patterns(0, #Rhythm_Disco, i, 2, #Pattern_Chords) = 1
-  Patterns(0, #Rhythm_Disco, i, 5, #Pattern_Chords) = 1
-  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Chords) = 1
-  Patterns(0, #Rhythm_Disco, i, 11, #Pattern_Chords) = 1
-  Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Chords) = 1
+  Patterns(0, #Rhythm_Disco, i, 2, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 5, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 11, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Chords) = #Curve_Oneshot
   
-  Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Drum_BD) = 1
-  Patterns(0, #Rhythm_Disco, i, 7, #Pattern_Drum_BD) = 1
-  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Drum_BD) = 1
-  Patterns(0, #Rhythm_Disco, i, 13, #Pattern_Drum_BD) = 1
-  Patterns(0, #Rhythm_Disco, i, 15, #Pattern_Drum_BD) = 1
+  Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 7, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 13, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 15, #Pattern_Drum_BD) = #Curve_Oneshot
   
-  Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 1, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 2, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 3, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 5, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 6, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 7, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 9, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 10, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 11, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 13, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Drum_HiHat) = 1
-  Patterns(0, #Rhythm_Disco, i, 15, #Pattern_Drum_HiHat) = 1
+  Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 1, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 2, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 3, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 5, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 6, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 7, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 9, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 10, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 11, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 13, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 15, #Pattern_Drum_HiHat) = #Curve_Oneshot
   
-  Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Drum_Snare) = 1
-  Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Drum_Snare) = 1
+  Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Drum_Snare) = #Curve_Oneshot
+  
+  
+  Patterns(0, #Rhythm_Disco, i, 0+16, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 4+16, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 8+16, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 12+16, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 14+16, #Pattern_Bass) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Disco, i, 2+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 5+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 8+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 11+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 14+16, #Pattern_Chords) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Disco, i, 0+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 7+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 8+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 13+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 15+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Disco, i, 0+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 1+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 2+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 3+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 4+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 5+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 6+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 7+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 8+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 9+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 10+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 11+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 12+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 13+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 14+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 15+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Disco, i, 4+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 12+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+  
 Next
 
-For n = 0 To 15
+For n = 0 To 31
   Patterns(0, #Rhythm_Disco, #Note_Db, n, #Pattern_Frequency) = 1
 Next
-For n = 0 To 15
+For n = 0 To 31
   Patterns(0, #Rhythm_Disco, #Note_Eb, n, #Pattern_Frequency) = 1
 Next
-For n = 0 To 15
+For n = 0 To 31
   Patterns(0, #Rhythm_Disco, #Note_C, n, #Pattern_Frequency) = 1
 Next
-For n = 0 To 15
+For n = 0 To 31
   Patterns(0, #Rhythm_Disco, #Note_F, n, #Pattern_Frequency) = 1
 Next
-For n = 0 To 15
+For n = 0 To 31
   Patterns(0, #Rhythm_Disco, #Note_D, n, #Pattern_Frequency) = 1
 Next
-For n = 0 To 15
+For n = 0 To 31
   Patterns(0, #Rhythm_Disco, #Note_E, n, #Pattern_Frequency) = 1
 Next
 
-;-Variables
-; These are used for program flow.
-Define Event.l
 
-; This is used for the keyboard.
-; Each key event usually a value of 0 to 255. 65535 is just to be on the secure end, with Unicode and whatnot.
-Global Dim Keys.a(65535)
-Global LastKey.u = 0
+For n = #Note_First To #Note_Last
+  
+  Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 2, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 13, #Pattern_Bass) = #Curve_Sustain
+  
+  Patterns(0, #Rhythm_Rock1, n, 2, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 6, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 10, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 14, #Pattern_Chords) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 8, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 3, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 6, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 8, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  
+  Patterns(0, #Rhythm_Rock1, n, 10, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 4, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12, #Pattern_Drum_Snare) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 2+16, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 13+16, #Pattern_Bass) = #Curve_Sustain
+  
+  Patterns(0, #Rhythm_Rock1, n, 2+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 6+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 10+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 14+16, #Pattern_Chords) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 8+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 3+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 6+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 8+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 13+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 14+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 15+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  
+  Patterns(0, #Rhythm_Rock1, n, 10+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 4+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+Next
 
-; This keeps track of the current tick.
-Global Tick.f = 0
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_C, i, #Pattern_Frequency) = 1
+Next
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_Db, i, #Pattern_Frequency) = 1
+Next
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_E, i, #Pattern_Frequency) = 1
+Next
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_Eb, i, #Pattern_Frequency) = 1
+Next
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_F, i, #Pattern_Frequency) = 1
+Next
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_D, i, #Pattern_Frequency) = 1
+Next
 
-; This is used to signify a rhythm tick event.
-Global NewTick.l = 0
-
-; This is used to signify a chord change.
-Global NewChord.l = 0
-
-; This is used for creating a variable keymap for the chord buttons.
+;--Chord Key Data
 Global Dim ChordKeys.u(#Chord_Last, #Note_Last)
 ChordKeys(#Chord_Maj, #Note_Db) = #PB_Shortcut_1
 ChordKeys(#Chord_Min, #Note_Db) = #PB_Shortcut_Q
@@ -2067,6 +2193,41 @@ ChordKeys(#Chord_Min, #Note_Fc) = 187
 ChordKeys(#Chord_7th, #Note_Fc) = 191
 
 
+Global Dim HarpKeys.u(#Harp_Last)
+HarpKeys(#Harp_1) = #PB_Shortcut_Escape
+HarpKeys(#Harp_2) = #PB_Shortcut_F1
+HarpKeys(#Harp_3) = #PB_Shortcut_F2
+HarpKeys(#Harp_4) = #PB_Shortcut_F3
+HarpKeys(#Harp_5) = #PB_Shortcut_F4
+HarpKeys(#Harp_6) = #PB_Shortcut_F5
+HarpKeys(#Harp_7) = #PB_Shortcut_F6
+HarpKeys(#Harp_8) = #PB_Shortcut_F7
+HarpKeys(#Harp_9) = #PB_Shortcut_F8
+HarpKeys(#Harp_10) = #PB_Shortcut_F9
+HarpKeys(#Harp_11) = #PB_Shortcut_F10
+HarpKeys(#Harp_12) = #PB_Shortcut_F11
+HarpKeys(#Harp_13) = #PB_Shortcut_F12
+
+;-Variables
+; These are used for program flow.
+Define Event.l
+
+; This is used for the keyboard.
+; Each key event usually returns a value of 0 to 255. 65535 is just to be on the secure end, with Unicode and whatnot.
+Global Dim Keys.a(65535)
+Global LastKey.u = 0
+
+; This keeps track of the current tick.
+Global Tick.f = 0
+
+; This is used to signify a rhythm tick event.
+Global NewTick.l = 0
+
+; This is used to signify a chord change.
+Global NewChord.l = 0
+
+;If buttons have been pressed, but no change in chords has happened.
+Global NoChordChange.l = 0
 
 
 ; These are used to check mouse status.
@@ -2185,45 +2346,76 @@ Procedure.l UpdateFrequencies()
     SetSoundFrequency(#Snd_Chord_2, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Chord_2)))
     SetSoundFrequency(#Snd_Chord_3, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Chord_3)))
     
-    SetSoundFrequency(#Snd_Harp_1_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_1)))
-    SetSoundFrequency(#Snd_Harp_1_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_1)))
-    SetSoundPosition(#Snd_Harp_1_Standard, GetSoundPosition(#Snd_Harp_1_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_2_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_2)))
-    SetSoundFrequency(#Snd_Harp_2_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_2)))
-    SetSoundPosition(#Snd_Harp_2_Standard, GetSoundPosition(#Snd_Harp_2_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_3_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_3)))
-    SetSoundFrequency(#Snd_Harp_3_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_3)))
-    SetSoundPosition(#Snd_Harp_3_Standard, GetSoundPosition(#Snd_Harp_3_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_4_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_4)))
-    SetSoundFrequency(#Snd_Harp_4_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_4)))
-    SetSoundPosition(#Snd_Harp_4_Standard, GetSoundPosition(#Snd_Harp_4_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_5_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_5)))
-    SetSoundFrequency(#Snd_Harp_5_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_5)))
-    SetSoundPosition(#Snd_Harp_5_Standard, GetSoundPosition(#Snd_Harp_5_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_6_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_6)))
-    SetSoundFrequency(#Snd_Harp_6_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_6)))
-    SetSoundPosition(#Snd_Harp_6_Standard, GetSoundPosition(#Snd_Harp_6_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_7_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_7)))
-    SetSoundFrequency(#Snd_Harp_7_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_7)))
-    SetSoundPosition(#Snd_Harp_7_Standard, GetSoundPosition(#Snd_Harp_7_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_8_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_8)))
-    SetSoundFrequency(#Snd_Harp_8_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_8)))
-    SetSoundPosition(#Snd_Harp_8_Standard, GetSoundPosition(#Snd_Harp_8_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_9_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_9)))
-    SetSoundFrequency(#Snd_Harp_9_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_9)))
-    SetSoundPosition(#Snd_Harp_9_Standard, GetSoundPosition(#Snd_Harp_9_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_10_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_10)))
-    SetSoundFrequency(#Snd_Harp_10_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_10)))
-    SetSoundPosition(#Snd_Harp_10_Standard, GetSoundPosition(#Snd_Harp_10_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_11_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_11)))
-    SetSoundFrequency(#Snd_Harp_11_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_11)))
-    SetSoundPosition(#Snd_Harp_11_Standard, GetSoundPosition(#Snd_Harp_11_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_12_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_12)))
-    SetSoundFrequency(#Snd_Harp_12_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_12)))
-    SetSoundPosition(#Snd_Harp_12_Standard, GetSoundPosition(#Snd_Harp_12_Vibrato)+7)
-    SetSoundFrequency(#Snd_Harp_13_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13)))
-    SetSoundFrequency(#Snd_Harp_13_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13)))
-    SetSoundPosition(#Snd_Harp_13_Standard, GetSoundPosition(#Snd_Harp_13_Vibrato)+7)
+    
+    If GetSoundFrequency(#Snd_Harp_1_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_1))
+      SetSoundFrequency(#Snd_Harp_1_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_1)))
+      SetSoundFrequency(#Snd_Harp_1_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_1)))
+      SetSoundPosition(#Snd_Harp_1_Standard, GetSoundPosition(#Snd_Harp_1_Vibrato)+7)
+    EndIf
+    
+    If GetSoundFrequency(#Snd_Harp_2_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_2))
+      SetSoundFrequency(#Snd_Harp_2_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_2)))
+      SetSoundFrequency(#Snd_Harp_2_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_2)))
+      SetSoundPosition(#Snd_Harp_2_Standard, GetSoundPosition(#Snd_Harp_2_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_3_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_3))
+      SetSoundFrequency(#Snd_Harp_3_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_3)))
+      SetSoundFrequency(#Snd_Harp_3_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_3)))
+      SetSoundPosition(#Snd_Harp_3_Standard, GetSoundPosition(#Snd_Harp_3_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_4_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_4))
+      SetSoundFrequency(#Snd_Harp_4_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_4)))
+      SetSoundFrequency(#Snd_Harp_4_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_4)))
+      SetSoundPosition(#Snd_Harp_4_Standard, GetSoundPosition(#Snd_Harp_4_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_5_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_5))
+      SetSoundFrequency(#Snd_Harp_5_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_5)))
+      SetSoundFrequency(#Snd_Harp_5_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_5)))
+      SetSoundPosition(#Snd_Harp_5_Standard, GetSoundPosition(#Snd_Harp_5_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_6_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_6))
+      SetSoundFrequency(#Snd_Harp_6_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_6)))
+      SetSoundFrequency(#Snd_Harp_6_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_6)))
+      SetSoundPosition(#Snd_Harp_6_Standard, GetSoundPosition(#Snd_Harp_6_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_7_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_7))
+      SetSoundFrequency(#Snd_Harp_7_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_7)))
+      SetSoundFrequency(#Snd_Harp_7_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_7)))
+      SetSoundPosition(#Snd_Harp_7_Standard, GetSoundPosition(#Snd_Harp_7_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_8_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_8))
+      SetSoundFrequency(#Snd_Harp_8_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_8)))
+      SetSoundFrequency(#Snd_Harp_8_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_8)))
+      SetSoundPosition(#Snd_Harp_8_Standard, GetSoundPosition(#Snd_Harp_8_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_9_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_9))
+      SetSoundFrequency(#Snd_Harp_9_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_9)))
+      SetSoundFrequency(#Snd_Harp_9_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_9)))
+      SetSoundPosition(#Snd_Harp_9_Standard, GetSoundPosition(#Snd_Harp_9_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_10_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_10))
+      SetSoundFrequency(#Snd_Harp_10_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_10)))
+      SetSoundFrequency(#Snd_Harp_10_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_10)))
+      SetSoundPosition(#Snd_Harp_10_Standard, GetSoundPosition(#Snd_Harp_10_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_11_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_11))
+      SetSoundFrequency(#Snd_Harp_11_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_11)))
+      SetSoundFrequency(#Snd_Harp_11_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_11)))
+      SetSoundPosition(#Snd_Harp_11_Standard, GetSoundPosition(#Snd_Harp_11_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_12_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_12))
+      SetSoundFrequency(#Snd_Harp_12_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_12)))
+      SetSoundFrequency(#Snd_Harp_12_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_12)))
+      SetSoundPosition(#Snd_Harp_12_Standard, GetSoundPosition(#Snd_Harp_12_Vibrato)+7)
+    EndIf
+    If GetSoundFrequency(#Snd_Harp_13_Vibrato) <> PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13))
+      SetSoundFrequency(#Snd_Harp_13_Vibrato, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13)))
+      SetSoundFrequency(#Snd_Harp_13_Standard, PeekF(@Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13)))
+      SetSoundPosition(#Snd_Harp_13_Standard, GetSoundPosition(#Snd_Harp_13_Vibrato)+7)
+    EndIf
+    
+    
+    
   EndIf
 EndProcedure
 Procedure UpdateVolume()
@@ -2252,8 +2444,8 @@ Procedure UpdateVolume()
         NewTick = 1
       EndIf
       Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
-      If Tick >= 16.0
-        Tick-16.0
+      If Tick >= 32.0
+        Tick-32.0
       EndIf
   EndSelect
   
@@ -2261,7 +2453,6 @@ Procedure UpdateVolume()
     NewTick = 0
     Select Value_Rhythm_Pattern
       Case #Rhythm_None
-        Value_Rhythm_Bass = 0
         NewChord = 1
         Status_Sound(#Dat_Bass_1) = #Curve_Trigger
         Status_Sound(#Dat_Chord_1) = #Curve_Trigger
@@ -2270,40 +2461,19 @@ Procedure UpdateVolume()
       Default
         If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None
           If Value_Rhythm_AutoBassSync
-            If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency) = 1 And Value_Rhythm_Bass <> 0
-              Value_Rhythm_Bass = 0
-              NewChord = 1
-            ElseIf Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency) = 2 And Value_Rhythm_Bass <> 1
-              Value_Rhythm_Bass = 1
-              NewChord = 1
-            EndIf
+            NewChord = 1
+            Status_Sound(#Dat_Bass_1) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Bass)
             
             
-            If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Bass) = 1
-              Status_Sound(#Dat_Bass_1) = #Curve_Trigger
-            Else
-              Status_Sound(#Dat_Bass_1) = #Curve_Release
-            EndIf
-            
-            If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords) = 1
-              Status_Sound(#Dat_Chord_1) = #Curve_Trigger
-              Status_Sound(#Dat_Chord_2) = #Curve_Trigger
-              Status_Sound(#Dat_Chord_3) = #Curve_Trigger
-            Else
-              Status_Sound(#Dat_Chord_1) = #Curve_Release
-              Status_Sound(#Dat_Chord_2) = #Curve_Release
-              Status_Sound(#Dat_Chord_3) = #Curve_Release
-            EndIf
+            Status_Sound(#Dat_Chord_1) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords)
+            Status_Sound(#Dat_Chord_2) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords)
+            Status_Sound(#Dat_Chord_3) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords)
           EndIf
-          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_BD) = 1
-            Status_Sound(#Dat_Drum_BD) = #Curve_Trigger
-          EndIf
-          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_HiHat) = 1
-            Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger
-          EndIf
-          If Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_Snare) = 1
-            Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger
-          EndIf
+          Status_Sound(#Dat_Drum_BD) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_BD)
+          
+          Status_Sound(#Dat_Drum_HiHat) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_HiHat)
+          Status_Sound(#Dat_Drum_Snare) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_Snare)
+          
         EndIf
     EndSelect
   EndIf
@@ -2331,16 +2501,11 @@ Procedure UpdateVolume()
             VolumeStatus(i) = 0.0
           Case #Curve_Trigger
             VolumeStatus(i) = 1.0
-            Select Value_Rhythm_Pattern
-              Case #Rhythm_None
-                Status_Sound(i) = #Curve_Attack
-              Default
-                If Value_Rhythm_AutoBassSync
-                  Status_Sound(i) = #Curve_Release
-                Else
-                  Status_Sound(i) = #Curve_Attack
-                EndIf
-            EndSelect
+            Status_Sound(i) = #Curve_Attack
+            i-1
+          Case #Curve_Oneshot
+            VolumeStatus(i) = 1.0
+            Status_Sound(i) = #Curve_Release
             i-1
           Case #Curve_Attack
             Status_Sound(i) = #Curve_Decay
@@ -2363,16 +2528,11 @@ Procedure UpdateVolume()
             VolumeStatus(i) = 0.0
           Case #Curve_Trigger
             VolumeStatus(i) = 1.0
-            Select Value_Rhythm_Pattern
-              Case #Rhythm_None
-                Status_Sound(i) = #Curve_Attack
-              Default
-                If Value_Rhythm_AutoBassSync
-                  Status_Sound(i) = #Curve_Release
-                Else
-                  Status_Sound(i) = #Curve_Attack
-                EndIf
-            EndSelect
+            Status_Sound(i) = #Curve_Attack
+            i-1
+          Case #Curve_Oneshot
+            VolumeStatus(i) = 1.0
+            Status_Sound(i) = #Curve_Release
             i-1
           Case #Curve_Attack
             Status_Sound(i) = #Curve_Decay
@@ -2421,17 +2581,19 @@ Procedure UpdateVolume()
         EndSelect
       Next
       
-      If Status_Sound(#Dat_Drum_BD) = #Curve_Trigger
+      
+      
+      If Status_Sound(#Dat_Drum_BD) = #Curve_Trigger Or Status_Sound(#Dat_Drum_BD) = #Curve_Oneshot
         Status_Sound(#Dat_Drum_BD) = #Curve_Release
         VolumeStatus(#Dat_Drum_BD) = 1.0
         PlaySound(#Snd_Drum_BD, 0, Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_BD))
       EndIf  
-      If Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger
+      If Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger Or Status_Sound(#Dat_Drum_HiHat) = #Curve_Oneshot
         Status_Sound(#Dat_Drum_HiHat) = #Curve_Release
         VolumeStatus(#Dat_Drum_HiHat) = 1.0
         PlaySound(#Snd_Drum_HiHat, 0, Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_HiHat)) 
       EndIf  
-      If Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger
+      If Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Snare) = #Curve_Oneshot
         Status_Sound(#Dat_Drum_Snare) = #Curve_Release
         VolumeStatus(#Dat_Drum_Snare) = 1.0
         PlaySound(#Snd_Drum_Snare, 0, Bool(Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Snare)) 
@@ -2483,6 +2645,14 @@ Procedure UpdateVolume()
   EndIf
   
   ProcedureReturn TimeDelta
+EndProcedure
+
+Procedure UpdateVolumeThread(*Null)
+  Repeat
+    If Not UpdateVolume()
+      Delay(1)
+    EndIf
+  ForEver
 EndProcedure
 
 ;-Initialization
@@ -2596,7 +2766,7 @@ If InitSound()
   PlaySound(#Snd_Harp_12_Standard, #PB_Sound_Loop, 0)
   PlaySound(#Snd_Harp_13_Vibrato, #PB_Sound_Loop, 0)
   PlaySound(#Snd_Harp_13_Standard, #PB_Sound_Loop, 0)
-  
+  CreateThread(@UpdateVolumeThread(), 0)
   If OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 600, "Chordian", #PB_Window_SystemMenu)
     If CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main), #PB_Canvas_Keyboard)
       SetActiveGadget(#Gad_Canvas)
@@ -2658,7 +2828,8 @@ If InitSound()
           Case #Event_GeneralKeyDown
             ;--GeneralKeyDown
             If Keys(EventData()) = 0
-              PostEvent(#Event_HandleKeys)
+              PostEvent(#Event_HandleChordKeys)
+              PostEvent(#Event_HandleHarpKeys)
               PostEvent(#PB_Event_Repaint)
             EndIf
             Keys(EventData()) = 1
@@ -2669,7 +2840,7 @@ If InitSound()
             Keys(EventData()) = 0
             PostEvent(#PB_Event_Repaint)
             If Not Value_Memory_Playback_Record
-              PostEvent(#Event_HandleKeys)
+              PostEvent(#Event_HandleChordKeys)
             EndIf
             
           Case #Event_GetTriggers
@@ -2820,7 +2991,17 @@ If InitSound()
             EndIf
             
             If Trigger_Master_Knob_Volume
-              Value_Master_Volume+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+              Select Trigger_Master_Knob_Volume
+                Case 1
+                  Value_Master_Volume+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+                Case 2
+                  Trigger_Master_Knob_Volume = 0
+                  TempString = InputRequester("Chordian>Master>Volume", "Insert new Volume. (0.0-1.0)", StrF(Value_Master_Volume))
+                  If Len(TempString) > 0
+                    Value_Master_Volume = ValF(TempString)
+                  EndIf
+              EndSelect
+              
               If Value_Master_Volume > 1.0
                 Value_Master_Volume = 1.0
               ElseIf Value_Master_Volume < 0.0
@@ -2830,7 +3011,17 @@ If InitSound()
             EndIf
             
             If Trigger_Level_Knob_Volume_Harp_1
-              Value_Level_Volume_Harp_1+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+              Select Trigger_Level_Knob_Volume_Harp_1
+                Case 1
+                  Value_Level_Volume_Harp_1+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+                Case 2
+                  Trigger_Level_Knob_Volume_Harp_1 = 0
+                  TempString = InputRequester("Chordian>Harp1>Volume", "Insert new Volume. (0.0-1.0)", StrF(Value_Level_Volume_Harp_1))
+                  If Len(TempString) > 0
+                    Value_Level_Volume_Harp_1 = ValF(TempString)
+                  EndIf
+              EndSelect
+              
               If Value_Level_Volume_Harp_1 > 1.0
                 Value_Level_Volume_Harp_1 = 1.0
               ElseIf Value_Level_Volume_Harp_1 < 0.0
@@ -2839,7 +3030,17 @@ If InitSound()
               PostEvent(#PB_Event_Repaint)
             EndIf
             If Trigger_Level_Knob_Volume_Harp_2
-              Value_Level_Volume_Harp_2+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+              Select Trigger_Level_Knob_Volume_Harp_2
+                Case 1
+                  Value_Level_Volume_Harp_2+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+                Case 2
+                  Trigger_Level_Knob_Volume_Harp_2 = 0
+                  TempString = InputRequester("Chordian>Harp2>Volume", "Insert new Volume. (0.0-1.0)", StrF(Value_Level_Volume_Harp_2))
+                  If Len(TempString) > 0
+                    Value_Level_Volume_Harp_2 = ValF(TempString)
+                  EndIf
+              EndSelect
+              
               If Value_Level_Volume_Harp_2 > 1.0
                 Value_Level_Volume_Harp_2 = 1.0
               ElseIf Value_Level_Volume_Harp_2 < 0.0
@@ -2849,7 +3050,17 @@ If InitSound()
             EndIf
             
             If Trigger_Level_Knob_Sustain
-              Value_Level_Sustain+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+              Select Trigger_Level_Knob_Sustain
+                Case 1
+                  Value_Level_Sustain+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+                Case 2
+                  Trigger_Level_Knob_Sustain = 0
+                  TempString = InputRequester("Chordian>Keyboard>Sustain", "Insert new Volume. (0.0-1.0)", StrF(Value_Level_Sustain))
+                  If Len(TempString) > 0
+                    Value_Level_Sustain = ValF(TempString)
+                  EndIf
+              EndSelect
+              
               If Value_Level_Sustain > 1.0
                 Value_Level_Sustain = 1.0
               ElseIf Value_Level_Sustain < 0.0
@@ -2859,7 +3070,17 @@ If InitSound()
             EndIf
             
             If Trigger_Level_Knob_Volume_Keyboard
-              Value_Level_Volume_Keyboard+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+              Select Trigger_Level_Knob_Volume_Keyboard
+                Case 1
+                  Value_Level_Volume_Keyboard+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+                Case 2
+                  Trigger_Level_Knob_Volume_Keyboard = 0
+                  TempString = InputRequester("Chordian>Keyboard>Volume", "Insert new Volume. (0.0-1.0)", StrF(Value_Level_Volume_Keyboard))
+                  If Len(TempString) > 0
+                    Value_Level_Volume_Keyboard = ValF(TempString)
+                  EndIf
+              EndSelect
+              
               If Value_Level_Volume_Keyboard > 1.0
                 Value_Level_Volume_Keyboard = 1.0
               ElseIf Value_Level_Volume_Keyboard < 0.0
@@ -2869,7 +3090,17 @@ If InitSound()
             EndIf
             
             If Trigger_Level_Knob_Volume_Chords
-              Value_Level_Volume_Chords+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+              Select Trigger_Level_Knob_Volume_Chords
+                Case 1
+                  Value_Level_Volume_Chords+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+                Case 2
+                  Trigger_Level_Knob_Volume_Chords = 0
+                  TempString = InputRequester("Chordian>Chords>Volume", "Insert new Volume. (0.0-1.0)", StrF(Value_Level_Volume_Chords))
+                  If Len(TempString) > 0
+                    Value_Level_Volume_Chords = ValF(TempString)
+                  EndIf
+              EndSelect
+              
               If Value_Level_Volume_Chords > 1.0
                 Value_Level_Volume_Chords = 1.0
               ElseIf Value_Level_Volume_Chords < 0.0
@@ -2901,7 +3132,6 @@ If InitSound()
                   NewChord = 1
                   NewTick = 1
                 EndIf
-                UpdateVolume()
               EndIf
               PostEvent(#PB_Event_Repaint)
             EndIf
@@ -2921,16 +3151,48 @@ If InitSound()
             EndIf
             
             If Trigger_Rhythm_Knob_Tempo
-              Value_Rhythm_Tempo+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+              Select Trigger_Rhythm_Knob_Tempo
+                Case 1
+                  Value_Rhythm_Tempo+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+                Case 2
+                  Trigger_Rhythm_Knob_Tempo = 0
+                  TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-1.0; 45BPM-165BPM)", StrF(Value_Rhythm_Tempo)))
+                  If Len(TempString) > 0
+                    If Len(TempString) >= 3
+                      If Right(TempString, 3) = "BPM"
+                        TempFloat = ValF(Left(TempString, Len(TempString)-3))
+                        TempString = ""
+                        Value_Rhythm_Tempo = (((TempFloat/60)*4)-3.0)/8.0
+                        TempFloat = 0
+                      Else
+                        Value_Rhythm_Tempo = ValF(TempString)
+                      EndIf
+                    Else
+                      Value_Rhythm_Tempo = ValF(TempString)
+                    EndIf
+                  EndIf
+              EndSelect
               If Value_Rhythm_Tempo > 1.0
                 Value_Rhythm_Tempo = 1.0
               ElseIf Value_Rhythm_Tempo < 0.0
                 Value_Rhythm_Tempo = 0.0
               EndIf
               PostEvent(#PB_Event_Repaint)
+            Else
             EndIf
+            
             If Trigger_Rhythm_Knob_Volume
-              Value_Rhythm_Volume+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+              Select Trigger_Rhythm_Knob_Volume
+                Case 1
+                  Value_Rhythm_Volume+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
+                Case 2
+                  Trigger_Rhythm_Knob_Volume = 0
+                  TempString = InputRequester("Chordian>Rhythm>Volume", "Insert new Volume. (0.0-1.0)", StrF(Value_Rhythm_Volume))
+                  If Len(TempString) > 0
+                    Value_Rhythm_Volume = ValF(TempString)
+                  EndIf
+              EndSelect
+              
               If Value_Rhythm_Volume > 1.0
                 Value_Rhythm_Volume = 1.0
               ElseIf Value_Rhythm_Volume < 0.0
@@ -2948,7 +3210,8 @@ If InitSound()
             If Trigger_Memory_Button_Playback_Record
               Trigger_Memory_Button_Playback_Record = 0
               Value_Memory_Playback_Record = Bool(Not Value_Memory_Playback_Record)
-              PostEvent(#Event_HandleKeys)
+              PostEvent(#Event_HandleChordKeys)
+              PostEvent(#Event_HandleHarpKeys)
               PostEvent(#PB_Event_Repaint)
             EndIf
             
@@ -3032,9 +3295,7 @@ If InitSound()
                     Case #PB_Event_CloseWindow
                       Break 2
                     Default
-                      If Not UpdateVolume()
-                        Delay(1)
-                      EndIf
+                      Delay(1)
                   EndSelect
                 ForEver
               EndIf
@@ -3108,9 +3369,7 @@ If InitSound()
                     Case #PB_Event_CloseWindow
                       Break 2
                     Default
-                      If Not UpdateVolume()
-                        Delay(1)
-                      EndIf
+                      Delay(1)
                   EndSelect
                 ForEver
               EndIf
@@ -3184,9 +3443,7 @@ If InitSound()
                     Case #PB_Event_CloseWindow
                       Break 2
                     Default
-                      If Not UpdateVolume()
-                        Delay(1)
-                      EndIf
+                      Delay(1)
                   EndSelect
                 ForEver
               EndIf
@@ -3203,7 +3460,7 @@ If InitSound()
                   Next
                 Next
                 Value_Master_Power = 0
-                UpdateVolume()
+                Delay(10)
                 Value_Master_Power = 1
                 
                 PostEvent(#PB_Event_Repaint)
@@ -3409,13 +3666,13 @@ If InitSound()
                       EndIf
                   EndSelect
                   
-                
+                  
                 EndIf
               EndIf
             EndIf
             
-          Case #Event_HandleKeys
-            ;--HandleKeys
+          Case #Event_HandleChordKeys
+            ;--HandleChordKeys
             If Value_Master_Power
               If Value_Chord_Chord = #Chord_None Or Value_Chord_Note = #Note_None
                 NewTick = 1
@@ -3447,8 +3704,10 @@ If InitSound()
                   Value_Chord_Note = #Note_B
                 Case ChordKeys(#Chord_Maj, #Note_Fc), ChordKeys(#Chord_Min, #Note_Fc), ChordKeys(#Chord_7th, #Note_Fc)
                   Value_Chord_Note = #Note_Fc
+                Default
+                  NoChordChange = 1
               EndSelect
-              If Value_Chord_Note <> #Note_None
+              If Value_Chord_Note <> #Note_None And Not NoChordChange
                 If Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
                   Value_Chord_Chord = #Chord_Aug
                   NewChord = 1
@@ -3497,12 +3756,82 @@ If InitSound()
                   Value_Chord_Chord = #Chord_None
                   Value_Master_Power = 0
                   Tick = 0
-                  UpdateVolume()
+                  Delay(20)
                   Value_Master_Power = 1
                 EndIf
               EndIf
+              NoChordChange = 0
             EndIf
             
+          Case #Event_HandleHarpKeys
+            ;--HandleHarpKeys
+            If Value_Master_Power
+              If Keys(HarpKeys(#Harp_1))
+                Keys(HarpKeys(#Harp_1)) = 0
+                Status_Harp(#Harp_1) = 1
+                Status_Sound(#Dat_Harp_1) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_2))
+                Keys(HarpKeys(#Harp_2)) = 0
+                Status_Harp(#Harp_2) = 1
+                Status_Sound(#Dat_Harp_2) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_3))
+                Keys(HarpKeys(#Harp_3)) = 0
+                Status_Harp(#Harp_3) = 1
+                Status_Sound(#Dat_Harp_3) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_4))
+                Keys(HarpKeys(#Harp_4)) = 0
+                Status_Harp(#Harp_4) = 1
+                Status_Sound(#Dat_Harp_4) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_5))
+                Keys(HarpKeys(#Harp_5)) = 0
+                Status_Harp(#Harp_5) = 1
+                Status_Sound(#Dat_Harp_5) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_6))
+                Keys(HarpKeys(#Harp_6)) = 0
+                Status_Harp(#Harp_6) = 1
+                Status_Sound(#Dat_Harp_6) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_7))
+                Keys(HarpKeys(#Harp_7)) = 0
+                Status_Harp(#Harp_7) = 1
+                Status_Sound(#Dat_Harp_7) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_8))
+                Keys(HarpKeys(#Harp_8)) = 0
+                Status_Harp(#Harp_8) = 1
+                Status_Sound(#Dat_Harp_8) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_9))
+                Keys(HarpKeys(#Harp_9)) = 0
+                Status_Harp(#Harp_9) = 1
+                Status_Sound(#Dat_Harp_9) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_10))
+                Keys(HarpKeys(#Harp_10)) = 0
+                Status_Harp(#Harp_10) = 1
+                Status_Sound(#Dat_Harp_10) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_11))
+                Keys(HarpKeys(#Harp_11)) = 0
+                Status_Harp(#Harp_11) = 1
+                Status_Sound(#Dat_Harp_11) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_12))
+                Keys(HarpKeys(#Harp_12)) = 0
+                Status_Harp(#Harp_12) = 1
+                Status_Sound(#Dat_Harp_12) = #Curve_Trigger
+              EndIf
+              If Keys(HarpKeys(#Harp_13))
+                Keys(HarpKeys(#Harp_13)) = 0
+                Status_Harp(#Harp_13) = 1
+                Status_Sound(#Dat_Harp_13) = #Curve_Trigger
+              EndIf
+            EndIf
             
           Case #PB_Event_Repaint
             ;--Repaint
@@ -3695,9 +4024,7 @@ If InitSound()
           Case #PB_Event_CloseWindow
             Break
           Default
-            If Not UpdateVolume()
-              Delay(1)
-            EndIf
+            Delay(1)
         EndSelect
       ForEver
     Else
