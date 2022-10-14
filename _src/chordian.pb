@@ -81,8 +81,12 @@ DataSection
   IncludeBinary "snd\chordian_harp.wav"
   Snd_Drum_BD:
   IncludeBinary "snd\chordian_drum_bd.wav"
+  Snd_Drum_Click:
+  IncludeBinary "snd\chordian_drum_click.wav"
   Snd_Drum_HiHat:
   IncludeBinary "snd\chordian_drum_hihat.wav"
+  Snd_Drum_Ride:
+  IncludeBinary "snd\chordian_drum_ride.wav"
   Snd_Drum_Snare:
   IncludeBinary "snd\chordian_drum_snare.wav"
 EndDataSection
@@ -2482,6 +2486,11 @@ Procedure UpdateVolume()
             Status_Sound(#Dat_Chord_1) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords)
             Status_Sound(#Dat_Chord_2) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords)
             Status_Sound(#Dat_Chord_3) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords)
+          Else
+            Status_Sound(#Dat_Bass_1) = #Curve_Trigger
+            Status_Sound(#Dat_Chord_1) = #Curve_Trigger
+            Status_Sound(#Dat_Chord_2) = #Curve_Trigger
+            Status_Sound(#Dat_Chord_3) = #Curve_Trigger
           EndIf
           Status_Sound(#Dat_Drum_BD) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_BD)
           
