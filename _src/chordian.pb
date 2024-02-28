@@ -2,6 +2,8 @@
 ;-Data Sections
 ;--Graphics Data
 DataSection
+  Img_Background:
+  IncludeBinary "img\background.png"
   Img_Base:
   IncludeBinary "img\base.png"
   Img_Button_Black_Off:
@@ -79,6 +81,8 @@ DataSection
   IncludeBinary "snd\chordian_chord.wav"
   Snd_Harp:
   IncludeBinary "snd\chordian_harp.wav"
+  Snd_Harp_Mod:
+  IncludeBinary "snd\chordian_harp_mod.wav"
   Snd_Drum_BD:
   IncludeBinary "snd\chordian_drum_bd.wav"
   Snd_Drum_Click:
@@ -92,6 +96,7 @@ DataSection
 EndDataSection
 
 ;-Enumerations
+
 Enumeration -1
   #Chord_None
   #Chord_First
@@ -171,7 +176,9 @@ Enumeration -1
   #Pattern_Bass
   #Pattern_Chords
   #Pattern_Drum_BD
+  #Pattern_Drum_Click
   #Pattern_Drum_HiHat
+  #Pattern_Drum_Ride
   #Pattern_Drum_Snare
   #Pattern_Last = #Pattern_Drum_Snare
 EndEnumeration
@@ -210,14 +217,17 @@ Enumeration 1
   #Snd_Harp_13_Standard
   
   #Snd_Drum_BD
+  #Snd_Drum_Click
   #Snd_Drum_HiHat
+  #Snd_Drum_Ride
   #Snd_Drum_Snare
 EndEnumeration
 
 Enumeration 1
   #Img_First
   
-  #Img_Base = #Img_First
+  #Img_Background = #Img_First
+  #Img_Base
   #Img_Button_Black_Off
   #Img_Button_Black_On
   #Img_Button_Blue_Off
@@ -1947,7 +1957,7 @@ MIDIs(#Note_Fc, #Chord_Aug, #Dat_Harp_12) = 62
 MIDIs(#Note_Fc, #Chord_Aug, #Dat_Harp_13) = 66
 
 ;--Frequency Data
-Global Dim Frequencies.f(#Note_Last, #Chord_Last, #Dat_Last)
+Global Dim Frequencies.l(#Note_Last, #Chord_Last, #Dat_Last)
 
 For i = #Note_First To #Note_Last
   For n = #Chord_First To #Chord_Last
@@ -2035,8 +2045,6 @@ For i = #Note_First To #Note_Last
   Patterns(0, #Rhythm_Disco, i, 0+16, #Pattern_Drum_BD) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 7+16, #Pattern_Drum_BD) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 8+16, #Pattern_Drum_BD) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Disco, i, 13+16, #Pattern_Drum_BD) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Disco, i, 15+16, #Pattern_Drum_BD) = #Curve_Oneshot
   
   Patterns(0, #Rhythm_Disco, i, 0+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 1+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
@@ -2159,44 +2167,44 @@ Next
 
 ;--Chord Key Data
 Global Dim ChordKeys.u(#Chord_Last, #Note_Last)
-ChordKeys(#Chord_Maj, #Note_Db) = #PB_Shortcut_1
-ChordKeys(#Chord_Min, #Note_Db) = #PB_Shortcut_Q
-ChordKeys(#Chord_7th, #Note_Db) = #PB_Shortcut_A
+ChordKeys(#Chord_Maj, #Note_Db) = #VK_1
+ChordKeys(#Chord_Min, #Note_Db) = #VK_Q
+ChordKeys(#Chord_7th, #Note_Db) = #VK_A
 
-ChordKeys(#Chord_Maj, #Note_Ab) = #PB_Shortcut_2
-ChordKeys(#Chord_Min, #Note_Ab) = #PB_Shortcut_W
-ChordKeys(#Chord_7th, #Note_Ab) = #PB_Shortcut_S
+ChordKeys(#Chord_Maj, #Note_Ab) = #VK_2
+ChordKeys(#Chord_Min, #Note_Ab) = #VK_W
+ChordKeys(#Chord_7th, #Note_Ab) = #VK_S
 
-ChordKeys(#Chord_Maj, #Note_Eb) = #PB_Shortcut_3
-ChordKeys(#Chord_Min, #Note_Eb) = #PB_Shortcut_E
-ChordKeys(#Chord_7th, #Note_Eb) = #PB_Shortcut_D
+ChordKeys(#Chord_Maj, #Note_Eb) = #VK_3
+ChordKeys(#Chord_Min, #Note_Eb) = #VK_E
+ChordKeys(#Chord_7th, #Note_Eb) = #VK_D
 
-ChordKeys(#Chord_Maj, #Note_Bb) = #PB_Shortcut_4
-ChordKeys(#Chord_Min, #Note_Bb) = #PB_Shortcut_R
-ChordKeys(#Chord_7th, #Note_Bb) = #PB_Shortcut_F
+ChordKeys(#Chord_Maj, #Note_Bb) = #VK_4
+ChordKeys(#Chord_Min, #Note_Bb) = #VK_R
+ChordKeys(#Chord_7th, #Note_Bb) = #VK_F
 
-ChordKeys(#Chord_Maj, #Note_F) = #PB_Shortcut_5
-ChordKeys(#Chord_Min, #Note_F) = #PB_Shortcut_T
-ChordKeys(#Chord_7th, #Note_F) = #PB_Shortcut_G
+ChordKeys(#Chord_Maj, #Note_F) = #VK_5
+ChordKeys(#Chord_Min, #Note_F) = #VK_T
+ChordKeys(#Chord_7th, #Note_F) = #VK_G
 
-ChordKeys(#Chord_Maj, #Note_C) = #PB_Shortcut_6
-ChordKeys(#Chord_Min, #Note_C) = #PB_Shortcut_Z
-ChordKeys(#Chord_7th, #Note_C) = #PB_Shortcut_H
+ChordKeys(#Chord_Maj, #Note_C) = #VK_6
+ChordKeys(#Chord_Min, #Note_C) = #VK_Z
+ChordKeys(#Chord_7th, #Note_C) = #VK_H
 
-ChordKeys(#Chord_Maj, #Note_G) = #PB_Shortcut_7
-ChordKeys(#Chord_Min, #Note_G) = #PB_Shortcut_U
-ChordKeys(#Chord_7th, #Note_G) = #PB_Shortcut_J
+ChordKeys(#Chord_Maj, #Note_G) = #VK_7
+ChordKeys(#Chord_Min, #Note_G) = #VK_U
+ChordKeys(#Chord_7th, #Note_G) = #VK_J
 
-ChordKeys(#Chord_Maj, #Note_D) = #PB_Shortcut_8
-ChordKeys(#Chord_Min, #Note_D) = #PB_Shortcut_I
-ChordKeys(#Chord_7th, #Note_D) = #PB_Shortcut_K
+ChordKeys(#Chord_Maj, #Note_D) = #VK_8
+ChordKeys(#Chord_Min, #Note_D) = #VK_I
+ChordKeys(#Chord_7th, #Note_D) = #VK_K
 
-ChordKeys(#Chord_Maj, #Note_A) = #PB_Shortcut_9
-ChordKeys(#Chord_Min, #Note_A) = #PB_Shortcut_O
-ChordKeys(#Chord_7th, #Note_A) = #PB_Shortcut_L
+ChordKeys(#Chord_Maj, #Note_A) = #VK_9
+ChordKeys(#Chord_Min, #Note_A) = #VK_O
+ChordKeys(#Chord_7th, #Note_A) = #VK_L
 
-ChordKeys(#Chord_Maj, #Note_E) = #PB_Shortcut_0
-ChordKeys(#Chord_Min, #Note_E) = #PB_Shortcut_P
+ChordKeys(#Chord_Maj, #Note_E) = #VK_0
+ChordKeys(#Chord_Min, #Note_E) = #VK_P
 ChordKeys(#Chord_7th, #Note_E) = 192
 
 ChordKeys(#Chord_Maj, #Note_B) = 219
@@ -2209,19 +2217,19 @@ ChordKeys(#Chord_7th, #Note_Fc) = 191
 
 
 Global Dim HarpKeys.u(#Harp_Last)
-HarpKeys(#Harp_1) = #PB_Shortcut_Escape
-HarpKeys(#Harp_2) = #PB_Shortcut_F1
-HarpKeys(#Harp_3) = #PB_Shortcut_F2
-HarpKeys(#Harp_4) = #PB_Shortcut_F3
-HarpKeys(#Harp_5) = #PB_Shortcut_F4
-HarpKeys(#Harp_6) = #PB_Shortcut_F5
-HarpKeys(#Harp_7) = #PB_Shortcut_F6
-HarpKeys(#Harp_8) = #PB_Shortcut_F7
-HarpKeys(#Harp_9) = #PB_Shortcut_F8
-HarpKeys(#Harp_10) = #PB_Shortcut_F9
-HarpKeys(#Harp_11) = #PB_Shortcut_F10
-HarpKeys(#Harp_12) = #PB_Shortcut_F11
-HarpKeys(#Harp_13) = #PB_Shortcut_F12
+HarpKeys(#Harp_1) = #VK_ESCAPE
+HarpKeys(#Harp_2) = #VK_F1
+HarpKeys(#Harp_3) = #VK_F2
+HarpKeys(#Harp_4) = #VK_F3
+HarpKeys(#Harp_5) = #VK_F4
+HarpKeys(#Harp_6) = #VK_F5
+HarpKeys(#Harp_7) = #VK_F6
+HarpKeys(#Harp_8) = #VK_F7
+HarpKeys(#Harp_9) = #VK_F8
+HarpKeys(#Harp_10) = #VK_F9
+HarpKeys(#Harp_11) = #VK_F10
+HarpKeys(#Harp_12) = #VK_F11
+HarpKeys(#Harp_13) = #VK_F12
 
 ;-Variables
 ; These are used for program flow.
@@ -2232,8 +2240,11 @@ Define VolumeThread.i
 
 ; This is used for the keyboard.
 ; Each key event usually returns a value of 0 to 255. 65535 is just to be on the secure end, with Unicode and whatnot.
-Global Dim Keys.a(65535)
+Global Dim Keys.a(262143)
 Global LastKey.u = 0
+
+; If any keys have been released after LastKey was set.
+Global LastKeyEventWasDown.u = 0
 
 ; This keeps track of the current tick.
 Global Tick.f = 0
@@ -2340,11 +2351,9 @@ For i = #Dat_First To #Dat_Last
   Status_Sound(i) = #Curve_None
 Next
 
-Global Dim Status_Harp.l(#Harp_13)
+Global Dim Status_Harp.l(#Harp_Last)
 
 ; This is used for rhythm definition.
-
-
 
 ;-Procedures
 Procedure.l UpdateFrequencies()
@@ -2364,72 +2373,70 @@ Procedure.l UpdateFrequencies()
     SetSoundFrequency(#Snd_Chord_2, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Chord_2))
     SetSoundFrequency(#Snd_Chord_3, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Chord_3))
     
-    
-    If GetSoundFrequency(#Snd_Harp_1_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_1)
+    If GetSoundFrequency(#Snd_Harp_1_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_1)
       SetSoundFrequency(#Snd_Harp_1_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_1))
       SetSoundFrequency(#Snd_Harp_1_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_1))
       SetSoundPosition(#Snd_Harp_1_Standard, GetSoundPosition(#Snd_Harp_1_Vibrato)+7)
     EndIf
-    
-    If GetSoundFrequency(#Snd_Harp_2_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_2)
+    If GetSoundFrequency(#Snd_Harp_2_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_2)
       SetSoundFrequency(#Snd_Harp_2_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_2))
       SetSoundFrequency(#Snd_Harp_2_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_2))
-      SetSoundPosition(#Snd_Harp_2_Standard, GetSoundPosition(#Snd_Harp_2_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_2_Standard, GetSoundPosition(#Snd_Harp_2_Vibrato)+8)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_3_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_3)
+    If GetSoundFrequency(#Snd_Harp_3_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_3)
       SetSoundFrequency(#Snd_Harp_3_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_3))
       SetSoundFrequency(#Snd_Harp_3_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_3))
-      SetSoundPosition(#Snd_Harp_3_Standard, GetSoundPosition(#Snd_Harp_3_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_3_Standard, GetSoundPosition(#Snd_Harp_3_Vibrato)+9)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_4_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_4)
+    If GetSoundFrequency(#Snd_Harp_4_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_4)
       SetSoundFrequency(#Snd_Harp_4_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_4))
       SetSoundFrequency(#Snd_Harp_4_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_4))
-      SetSoundPosition(#Snd_Harp_4_Standard, GetSoundPosition(#Snd_Harp_4_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_4_Standard, GetSoundPosition(#Snd_Harp_4_Vibrato)+10)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_5_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_5)
+    If GetSoundFrequency(#Snd_Harp_5_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_5)
       SetSoundFrequency(#Snd_Harp_5_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_5))
       SetSoundFrequency(#Snd_Harp_5_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_5))
-      SetSoundPosition(#Snd_Harp_5_Standard, GetSoundPosition(#Snd_Harp_5_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_5_Standard, GetSoundPosition(#Snd_Harp_5_Vibrato)+11)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_6_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_6)
+    If GetSoundFrequency(#Snd_Harp_6_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_6)
       SetSoundFrequency(#Snd_Harp_6_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_6))
       SetSoundFrequency(#Snd_Harp_6_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_6))
-      SetSoundPosition(#Snd_Harp_6_Standard, GetSoundPosition(#Snd_Harp_6_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_6_Standard, GetSoundPosition(#Snd_Harp_6_Vibrato)+12)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_7_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_7)
+    If GetSoundFrequency(#Snd_Harp_7_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_7)
       SetSoundFrequency(#Snd_Harp_7_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_7))
       SetSoundFrequency(#Snd_Harp_7_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_7))
-      SetSoundPosition(#Snd_Harp_7_Standard, GetSoundPosition(#Snd_Harp_7_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_7_Standard, GetSoundPosition(#Snd_Harp_7_Vibrato)+13)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_8_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_8)
+    If GetSoundFrequency(#Snd_Harp_8_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_8)
       SetSoundFrequency(#Snd_Harp_8_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_8))
       SetSoundFrequency(#Snd_Harp_8_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_8))
-      SetSoundPosition(#Snd_Harp_8_Standard, GetSoundPosition(#Snd_Harp_8_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_8_Standard, GetSoundPosition(#Snd_Harp_8_Vibrato)+14)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_9_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_9)
+    If GetSoundFrequency(#Snd_Harp_9_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_9)
       SetSoundFrequency(#Snd_Harp_9_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_9))
       SetSoundFrequency(#Snd_Harp_9_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_9))
-      SetSoundPosition(#Snd_Harp_9_Standard, GetSoundPosition(#Snd_Harp_9_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_9_Standard, GetSoundPosition(#Snd_Harp_9_Vibrato)+15)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_10_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_10)
+    If GetSoundFrequency(#Snd_Harp_10_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_10)
       SetSoundFrequency(#Snd_Harp_10_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_10))
       SetSoundFrequency(#Snd_Harp_10_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_10))
-      SetSoundPosition(#Snd_Harp_10_Standard, GetSoundPosition(#Snd_Harp_10_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_10_Standard, GetSoundPosition(#Snd_Harp_10_Vibrato)+16)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_11_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_11)
+    If GetSoundFrequency(#Snd_Harp_11_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_11)
       SetSoundFrequency(#Snd_Harp_11_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_11))
       SetSoundFrequency(#Snd_Harp_11_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_11))
-      SetSoundPosition(#Snd_Harp_11_Standard, GetSoundPosition(#Snd_Harp_11_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_11_Standard, GetSoundPosition(#Snd_Harp_11_Vibrato)+17)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_12_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_12)
+    If GetSoundFrequency(#Snd_Harp_12_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_12)
       SetSoundFrequency(#Snd_Harp_12_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_12))
       SetSoundFrequency(#Snd_Harp_12_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_12))
-      SetSoundPosition(#Snd_Harp_12_Standard, GetSoundPosition(#Snd_Harp_12_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_12_Standard, GetSoundPosition(#Snd_Harp_12_Vibrato)+18)
     EndIf
-    If GetSoundFrequency(#Snd_Harp_13_Vibrato) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13)
+    If GetSoundFrequency(#Snd_Harp_13_Standard) <> Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13)
       SetSoundFrequency(#Snd_Harp_13_Vibrato, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13))
       SetSoundFrequency(#Snd_Harp_13_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13))
-      SetSoundPosition(#Snd_Harp_13_Standard, GetSoundPosition(#Snd_Harp_13_Vibrato)+7)
+      SetSoundPosition(#Snd_Harp_13_Standard, GetSoundPosition(#Snd_Harp_13_Vibrato)+19)
     EndIf
     
     
@@ -2571,7 +2578,7 @@ Procedure UpdateVolume()
             EndIf
           Case #Curve_Sustain
           Case #Curve_Release
-            VolumeStatus(i)-1.0*(TimeDelta/222.0)
+            VolumeStatus(i)-1.0*(TimeDelta/180.0)
             If VolumeStatus(i) < 0.0
               VolumeStatus(i) = 0.0
             EndIf
@@ -2629,33 +2636,46 @@ Procedure UpdateVolume()
   SoundVolume(#Snd_Chord_2  , Bool(Status_Sound(#Dat_Chord_2) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Chords * VolumeStatus(#Dat_Chord_2) * 0.80)
   SoundVolume(#Snd_Chord_3  , Bool(Status_Sound(#Dat_Chord_3) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Chords * VolumeStatus(#Dat_Chord_3) * 0.80)
   
-  SoundVolume(#Snd_Harp_1_Vibrato   , Bool(Status_Sound(#Dat_Harp_1) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 1.00 * VolumeStatus(#Dat_Harp_1) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_1_Standard  , Bool(Status_Sound(#Dat_Harp_1) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 1.00 * VolumeStatus(#Dat_Harp_1))
-  SoundVolume(#Snd_Harp_2_Vibrato   , Bool(Status_Sound(#Dat_Harp_2) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.98 * VolumeStatus(#Dat_Harp_2) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_2_Standard  , Bool(Status_Sound(#Dat_Harp_2) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.98 * VolumeStatus(#Dat_Harp_2))
-  SoundVolume(#Snd_Harp_3_Vibrato   , Bool(Status_Sound(#Dat_Harp_3) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.96 * VolumeStatus(#Dat_Harp_3) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_3_Standard  , Bool(Status_Sound(#Dat_Harp_3) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.96 * VolumeStatus(#Dat_Harp_3))
-  SoundVolume(#Snd_Harp_4_Vibrato   , Bool(Status_Sound(#Dat_Harp_4) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.94 * VolumeStatus(#Dat_Harp_4) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_4_Standard  , Bool(Status_Sound(#Dat_Harp_4) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.94 * VolumeStatus(#Dat_Harp_4))
-  SoundVolume(#Snd_Harp_5_Vibrato   , Bool(Status_Sound(#Dat_Harp_5) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.92 * VolumeStatus(#Dat_Harp_5) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_5_Standard  , Bool(Status_Sound(#Dat_Harp_5) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.92 * VolumeStatus(#Dat_Harp_5))
-  SoundVolume(#Snd_Harp_6_Vibrato   , Bool(Status_Sound(#Dat_Harp_6) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.90 * VolumeStatus(#Dat_Harp_6) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_6_Standard  , Bool(Status_Sound(#Dat_Harp_6) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.90 * VolumeStatus(#Dat_Harp_6))
-  SoundVolume(#Snd_Harp_7_Vibrato   , Bool(Status_Sound(#Dat_Harp_7) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.88 * VolumeStatus(#Dat_Harp_7) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_7_Standard  , Bool(Status_Sound(#Dat_Harp_7) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.88 * VolumeStatus(#Dat_Harp_7))
-  SoundVolume(#Snd_Harp_8_Vibrato   , Bool(Status_Sound(#Dat_Harp_8) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.86 * VolumeStatus(#Dat_Harp_8) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_8_Standard  , Bool(Status_Sound(#Dat_Harp_8) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.86 * VolumeStatus(#Dat_Harp_8))
-  SoundVolume(#Snd_Harp_9_Vibrato   , Bool(Status_Sound(#Dat_Harp_9) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.84 * VolumeStatus(#Dat_Harp_9) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_9_Standard  , Bool(Status_Sound(#Dat_Harp_9) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.84 * VolumeStatus(#Dat_Harp_9))
-  SoundVolume(#Snd_Harp_10_Vibrato  , Bool(Status_Sound(#Dat_Harp_10) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.82 * VolumeStatus(#Dat_Harp_10) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_10_Standard , Bool(Status_Sound(#Dat_Harp_10) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.82 * VolumeStatus(#Dat_Harp_10))
-  SoundVolume(#Snd_Harp_11_Vibrato  , Bool(Status_Sound(#Dat_Harp_11) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.80 * VolumeStatus(#Dat_Harp_11) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_11_Standard , Bool(Status_Sound(#Dat_Harp_11) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.80 * VolumeStatus(#Dat_Harp_11))
-  SoundVolume(#Snd_Harp_12_Vibrato  , Bool(Status_Sound(#Dat_Harp_12) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.78 * VolumeStatus(#Dat_Harp_12) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_12_Standard , Bool(Status_Sound(#Dat_Harp_12) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.78 * VolumeStatus(#Dat_Harp_12))
-  SoundVolume(#Snd_Harp_13_Vibrato  , Bool(Status_Sound(#Dat_Harp_13) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.76 * VolumeStatus(#Dat_Harp_13) * (0.75-0.25*Sin(Radian(Phase))))
-  SoundVolume(#Snd_Harp_13_Standard , Bool(Status_Sound(#Dat_Harp_13) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.76 * VolumeStatus(#Dat_Harp_13))
+  SoundVolume(#Snd_Harp_1_Vibrato   , Bool(Status_Sound(#Dat_Harp_1) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 1.00 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_1) * (0.85-0.15*Sin(Radian(Phase*1.3))))
+  SoundVolume(#Snd_Harp_1_Standard  , Bool(Status_Sound(#Dat_Harp_1) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 1.00 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) * VolumeStatus(#Dat_Harp_1))
+  SoundVolume(#Snd_Harp_2_Vibrato   , Bool(Status_Sound(#Dat_Harp_2) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.98 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_2) * (0.85-0.15*Sin(Radian(Phase*1.29))))
+  SoundVolume(#Snd_Harp_2_Standard  , Bool(Status_Sound(#Dat_Harp_2) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.98 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_2))
+  SoundVolume(#Snd_Harp_3_Vibrato   , Bool(Status_Sound(#Dat_Harp_3) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.96 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_3) * (0.85-0.15*Sin(Radian(Phase*1.28))))
+  SoundVolume(#Snd_Harp_3_Standard  , Bool(Status_Sound(#Dat_Harp_3) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.96 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_3))
+  SoundVolume(#Snd_Harp_4_Vibrato   , Bool(Status_Sound(#Dat_Harp_4) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.94 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_4) * (0.85-0.15*Sin(Radian(Phase*1.27))))
+  SoundVolume(#Snd_Harp_4_Standard  , Bool(Status_Sound(#Dat_Harp_4) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.94 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_4))
+  SoundVolume(#Snd_Harp_5_Vibrato   , Bool(Status_Sound(#Dat_Harp_5) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.92 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_5) * (0.85-0.15*Sin(Radian(Phase*1.26))))
+  SoundVolume(#Snd_Harp_5_Standard  , Bool(Status_Sound(#Dat_Harp_5) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.92 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_5))
+  SoundVolume(#Snd_Harp_6_Vibrato   , Bool(Status_Sound(#Dat_Harp_6) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.90 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_6) * (0.85-0.15*Sin(Radian(Phase*1.25))))
+  SoundVolume(#Snd_Harp_6_Standard  , Bool(Status_Sound(#Dat_Harp_6) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.90 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_6))
+  SoundVolume(#Snd_Harp_7_Vibrato   , Bool(Status_Sound(#Dat_Harp_7) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.88 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_7) * (0.85-0.15*Sin(Radian(Phase*1.24))))
+  SoundVolume(#Snd_Harp_7_Standard  , Bool(Status_Sound(#Dat_Harp_7) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.88 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_7))
+  SoundVolume(#Snd_Harp_8_Vibrato   , Bool(Status_Sound(#Dat_Harp_8) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.86 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_8) * (0.85-0.15*Sin(Radian(Phase*1.23))))
+  SoundVolume(#Snd_Harp_8_Standard  , Bool(Status_Sound(#Dat_Harp_8) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.86 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_8))
+  SoundVolume(#Snd_Harp_9_Vibrato   , Bool(Status_Sound(#Dat_Harp_9) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.84 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_9) * (0.85-0.15*Sin(Radian(Phase*1.22))))
+  SoundVolume(#Snd_Harp_9_Standard  , Bool(Status_Sound(#Dat_Harp_9) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.84 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_9))
+  SoundVolume(#Snd_Harp_10_Vibrato  , Bool(Status_Sound(#Dat_Harp_10) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.82 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_10) * (0.85-0.15*Sin(Radian(Phase*1.21))))
+  SoundVolume(#Snd_Harp_10_Standard , Bool(Status_Sound(#Dat_Harp_10) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.82 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_10))
+  SoundVolume(#Snd_Harp_11_Vibrato  , Bool(Status_Sound(#Dat_Harp_11) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.80 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_11) * (0.85-0.15*Sin(Radian(Phase*1.10))))
+  SoundVolume(#Snd_Harp_11_Standard , Bool(Status_Sound(#Dat_Harp_11) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.80 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_11))
+  SoundVolume(#Snd_Harp_12_Vibrato  , Bool(Status_Sound(#Dat_Harp_12) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.78 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_12) * (0.85-0.15*Sin(Radian(Phase*1.09))))
+  SoundVolume(#Snd_Harp_12_Standard , Bool(Status_Sound(#Dat_Harp_12) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.78 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_12))
+  SoundVolume(#Snd_Harp_13_Vibrato  , Bool(Status_Sound(#Dat_Harp_13) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.76 * (1.0 - Value_Level_Volume_Harp_2 * 0.375) * VolumeStatus(#Dat_Harp_13) * (0.85-0.15*Sin(Radian(Phase*1.08))))
+  SoundVolume(#Snd_Harp_13_Standard , Bool(Status_Sound(#Dat_Harp_13) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_2 * 0.76 * (1.0 - Value_Level_Volume_Harp_1 * 0.375) *  VolumeStatus(#Dat_Harp_13))
   
+  SetSoundFrequency(#Snd_Harp_1_Vibrato, GetSoundFrequency(#Snd_Harp_1_Standard)*(1.00-0.0038*Cos(Radian(Phase*1.52))))
+  SetSoundFrequency(#Snd_Harp_2_Vibrato, GetSoundFrequency(#Snd_Harp_2_Standard)*(1.00-0.0032*Cos(Radian(Phase*1.54))))
+  SetSoundFrequency(#Snd_Harp_3_Vibrato, GetSoundFrequency(#Snd_Harp_3_Standard)*(1.00-0.0031*Cos(Radian(Phase*1.56))))
+  SetSoundFrequency(#Snd_Harp_4_Vibrato, GetSoundFrequency(#Snd_Harp_4_Standard)*(1.00-0.0041*Cos(Radian(Phase*1.58))))
+  SetSoundFrequency(#Snd_Harp_5_Vibrato, GetSoundFrequency(#Snd_Harp_5_Standard)*(1.00-0.0036*Cos(Radian(Phase*1.6))))
+  SetSoundFrequency(#Snd_Harp_6_Vibrato, GetSoundFrequency(#Snd_Harp_6_Standard)*(1.00-0.0034*Cos(Radian(Phase*1.62))))
+  SetSoundFrequency(#Snd_Harp_7_Vibrato, GetSoundFrequency(#Snd_Harp_7_Standard)*(1.00-0.0034*Cos(Radian(Phase*1.64))))
+  SetSoundFrequency(#Snd_Harp_8_Vibrato, GetSoundFrequency(#Snd_Harp_8_Standard)*(1.00-0.0037*Cos(Radian(Phase*1.66))))
+  SetSoundFrequency(#Snd_Harp_9_Vibrato, GetSoundFrequency(#Snd_Harp_9_Standard)*(1.00-0.0036*Cos(Radian(Phase*1.68))))
+  SetSoundFrequency(#Snd_Harp_10_Vibrato, GetSoundFrequency(#Snd_Harp_10_Standard)*(1.00-0.0039*Cos(Radian(Phase*1.7))))
+  SetSoundFrequency(#Snd_Harp_11_Vibrato, GetSoundFrequency(#Snd_Harp_11_Standard)*(1.00-0.0036*Cos(Radian(Phase*1.72))))
+  SetSoundFrequency(#Snd_Harp_12_Vibrato, GetSoundFrequency(#Snd_Harp_12_Standard)*(1.00-0.0033*Cos(Radian(Phase*1.74))))
+  SetSoundFrequency(#Snd_Harp_13_Vibrato, GetSoundFrequency(#Snd_Harp_13_Standard)*(1.00-0.0035*Cos(Radian(Phase*1.76))))
   
   If SoundStatus(#Snd_Drum_BD, #PB_Sound_Playing)
     SoundVolume(#Snd_Drum_BD, Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_BD))
@@ -2682,6 +2702,7 @@ EndProcedure
 If InitSound()
   UsePNGImageDecoder()
   ;-Get Graphics
+  CatchImage(#Img_Background, ?Img_Background)
   CatchImage(#Img_Base, ?Img_Base)
   CatchImage(#Img_Button_Black_Off, ?Img_Button_Black_Off)
   CatchImage(#Img_Button_Black_On, ?Img_Button_Black_On)
@@ -2725,35 +2746,37 @@ If InitSound()
   CatchSound(#Snd_Chord_2, ?Snd_Chord)
   CatchSound(#Snd_Chord_3, ?Snd_Chord)
   
-  CatchSound(#Snd_Harp_1_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_1_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_1_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_2_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_2_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_2_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_3_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_3_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_3_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_4_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_4_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_4_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_5_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_5_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_5_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_6_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_6_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_6_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_7_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_7_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_7_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_8_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_8_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_8_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_9_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_9_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_9_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_10_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_10_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_10_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_11_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_11_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_11_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_12_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_12_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_12_Standard, ?Snd_Harp)
-  CatchSound(#Snd_Harp_13_Vibrato, ?Snd_Harp)
+  CatchSound(#Snd_Harp_13_Vibrato, ?Snd_Harp_Mod)
   CatchSound(#Snd_Harp_13_Standard, ?Snd_Harp)
   
   CatchSound(#Snd_Drum_BD, ?Snd_Drum_BD)
+  CatchSound(#Snd_Drum_Click, ?Snd_Drum_Click)
   CatchSound(#Snd_Drum_HiHat, ?Snd_Drum_HiHat)
+  CatchSound(#Snd_Drum_Ride, ?Snd_Drum_Ride)
   CatchSound(#Snd_Drum_Snare, ?Snd_Drum_Snare)
   
   
@@ -2859,6 +2882,7 @@ If InitSound()
             EndIf
             Keys(EventData()) = 1
             LastKey = EventData()
+            LastKeyEventWasDown = 1
             
           Case #Event_GeneralKeyUp
             ;--GeneralKeyUp
@@ -2867,6 +2891,7 @@ If InitSound()
             If Not Value_Memory_Playback_Record
               PostEvent(#Event_HandleChordKeys)
             EndIf
+            LastKeyEventWasDown = 0
             
           Case #Event_GetTriggers
             ;--GetTriggers
@@ -2991,7 +3016,7 @@ If InitSound()
             EndIf
             
             If Value_Master_Power = 1
-              If MousePositionXCurrent >= 689 And MousePositionXCurrent <= 777
+              If MousePositionXCurrent >= 675 And MousePositionXCurrent <= 777
                 Trigger_Harp_Plate = 1*Bool(MouseButtonLeftCurrent = 1)+2*Bool(MouseButtonRightCurrent = 1)+4*Bool(MouseButtonMiddleCurrent = 1)
               EndIf
             EndIf
@@ -3276,7 +3301,7 @@ If InitSound()
                           Select EventType()
                             Case #PB_EventType_KeyUp
                               Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                Case #PB_Shortcut_Escape
+                                Case #VK_ESCAPE
                                   PostEvent(#PB_Event_Repaint)
                                   Break
                                 Default
@@ -3351,7 +3376,7 @@ If InitSound()
                           Select EventType()
                             Case #PB_EventType_KeyUp
                               Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                Case #PB_Shortcut_Escape
+                                Case #VK_ESCAPE
                                   PostEvent(#PB_Event_Repaint)
                                   Break
                                 Default
@@ -3426,7 +3451,7 @@ If InitSound()
                           Select EventType()
                             Case #PB_EventType_KeyUp
                               Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                Case #PB_Shortcut_Escape
+                                Case #VK_ESCAPE
                                   PostEvent(#PB_Event_Repaint)
                                   Break
                                 Default
@@ -3743,38 +3768,71 @@ If InitSound()
                     NewTick = 1
                   EndIf
                 ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
-                  Value_Chord_Chord = #Chord_Dim
-                  NewChord = 1
+                  If Not Value_Memory_Playback_Record And Value_Chord_Chord = #Chord_Aug
+                    If LastKeyEventWasDown
+                      LastKeyEventWasDown = 0
+                      Value_Chord_Chord = #Chord_Dim
+                      NewChord = 1
+                    EndIf
+                  Else
+                    Value_Chord_Chord = #Chord_Dim
+                    NewChord = 1
+                  EndIf
                   If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
                 ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
-                  Value_Chord_Chord = #Chord_Ma7
-                  NewChord = 1
+                  If Not Value_Memory_Playback_Record And Value_Chord_Chord = #Chord_Aug
+                    If LastKeyEventWasDown
+                      LastKeyEventWasDown = 0
+                      Value_Chord_Chord = #Chord_Ma7
+                      NewChord = 1
+                    EndIf
+                  Else
+                    Value_Chord_Chord = #Chord_Ma7
+                    NewChord = 1
+                  EndIf
                   If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
                 ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
-                  Value_Chord_Chord = #Chord_Mi7
-                  NewChord = 1
+                  If Not Value_Memory_Playback_Record And Value_Chord_Chord = #Chord_Aug
+                    If LastKeyEventWasDown
+                      LastKeyEventWasDown = 0
+                      Value_Chord_Chord = #Chord_Mi7
+                      NewChord = 1
+                    EndIf
+                  Else
+                    Value_Chord_Chord = #Chord_Mi7
+                    NewChord = 1
+                  EndIf
                   If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
                 ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note))
-                  Value_Chord_Chord = #Chord_Maj
-                  NewChord = 1
+                  If Not Value_Memory_Playback_Record And (Value_Chord_Chord = #Chord_Aug Or Value_Chord_Chord = #Chord_Dim Or Value_Chord_Chord = #Chord_Ma7 Or Value_Chord_Chord = #Chord_Mi7)
+                  Else
+                    Value_Chord_Chord = #Chord_Maj
+                    NewChord = 1
+                  EndIf
                   If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
                 ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
-                  Value_Chord_Chord = #Chord_Min
-                  NewChord = 1
+                  If Not Value_Memory_Playback_Record And (Value_Chord_Chord = #Chord_Aug Or Value_Chord_Chord = #Chord_Dim Or Value_Chord_Chord = #Chord_Ma7 Or Value_Chord_Chord = #Chord_Mi7)
+                  Else
+                    Value_Chord_Chord = #Chord_Min
+                    NewChord = 1
+                  EndIf
                   If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
                 ElseIf Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
-                  Value_Chord_Chord = #Chord_7th
-                  NewChord = 1
+                  If Not Value_Memory_Playback_Record And (Value_Chord_Chord = #Chord_Aug Or Value_Chord_Chord = #Chord_Dim Or Value_Chord_Chord = #Chord_Ma7 Or Value_Chord_Chord = #Chord_Mi7)
+                  Else
+                    Value_Chord_Chord = #Chord_7th
+                    NewChord = 1
+                  EndIf
                   If Value_Rhythm_Pattern = #Rhythm_None
                     NewTick = 1
                   EndIf
@@ -3864,7 +3922,9 @@ If InitSound()
           Case #PB_Event_Repaint
             ;--Repaint
             If StartDrawing(CanvasOutput(#Gad_Canvas))
-              DrawImage(ImageID(#Img_Base), 0, 0)
+              DrawImage(ImageID(#Img_Background), 0, 0)
+              
+              DrawAlphaImage(ImageID(#Img_Base), 0, 0)
               
               ;Power Button and LED
               Select Value_Master_Power
@@ -4046,6 +4106,7 @@ If InitSound()
               
               ;Harp Plate
               ;Add playing finger maybe?
+              
               
               StopDrawing()
             EndIf
