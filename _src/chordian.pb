@@ -335,7 +335,7 @@ Define TempLong2.l
 Define TempFloat.f
 
 ;--MIDI Data
-Global Dim MIDIs.l(#Note_Last, #Chord_Last, #Dat_Last)
+Global Dim MIDIs.a(#Note_Last, #Chord_Last, #Dat_Last)
 ;---C#/Db
 ;    Maj
 MIDIs(#Note_Db, #Chord_Maj, #Dat_Bass_1) = 37
