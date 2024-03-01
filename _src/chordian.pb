@@ -2453,6 +2453,13 @@ Procedure UpdateVolume()
   Protected a.l
   Protected i.l
   
+  Protected SinPhase.f
+  Protected CosPhase.f
+  Protected Sin2Phase.f
+  Protected Cos2Phase.f
+  Protected Sin3Phase.f
+  Protected Cos3Phase.f
+  
   TimePrevious = TimeCurrent
   TimeCurrent = ElapsedMilliseconds()
   If FirstRun
@@ -2460,7 +2467,14 @@ Procedure UpdateVolume()
     FirstRun = 0
   EndIf
   TimeDelta = TimeCurrent-TimePrevious
-  Phase+360.0*(TimeDelta/1000.0)*(0.9+Value_Rhythm_Tempo/5)
+  Phase+1080.0*(TimeDelta/1000.0)*(0.9+Value_Rhythm_Tempo/5)
+  
+  SinPhase = Sin(Radian(Phase))
+  CosPhase = Cos(Radian(Phase))
+  ;Sin2Phase = Sqr(Abs(SinPhase))*Sign(SinPhase)
+  Cos2Phase = Sqr(Abs(CosPhase))*Sign(CosPhase)
+  Sin3Phase = Sqr(Sqr(Abs(SinPhase)))*Sign(SinPhase)
+  ;Cos3Phase = Sqr(Sqr(Abs(CosPhase)))*Sign(CosPhase)
   
   Select Value_Rhythm_Pattern
     Case #Rhythm_None
@@ -2636,46 +2650,46 @@ Procedure UpdateVolume()
   SoundVolume(#Snd_Chord_2  , Bool(Status_Sound(#Dat_Chord_2) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Chords * VolumeStatus(#Dat_Chord_2) * 0.86)
   SoundVolume(#Snd_Chord_3  , Bool(Status_Sound(#Dat_Chord_3) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Chords * VolumeStatus(#Dat_Chord_3) * 0.86)
   
-  SoundVolume(#Snd_Harp_1_Vibrato   , Bool(Status_Sound(#Dat_Harp_1) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 1.00 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_1) * (0.74-0.26*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_1_Vibrato   , Bool(Status_Sound(#Dat_Harp_1) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 1.00 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_1) * (0.74-0.26*Cos2Phase))
   SoundVolume(#Snd_Harp_1_Standard  , Bool(Status_Sound(#Dat_Harp_1) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 1.00 * VolumeStatus(#Dat_Harp_1))
-  SoundVolume(#Snd_Harp_2_Vibrato   , Bool(Status_Sound(#Dat_Harp_2) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.98 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_2) * (0.75-0.25*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_2_Vibrato   , Bool(Status_Sound(#Dat_Harp_2) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.98 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_2) * (0.75-0.25*Cos2Phase))
   SoundVolume(#Snd_Harp_2_Standard  , Bool(Status_Sound(#Dat_Harp_2) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.98 *  VolumeStatus(#Dat_Harp_2))
-  SoundVolume(#Snd_Harp_3_Vibrato   , Bool(Status_Sound(#Dat_Harp_3) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.96 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_3) * (0.76-0.24*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_3_Vibrato   , Bool(Status_Sound(#Dat_Harp_3) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.96 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_3) * (0.76-0.24*Cos2Phase))
   SoundVolume(#Snd_Harp_3_Standard  , Bool(Status_Sound(#Dat_Harp_3) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.96 *  VolumeStatus(#Dat_Harp_3))
-  SoundVolume(#Snd_Harp_4_Vibrato   , Bool(Status_Sound(#Dat_Harp_4) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.94 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_4) * (0.77-0.23*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_4_Vibrato   , Bool(Status_Sound(#Dat_Harp_4) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.94 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_4) * (0.77-0.23*Cos2Phase))
   SoundVolume(#Snd_Harp_4_Standard  , Bool(Status_Sound(#Dat_Harp_4) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.94 *  VolumeStatus(#Dat_Harp_4))
-  SoundVolume(#Snd_Harp_5_Vibrato   , Bool(Status_Sound(#Dat_Harp_5) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.92 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_5) * (0.78-0.22*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_5_Vibrato   , Bool(Status_Sound(#Dat_Harp_5) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.92 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_5) * (0.78-0.22*Cos2Phase))
   SoundVolume(#Snd_Harp_5_Standard  , Bool(Status_Sound(#Dat_Harp_5) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.92 *  VolumeStatus(#Dat_Harp_5))
-  SoundVolume(#Snd_Harp_6_Vibrato   , Bool(Status_Sound(#Dat_Harp_6) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.90 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_6) * (0.79-0.21*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_6_Vibrato   , Bool(Status_Sound(#Dat_Harp_6) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.90 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_6) * (0.79-0.21*Cos2Phase))
   SoundVolume(#Snd_Harp_6_Standard  , Bool(Status_Sound(#Dat_Harp_6) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.90 *  VolumeStatus(#Dat_Harp_6))
-  SoundVolume(#Snd_Harp_7_Vibrato   , Bool(Status_Sound(#Dat_Harp_7) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.88 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_7) * (0.80-0.20*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_7_Vibrato   , Bool(Status_Sound(#Dat_Harp_7) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.88 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_7) * (0.80-0.20*Cos2Phase))
   SoundVolume(#Snd_Harp_7_Standard  , Bool(Status_Sound(#Dat_Harp_7) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.88 *  VolumeStatus(#Dat_Harp_7))
-  SoundVolume(#Snd_Harp_8_Vibrato   , Bool(Status_Sound(#Dat_Harp_8) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.86 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_8) * (0.81-0.19*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_8_Vibrato   , Bool(Status_Sound(#Dat_Harp_8) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.86 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_8) * (0.81-0.19*Cos2Phase))
   SoundVolume(#Snd_Harp_8_Standard  , Bool(Status_Sound(#Dat_Harp_8) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.86 *  VolumeStatus(#Dat_Harp_8))
-  SoundVolume(#Snd_Harp_9_Vibrato   , Bool(Status_Sound(#Dat_Harp_9) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.84 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_9) * (0.82-0.18*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_9_Vibrato   , Bool(Status_Sound(#Dat_Harp_9) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.84 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_9) * (0.82-0.18*Cos2Phase))
   SoundVolume(#Snd_Harp_9_Standard  , Bool(Status_Sound(#Dat_Harp_9) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.84 *  VolumeStatus(#Dat_Harp_9))
-  SoundVolume(#Snd_Harp_10_Vibrato  , Bool(Status_Sound(#Dat_Harp_10) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.82 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_10) * (0.83-0.17*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_10_Vibrato  , Bool(Status_Sound(#Dat_Harp_10) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.82 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_10) * (0.83-0.17*Cos2Phase))
   SoundVolume(#Snd_Harp_10_Standard , Bool(Status_Sound(#Dat_Harp_10) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.82 *  VolumeStatus(#Dat_Harp_10))
-  SoundVolume(#Snd_Harp_11_Vibrato  , Bool(Status_Sound(#Dat_Harp_11) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.80 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_11) * (0.84-0.16*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_11_Vibrato  , Bool(Status_Sound(#Dat_Harp_11) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.80 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_11) * (0.84-0.16*Cos2Phase))
   SoundVolume(#Snd_Harp_11_Standard , Bool(Status_Sound(#Dat_Harp_11) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.80 *  VolumeStatus(#Dat_Harp_11))
-  SoundVolume(#Snd_Harp_12_Vibrato  , Bool(Status_Sound(#Dat_Harp_12) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.78 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_12) * (0.85-0.15*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_12_Vibrato  , Bool(Status_Sound(#Dat_Harp_12) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.78 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_12) * (0.85-0.15*Cos2Phase))
   SoundVolume(#Snd_Harp_12_Standard , Bool(Status_Sound(#Dat_Harp_12) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.78 *  VolumeStatus(#Dat_Harp_12))
-  SoundVolume(#Snd_Harp_13_Vibrato  , Bool(Status_Sound(#Dat_Harp_13) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.76 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_13) * (0.86-0.14*Sqr(Abs(Cos(Radian(Phase*3.0))))*Sign(Cos(Radian(Phase*3.0)))))
+  SoundVolume(#Snd_Harp_13_Vibrato  , Bool(Status_Sound(#Dat_Harp_13) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Harp_1 * 0.76 * (1.0 - Value_Level_Volume_Harp_2 * 0.6) * VolumeStatus(#Dat_Harp_13) * (0.86-0.14*Cos2Phase))
   SoundVolume(#Snd_Harp_13_Standard , Bool(Status_Sound(#Dat_Harp_13) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * (Value_Level_Volume_Harp_1/1.5 + Value_Level_Volume_Harp_2/(1.0+2.0*Value_Level_Volume_Harp_1)) * 0.76 *  VolumeStatus(#Dat_Harp_13))
   
-  SetSoundFrequency(#Snd_Harp_1_Vibrato, GetSoundFrequency(#Snd_Harp_1_Standard)*(1.00-0.0070*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_2_Vibrato, GetSoundFrequency(#Snd_Harp_2_Standard)*(1.00-0.0068*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_3_Vibrato, GetSoundFrequency(#Snd_Harp_3_Standard)*(1.00-0.0066*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_4_Vibrato, GetSoundFrequency(#Snd_Harp_4_Standard)*(1.00-0.0064*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_5_Vibrato, GetSoundFrequency(#Snd_Harp_5_Standard)*(1.00-0.0062*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_6_Vibrato, GetSoundFrequency(#Snd_Harp_6_Standard)*(1.00-0.0060*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_7_Vibrato, GetSoundFrequency(#Snd_Harp_7_Standard)*(1.00-0.0058*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_8_Vibrato, GetSoundFrequency(#Snd_Harp_8_Standard)*(1.00-0.0056*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_9_Vibrato, GetSoundFrequency(#Snd_Harp_9_Standard)*(1.00-0.0054*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_10_Vibrato, GetSoundFrequency(#Snd_Harp_10_Standard)*(1.00-0.0052*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_11_Vibrato, GetSoundFrequency(#Snd_Harp_11_Standard)*(1.00-0.0050*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_12_Vibrato, GetSoundFrequency(#Snd_Harp_12_Standard)*(1.00-0.0048*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
-  SetSoundFrequency(#Snd_Harp_13_Vibrato, GetSoundFrequency(#Snd_Harp_13_Standard)*(1.00-0.0046*Pow(Abs(Sin(Radian(Phase*3.0))), 1.0/3.0)*Sign(Sin(Radian(Phase*3.0)))))
+  SetSoundFrequency(#Snd_Harp_1_Vibrato, GetSoundFrequency(#Snd_Harp_1_Standard)*(1.00-0.0070*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_2_Vibrato, GetSoundFrequency(#Snd_Harp_2_Standard)*(1.00-0.0068*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_3_Vibrato, GetSoundFrequency(#Snd_Harp_3_Standard)*(1.00-0.0066*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_4_Vibrato, GetSoundFrequency(#Snd_Harp_4_Standard)*(1.00-0.0064*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_5_Vibrato, GetSoundFrequency(#Snd_Harp_5_Standard)*(1.00-0.0062*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_6_Vibrato, GetSoundFrequency(#Snd_Harp_6_Standard)*(1.00-0.0060*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_7_Vibrato, GetSoundFrequency(#Snd_Harp_7_Standard)*(1.00-0.0058*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_8_Vibrato, GetSoundFrequency(#Snd_Harp_8_Standard)*(1.00-0.0056*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_9_Vibrato, GetSoundFrequency(#Snd_Harp_9_Standard)*(1.00-0.0054*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_10_Vibrato, GetSoundFrequency(#Snd_Harp_10_Standard)*(1.00-0.0052*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_11_Vibrato, GetSoundFrequency(#Snd_Harp_11_Standard)*(1.00-0.0050*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_12_Vibrato, GetSoundFrequency(#Snd_Harp_12_Standard)*(1.00-0.0048*Sin3Phase))
+  SetSoundFrequency(#Snd_Harp_13_Vibrato, GetSoundFrequency(#Snd_Harp_13_Standard)*(1.00-0.0046*Sin3Phase))
   
   If SoundStatus(#Snd_Drum_BD, #PB_Sound_Playing)
     SoundVolume(#Snd_Drum_BD, Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_BD))
