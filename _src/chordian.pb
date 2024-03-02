@@ -93,6 +93,8 @@ DataSection
   IncludeBinary "snd\chordian_drum_ride.wav"
   Snd_Drum_Snare:
   IncludeBinary "snd\chordian_drum_snare.wav"
+  Snd_Keyboard:
+  IncludeBinary "snd\chordian_keyboard.wav"
 EndDataSection
 
 ;-Enumerations
@@ -221,6 +223,8 @@ Enumeration 1
   #Snd_Drum_HiHat
   #Snd_Drum_Ride
   #Snd_Drum_Snare
+  
+  #Snd_Keyboard
 EndEnumeration
 
 Enumeration 1
@@ -289,7 +293,8 @@ Enumeration 0
   #Dat_Drum_BD
   #Dat_Drum_HiHat
   #Dat_Drum_Snare
-  #Dat_Last = #Dat_Drum_Snare
+  #Dat_Keyboard
+  #Dat_Last = #Dat_Keyboard
 EndEnumeration
 
 Enumeration -1
@@ -1972,6 +1977,7 @@ MIDIs(#Note_Fc, #Chord_Aug, #Dat_Harp_13) = 66
 
 ;--Frequency Data
 Global Dim Frequencies.l(#Note_Last, #Chord_Last, #Dat_Last)
+Global Dim FrequenciesKeyboard.l(127)
 
 For i = #Note_First To #Note_Last
   For n = #Chord_First To #Chord_Last
@@ -1981,6 +1987,9 @@ For i = #Note_First To #Note_Last
   Next
 Next
 
+For i = 0 To 127
+  FrequenciesKeyboard(i) = 440.0*Pow(2.0, (i-71)/12.0)*225.0
+Next
 
 ;--Pattern Data
 ; This is used for pattern data.
@@ -2452,13 +2461,11 @@ Procedure.l UpdateFrequencies()
       SetSoundFrequency(#Snd_Harp_13_Standard, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Harp_13))
       SetSoundPosition(#Snd_Harp_13_Standard, GetSoundPosition(#Snd_Harp_13_Vibrato)+19)
     EndIf
-    
-    
-    
   EndIf
+
 EndProcedure
 Procedure UpdateVolume()
-  Static Dim VolumeStatus.f(#Dat_Drum_Snare)
+  Static Dim VolumeStatus.f(#Dat_Last)
   Static TimeCurrent.q
   Static TimePrevious.q
   Static TimeDelta.q
@@ -2609,6 +2616,7 @@ Procedure UpdateVolume()
             VolumeStatus(i)-1.0*(TimeDelta/180.0)
             If VolumeStatus(i) < 0.0
               VolumeStatus(i) = 0.0
+              Status_Sound(i) = #Curve_None
             EndIf
         EndSelect
       Next
@@ -2635,10 +2643,17 @@ Procedure UpdateVolume()
             VolumeStatus(i)-1.0*(TimeDelta/(366.0+2734.0*Value_Level_Sustain))
             If VolumeStatus(i) < 0.0
               VolumeStatus(i) = 0.0
+              Status_Sound(i) = #Curve_None
             EndIf
         EndSelect
       Next
       
+      Select Status_Sound(#Dat_Keyboard)
+        Case #Curve_None
+          VolumeStatus(#Dat_Keyboard) = 0.0
+        Case #Curve_Trigger
+          VolumeStatus(#Dat_Keyboard) = 1.0
+      EndSelect
       
       
       If Status_Sound(#Dat_Drum_BD) = #Curve_Trigger Or Status_Sound(#Dat_Drum_BD) = #Curve_Oneshot
@@ -2714,6 +2729,8 @@ Procedure UpdateVolume()
   If SoundStatus(#Snd_Drum_Snare, #PB_Sound_Playing)
     SoundVolume(#Snd_Drum_Snare, Bool(Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Snare))
   EndIf
+  
+  SoundVolume(#Snd_Keyboard, Bool(Status_Sound(#Dat_Keyboard) <> #Curve_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Keyboard * VolumeStatus(#Dat_Keyboard))
   
   ProcedureReturn TimeDelta
 EndProcedure
@@ -2807,6 +2824,8 @@ If InitSound()
   CatchSound(#Snd_Drum_Ride, ?Snd_Drum_Ride)
   CatchSound(#Snd_Drum_Snare, ?Snd_Drum_Snare)
   
+  CatchSound(#Snd_Keyboard, ?Snd_Keyboard)
+  
   
   ;-Play all sounds
   PlaySound(#Snd_Bass, #PB_Sound_Loop, 0)
@@ -2840,6 +2859,8 @@ If InitSound()
   PlaySound(#Snd_Harp_12_Standard, #PB_Sound_Loop, 0)
   PlaySound(#Snd_Harp_13_Vibrato, #PB_Sound_Loop, 0)
   PlaySound(#Snd_Harp_13_Standard, #PB_Sound_Loop, 0)
+  
+  PlaySound(#Snd_Keyboard, #PB_Sound_Loop, 0)
   
   VolumeThread = CreateThread(@UpdateVolumeThread(), 0)
   
@@ -3803,126 +3824,198 @@ If InitSound()
           Case #Event_HandleChordKeys
             ;--HandleChordKeys
             If Value_Master_Power
-              If Value_Chord_Chord = #Chord_None Or Value_Chord_Note = #Note_None
-                NewTick = 1
-                Tick = 0
-              EndIf
-              
-              Select LastKey
-                Case ChordKeys(#Chord_Maj, #Note_Db), ChordKeys(#Chord_Min, #Note_Db), ChordKeys(#Chord_7th, #Note_Db)
-                  Value_Chord_Note = #Note_Db
-                Case ChordKeys(#Chord_Maj, #Note_Ab), ChordKeys(#Chord_Min, #Note_Ab), ChordKeys(#Chord_7th, #Note_Ab)
-                  Value_Chord_Note = #Note_Ab
-                Case ChordKeys(#Chord_Maj, #Note_Eb), ChordKeys(#Chord_Min, #Note_Eb), ChordKeys(#Chord_7th, #Note_Eb)
-                  Value_Chord_Note = #Note_Eb
-                Case ChordKeys(#Chord_Maj, #Note_Bb), ChordKeys(#Chord_Min, #Note_Bb), ChordKeys(#Chord_7th, #Note_Bb)
-                  Value_Chord_Note = #Note_Bb
-                Case ChordKeys(#Chord_Maj, #Note_F), ChordKeys(#Chord_Min, #Note_F), ChordKeys(#Chord_7th, #Note_F)
-                  Value_Chord_Note = #Note_F
-                Case ChordKeys(#Chord_Maj, #Note_C), ChordKeys(#Chord_Min, #Note_C), ChordKeys(#Chord_7th, #Note_C)
-                  Value_Chord_Note = #Note_C
-                Case ChordKeys(#Chord_Maj, #Note_G), ChordKeys(#Chord_Min, #Note_G), ChordKeys(#Chord_7th, #Note_G)
-                  Value_Chord_Note = #Note_G
-                Case ChordKeys(#Chord_Maj, #Note_D), ChordKeys(#Chord_Min, #Note_D), ChordKeys(#Chord_7th, #Note_D)
-                  Value_Chord_Note = #Note_D
-                Case ChordKeys(#Chord_Maj, #Note_A), ChordKeys(#Chord_Min, #Note_A), ChordKeys(#Chord_7th, #Note_A)
-                  Value_Chord_Note = #Note_A
-                Case ChordKeys(#Chord_Maj, #Note_E), ChordKeys(#Chord_Min, #Note_E), ChordKeys(#Chord_7th, #Note_E)
-                  Value_Chord_Note = #Note_E
-                Case ChordKeys(#Chord_Maj, #Note_B), ChordKeys(#Chord_Min, #Note_B), ChordKeys(#Chord_7th, #Note_B)
-                  Value_Chord_Note = #Note_B
-                Case ChordKeys(#Chord_Maj, #Note_Fc), ChordKeys(#Chord_Min, #Note_Fc), ChordKeys(#Chord_7th, #Note_Fc)
-                  Value_Chord_Note = #Note_Fc
-                Default
-                  NoChordChange = 1
-              EndSelect
-              If Value_Chord_Note <> #Note_None And Not NoChordChange
-                If Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
-                  Value_Chord_Chord = #Chord_Aug
-                  NewChord = 1
-                  If Value_Rhythm_Pattern = #Rhythm_None
-                    NewTick = 1
-                  EndIf
-                ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
-                  If Not Value_Memory_Playback_Record And Value_Chord_Chord = #Chord_Aug
-                    If LastKeyEventWasDown
-                      LastKeyEventWasDown = 0
+              If Not Value_Memory_Enable
+                If Value_Chord_Chord = #Chord_None Or Value_Chord_Note = #Note_None
+                  NewTick = 1
+                  Tick = 0
+                EndIf
+                
+                Select LastKey
+                  Case ChordKeys(#Chord_Maj, #Note_Db), ChordKeys(#Chord_Min, #Note_Db), ChordKeys(#Chord_7th, #Note_Db)
+                    Value_Chord_Note = #Note_Db
+                  Case ChordKeys(#Chord_Maj, #Note_Ab), ChordKeys(#Chord_Min, #Note_Ab), ChordKeys(#Chord_7th, #Note_Ab)
+                    Value_Chord_Note = #Note_Ab
+                  Case ChordKeys(#Chord_Maj, #Note_Eb), ChordKeys(#Chord_Min, #Note_Eb), ChordKeys(#Chord_7th, #Note_Eb)
+                    Value_Chord_Note = #Note_Eb
+                  Case ChordKeys(#Chord_Maj, #Note_Bb), ChordKeys(#Chord_Min, #Note_Bb), ChordKeys(#Chord_7th, #Note_Bb)
+                    Value_Chord_Note = #Note_Bb
+                  Case ChordKeys(#Chord_Maj, #Note_F), ChordKeys(#Chord_Min, #Note_F), ChordKeys(#Chord_7th, #Note_F)
+                    Value_Chord_Note = #Note_F
+                  Case ChordKeys(#Chord_Maj, #Note_C), ChordKeys(#Chord_Min, #Note_C), ChordKeys(#Chord_7th, #Note_C)
+                    Value_Chord_Note = #Note_C
+                  Case ChordKeys(#Chord_Maj, #Note_G), ChordKeys(#Chord_Min, #Note_G), ChordKeys(#Chord_7th, #Note_G)
+                    Value_Chord_Note = #Note_G
+                  Case ChordKeys(#Chord_Maj, #Note_D), ChordKeys(#Chord_Min, #Note_D), ChordKeys(#Chord_7th, #Note_D)
+                    Value_Chord_Note = #Note_D
+                  Case ChordKeys(#Chord_Maj, #Note_A), ChordKeys(#Chord_Min, #Note_A), ChordKeys(#Chord_7th, #Note_A)
+                    Value_Chord_Note = #Note_A
+                  Case ChordKeys(#Chord_Maj, #Note_E), ChordKeys(#Chord_Min, #Note_E), ChordKeys(#Chord_7th, #Note_E)
+                    Value_Chord_Note = #Note_E
+                  Case ChordKeys(#Chord_Maj, #Note_B), ChordKeys(#Chord_Min, #Note_B), ChordKeys(#Chord_7th, #Note_B)
+                    Value_Chord_Note = #Note_B
+                  Case ChordKeys(#Chord_Maj, #Note_Fc), ChordKeys(#Chord_Min, #Note_Fc), ChordKeys(#Chord_7th, #Note_Fc)
+                    Value_Chord_Note = #Note_Fc
+                  Default
+                    NoChordChange = 1
+                EndSelect
+                If Value_Chord_Note <> #Note_None And Not NoChordChange
+                  If Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
+                    Value_Chord_Chord = #Chord_Aug
+                    NewChord = 1
+                    If Value_Rhythm_Pattern = #Rhythm_None
+                      NewTick = 1
+                    EndIf
+                  ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
+                    If Not Value_Memory_Playback_Record And Value_Chord_Chord = #Chord_Aug
+                      If LastKeyEventWasDown
+                        LastKeyEventWasDown = 0
+                        Value_Chord_Chord = #Chord_Dim
+                        NewChord = 1
+                      EndIf
+                    Else
                       Value_Chord_Chord = #Chord_Dim
                       NewChord = 1
                     EndIf
-                  Else
-                    Value_Chord_Chord = #Chord_Dim
-                    NewChord = 1
-                  EndIf
-                  If Value_Rhythm_Pattern = #Rhythm_None
-                    NewTick = 1
-                  EndIf
-                ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
-                  If Not Value_Memory_Playback_Record And Value_Chord_Chord = #Chord_Aug
-                    If LastKeyEventWasDown
-                      LastKeyEventWasDown = 0
+                    If Value_Rhythm_Pattern = #Rhythm_None
+                      NewTick = 1
+                    EndIf
+                  ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
+                    If Not Value_Memory_Playback_Record And Value_Chord_Chord = #Chord_Aug
+                      If LastKeyEventWasDown
+                        LastKeyEventWasDown = 0
+                        Value_Chord_Chord = #Chord_Ma7
+                        NewChord = 1
+                      EndIf
+                    Else
                       Value_Chord_Chord = #Chord_Ma7
                       NewChord = 1
                     EndIf
-                  Else
-                    Value_Chord_Chord = #Chord_Ma7
-                    NewChord = 1
-                  EndIf
-                  If Value_Rhythm_Pattern = #Rhythm_None
-                    NewTick = 1
-                  EndIf
-                ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
-                  If Not Value_Memory_Playback_Record And Value_Chord_Chord = #Chord_Aug
-                    If LastKeyEventWasDown
-                      LastKeyEventWasDown = 0
+                    If Value_Rhythm_Pattern = #Rhythm_None
+                      NewTick = 1
+                    EndIf
+                  ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
+                    If Not Value_Memory_Playback_Record And Value_Chord_Chord = #Chord_Aug
+                      If LastKeyEventWasDown
+                        LastKeyEventWasDown = 0
+                        Value_Chord_Chord = #Chord_Mi7
+                        NewChord = 1
+                      EndIf
+                    Else
                       Value_Chord_Chord = #Chord_Mi7
                       NewChord = 1
                     EndIf
+                    If Value_Rhythm_Pattern = #Rhythm_None
+                      NewTick = 1
+                    EndIf
+                  ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note))
+                    If Not Value_Memory_Playback_Record And (Value_Chord_Chord = #Chord_Aug Or Value_Chord_Chord = #Chord_Dim Or Value_Chord_Chord = #Chord_Ma7 Or Value_Chord_Chord = #Chord_Mi7)
+                    Else
+                      Value_Chord_Chord = #Chord_Maj
+                      NewChord = 1
+                    EndIf
+                    If Value_Rhythm_Pattern = #Rhythm_None
+                      NewTick = 1
+                    EndIf
+                  ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
+                    If Not Value_Memory_Playback_Record And (Value_Chord_Chord = #Chord_Aug Or Value_Chord_Chord = #Chord_Dim Or Value_Chord_Chord = #Chord_Ma7 Or Value_Chord_Chord = #Chord_Mi7)
+                    Else
+                      Value_Chord_Chord = #Chord_Min
+                      NewChord = 1
+                    EndIf
+                    If Value_Rhythm_Pattern = #Rhythm_None
+                      NewTick = 1
+                    EndIf
+                  ElseIf Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
+                    If Not Value_Memory_Playback_Record And (Value_Chord_Chord = #Chord_Aug Or Value_Chord_Chord = #Chord_Dim Or Value_Chord_Chord = #Chord_Ma7 Or Value_Chord_Chord = #Chord_Mi7)
+                    Else
+                      Value_Chord_Chord = #Chord_7th
+                      NewChord = 1
+                    EndIf
+                    If Value_Rhythm_Pattern = #Rhythm_None
+                      NewTick = 1
+                    EndIf
+                    
+                  ElseIf Not Value_Memory_Playback_Record
+                    Value_Chord_Note = #Note_None
+                    Value_Chord_Chord = #Chord_None
+                    Value_Master_Power = 0
+                    Tick = 0
+                    Delay(20)
+                    Value_Master_Power = 1
+                  EndIf
+                EndIf
+                NoChordChange = 0
+              Else
+                If Not Value_Memory_Playback_Record
+                  ;--Keyboard
+                  If Keys(ChordKeys(#Chord_7th, #Note_Db))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(36))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_Min, #Note_Ab))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(37))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_Ab))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(38))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_Min, #Note_Eb))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(39))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_Eb))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(40))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                    
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_Bb))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(41))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_Min, #Note_F))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(42))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_F))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(43))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_Min, #Note_C))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(44))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_C))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(45))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_Min, #Note_G))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(46))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_G))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(47))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                    
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_D))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(48))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_Min, #Note_A))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(49))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_A))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(50))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_Min, #Note_E))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(51))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_E))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(52))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                    
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_B))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(53))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_Min, #Note_Fc))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(54))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
+                  ElseIf Keys(ChordKeys(#Chord_7th, #Note_Fc))
+                    SetSoundFrequency(#Snd_Keyboard, FrequenciesKeyboard(55))
+                    Status_Sound(#Dat_Keyboard) = #Curve_Trigger
                   Else
-                    Value_Chord_Chord = #Chord_Mi7
-                    NewChord = 1
+                    Status_Sound(#Dat_Keyboard) = #Curve_None
                   EndIf
-                  If Value_Rhythm_Pattern = #Rhythm_None
-                    NewTick = 1
-                  EndIf
-                ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note))
-                  If Not Value_Memory_Playback_Record And (Value_Chord_Chord = #Chord_Aug Or Value_Chord_Chord = #Chord_Dim Or Value_Chord_Chord = #Chord_Ma7 Or Value_Chord_Chord = #Chord_Mi7)
-                  Else
-                    Value_Chord_Chord = #Chord_Maj
-                    NewChord = 1
-                  EndIf
-                  If Value_Rhythm_Pattern = #Rhythm_None
-                    NewTick = 1
-                  EndIf
-                ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
-                  If Not Value_Memory_Playback_Record And (Value_Chord_Chord = #Chord_Aug Or Value_Chord_Chord = #Chord_Dim Or Value_Chord_Chord = #Chord_Ma7 Or Value_Chord_Chord = #Chord_Mi7)
-                  Else
-                    Value_Chord_Chord = #Chord_Min
-                    NewChord = 1
-                  EndIf
-                  If Value_Rhythm_Pattern = #Rhythm_None
-                    NewTick = 1
-                  EndIf
-                ElseIf Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
-                  If Not Value_Memory_Playback_Record And (Value_Chord_Chord = #Chord_Aug Or Value_Chord_Chord = #Chord_Dim Or Value_Chord_Chord = #Chord_Ma7 Or Value_Chord_Chord = #Chord_Mi7)
-                  Else
-                    Value_Chord_Chord = #Chord_7th
-                    NewChord = 1
-                  EndIf
-                  If Value_Rhythm_Pattern = #Rhythm_None
-                    NewTick = 1
-                  EndIf
-                  
-                ElseIf Not Value_Memory_Playback_Record
-                  Value_Chord_Note = #Note_None
-                  Value_Chord_Chord = #Chord_None
-                  Value_Master_Power = 0
-                  Tick = 0
-                  Delay(20)
-                  Value_Master_Power = 1
                 EndIf
               EndIf
-              NoChordChange = 0
             EndIf
             
           Case #Event_HandleHarpKeys
