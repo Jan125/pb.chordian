@@ -14,12 +14,12 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-03-01 22:01" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2024-03-02 19:46" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
-      <fingerprint md5="61f6041643597dc06cbe76895910a8f8"/>
+      <fingerprint md5="32e509564382f9815a2938cb8ee5697d"/>
     </file>
   </section>
   <section name="targets">
@@ -31,8 +31,7 @@
       <options unicode="1" xpskin="1" debug="1" optimizer="0"/>
       <icon enable="0">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <compilecount enable="1" value="809"/>
-      <buildcount enable="1" value="127"/>
+      <compilecount enable="1" value="823"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -59,8 +58,7 @@
       <options unicode="1" xpskin="1" debug="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <compilecount enable="1" value="782"/>
-      <buildcount enable="1" value="138"/>
+      <buildcount enable="1" value="143"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -73,6 +71,33 @@
         <field7 value="chordian"/>
         <field8 value="chordian.exe"/>
         <field9 value="CC0 1.0 Universal"/>
+        <field13 value="synkronas@outlook.com"/>
+        <field14 value="https://github.com/Jan125/pb.chordian"/>
+        <field15 value="VOS_NT"/>
+        <field16 value="VFT_DLL"/>
+      </versioninfo>
+    </target>
+    <target name="Stable_Legacy" enabled="1" default="0">
+      <inputfile value="chordian.pb"/>
+      <outputfile value="..\chordian_legacy.exe"/>
+      <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
+      <executable value="..\chordian_legacy.exe"/>
+      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="0"/>
+      <icon enable="1">chordian.ico</icon>
+      <buildcount enable="1" value="143"/>
+      <execonstant enable="1"/>
+      <versioninfo enable="1">
+        <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
+        <field1 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
+        <field2 value="Synkronas NeV"/>
+        <field3 value="Chordian"/>
+        <field4 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
+        <field5 value="%yyyy.%mm.%dd.%BUILDCOUNT"/>
+        <field6 value="An Omnichord Emulator"/>
+        <field7 value="chordian"/>
+        <field8 value="chordian.exe"/>
+        <field9 value="CC0 1.0 Universal"/>
+        <field12 value="5.46_Legacy"/>
         <field13 value="synkronas@outlook.com"/>
         <field14 value="https://github.com/Jan125/pb.chordian"/>
         <field15 value="VOS_NT"/>

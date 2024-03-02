@@ -312,6 +312,20 @@ Enumeration 1
   #Gad_Canvas
 EndEnumeration
 
+Enumeration 1
+  #Men_Main
+EndEnumeration
+
+Enumeration 1
+  #Itm_Load
+  #Itm_Save
+  #Itm_Reset
+  #Itm_Exit
+  #Itm_MasterEditMode
+  #Itm_Manual
+  #Itm_About
+EndEnumeration
+
 Enumeration #PB_Event_FirstCustomValue
   #Event_GetTriggers
   #Event_HandleTriggers
@@ -2829,12 +2843,60 @@ If InitSound()
   
   VolumeThread = CreateThread(@UpdateVolumeThread(), 0)
   
-  If OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 600, "Chordian", #PB_Window_SystemMenu)
+  If OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 620, "Chordian", #PB_Window_SystemMenu)
+    
+    CreateMenu(#Men_Main, WindowID(#Win_Main))
+    
+    MenuTitle("File")
+    MenuItem(#Itm_Load, "Load state...")
+    MenuItem(#Itm_Save, "Save state...")
+    MenuBar()
+    MenuItem(#Itm_Reset, "Reset state")
+    MenuBar()
+    MenuItem(#Itm_Exit, "Exit")
+    
+    DisableMenuItem(#Men_Main, #Itm_Load, 1)
+    DisableMenuItem(#Men_Main, #Itm_Save, 1)
+    DisableMenuItem(#Men_Main, #Itm_Reset, 1)
+    
+    MenuTitle("Edit")
+    MenuItem(#Itm_MasterEditMode, "Master Edit Mode...")
+    
+    DisableMenuItem(#Men_Main, #Itm_MasterEditMode, 1)
+    
+    MenuTitle("Help")
+    MenuItem(#Itm_Manual, "Open manual...")
+    MenuItem(#Itm_About, "About...")
+    
+    DisableMenuItem(#Men_Main, #Itm_Manual, 1)
+    
     If CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main), #PB_Canvas_Keyboard)
       SetActiveGadget(#Gad_Canvas)
       Repeat
-        Event = WindowEvent()
+        Event = WaitWindowEvent()
         Select Event
+          Case #PB_Event_Menu
+            ;--Menu Actions
+            Select EventMenu()
+              Case #Itm_Load
+              Case #Itm_Save
+              Case #Itm_Reset
+              Case #Itm_Exit
+                PostEvent(#PB_Event_CloseWindow)
+              Case #Itm_MasterEditMode
+              Case #Itm_Manual
+              Case #Itm_About
+                DisableWindow(#Win_Main, 1)
+                CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant)
+                  MessageRequester("Chordian > About", "An Omnichord Emulator, build "+Str(#PB_Editor_BuildCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                CompilerElseIf Defined(PB_Editor_CompileCount, #PB_Constant)
+                  MessageRequester("Chordian > About", "An Omnichord Emulator, fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                CompilerElse
+                  MessageRequester("Chordian > About", "An Omnichord Emulator"+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                CompilerEndIf
+                DisableWindow(#Win_Main, 0)
+            EndSelect
+            
           Case #PB_Event_Gadget
             ;--Gadget Actions
             Select EventGadget()
@@ -3307,7 +3369,7 @@ If InitSound()
                 DrawAlphaImage(ImageID(#Img_Button_Red_On), 271+((MousePositionXCurrent-271)/31)*31, 240)
                 StopDrawing()
                 Repeat
-                  Event = WindowEvent()
+                  Event = WaitWindowEvent()
                   Select Event
                     Case #PB_Event_Gadget
                       Select EventGadget()
@@ -3382,7 +3444,7 @@ If InitSound()
                 DrawAlphaImage(ImageID(#Img_Button_Red_On), 286+((MousePositionXCurrent-286)/31)*31, 283)
                 StopDrawing()
                 Repeat
-                  Event = WindowEvent()
+                  Event = WaitWindowEvent()
                   Select Event
                     Case #PB_Event_Gadget
                       Select EventGadget()
@@ -3457,7 +3519,7 @@ If InitSound()
                 DrawAlphaImage(ImageID(#Img_Button_Red_On), 301+((MousePositionXCurrent-301)/31)*31, 326)
                 StopDrawing()
                 Repeat
-                  Event = WindowEvent()
+                  Event = WaitWindowEvent()
                   Select Event
                     Case #PB_Event_Gadget
                       Select EventGadget()
