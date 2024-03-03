@@ -274,6 +274,8 @@ Enumeration 0
   #Dat_First
   #Dat_Bass_1 = #Dat_First
   #Dat_Bass_2
+  #Dat_Bass_3
+  #Dat_Bass_4
   #Dat_Chord_1
   #Dat_Chord_2
   #Dat_Chord_3
@@ -359,6 +361,8 @@ Global Dim MIDIs.a(#Note_Last, #Chord_Last, #Dat_Last)
 ;    Maj
 MIDIs(#Note_Db, #Chord_Maj, #Dat_Bass_1) = 37
 MIDIs(#Note_Db, #Chord_Maj, #Dat_Bass_2) = 25
+MIDIs(#Note_Db, #Chord_Maj, #Dat_Bass_3) = 32
+MIDIs(#Note_Db, #Chord_Maj, #Dat_Bass_4) = 29 ;----todo: add bass3 to every chord
 MIDIs(#Note_Db, #Chord_Maj, #Dat_Chord_1) = 49
 MIDIs(#Note_Db, #Chord_Maj, #Dat_Chord_2) = 53
 MIDIs(#Note_Db, #Chord_Maj, #Dat_Chord_3) = 44
@@ -378,6 +382,8 @@ MIDIs(#Note_Db, #Chord_Maj, #Dat_Harp_13) = 73
 ;    Min
 MIDIs(#Note_Db, #Chord_Min, #Dat_Bass_1) = 37
 MIDIs(#Note_Db, #Chord_Min, #Dat_Bass_2) = 25
+MIDIs(#Note_Db, #Chord_Min, #Dat_Bass_3) = 32
+MIDIs(#Note_Db, #Chord_Min, #Dat_Bass_4) = 28
 MIDIs(#Note_Db, #Chord_Min, #Dat_Chord_1) = 49
 MIDIs(#Note_Db, #Chord_Min, #Dat_Chord_2) = 52
 MIDIs(#Note_Db, #Chord_Min, #Dat_Chord_3) = 44
@@ -397,6 +403,8 @@ MIDIs(#Note_Db, #Chord_Min, #Dat_Harp_13) = 73
 ;    7th
 MIDIs(#Note_Db, #Chord_7th, #Dat_Bass_1) = 37
 MIDIs(#Note_Db, #Chord_7th, #Dat_Bass_2) = 25
+MIDIs(#Note_Db, #Chord_7th, #Dat_Bass_3) = 32
+MIDIs(#Note_Db, #Chord_7th, #Dat_Bass_4) = 29
 MIDIs(#Note_Db, #Chord_7th, #Dat_Chord_1) = 49
 MIDIs(#Note_Db, #Chord_7th, #Dat_Chord_2) = 53
 MIDIs(#Note_Db, #Chord_7th, #Dat_Chord_3) = 47
@@ -416,6 +424,8 @@ MIDIs(#Note_Db, #Chord_7th, #Dat_Harp_13) = 73
 ;    Dim
 MIDIs(#Note_Db, #Chord_Dim, #Dat_Bass_1) = 37
 MIDIs(#Note_Db, #Chord_Dim, #Dat_Bass_2) = 25
+MIDIs(#Note_Db, #Chord_Dim, #Dat_Bass_3) = 32
+MIDIs(#Note_Db, #Chord_Dim, #Dat_Bass_4) = 28
 MIDIs(#Note_Db, #Chord_Dim, #Dat_Chord_1) = 49
 MIDIs(#Note_Db, #Chord_Dim, #Dat_Chord_2) = 52
 MIDIs(#Note_Db, #Chord_Dim, #Dat_Chord_3) = 46
@@ -435,6 +445,8 @@ MIDIs(#Note_Db, #Chord_Dim, #Dat_Harp_13) = 73
 ;    Ma7
 MIDIs(#Note_Db, #Chord_Ma7, #Dat_Bass_1) = 37
 MIDIs(#Note_Db, #Chord_Ma7, #Dat_Bass_2) = 25
+MIDIs(#Note_Db, #Chord_Maj, #Dat_Bass_3) = 32
+MIDIs(#Note_Db, #Chord_Ma7, #Dat_Bass_4) = 29
 MIDIs(#Note_Db, #Chord_Ma7, #Dat_Chord_1) = 49
 MIDIs(#Note_Db, #Chord_Ma7, #Dat_Chord_2) = 53
 MIDIs(#Note_Db, #Chord_Ma7, #Dat_Chord_3) = 48
@@ -454,6 +466,8 @@ MIDIs(#Note_Db, #Chord_Ma7, #Dat_Harp_13) = 73
 ;    Mi7
 MIDIs(#Note_Db, #Chord_Mi7, #Dat_Bass_1) = 37
 MIDIs(#Note_Db, #Chord_Mi7, #Dat_Bass_2) = 25
+MIDIs(#Note_Db, #Chord_Mi7, #Dat_Bass_3) = 32
+MIDIs(#Note_Db, #Chord_Mi7, #Dat_Bass_4) = 28
 MIDIs(#Note_Db, #Chord_Mi7, #Dat_Chord_1) = 49
 MIDIs(#Note_Db, #Chord_Mi7, #Dat_Chord_2) = 52
 MIDIs(#Note_Db, #Chord_Mi7, #Dat_Chord_3) = 47
@@ -473,6 +487,8 @@ MIDIs(#Note_Db, #Chord_Mi7, #Dat_Harp_13) = 73
 ;    Aug
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Bass_1) = 37
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Bass_2) = 25
+MIDIs(#Note_Db, #Chord_Aug, #Dat_Bass_3) = 32
+MIDIs(#Note_Db, #Chord_Aug, #Dat_Bass_4) = 29
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Chord_1) = 49
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Chord_2) = 53
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Chord_3) = 45
@@ -489,7 +505,7 @@ MIDIs(#Note_Db, #Chord_Aug, #Dat_Harp_10) = 61
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Harp_11) = 65
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Harp_12) = 57
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Harp_13) = 73
-
+;----bass3 starts here
 ;---G#/Ab
 ;    Maj
 MIDIs(#Note_Ab, #Chord_Maj, #Dat_Bass_1) = 32
@@ -2009,7 +2025,181 @@ For s = 0 To 1
   Next
 Next
 
+;---Rock1
+For n = #Note_First To #Note_Last
+  
+  Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 1, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 6, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 7, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 8, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 9, #Pattern_Bass) = #Curve_Sustain
+  
+  Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 1+16, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 6+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 7+16, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 8+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 9+16, #Pattern_Bass) = #Curve_Sustain
+  
+  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 13+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 14+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 15+16, #Pattern_Bass) = #Curve_Trigger
+  
+  
+  Patterns(0, #Rhythm_Rock1, n, 4, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 6, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12, #Pattern_Chords) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 4+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 6+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Chords) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 6, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 8, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 6+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 8+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 2, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 4, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 6, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 8, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 10, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 14, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 2+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 4+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 6+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 8+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 10+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 14+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 4, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 14, #Pattern_Drum_Snare) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock1, n, 4+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock1, n, 14+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+  
+Next
 
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_C, i, #Pattern_Frequency) = 1
+Next
+For i = 0 To 31
+  Select i
+    Case 8 To 15, 8+16 To 11+16, 14+16 To 15+16
+      Patterns(0, #Rhythm_Rock1, #Note_Db, i, #Pattern_Frequency) = 2
+    Case 12+16 To 13+16
+      Patterns(0, #Rhythm_Rock1, #Note_Db, i, #Pattern_Frequency) = 3
+    Default
+      Patterns(0, #Rhythm_Rock1, #Note_Db, i, #Pattern_Frequency) = 1
+  EndSelect
+Next
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_E, i, #Pattern_Frequency) = 1
+Next
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_Eb, i, #Pattern_Frequency) = 1
+Next
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_F, i, #Pattern_Frequency) = 1
+Next
+For i = 0 To 31
+  Patterns(0, #Rhythm_Rock1, #Note_D, i, #Pattern_Frequency) = 1
+Next
+
+
+;---Rock2 (Placeholder)
+For n = #Note_First To #Note_Last
+  
+  Patterns(0, #Rhythm_Rock2, n, 0, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 2, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 12, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock2, n, 13, #Pattern_Bass) = #Curve_Sustain
+  
+  Patterns(0, #Rhythm_Rock2, n, 2, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 6, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 10, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 14, #Pattern_Chords) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 0, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 8, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 0, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 3, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 6, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 8, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  
+  Patterns(0, #Rhythm_Rock2, n, 10, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 4, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 12, #Pattern_Drum_Snare) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 0+16, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 2+16, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 12+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock2, n, 13+16, #Pattern_Bass) = #Curve_Sustain
+  
+  Patterns(0, #Rhythm_Rock2, n, 2+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 6+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 10+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 14+16, #Pattern_Chords) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 0+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 8+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 0+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 3+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 6+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 8+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 12+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 13+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 14+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 15+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  
+  Patterns(0, #Rhythm_Rock2, n, 10+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Rock2, n, 4+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Rock2, n, 12+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+Next
+
+
+For n = 0 To 31
+  Patterns(0, #Rhythm_Rock2, #Note_Db, n, #Pattern_Frequency) = 1
+Next
+For n = 0 To 31
+  Patterns(0, #Rhythm_Rock2, #Note_Eb, n, #Pattern_Frequency) = 1
+Next
+For n = 0 To 31
+  Patterns(0, #Rhythm_Rock2, #Note_C, n, #Pattern_Frequency) = 1
+Next
+For n = 0 To 31
+  Patterns(0, #Rhythm_Rock2, #Note_F, n, #Pattern_Frequency) = 1
+Next
+For n = 0 To 31
+  Patterns(0, #Rhythm_Rock2, #Note_D, n, #Pattern_Frequency) = 1
+Next
+For n = 0 To 31
+  Patterns(0, #Rhythm_Rock2, #Note_E, n, #Pattern_Frequency) = 1
+Next
+
+
+;---Disco
 For i = #Note_First To #Note_Last
   For n = 0 To 31
     Patterns(0, #Rhythm_Disco, i, n, #Pattern_Frequency) = 0
@@ -2110,83 +2300,13 @@ For n = 0 To 31
   Patterns(0, #Rhythm_Disco, #Note_E, n, #Pattern_Frequency) = 1
 Next
 
-
-For n = #Note_First To #Note_Last
-  
-  Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Bass) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 2, #Pattern_Bass) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 12, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 13, #Pattern_Bass) = #Curve_Sustain
-  
-  Patterns(0, #Rhythm_Rock1, n, 2, #Pattern_Chords) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 6, #Pattern_Chords) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 10, #Pattern_Chords) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 14, #Pattern_Chords) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Drum_BD) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 8, #Pattern_Drum_BD) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 3, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 6, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 8, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  
-  
-  Patterns(0, #Rhythm_Rock1, n, 10, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 4, #Pattern_Drum_Snare) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 12, #Pattern_Drum_Snare) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Bass) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 2+16, #Pattern_Bass) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 13+16, #Pattern_Bass) = #Curve_Sustain
-  
-  Patterns(0, #Rhythm_Rock1, n, 2+16, #Pattern_Chords) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 6+16, #Pattern_Chords) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 10+16, #Pattern_Chords) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 14+16, #Pattern_Chords) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Drum_BD) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 8+16, #Pattern_Drum_BD) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 3+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 6+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 8+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 13+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 14+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 15+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  
-  
-  Patterns(0, #Rhythm_Rock1, n, 10+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
-  
-  Patterns(0, #Rhythm_Rock1, n, 4+16, #Pattern_Drum_Snare) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Drum_Snare) = #Curve_Oneshot
-Next
-
-For i = 0 To 31
-  Patterns(0, #Rhythm_Rock1, #Note_C, i, #Pattern_Frequency) = 1
-Next
-For i = 0 To 31
-  Patterns(0, #Rhythm_Rock1, #Note_Db, i, #Pattern_Frequency) = 1
-Next
-For i = 0 To 31
-  Patterns(0, #Rhythm_Rock1, #Note_E, i, #Pattern_Frequency) = 1
-Next
-For i = 0 To 31
-  Patterns(0, #Rhythm_Rock1, #Note_Eb, i, #Pattern_Frequency) = 1
-Next
-For i = 0 To 31
-  Patterns(0, #Rhythm_Rock1, #Note_F, i, #Pattern_Frequency) = 1
-Next
-For i = 0 To 31
-  Patterns(0, #Rhythm_Rock1, #Note_D, i, #Pattern_Frequency) = 1
-Next
+;---Latin (Not implemented)
+;---Country (Not implemented)
+;---March (Not implemented)
+;---Tango (Not implemented)
+;---Blues (Not implemented)
+;---Swing (Not implemented)
+;---Waltz (Not implemented)
 
 ;--Chord Key Data
 Global Dim ChordKeys.u(#Chord_Last, #Note_Last)
@@ -2391,6 +2511,10 @@ Procedure.l UpdateFrequencies()
             SetSoundFrequency(#Snd_Bass, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Bass_1))
           Case 1
             SetSoundFrequency(#Snd_Bass, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Bass_2))
+          Case 2
+            SetSoundFrequency(#Snd_Bass, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Bass_3))
+          Case 3
+            SetSoundFrequency(#Snd_Bass, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Bass_4))
         EndSelect
     EndSelect
     SetSoundFrequency(#Snd_Chord_1, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Chord_1))
@@ -2463,7 +2587,7 @@ Procedure.l UpdateFrequencies()
       SetSoundPosition(#Snd_Harp_13_Standard, GetSoundPosition(#Snd_Harp_13_Vibrato)+19)
     EndIf
   EndIf
-
+  
 EndProcedure
 Procedure UpdateVolume()
   Static Dim VolumeStatus.f(#Dat_Last)
@@ -2520,16 +2644,23 @@ Procedure UpdateVolume()
       
     Default
       If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None
-        If Int(Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)) > Int(Tick)
+        If Value_Rhythm_Pattern = #Rhythm_None ;FroggiFifi - #Rhythm_None immediately overwrites the rhythm pattern, and does not play the full previous pattern.
+          Value_Rhythm_Pattern_Current = #Rhythm_None
           NewTick = 1
-        EndIf
-        Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
-        If Tick >= 32.0
-          Tick-32.0
-          If Value_Rhythm_Pattern <> Value_Rhythm_Pattern_Current Or Value_Rhythm_Alternate <> Value_Rhythm_Alternate_Current
-            Value_Rhythm_Pattern_Current = Value_Rhythm_Pattern
-            Value_Rhythm_Alternate_Current = Value_Rhythm_Alternate
+          NewChord = 1
+          Tick = 0
+        Else
+          If Int(Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)) > Int(Tick)
             NewTick = 1
+          EndIf
+          Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
+          If Tick >= 32.0
+            Tick-32.0
+            If Value_Rhythm_Pattern <> Value_Rhythm_Pattern_Current Or Value_Rhythm_Alternate <> Value_Rhythm_Alternate_Current
+              Value_Rhythm_Pattern_Current = Value_Rhythm_Pattern
+              Value_Rhythm_Alternate_Current = Value_Rhythm_Alternate
+              NewTick = 1
+            EndIf
           EndIf
         EndIf
       Else
@@ -2539,6 +2670,7 @@ Procedure UpdateVolume()
         NewChord = 1
         Tick = 0
       EndIf
+      
   EndSelect
   
   If NewTick
@@ -3295,7 +3427,7 @@ If InitSound()
             EndIf
             
             ;rhythm
-            If Trigger_Rhythm_Button_Select
+            If Trigger_Rhythm_Button_Select ;FroggiFifi - Rhythm buttons do not pop out when pressed again, only by lightly pressing another rhythm button - Unemulatable, will stay as it is currently.
               Trigger_Rhythm_Button_Select = 0
               If (MousePositionXCurrent-68)%32 <= 20
                 If (MousePositionXCurrent-68)/32 = Value_Rhythm_Pattern
