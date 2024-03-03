@@ -2349,11 +2349,12 @@ Global Value_Level_Volume_Chords.f = 1.0
 
 ;   Middle-Lower Section
 Global Value_Rhythm_Alternate.l
+Global Value_Rhythm_Alternate_Current.l
 Global Value_Rhythm_Pattern.l = #Rhythm_None
+Global Value_Rhythm_Pattern_Current.l = #Rhythm_None
 Global Value_Rhythm_AutoBassSync.l = 1
 Global Value_Rhythm_Tempo.f = 0.5
 Global Value_Rhythm_Volume.f = 1.0
-Global Value_Rhythm_Bass.l = 0
 
 ;   Lower Section
 Global Value_Memory_Enable.l
@@ -2381,11 +2382,11 @@ Global Dim Status_Harp.l(#Harp_Last)
 ;-Procedures
 Procedure.l UpdateFrequencies()
   If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None
-    Select Value_Rhythm_Pattern
+    Select Value_Rhythm_Pattern_Current
       Case #Rhythm_None
         SetSoundFrequency(#Snd_Bass, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Bass_1))
       Default
-        Select Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Frequency)
+        Select Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Frequency)
           Case 0
             SetSoundFrequency(#Snd_Bass, Frequencies(Value_Chord_Note, Value_Chord_Chord, #Dat_Bass_1))
           Case 1
@@ -2497,21 +2498,52 @@ Procedure UpdateVolume()
   Sin3Phase = Sqr(Sqr(Abs(SinPhase)))*Sign(SinPhase)
   ;Cos3Phase = Sqr(Sqr(Abs(CosPhase)))*Sign(CosPhase)
   
-  Select Value_Rhythm_Pattern
+  Select Value_Rhythm_Pattern_Current
     Case #Rhythm_None
-    Default
-      If Int(Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)) > Int(Tick)
+      If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None
+        If Value_Rhythm_Pattern <> Value_Rhythm_Pattern_Current Or Value_Rhythm_Alternate <> Value_Rhythm_Alternate_Current
+          Value_Rhythm_Pattern_Current = Value_Rhythm_Pattern
+          Value_Rhythm_Alternate_Current = Value_Rhythm_Alternate
+          NewTick = 1
+          Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
+          If Tick >= 32.0
+            Tick-32.0
+          EndIf
+        EndIf
+      Else
+        Value_Rhythm_Pattern_Current = Value_Rhythm_Pattern
+        Value_Rhythm_Alternate_Current = Value_Rhythm_Alternate
         NewTick = 1
+        NewChord = 1
+        Tick = 0
       EndIf
-      Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
-      If Tick >= 32.0
-        Tick-32.0
+      
+    Default
+      If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None
+        If Int(Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)) > Int(Tick)
+          NewTick = 1
+        EndIf
+        Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
+        If Tick >= 32.0
+          Tick-32.0
+          If Value_Rhythm_Pattern <> Value_Rhythm_Pattern_Current Or Value_Rhythm_Alternate <> Value_Rhythm_Alternate_Current
+            Value_Rhythm_Pattern_Current = Value_Rhythm_Pattern
+            Value_Rhythm_Alternate_Current = Value_Rhythm_Alternate
+            NewTick = 1
+          EndIf
+        EndIf
+      Else
+        Value_Rhythm_Pattern_Current = Value_Rhythm_Pattern
+        Value_Rhythm_Alternate_Current = Value_Rhythm_Alternate
+        NewTick = 1
+        NewChord = 1
+        Tick = 0
       EndIf
   EndSelect
   
   If NewTick
     NewTick = 0
-    Select Value_Rhythm_Pattern
+    Select Value_Rhythm_Pattern_Current
       Case #Rhythm_None
         NewChord = 1
         Status_Sound(#Dat_Bass_1) = #Curve_Trigger
@@ -2522,22 +2554,21 @@ Procedure UpdateVolume()
         If Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None
           If Value_Rhythm_AutoBassSync
             NewChord = 1
-            Status_Sound(#Dat_Bass_1) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Bass)
+            Status_Sound(#Dat_Bass_1) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Bass)
             
-            
-            Status_Sound(#Dat_Chord_1) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords)
-            Status_Sound(#Dat_Chord_2) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords)
-            Status_Sound(#Dat_Chord_3) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Chords)
+            Status_Sound(#Dat_Chord_1) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Chords)
+            Status_Sound(#Dat_Chord_2) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Chords)
+            Status_Sound(#Dat_Chord_3) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Chords)
           Else
             Status_Sound(#Dat_Bass_1) = #Curve_Trigger
             Status_Sound(#Dat_Chord_1) = #Curve_Trigger
             Status_Sound(#Dat_Chord_2) = #Curve_Trigger
             Status_Sound(#Dat_Chord_3) = #Curve_Trigger
           EndIf
-          Status_Sound(#Dat_Drum_BD) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_BD)
+          Status_Sound(#Dat_Drum_BD) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Drum_BD)
           
-          Status_Sound(#Dat_Drum_HiHat) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_HiHat)
-          Status_Sound(#Dat_Drum_Snare) = Patterns(Value_Rhythm_Alternate, Value_Rhythm_Pattern, Value_Chord_Note, Int(Tick), #Pattern_Drum_Snare)
+          Status_Sound(#Dat_Drum_HiHat) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Drum_HiHat)
+          Status_Sound(#Dat_Drum_Snare) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Drum_Snare)
           
         EndIf
     EndSelect
@@ -3259,9 +3290,8 @@ If InitSound()
             If Trigger_Rhythm_Button_Alternate
               Trigger_Rhythm_Button_Alternate = 0
               Value_Rhythm_Alternate = Bool(Not Value_Rhythm_Alternate)
-              Tick = 0
-              NewTick = 1
               PostEvent(#PB_Event_Repaint)
+              NewChord = 1
             EndIf
             
             ;rhythm
@@ -3270,14 +3300,10 @@ If InitSound()
               If (MousePositionXCurrent-68)%32 <= 20
                 If (MousePositionXCurrent-68)/32 = Value_Rhythm_Pattern
                   Value_Rhythm_Pattern = #Rhythm_None
-                  Value_Rhythm_Bass = 0
                   NewChord = 1
-                  NewTick = 1
                 Else
                   Value_Rhythm_Pattern = (MousePositionXCurrent-68)/32
-                  Tick = 0
                   NewChord = 1
-                  NewTick = 1
                 EndIf
               EndIf
               PostEvent(#PB_Event_Repaint)
@@ -3443,7 +3469,6 @@ If InitSound()
                       KillThread(VolumeThread)
                       Break 2
                     Default
-                      Delay(1)
                   EndSelect
                 ForEver
               EndIf
@@ -3518,7 +3543,6 @@ If InitSound()
                       KillThread(VolumeThread)
                       Break 2
                     Default
-                      Delay(1)
                   EndSelect
                 ForEver
               EndIf
@@ -3593,7 +3617,6 @@ If InitSound()
                       KillThread(VolumeThread)
                       Break 2
                     Default
-                      Delay(1)
                   EndSelect
                 ForEver
               EndIf
@@ -3609,6 +3632,7 @@ If InitSound()
                     Keys(ChordKeys(n, i)) = 0
                   Next
                 Next
+                Tick = 0
                 Value_Master_Power = 0
                 Delay(10)
                 Value_Master_Power = 1
@@ -3938,9 +3962,9 @@ If InitSound()
                   ElseIf Not Value_Memory_Playback_Record
                     Value_Chord_Note = #Note_None
                     Value_Chord_Chord = #Chord_None
+                    Value_Rhythm_Pattern_Current = #Rhythm_None
                     Value_Master_Power = 0
-                    Tick = 0
-                    Delay(20)
+                    Delay(10)
                     Value_Master_Power = 1
                   EndIf
                 EndIf
@@ -4283,7 +4307,6 @@ If InitSound()
             KillThread(VolumeThread)
             Break
           Default
-            Delay(1)
         EndSelect
       ForEver
     Else
