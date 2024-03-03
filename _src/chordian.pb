@@ -2029,23 +2029,23 @@ Next
 For n = #Note_First To #Note_Last
   
   Patterns(0, #Rhythm_Rock1, n, 0, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 1, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 1, #Pattern_Bass) = #Curve_Release
   Patterns(0, #Rhythm_Rock1, n, 6, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 7, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 7, #Pattern_Bass) = #Curve_Release
   Patterns(0, #Rhythm_Rock1, n, 8, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 9, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 9, #Pattern_Bass) = #Curve_Release
   
   Patterns(0, #Rhythm_Rock1, n, 0+16, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 1+16, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 1+16, #Pattern_Bass) = #Curve_Release
   Patterns(0, #Rhythm_Rock1, n, 6+16, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 7+16, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 7+16, #Pattern_Bass) = #Curve_Release
   Patterns(0, #Rhythm_Rock1, n, 8+16, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 9+16, #Pattern_Bass) = #Curve_Sustain
+  Patterns(0, #Rhythm_Rock1, n, 9+16, #Pattern_Bass) = #Curve_Release
   
   Patterns(0, #Rhythm_Rock1, n, 12+16, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 13+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 13+16, #Pattern_Bass) = #Curve_Release
   Patterns(0, #Rhythm_Rock1, n, 14+16, #Pattern_Bass) = #Curve_Trigger
-  Patterns(0, #Rhythm_Rock1, n, 15+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Rock1, n, 15+16, #Pattern_Bass) = #Curve_Release
   
   
   Patterns(0, #Rhythm_Rock1, n, 4, #Pattern_Chords) = #Curve_Oneshot
@@ -2723,7 +2723,7 @@ Procedure UpdateVolume()
         Status_Sound(i) = #Curve_None
       Next
     Case 1
-      For i = #Dat_Bass_1 To #Dat_Bass_2
+      For i = #Dat_Bass_1 To #Dat_Bass_4
         Select Status_Sound(i)
           Case #Curve_None
             VolumeStatus(i) = 0.0
