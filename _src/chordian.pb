@@ -328,6 +328,7 @@ Enumeration 1
   #Itm_Save
   #Itm_Reset
   #Itm_Exit
+  #Itm_Tuning
   #Itm_MasterEditMode
   #Itm_Manual
   #Itm_About
@@ -843,13 +844,14 @@ For i = #Note_First To #Note_Last
 Next
 
 ;--Frequency Data
+Global Tuning.f = 440.0
 Global Dim Frequencies.l(#Note_Last, #Chord_Last, #Dat_Last)
 Global Dim FrequenciesKeyboard.l(127)
 
 For i = #Note_First To #Note_Last
   For n = #Chord_First To #Chord_Last
     For s = #Dat_First To #Dat_Last
-      Frequencies(i, n, s) = 440.0*Pow(2.0, (MIDIs(i, n, s)-71)/12.0)*225.0
+      Frequencies(i, n, s) = Tuning*Pow(2.0, (MIDIs(i, n, s)-71)/12.0)*225.0
     Next
   Next
 Next
@@ -1886,6 +1888,8 @@ If InitSound()
     DisableMenuItem(#Men_Main, #Itm_Reset, 1)
     
     MenuTitle("Edit")
+    MenuItem(#Itm_Tuning, "Set Tuning...")
+    MenuBar()
     MenuItem(#Itm_MasterEditMode, "Master Edit Mode...")
     
     DisableMenuItem(#Men_Main, #Itm_MasterEditMode, 1)
@@ -1909,16 +1913,29 @@ If InitSound()
               Case #Itm_Reset
               Case #Itm_Exit
                 PostEvent(#PB_Event_CloseWindow)
+              Case #Itm_Tuning
+                TempString = InputRequester("Chordian>Master>Tuning", "Insert new Tuning. (440.0)", StrF(Tuning))
+                If Len(TempString) > 0
+                  Tuning = ValF(TempString)
+                EndIf
+                For i = #Note_First To #Note_Last
+                  For n = #Chord_First To #Chord_Last
+                    For s = #Dat_First To #Dat_Last
+                      Frequencies(i, n, s) = Tuning*Pow(2.0, (MIDIs(i, n, s)-71)/12.0)*225.0
+                    Next
+                  Next
+                Next
+                NewChord = 1
               Case #Itm_MasterEditMode
               Case #Itm_Manual
               Case #Itm_About
                 DisableWindow(#Win_Main, 1)
                 CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant)
-                  MessageRequester("Chordian > About", "An Omnichord Emulator, build "+Str(#PB_Editor_BuildCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Build "+Str(#PB_Editor_BuildCount)+#CRLF$+#CRLF$+"Please see the GitHub page For more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
                 CompilerElseIf Defined(PB_Editor_CompileCount, #PB_Constant)
-                  MessageRequester("Chordian > About", "An Omnichord Emulator, fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Dev Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+#CRLF$+"Please see the GitHub page For more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
                 CompilerElse
-                  MessageRequester("Chordian > About", "An Omnichord Emulator"+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
                 CompilerEndIf
                 DisableWindow(#Win_Main, 0)
             EndSelect
