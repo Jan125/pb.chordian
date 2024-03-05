@@ -1649,6 +1649,7 @@ Procedure UpdateVolume()
           EndIf
           
           Status_Sound(#Dat_Drum_BD) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Drum_BD)
+          Status_Sound(#Dat_Drum_Click) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Drum_Click)
           Status_Sound(#Dat_Drum_HiHat) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Drum_HiHat)
           Status_Sound(#Dat_Drum_Snare) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Drum_Snare)
           Status_Sound(#Dat_Drum_Ride) = Patterns(Value_Rhythm_Alternate_Current, Value_Rhythm_Pattern_Current, Value_Chord_Note, Int(Tick), #Pattern_Drum_Ride)
@@ -1774,16 +1775,16 @@ Procedure UpdateVolume()
         Status_Sound(#Dat_Drum_BD) = #Curve_Release
         VolumeStatus(#Dat_Drum_BD) = 1.0
         PlaySound(#Snd_Drum_BD, 0, Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_BD))
-      EndIf  
-      If Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger Or Status_Sound(#Dat_Drum_HiHat) = #Curve_Oneshot
-        Status_Sound(#Dat_Drum_HiHat) = #Curve_Release
-        VolumeStatus(#Dat_Drum_HiHat) = 1.0
-        PlaySound(#Snd_Drum_HiHat, 0, Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_HiHat)) 
       EndIf
       If Status_Sound(#Dat_Drum_Click) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Click) = #Curve_Oneshot
         Status_Sound(#Dat_Drum_Click) = #Curve_Release
         VolumeStatus(#Dat_Drum_Click) = 1.0
         PlaySound(#Snd_Drum_Click, 0, Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Click)) 
+      EndIf
+      If Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger Or Status_Sound(#Dat_Drum_HiHat) = #Curve_Oneshot
+        Status_Sound(#Dat_Drum_HiHat) = #Curve_Release
+        VolumeStatus(#Dat_Drum_HiHat) = 1.0
+        PlaySound(#Snd_Drum_HiHat, 0, Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_HiHat)) 
       EndIf
       If Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Snare) = #Curve_Oneshot
         Status_Sound(#Dat_Drum_Snare) = #Curve_Release
@@ -1846,6 +1847,9 @@ Procedure UpdateVolume()
   
   If SoundStatus(#Snd_Drum_BD, #PB_Sound_Playing)
     SoundVolume(#Snd_Drum_BD, Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_BD))
+  EndIf
+  If SoundStatus(#Snd_Drum_Click, #PB_Sound_Playing)
+    SoundVolume(#Snd_Drum_Click, Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Click))
   EndIf
   If SoundStatus(#Snd_Drum_HiHat, #PB_Sound_Playing)
     SoundVolume(#Snd_Drum_HiHat, Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_HiHat))
