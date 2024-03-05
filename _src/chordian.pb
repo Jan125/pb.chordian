@@ -430,7 +430,6 @@ MIDIs(#Note_Db, #Chord_Aug, #Dat_Chord_1) = 49
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Chord_2) = 53
 MIDIs(#Note_Db, #Chord_Aug, #Dat_Chord_3) = 45
 
-;----bass3 starts here
 ;---G#/Ab
 ;    Maj
 MIDIs(#Note_Ab, #Chord_Maj, #Dat_Bass_1) = 32
@@ -1150,7 +1149,99 @@ For n = 0 To 31
   Patterns(0, #Rhythm_Disco, #Note_E, n, #Pattern_Frequency) = 1
 Next
 
-;---Latin (Not implemented)
+;---Latin
+For i = #Note_First To #Note_Last
+  
+  Patterns(0, #Rhythm_Latin, i, 0, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Latin, i, 1, #Pattern_Bass) = #Curve_Release
+  Patterns(0, #Rhythm_Latin, i, 8, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Latin, i, 9, #Pattern_Bass) = #Curve_Release
+  Patterns(0, #Rhythm_Latin, i, 12, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Latin, i, 13, #Pattern_Bass) = #Curve_Release
+  
+  Patterns(0, #Rhythm_Latin, i, 0+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Latin, i, 1+16, #Pattern_Bass) = #Curve_Release
+  Patterns(0, #Rhythm_Latin, i, 6+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Latin, i, 7+16, #Pattern_Bass) = #Curve_Release
+  Patterns(0, #Rhythm_Latin, i, 8+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Latin, i, 9+16, #Pattern_Bass) = #Curve_Release
+  Patterns(0, #Rhythm_Latin, i, 14+16, #Pattern_Bass) = #Curve_Trigger
+  Patterns(0, #Rhythm_Latin, i, 15+16, #Pattern_Bass) = #Curve_Release
+  
+  Patterns(0, #Rhythm_Latin, i, 0, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 4, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 10, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 14, #Pattern_Chords) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Latin, i, 2+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 6+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 10+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 12+16, #Pattern_Chords) = #Curve_Trigger
+  Patterns(0, #Rhythm_Latin, i, 13+16, #Pattern_Chords) = #Curve_Release
+  
+  Patterns(0, #Rhythm_Latin, i, 0, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 8, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 14, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Latin, i, 0+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 8+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 14+16, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Latin, i, 2, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 3, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 4, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 6, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 10, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 11, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 14, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Latin, i, 2+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 3+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 4+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 6+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 10+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 11+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 12+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 14+16, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Latin, i, 6, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 12, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 6+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 12+16, #Pattern_Drum_Snare) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Latin, i, 12, #Pattern_Drum_Click) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 14, #Pattern_Drum_Click) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 12+16, #Pattern_Drum_Click) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 14+16, #Pattern_Drum_Click) = #Curve_Oneshot
+  
+  
+  Patterns(0, #Rhythm_Latin, i, 0, #Pattern_Drum_Ride) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 8, #Pattern_Drum_Ride) = #Curve_Oneshot
+  
+  Patterns(0, #Rhythm_Latin, i, 0+16, #Pattern_Drum_Ride) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Latin, i, 8+16, #Pattern_Drum_Ride) = #Curve_Oneshot
+  
+Next
+
+For n = #Note_First To #Note_Last
+  For i = 0 To 31
+    Select i
+      Case 12 To 15, 8+16 To 15+16
+        Patterns(0, #Rhythm_Latin, n, i, #Pattern_Frequency) = 2
+      Case 8 To 11
+        Patterns(0, #Rhythm_Latin, n, i, #Pattern_Frequency) = 3
+      Default
+        Select n
+          Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
+            Patterns(0, #Rhythm_Latin, n, i, #Pattern_Frequency) = 1
+          Default
+            Patterns(0, #Rhythm_Latin, n, i, #Pattern_Frequency) = 0
+        EndSelect
+    EndSelect
+  Next
+Next
+
 ;---Country (Not implemented)
 ;---March (Not implemented)
 ;---Tango (Not implemented)
@@ -1688,7 +1779,12 @@ Procedure UpdateVolume()
         Status_Sound(#Dat_Drum_HiHat) = #Curve_Release
         VolumeStatus(#Dat_Drum_HiHat) = 1.0
         PlaySound(#Snd_Drum_HiHat, 0, Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_HiHat)) 
-      EndIf  
+      EndIf
+      If Status_Sound(#Dat_Drum_Click) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Click) = #Curve_Oneshot
+        Status_Sound(#Dat_Drum_Click) = #Curve_Release
+        VolumeStatus(#Dat_Drum_Click) = 1.0
+        PlaySound(#Snd_Drum_Click, 0, Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Click)) 
+      EndIf
       If Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Snare) = #Curve_Oneshot
         Status_Sound(#Dat_Drum_Snare) = #Curve_Release
         VolumeStatus(#Dat_Drum_Snare) = 1.0
