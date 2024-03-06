@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 6.04 LTS (Windows - x86)">
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 5.46 LTS (Windows - x86)">
   <section name="config">
     <options closefiles="1" openmode="0" name="Chordian"/>
     <comment>
       An Omnichord Emulator
       Compatible with PB versions:
       -5.46 LTS (x86, x64)
-      -6.04 LTS ASM (x86, x64)
-      -6.04 LTS C (x86, x64)
+      -6.04 LTS ASM (x86, x64, WILL NOT RUN ON WIN7)
+      -6.04 LTS C (x86, x64, WILL NOT RUN ON WIN7)
     </comment>
   </section>
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-03-05 19:50" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2024-03-06 15:59" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
-      <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
-      <fingerprint md5="01e04c936bf2125d8a0610c3acc19be4"/>
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="f57605355e4590cff1f59e5e5b078b9d"/>
     </file>
   </section>
   <section name="targets">
     <target name="Test" enabled="0" default="1">
       <inputfile value="chordian.pb"/>
       <outputfile value=""/>
-      <compiler version="PureBasic 6.04 LTS (Windows - x86)"/>
+      <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
       <executable value="..\chordian610b6c.exe"/>
-      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="0"/>
+      <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="0">chordian.ico</icon>
       <format exe="default" cpu="1"/>
       <compilecount enable="1" value="937"/>
@@ -54,12 +54,12 @@
     <target name="Stable" enabled="1" default="0">
       <inputfile value="chordian.pb"/>
       <outputfile value="..\chordian.exe"/>
-      <compiler version="PureBasic 6.04 LTS - C Backend (Windows - x86)"/>
+      <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
       <executable value="..\chordian.exe"/>
-      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="1"/>
+      <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="163"/>
+      <buildcount enable="1" value="168"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -72,6 +72,7 @@
         <field7 value="chordian"/>
         <field8 value="chordian.exe"/>
         <field9 value="CC0 1.0 Universal"/>
+        <field12 value="5.46_Stable"/>
         <field13 value="synkronas@outlook.com"/>
         <field14 value="https://github.com/Jan125/pb.chordian"/>
         <field15 value="VOS_NT"/>
@@ -83,9 +84,9 @@
       <outputfile value="..\chordian_legacy.exe"/>
       <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
       <executable value="..\chordian_legacy.exe"/>
-      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="0"/>
+      <options thread="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
-      <buildcount enable="1" value="163"/>
+      <buildcount enable="1" value="168"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>

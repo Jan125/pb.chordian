@@ -2087,9 +2087,9 @@ If InitSound()
               Case #Itm_About
                 DisableWindow(#Win_Main, 1)
                 CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant)
-                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Build "+Str(#PB_Editor_BuildCount)+#CRLF$+#CRLF$+"Please see the GitHub page For more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Build "+Str(#PB_Editor_BuildCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
                 CompilerElseIf Defined(PB_Editor_CompileCount, #PB_Constant)
-                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Dev Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+#CRLF$+"Please see the GitHub page For more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Dev Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
                 CompilerElse
                   MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
                 CompilerEndIf
