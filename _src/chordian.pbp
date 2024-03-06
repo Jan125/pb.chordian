@@ -14,12 +14,12 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-03-06 15:59" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2024-03-06 20:12" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="f57605355e4590cff1f59e5e5b078b9d"/>
+      <fingerprint md5="d06e8abb54ac36059899377460264d12"/>
     </file>
   </section>
   <section name="targets">
@@ -31,7 +31,7 @@
       <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="0">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <compilecount enable="1" value="937"/>
+      <compilecount enable="1" value="959"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -59,7 +59,7 @@
       <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="168"/>
+      <buildcount enable="1" value="171"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -86,7 +86,7 @@
       <executable value="..\chordian_legacy.exe"/>
       <options thread="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
-      <buildcount enable="1" value="168"/>
+      <buildcount enable="1" value="171"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>

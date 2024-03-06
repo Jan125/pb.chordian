@@ -1279,7 +1279,57 @@ Next
 ;---Tango (Not implemented)
 ;---Blues (Not implemented)
 ;---Swing (Not implemented)
-;---Waltz (Not implemented)
+;---Waltz
+For i = #Note_First To #Note_Last
+  Patterns(1, #Rhythm_Waltz, i, 0, #Pattern_Bass) = #Curve_Trigger
+  Patterns(1, #Rhythm_Waltz, i, 1, #Pattern_Bass) = #Curve_Release
+  Patterns(1, #Rhythm_Waltz, i, 0+12, #Pattern_Bass) = #Curve_Trigger
+  Patterns(1, #Rhythm_Waltz, i, 1+12, #Pattern_Bass) = #Curve_Release
+  Patterns(1, #Rhythm_Waltz, i, 8+12, #Pattern_Bass) = #Curve_Trigger
+  Patterns(1, #Rhythm_Waltz, i, 9+12, #Pattern_Bass) = #Curve_Release
+  
+  Patterns(1, #Rhythm_Waltz, i, 4, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 8, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 4+12, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 8+12, #Pattern_Chords) = #Curve_Oneshot
+  
+  Patterns(1, #Rhythm_Waltz, i, 0, #Pattern_Drum_BD) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 0+12, #Pattern_Drum_BD) = #Curve_Oneshot
+  
+  Patterns(1, #Rhythm_Waltz, i, 0, #Pattern_Drum_Ride) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 0+12, #Pattern_Drum_Ride) = #Curve_Oneshot
+  
+  Patterns(1, #Rhythm_Waltz, i, 4, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 8, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 3+12, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 4+12, #Pattern_Drum_Snare) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 8+12, #Pattern_Drum_Snare) = #Curve_Oneshot
+  
+  Patterns(1, #Rhythm_Waltz, i, 4, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 8, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 3+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 4+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+  Patterns(1, #Rhythm_Waltz, i, 8+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+Next
+
+For n = #Note_First To #Note_Last
+  For i = 0 To 23
+    Select i
+      Case 0+12 To 7+12
+        Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 2
+      Case 8+12 To 11+12
+        Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 3
+      Default
+        Select n
+          Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
+            Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 1
+          Default
+            Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 0
+        EndSelect
+    EndSelect
+  Next
+Next
+
 
 ;--Chord Key Data
 Global Dim ChordKeys.u(#Chord_Last, #Note_Last)
@@ -1470,7 +1520,46 @@ Next
 
 Global Dim Status_Harp.l(#Harp_Last)
 
-; This is used for rhythm definition.
+;-Structures (WIP)
+; Chordian Machine State
+Structure ChordianMachineState
+  Value_Bool_Master_Power.l
+  Value_Float_Master_Volume.f
+  
+  Value_Float_Level_Volume_Harp_1.f
+  Value_Float_Level_Volume_Harp_2.f
+  Value_Float_Level_Sustain.f
+  Value_Float_Level_Volume_Keyboard.f
+  Value_Float_Level_Volume_Chords.f
+  
+  Value_Bool_Rhythm_Alternate.l
+  Value_Bool_Rhythm_Alternate_Current.l
+  Value_Bool_Rhythm_Pattern.l
+  Value_Bool_Rhythm_Pattern_Current.l
+  Value_Bool_Rhythm_AutoBassSync.l
+  Value_Float_Rhythm_Tempo.f
+  Value_Float_Rhythm_Volume.f
+  
+  Value_Bool_Memory_Enable.l
+  Value_Bool_Memory_Playback_Record.l
+  Value_Bool_Memory_Repeat_Delete.l
+  Value_Bool_Memory_Playback_Enter.l
+  
+  Array Value_Bool_Harp_Plate.l(#Harp_Last)
+  Array Status_Harp.l(#Harp_Last)
+  
+  Array MIDI.a(#Note_Last, #Chord_Last, #Dat_Last)
+  Array FrequenciesKeyboard.l(127)
+  Array Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
+  
+  Tick.f
+  NewTick.l
+  NewChord.l
+  NoChordChange.l
+  Tuning.f
+EndStructure
+Define Chordian.ChordianMachineState
+
 
 ;-Procedures
 Procedure.l UpdateFrequencies()
@@ -1605,8 +1694,8 @@ Procedure UpdateVolume()
           NewChord = 1
           Tick = 0
           Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
-          While Tick >= 32.0
-            Tick-32.0
+          While Tick >= 32.0 Or (Tick >= 24 And Value_Rhythm_Pattern_Current = #Rhythm_Waltz And Value_Rhythm_Alternate_Current = 1)
+            Tick-32.0+8.0*Bool(Tick >= 24 And Value_Rhythm_Pattern_Current = #Rhythm_Waltz And Value_Rhythm_Alternate_Current = 1)
           Wend
         EndIf
       Else
@@ -1629,15 +1718,21 @@ Procedure UpdateVolume()
             NewTick = 1
           EndIf
           Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
-          If Tick >= 32.0
+          If Tick >= 32.0 Or (Tick >= 24 And Value_Rhythm_Pattern_Current = #Rhythm_Waltz And Value_Rhythm_Alternate_Current = 1)
             If Value_Rhythm_Pattern <> Value_Rhythm_Pattern_Current Or Value_Rhythm_Alternate <> Value_Rhythm_Alternate_Current
+              If Value_Rhythm_Pattern_Current = #Rhythm_Waltz And Value_Rhythm_Alternate_Current = 1
+                Tick+8
+              EndIf
               Value_Rhythm_Pattern_Current = Value_Rhythm_Pattern
               Value_Rhythm_Alternate_Current = Value_Rhythm_Alternate
               NewTick = 1
+              If Value_Rhythm_Pattern_Current = #Rhythm_Waltz And Value_Rhythm_Alternate_Current = 1
+                Tick-8
+              EndIf
             EndIf
           EndIf
-          While Tick >= 32.0
-            Tick-32.0
+          While Tick >= 32.0 Or (Tick >= 24 And Value_Rhythm_Pattern_Current = #Rhythm_Waltz And Value_Rhythm_Alternate_Current = 1)
+            Tick-32.0+8.0*Bool(Tick >= 24 And Value_Rhythm_Pattern_Current = #Rhythm_Waltz And Value_Rhythm_Alternate_Current = 1)
           Wend
         EndIf
       Else
@@ -1647,8 +1742,8 @@ Procedure UpdateVolume()
         NewChord = 1
         Tick = 0
         Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
-        While Tick >= 32.0
-          Tick-32.0
+        While Tick >= 32.0 Or (Tick >= 24 And Value_Rhythm_Pattern_Current = #Rhythm_Waltz And Value_Rhythm_Alternate_Current = 1)
+          Tick-32.0+8.0*Bool(Tick >= 24 And Value_Rhythm_Pattern_Current = #Rhythm_Waltz And Value_Rhythm_Alternate_Current = 1)
         Wend
       EndIf
       
@@ -2039,8 +2134,6 @@ If InitSound()
     MenuBar()
     MenuItem(#Itm_Exit, "Exit")
     
-    DisableMenuItem(#Men_Main, #Itm_Load, 1)
-    DisableMenuItem(#Men_Main, #Itm_Save, 1)
     DisableMenuItem(#Men_Main, #Itm_Reset, 1)
     
     MenuTitle("Edit")
@@ -2065,7 +2158,34 @@ If InitSound()
             ;--Menu Actions
             Select EventMenu()
               Case #Itm_Load
+                TempString = OpenFileRequester("Chordian>Load machine state...", "", "JSON (*.json)|*.json|AllFiles (*.*)|*.*", 0)
+                If TempString
+                  If LoadJSON(0, TempString)
+                    ExtractJSONStructure(JSONValue(0), @Chordian, ChordianMachineState)
+                    FreeJSON(0)
+                  EndIf
+                EndIf
               Case #Itm_Save
+                If CreateJSON(0)
+                  InsertJSONStructure(JSONValue(0), @Chordian, ChordianMachineState)
+                  TempString = SaveFileRequester("Chordian>Save machine state...", "", "JSON (*.json)|*.json|AllFiles (*.*)|*.*", 0)
+                  If TempString
+                    Select FileSize(TempString)
+                      Case -2
+                        MessageRequester("Chordian>Error", "Cannot save file "+TempString+", entry occupied by folder.")
+                      Case -1
+                        SaveJSON(0, TempString)
+                      Default
+                        Select MessageRequester("Chordian>Warning", "File "+TempString+" already exists."+#CRLF$+"Do you want to overwrite it?", #PB_MessageRequester_YesNoCancel)
+                          Case #PB_MessageRequester_Yes
+                            SaveJSON(0, TempString)
+                          Case #PB_MessageRequester_Cancel
+                            PostEvent(#PB_Event_Menu , #Win_Main, #Itm_Save)
+                        EndSelect
+                    EndSelect
+                  EndIf
+                  FreeJSON(0)
+                EndIf
               Case #Itm_Reset
               Case #Itm_Exit
                 PostEvent(#PB_Event_CloseWindow)
@@ -2089,7 +2209,7 @@ If InitSound()
                 CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant)
                   MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Build "+Str(#PB_Editor_BuildCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
                 CompilerElseIf Defined(PB_Editor_CompileCount, #PB_Constant)
-                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Dev Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
                 CompilerElse
                   MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
                 CompilerEndIf
