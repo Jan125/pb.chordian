@@ -111,9 +111,9 @@ These things are currently implemented:
     -Chord-hold controls
     -Auto bass-sync controls
     -Tuning controls
+    -Rhythm section
     
 These things are currently partially implemented:
-    -Rhythm section (Bank 1 is implemented (Rock1, Rock2, Disco, Latin, Country))
     -Keyboard mode (Transposing is not implemented)
     
 These things are currently not implemented:
