@@ -60,6 +60,11 @@ DataSection
   Img_Button_Wide_On:
   IncludeBinary "img\button_wide_on.png"
   
+  Img_Button_Wide_Red_Off:
+  IncludeBinary "img\button_wide_red_off.png"
+  Img_Button_Wide_Red_On:
+  IncludeBinary "img\button_wide_red_on.png"
+  
   Img_Knob_Big:
   IncludeBinary "img\knob_big.png"
   Img_Knob_Ring:
