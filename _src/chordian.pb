@@ -342,6 +342,8 @@ Enumeration #PB_Event_FirstCustomValue
   #Event_GeneralKeyUp
   #Event_HandleChordKeys
   #Event_HandleHarpKeys
+  #Event_Repaint_Start
+  #Event_Repaint_Finish
   #Event_Repaint_Base
   #Event_Repaint_Master
   #Event_Repaint_Level
@@ -1937,6 +1939,8 @@ Procedure UpdateVolume(*Void)
   Protected Harp1Volume.f
   Protected Harp2Volume.f
   
+  Protected RhythmVolume.f
+  
   Repeat
     Repeat
       TimeDelta = ElapsedMilliseconds()-Time
@@ -2073,6 +2077,8 @@ Procedure UpdateVolume(*Void)
     EndIf
     
     
+    RhythmVolume = Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume
+    
     Select Value_Master_Power
       Case 0
         For i = #Dat_First To #Dat_Last
@@ -2179,27 +2185,27 @@ Procedure UpdateVolume(*Void)
         If Status_Sound(#Dat_Drum_BD) = #Curve_Trigger Or Status_Sound(#Dat_Drum_BD) = #Curve_Oneshot
           Status_Sound(#Dat_Drum_BD) = #Curve_Release
           VolumeStatus(#Dat_Drum_BD) = 1.0
-          PlaySound(#Snd_Drum_BD, 0, Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_BD))
+          PlaySound(#Snd_Drum_BD, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * VolumeStatus(#Dat_Drum_BD))
         EndIf
         If Status_Sound(#Dat_Drum_Click) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Click) = #Curve_Oneshot
           Status_Sound(#Dat_Drum_Click) = #Curve_Release
           VolumeStatus(#Dat_Drum_Click) = 1.0
-          PlaySound(#Snd_Drum_Click, 0, Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Click)) 
+          PlaySound(#Snd_Drum_Click, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * VolumeStatus(#Dat_Drum_Click))
         EndIf
         If Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger Or Status_Sound(#Dat_Drum_HiHat) = #Curve_Oneshot
           Status_Sound(#Dat_Drum_HiHat) = #Curve_Release
           VolumeStatus(#Dat_Drum_HiHat) = 1.0
-          PlaySound(#Snd_Drum_HiHat, 0, Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_HiHat)) 
+          PlaySound(#Snd_Drum_HiHat, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * VolumeStatus(#Dat_Drum_HiHat))
         EndIf
         If Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Snare) = #Curve_Oneshot
           Status_Sound(#Dat_Drum_Snare) = #Curve_Release
           VolumeStatus(#Dat_Drum_Snare) = 1.0
-          PlaySound(#Snd_Drum_Snare, 0, Bool(Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Snare)) 
+          PlaySound(#Snd_Drum_Snare, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * VolumeStatus(#Dat_Drum_Snare))
         EndIf
         If Status_Sound(#Dat_Drum_Ride) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Ride) = #Curve_Oneshot
           Status_Sound(#Dat_Drum_Ride) = #Curve_Release
           VolumeStatus(#Dat_Drum_Ride) = 1.0
-          PlaySound(#Snd_Drum_Ride, 0, Bool(Status_Sound(#Dat_Drum_Ride) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Ride)) 
+          PlaySound(#Snd_Drum_Ride, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Ride) <> #Curve_None) * VolumeStatus(#Dat_Drum_Ride))
         EndIf
         
     EndSelect
@@ -2253,20 +2259,20 @@ Procedure UpdateVolume(*Void)
     SetSoundFrequency(#Snd_Harp_12_Vibrato, GetSoundFrequency(#Snd_Harp_12_Standard)*(1.00-0.0048*Sin3Phase))
     SetSoundFrequency(#Snd_Harp_13_Vibrato, GetSoundFrequency(#Snd_Harp_13_Standard)*(1.00-0.0046*Sin3Phase))
     
-    If SoundStatus(#Snd_Drum_BD, #PB_Sound_Playing)
-      SoundVolume(#Snd_Drum_BD, Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_BD))
+    If SoundStatus(#Snd_Drum_BD) = #PB_Sound_Playing
+      SoundVolume(#Snd_Drum_BD, RhythmVolume * Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * VolumeStatus(#Dat_Drum_BD))
     EndIf
-    If SoundStatus(#Snd_Drum_Click, #PB_Sound_Playing)
-      SoundVolume(#Snd_Drum_Click, Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Click))
+    If SoundStatus(#Snd_Drum_Click) = #PB_Sound_Playing
+      SoundVolume(#Snd_Drum_Click, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * VolumeStatus(#Dat_Drum_Click))
     EndIf
-    If SoundStatus(#Snd_Drum_HiHat, #PB_Sound_Playing)
-      SoundVolume(#Snd_Drum_HiHat, Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_HiHat))
+    If SoundStatus(#Snd_Drum_HiHat) = #PB_Sound_Playing
+      SoundVolume(#Snd_Drum_HiHat, RhythmVolume * Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * VolumeStatus(#Dat_Drum_HiHat))
     EndIf
-    If SoundStatus(#Snd_Drum_Snare, #PB_Sound_Playing)
-      SoundVolume(#Snd_Drum_Snare, Bool(Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Snare))
+    If SoundStatus(#Snd_Drum_Snare) = #PB_Sound_Playing
+      SoundVolume(#Snd_Drum_Snare, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * VolumeStatus(#Dat_Drum_Snare))
     EndIf
-    If SoundStatus(#Snd_Drum_Ride, #PB_Sound_Playing)
-      SoundVolume(#Snd_Drum_Ride, Bool(Status_Sound(#Dat_Drum_Ride) <> #Curve_None) * Bool(Value_Chord_Chord <> #Chord_None And Value_Chord_Note <> #Note_None) * 100.0 * Value_Master_Volume * Value_Rhythm_Volume * VolumeStatus(#Dat_Drum_Ride))
+    If SoundStatus(#Snd_Drum_Ride) = #PB_Sound_Playing
+      SoundVolume(#Snd_Drum_Ride, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Ride) <> #Curve_None) * VolumeStatus(#Dat_Drum_Ride))
     EndIf
     
     SoundVolume(#Snd_Keyboard, Bool(Status_Sound(#Dat_Keyboard) <> #Curve_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Keyboard * VolumeStatus(#Dat_Keyboard))
@@ -2420,8 +2426,6 @@ If InitSound()
     MenuItem(#Itm_Manual, "Open manual...")
     MenuItem(#Itm_About, "About...")
     
-    DisableMenuItem(#Men_Main, #Itm_Manual, 1)
-    
     If CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main), #PB_Canvas_Keyboard)
       SetActiveGadget(#Gad_Canvas)
       Repeat
@@ -2438,6 +2442,7 @@ If InitSound()
                     FreeJSON(0)
                   EndIf
                 EndIf
+                
               Case #Itm_Save
                 If CreateJSON(0)
                   InsertJSONStructure(JSONValue(0), @Chordian, ChordianMachineState)
@@ -2459,9 +2464,12 @@ If InitSound()
                   EndIf
                   FreeJSON(0)
                 EndIf
+                
               Case #Itm_Reset
+                
               Case #Itm_Exit
                 PostEvent(#PB_Event_CloseWindow)
+                
               Case #Itm_Tuning
                 TempString = InputRequester("Chordian>Master>Tuning", "Insert new Tuning. (440.0)", StrF(Tuning))
                 If Len(TempString) > 0
@@ -2471,18 +2479,37 @@ If InitSound()
                   Frequencies(i) = Tuning*Pow(2.0, (i-71)/12.0)*225.0
                 Next
                 NewChord = 1
+                
               Case #Itm_MasterEditMode
+                
               Case #Itm_Manual
+                ;RunProgram can be used as a form of ShellExecute_()
+                RunProgram("readme.md")
+                
               Case #Itm_About
                 DisableWindow(#Win_Main, 1)
                 CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant)
-                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Build "+Str(#PB_Editor_BuildCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                  TempString = "An Omnichord Emulator"+#CRLF$+
+                               "Build "+Str(#PB_Editor_BuildCount)+#CRLF$+
+                               #CRLF$+
+                               "Please see the GitHub page for more information."+#CRLF$+
+                               "https://github.com/Jan125/pb.chordian"
                 CompilerElseIf Defined(PB_Editor_CompileCount, #PB_Constant)
-                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+"Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                  TempString = "An Omnichord Emulator"+#CRLF$+
+                               "Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+
+                               #CRLF$+
+                               "Please see the GitHub page for more information."+#CRLF$+
+                               "https://github.com/Jan125/pb.chordian"
                 CompilerElse
-                  MessageRequester("Chordian>About", "An Omnichord Emulator"+#CRLF$+#CRLF$+#CRLF$+"Please see the GitHub page for more information."+#CRLF$+"https://github.com/Jan125/pb.chordian", #PB_MessageRequester_Ok)
+                  TempString = "An Omnichord Emulator"+#CRLF$+
+                               #CRLF$+
+                               #CRLF$+
+                               "Please see the GitHub page for more information."+#CRLF$+
+                               "https://github.com/Jan125/pb.chordian"
                 CompilerEndIf
+                MessageRequester("Chordian>About", TempString, #PB_MessageRequester_Ok)
                 DisableWindow(#Win_Main, 0)
+                
             EndSelect
             
           Case #PB_Event_Gadget
@@ -2542,7 +2569,9 @@ If InitSound()
             If Keys(EventData()) = 0
               PostEvent(#Event_HandleChordKeys)
               PostEvent(#Event_HandleHarpKeys)
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Chord)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             Keys(EventData()) = 1
             LastKey = EventData()
@@ -2551,7 +2580,9 @@ If InitSound()
           Case #Event_GeneralKeyUp
             ;--GeneralKeyUp
             Keys(EventData()) = 0
+            PostEvent(#Event_Repaint_Start)
             PostEvent(#Event_Repaint_Chord)
+            PostEvent(#Event_Repaint_Finish)
             If Not Value_Memory_Playback_Record
               PostEvent(#Event_HandleChordKeys)
             EndIf
@@ -2701,7 +2732,9 @@ If InitSound()
                   Keys(ChordKeys(n, i)) = 0
                 Next
               Next
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Master)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Master_Knob_Volume
@@ -2721,7 +2754,9 @@ If InitSound()
               ElseIf Value_Master_Volume < 0.0
                 Value_Master_Volume = 0.0
               EndIf
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Master)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Level_Knob_Volume_Harp_1
@@ -2741,7 +2776,9 @@ If InitSound()
               ElseIf Value_Level_Volume_Harp_1 < 0.0
                 Value_Level_Volume_Harp_1 = 0.0
               EndIf
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Level)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             If Trigger_Level_Knob_Volume_Harp_2
               Select Trigger_Level_Knob_Volume_Harp_2
@@ -2760,7 +2797,9 @@ If InitSound()
               ElseIf Value_Level_Volume_Harp_2 < 0.0
                 Value_Level_Volume_Harp_2 = 0.0
               EndIf
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Level)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Level_Knob_Sustain
@@ -2780,7 +2819,9 @@ If InitSound()
               ElseIf Value_Level_Sustain < 0.0
                 Value_Level_Sustain = 0.0
               EndIf
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Level)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Level_Knob_Volume_Keyboard
@@ -2800,7 +2841,9 @@ If InitSound()
               ElseIf Value_Level_Volume_Keyboard < 0.0
                 Value_Level_Volume_Keyboard = 0.0
               EndIf
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Level)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Level_Knob_Volume_Chords
@@ -2820,13 +2863,17 @@ If InitSound()
               ElseIf Value_Level_Volume_Chords < 0.0
                 Value_Level_Volume_Chords = 0.0
               EndIf
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Level)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Rhythm_Button_Alternate
               Trigger_Rhythm_Button_Alternate = 0
               Value_Rhythm_Alternate = Bool(Not Value_Rhythm_Alternate)
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Rhythm)
+              PostEvent(#Event_Repaint_Finish)
               NewChord = 1
             EndIf
             
@@ -2842,7 +2889,9 @@ If InitSound()
                   NewChord = 1
                 EndIf
               EndIf
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Rhythm)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Rhythm_Button_AutoBassSync
@@ -2857,7 +2906,9 @@ If InitSound()
               EndIf
               NewChord = 1
               Value_Rhythm_AutoBassSync = Bool(Not Value_Rhythm_AutoBassSync)
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Rhythm)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Rhythm_Knob_Tempo
@@ -2887,7 +2938,9 @@ If InitSound()
               ElseIf Value_Rhythm_Tempo < 0.0
                 Value_Rhythm_Tempo = 0.0
               EndIf
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Rhythm)
+              PostEvent(#Event_Repaint_Finish)
             Else
             EndIf
             
@@ -2908,13 +2961,17 @@ If InitSound()
               ElseIf Value_Rhythm_Volume < 0.0
                 Value_Rhythm_Volume = 0.0
               EndIf
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Rhythm)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Memory_Button_On_Off
               Trigger_Memory_Button_On_Off = 0
               Value_Memory_Enable = Bool(Not Value_Memory_Enable)
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Memory)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Memory_Button_Playback_Record
@@ -2928,13 +2985,17 @@ If InitSound()
             If Trigger_Memory_Button_Repeat_Delete
               Trigger_Memory_Button_Repeat_Delete = 0
               Value_Memory_Repeat_Delete = Bool(Not Value_Memory_Repeat_Delete)
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Memory)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Memory_Button_Playback_Enter
               Trigger_Memory_Button_Playback_Enter = 0
               Value_Memory_Playback_Enter = Bool(Not Value_Memory_Playback_Enter)
+              PostEvent(#Event_Repaint_Start)
               PostEvent(#Event_Repaint_Memory)
+              PostEvent(#Event_Repaint_Finish)
             EndIf
             
             If Trigger_Chord_Button_Major = 1
@@ -2962,18 +3023,24 @@ If InitSound()
                             Case #PB_EventType_KeyUp
                               Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
                                 Case #VK_ESCAPE
+                                  PostEvent(#Event_Repaint_Start)
                                   PostEvent(#Event_Repaint_Chord)
+                                  PostEvent(#Event_Repaint_Finish)
                                   Break
                                 Default
                                   ChordKeys(#Chord_Maj, (MousePositionXCurrent-271)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                  PostEvent(#Event_Repaint_Start)
                                   PostEvent(#Event_Repaint_Chord)
+                                  PostEvent(#Event_Repaint_Finish)
                                   Break
                               EndSelect
                               
                             Case #PB_EventType_LeftButtonDown
                               MouseButtonLeftPrevious = MouseButtonLeftCurrent
                               MouseButtonLeftCurrent = 1
+                              PostEvent(#Event_Repaint_Start)
                               PostEvent(#Event_Repaint_Chord)
+                              PostEvent(#Event_Repaint_Finish)
                               Break
                               
                             Case #PB_EventType_LeftButtonUp
@@ -2983,7 +3050,9 @@ If InitSound()
                             Case #PB_EventType_RightButtonDown
                               MouseButtonRightPrevious = MouseButtonRightCurrent
                               MouseButtonRightCurrent = 1
+                              PostEvent(#Event_Repaint_Start)
                               PostEvent(#Event_Repaint_Chord)
+                              PostEvent(#Event_Repaint_Finish)
                               Break
                               
                             Case #PB_EventType_RightButtonUp
@@ -2993,7 +3062,9 @@ If InitSound()
                             Case #PB_EventType_MiddleButtonDown
                               MouseButtonMiddlePrevious = MouseButtonMiddleCurrent
                               MouseButtonMiddleCurrent = 1
+                              PostEvent(#Event_Repaint_Start)
                               PostEvent(#Event_Repaint_Chord)
+                              PostEvent(#Event_Repaint_Finish)
                               Break
                               
                             Case #PB_EventType_MiddleButtonUp
@@ -3036,18 +3107,24 @@ If InitSound()
                             Case #PB_EventType_KeyUp
                               Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
                                 Case #VK_ESCAPE
+                                  PostEvent(#Event_Repaint_Start)
                                   PostEvent(#Event_Repaint_Chord)
+                                  PostEvent(#Event_Repaint_Finish)
                                   Break
                                 Default
                                   ChordKeys(#Chord_Min, (MousePositionXCurrent-286)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                  PostEvent(#Event_Repaint_Start)
                                   PostEvent(#Event_Repaint_Chord)
+                                  PostEvent(#Event_Repaint_Finish)
                                   Break
                               EndSelect
                               
                             Case #PB_EventType_LeftButtonDown
                               MouseButtonLeftPrevious = MouseButtonLeftCurrent
                               MouseButtonLeftCurrent = 1
+                              PostEvent(#Event_Repaint_Start)
                               PostEvent(#Event_Repaint_Chord)
+                              PostEvent(#Event_Repaint_Finish)
                               Break
                               
                             Case #PB_EventType_LeftButtonUp
@@ -3057,7 +3134,9 @@ If InitSound()
                             Case #PB_EventType_RightButtonDown
                               MouseButtonRightPrevious = MouseButtonRightCurrent
                               MouseButtonRightCurrent = 1
+                              PostEvent(#Event_Repaint_Start)
                               PostEvent(#Event_Repaint_Chord)
+                              PostEvent(#Event_Repaint_Finish)
                               Break
                               
                             Case #PB_EventType_RightButtonUp
@@ -3067,7 +3146,9 @@ If InitSound()
                             Case #PB_EventType_MiddleButtonDown
                               MouseButtonMiddlePrevious = MouseButtonMiddleCurrent
                               MouseButtonMiddleCurrent = 1
+                              PostEvent(#Event_Repaint_Start)
                               PostEvent(#Event_Repaint_Chord)
+                              PostEvent(#Event_Repaint_Finish)
                               Break
                               
                             Case #PB_EventType_MiddleButtonUp
@@ -3110,18 +3191,24 @@ If InitSound()
                             Case #PB_EventType_KeyUp
                               Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
                                 Case #VK_ESCAPE
+                                  PostEvent(#Event_Repaint_Start)
                                   PostEvent(#Event_Repaint_Chord)
+                                  PostEvent(#Event_Repaint_Finish)
                                   Break
                                 Default
                                   ChordKeys(#Chord_7th, (MousePositionXCurrent-301)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                  PostEvent(#Event_Repaint_Start)
                                   PostEvent(#Event_Repaint_Chord)
+                                  PostEvent(#Event_Repaint_Finish)
                                   Break
                               EndSelect
                               
                             Case #PB_EventType_LeftButtonDown
                               MouseButtonLeftPrevious = MouseButtonLeftCurrent
                               MouseButtonLeftCurrent = 1
+                              PostEvent(#Event_Repaint_Start)
                               PostEvent(#Event_Repaint_Chord)
+                              PostEvent(#Event_Repaint_Finish)
                               Break
                               
                             Case #PB_EventType_LeftButtonUp
@@ -3131,7 +3218,9 @@ If InitSound()
                             Case #PB_EventType_RightButtonDown
                               MouseButtonRightPrevious = MouseButtonRightCurrent
                               MouseButtonRightCurrent = 1
+                              PostEvent(#Event_Repaint_Start)
                               PostEvent(#Event_Repaint_Chord)
+                              PostEvent(#Event_Repaint_Finish)
                               Break
                               
                             Case #PB_EventType_RightButtonUp
@@ -3141,7 +3230,9 @@ If InitSound()
                             Case #PB_EventType_MiddleButtonDown
                               MouseButtonMiddlePrevious = MouseButtonMiddleCurrent
                               MouseButtonMiddleCurrent = 1
+                              PostEvent(#Event_Repaint_Start)
                               PostEvent(#Event_Repaint_Chord)
+                              PostEvent(#Event_Repaint_Finish)
                               Break
                               
                             Case #PB_EventType_MiddleButtonUp
@@ -3172,8 +3263,9 @@ If InitSound()
                 Tick = 0
                 SignalSemaphore(Semaphore_StopSounds)
                 WaitSemaphore(Semaphore_SoundsHaveStopped)
-                
+                PostEvent(#Event_Repaint_Start)
                 PostEvent(#Event_Repaint_Chord)
+                PostEvent(#Event_Repaint_Finish)
               Else
                 
                 
@@ -3649,241 +3741,221 @@ If InitSound()
             
             ;--Repaint
           Case #PB_Event_Repaint
+            PostEvent(#Event_Repaint_Start)
             PostEvent(#Event_Repaint_Base)
             PostEvent(#Event_Repaint_Master)
             PostEvent(#Event_Repaint_Level)
             PostEvent(#Event_Repaint_Rhythm)
             PostEvent(#Event_Repaint_Memory)
             PostEvent(#Event_Repaint_Chord)
+            PostEvent(#Event_Repaint_Finish)
             
             
             ;--Partial Repaint
+          Case #Event_Repaint_Start
+            StartDrawing(CanvasOutput(#Gad_Canvas))
+            
+            
+          Case #Event_Repaint_Finish
+            StopDrawing()
+            
+            
           Case #Event_Repaint_Base
-            If StartDrawing(CanvasOutput(#Gad_Canvas))
-              DrawImage(ImageID(#Img_Background), 0, 0)
-              
-              DrawAlphaImage(ImageID(#Img_Base), 0, 0)
-              
-              StopDrawing()
-              
-            EndIf
+            DrawImage(ImageID(#Img_Background), 0, 0)
+            
+            DrawAlphaImage(ImageID(#Img_Base), 0, 0)
             
             
           Case #Event_Repaint_Master
-            If StartDrawing(CanvasOutput(#Gad_Canvas))
-              ;Power Button and LED
-              Select Value_Master_Power
-                Case 1
-                  DrawAlphaImage(ImageID(#Img_LED_On), 133, 97)
-                  DrawAlphaImage(ImageID(#Img_Button_Red_On), 126, 113)
-                Case 0
-                  DrawAlphaImage(ImageID(#Img_LED_Off), 133, 97)
-                  DrawAlphaImage(ImageID(#Img_Button_Red_Off), 126, 113)
-              EndSelect
-              
-              ;Master Volume Knob
-              DrawAlphaImage(ImageID(#Img_Knob_Big), 169, 95)
-              Line(190, 116, Sin(Radian(-Value_Master_Volume*270-45))*21+Sign(Sin(Radian(-Value_Master_Volume*270-45)))*Bool(Abs(Sin(Radian(-Value_Master_Volume*270-45))*21) <= 0.5), Cos(Radian(-Value_Master_Volume*270-45))*21+Sign(Cos(Radian(-Value_Master_Volume*270-45)))*Bool(Abs(Cos(Radian(-Value_Master_Volume*270-45))*21) <= 0.5))
-              
-              StopDrawing()
-              
-            EndIf
+            ;Power Button and LED
+            Select Value_Master_Power
+              Case 1
+                DrawAlphaImage(ImageID(#Img_LED_On), 133, 97)
+                DrawAlphaImage(ImageID(#Img_Button_Red_On), 126, 113)
+              Case 0
+                DrawAlphaImage(ImageID(#Img_LED_Off), 133, 97)
+                DrawAlphaImage(ImageID(#Img_Button_Red_Off), 126, 113)
+            EndSelect
+            
+            ;Master Volume Knob
+            DrawAlphaImage(ImageID(#Img_Knob_Big), 169, 95)
+            Line(190, 116, Sin(Radian(-Value_Master_Volume*270-45))*21+Sign(Sin(Radian(-Value_Master_Volume*270-45)))*Bool(Abs(Sin(Radian(-Value_Master_Volume*270-45))*21) <= 0.5), Cos(Radian(-Value_Master_Volume*270-45))*21+Sign(Cos(Radian(-Value_Master_Volume*270-45)))*Bool(Abs(Cos(Radian(-Value_Master_Volume*270-45))*21) <= 0.5))
             
             
           Case #Event_Repaint_Level
-            If StartDrawing(CanvasOutput(#Gad_Canvas))
-              ;Harp Voice 2 Volume Knob
-              DrawAlphaImage(ImageID(#Img_Knob_Ring), 73, 170)
-              Line(94, 191, Sin(Radian(-Value_Level_Volume_Harp_1*270-45))*21+Sign(Sin(Radian(-Value_Level_Volume_Harp_1*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Volume_Harp_1*270-45))*21) <= 0.5), Cos(Radian(-Value_Level_Volume_Harp_1*270-45))*21+Sign(Cos(Radian(-Value_Level_Volume_Harp_1*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Volume_Harp_1*270-45))*21) <= 0.5))
-              ;Harp Voice 1 Volume Knob
-              DrawAlphaImage(ImageID(#Img_Knob_Small), 81, 178)
-              Line(94, 191, Sin(Radian(-Value_Level_Volume_Harp_2*270-45))*13+Sign(Sin(Radian(-Value_Level_Volume_Harp_2*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Volume_Harp_2*270-45))*13) <= 0.5), Cos(Radian(-Value_Level_Volume_Harp_2*270-45))*13+Sign(Cos(Radian(-Value_Level_Volume_Harp_2*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Volume_Harp_2*270-45))*13) <= 0.5))
-              
-              ;Harp Sustain Knob
-              DrawAlphaImage(ImageID(#Img_Knob_Big), 121, 170)
-              Line(142, 191, Sin(Radian(-Value_Level_Sustain*270-45))*21+Sign(Sin(Radian(-Value_Level_Sustain*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Sustain*270-45))*21) <= 0.5), Cos(Radian(-Value_Level_Sustain*270-45))*21+Sign(Cos(Radian(-Value_Level_Sustain*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Sustain*270-45))*21) <= 0.5))
-              
-              ;Keyboard Volume Knob
-              DrawAlphaImage(ImageID(#Img_Knob_Ring), 169, 170)
-              Line(190, 191, Sin(Radian(-Value_Level_Volume_Keyboard*270-45))*21+Sign(Sin(Radian(-Value_Level_Volume_Keyboard*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Volume_Keyboard*270-45))*21) <= 0.5), Cos(Radian(-Value_Level_Volume_Keyboard*270-45))*21+Sign(Cos(Radian(-Value_Level_Volume_Keyboard*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Volume_Keyboard*270-45))*21) <= 0.5))
-              ;Chords Volume Knob
-              DrawAlphaImage(ImageID(#Img_Knob_Small), 177, 178)
-              Line(190, 191, Sin(Radian(-Value_Level_Volume_Chords*270-45))*13+Sign(Sin(Radian(-Value_Level_Volume_Chords*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Volume_Chords*270-45))*13) <= 0.5), Cos(Radian(-Value_Level_Volume_Chords*270-45))*13+Sign(Cos(Radian(-Value_Level_Volume_Chords*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Volume_Chords*270-45))*13) <= 0.5))
-              
-              StopDrawing()
-              
-            EndIf
+            ;Harp Voice 2 Volume Knob
+            DrawAlphaImage(ImageID(#Img_Knob_Ring), 73, 170)
+            Line(94, 191, Sin(Radian(-Value_Level_Volume_Harp_1*270-45))*21+Sign(Sin(Radian(-Value_Level_Volume_Harp_1*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Volume_Harp_1*270-45))*21) <= 0.5), Cos(Radian(-Value_Level_Volume_Harp_1*270-45))*21+Sign(Cos(Radian(-Value_Level_Volume_Harp_1*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Volume_Harp_1*270-45))*21) <= 0.5))
+            ;Harp Voice 1 Volume Knob
+            DrawAlphaImage(ImageID(#Img_Knob_Small), 81, 178)
+            Line(94, 191, Sin(Radian(-Value_Level_Volume_Harp_2*270-45))*13+Sign(Sin(Radian(-Value_Level_Volume_Harp_2*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Volume_Harp_2*270-45))*13) <= 0.5), Cos(Radian(-Value_Level_Volume_Harp_2*270-45))*13+Sign(Cos(Radian(-Value_Level_Volume_Harp_2*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Volume_Harp_2*270-45))*13) <= 0.5))
+            
+            ;Harp Sustain Knob
+            DrawAlphaImage(ImageID(#Img_Knob_Big), 121, 170)
+            Line(142, 191, Sin(Radian(-Value_Level_Sustain*270-45))*21+Sign(Sin(Radian(-Value_Level_Sustain*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Sustain*270-45))*21) <= 0.5), Cos(Radian(-Value_Level_Sustain*270-45))*21+Sign(Cos(Radian(-Value_Level_Sustain*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Sustain*270-45))*21) <= 0.5))
+            
+            ;Keyboard Volume Knob
+            DrawAlphaImage(ImageID(#Img_Knob_Ring), 169, 170)
+            Line(190, 191, Sin(Radian(-Value_Level_Volume_Keyboard*270-45))*21+Sign(Sin(Radian(-Value_Level_Volume_Keyboard*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Volume_Keyboard*270-45))*21) <= 0.5), Cos(Radian(-Value_Level_Volume_Keyboard*270-45))*21+Sign(Cos(Radian(-Value_Level_Volume_Keyboard*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Volume_Keyboard*270-45))*21) <= 0.5))
+            ;Chords Volume Knob
+            DrawAlphaImage(ImageID(#Img_Knob_Small), 177, 178)
+            Line(190, 191, Sin(Radian(-Value_Level_Volume_Chords*270-45))*13+Sign(Sin(Radian(-Value_Level_Volume_Chords*270-45)))*Bool(Abs(Sin(Radian(-Value_Level_Volume_Chords*270-45))*13) <= 0.5), Cos(Radian(-Value_Level_Volume_Chords*270-45))*13+Sign(Cos(Radian(-Value_Level_Volume_Chords*270-45)))*Bool(Abs(Cos(Radian(-Value_Level_Volume_Chords*270-45))*13) <= 0.5))
             
             
           Case #Event_Repaint_Rhythm
-            If StartDrawing(CanvasOutput(#Gad_Canvas))
-              
-              ;Rhythm Alternate Selection Button
-              Select Value_Rhythm_Alternate
-                Case 1
-                  DrawAlphaImage(ImageID(#Img_Button_Blue_On), 36, 274)
-                Case 0
-                  DrawAlphaImage(ImageID(#Img_Button_Blue_Off), 36, 274)
-              EndSelect
-              
-              ;Rhythm Button
-              For i = #Rhythm_First To #Rhythm_Last
-                If i = Value_Rhythm_Pattern
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_On), 68+i*32, 274)
-                Else
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 68+i*32, 274)
-                EndIf
-              Next
-              
-              ;Auto-Bass-Sync Button
-              If Value_Rhythm_AutoBassSync
-                DrawAlphaImage(ImageID(#Img_Button_Black_On), 84, 329)
+            ;Rhythm Alternate Selection Button
+            Select Value_Rhythm_Alternate
+              Case 1
+                DrawAlphaImage(ImageID(#Img_Button_Blue_On), 36, 274)
+              Case 0
+                DrawAlphaImage(ImageID(#Img_Button_Blue_Off), 36, 274)
+            EndSelect
+            
+            ;Rhythm Button
+            For i = #Rhythm_First To #Rhythm_Last
+              If i = Value_Rhythm_Pattern
+                DrawAlphaImage(ImageID(#Img_Button_Dark_On), 68+i*32, 274)
               Else
-                DrawAlphaImage(ImageID(#Img_Button_Black_Off), 84, 329)
+                DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 68+i*32, 274)
               EndIf
-              
-              DrawAlphaImage(ImageID(#Img_Knob_Big), 121, 318)
-              Line(142, 339, Sin(Radian(-Value_Rhythm_Tempo*270-45))*21+Sign(Sin(Radian(-Value_Rhythm_Tempo*270-45)))*Bool(Abs(Sin(Radian(-Value_Rhythm_Tempo*270-45))*21) <= 0.5), Cos(Radian(-Value_Rhythm_Tempo*270-45))*21+Sign(Cos(Radian(-Value_Rhythm_Tempo*270-45)))*Bool(Abs(Cos(Radian(-Value_Rhythm_Tempo*270-45))*21) <= 0.5))
-              
-              
-              DrawAlphaImage(ImageID(#Img_Knob_Big), 169, 318)
-              Line(190, 339, Sin(Radian(-Value_Rhythm_Volume*270-45))*21+Sign(Sin(Radian(-Value_Rhythm_Volume*270-45)))*Bool(Abs(Sin(Radian(-Value_Rhythm_Volume*270-45))*21) <= 0.5), Cos(Radian(-Value_Rhythm_Volume*270-45))*21+Sign(Cos(Radian(-Value_Rhythm_Volume*270-45)))*Bool(Abs(Cos(Radian(-Value_Rhythm_Volume*270-45))*21) <= 0.5))
-              
-              StopDrawing()
-              
+            Next
+            
+            ;Auto-Bass-Sync Button
+            If Value_Rhythm_AutoBassSync
+              DrawAlphaImage(ImageID(#Img_Button_Black_On), 84, 329)
+            Else
+              DrawAlphaImage(ImageID(#Img_Button_Black_Off), 84, 329)
             EndIf
+            
+            DrawAlphaImage(ImageID(#Img_Knob_Big), 121, 318)
+            Line(142, 339, Sin(Radian(-Value_Rhythm_Tempo*270-45))*21+Sign(Sin(Radian(-Value_Rhythm_Tempo*270-45)))*Bool(Abs(Sin(Radian(-Value_Rhythm_Tempo*270-45))*21) <= 0.5), Cos(Radian(-Value_Rhythm_Tempo*270-45))*21+Sign(Cos(Radian(-Value_Rhythm_Tempo*270-45)))*Bool(Abs(Cos(Radian(-Value_Rhythm_Tempo*270-45))*21) <= 0.5))
+            
+            
+            DrawAlphaImage(ImageID(#Img_Knob_Big), 169, 318)
+            Line(190, 339, Sin(Radian(-Value_Rhythm_Volume*270-45))*21+Sign(Sin(Radian(-Value_Rhythm_Volume*270-45)))*Bool(Abs(Sin(Radian(-Value_Rhythm_Volume*270-45))*21) <= 0.5), Cos(Radian(-Value_Rhythm_Volume*270-45))*21+Sign(Cos(Radian(-Value_Rhythm_Volume*270-45)))*Bool(Abs(Cos(Radian(-Value_Rhythm_Volume*270-45))*21) <= 0.5))
             
             
           Case #Event_Repaint_Memory
-            If StartDrawing(CanvasOutput(#Gad_Canvas))
-              ;Memory Button
-              Select Value_Memory_Enable
-                Case 1
-                  DrawAlphaImage(ImageID(#Img_LED_On), 94, 396)
-                  DrawAlphaImage(ImageID(#Img_Button_Red_On), 126, 424)
-                Case 0
-                  DrawAlphaImage(ImageID(#Img_LED_Off), 94, 396)
-                  DrawAlphaImage(ImageID(#Img_Button_Red_Off), 126, 424)
-              EndSelect
-              
-              ;Playback-Record Button
-              Select Value_Memory_Playback_Record
-                Case 1
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_On), 159, 424)
-                Case 0
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 159, 424)
-              EndSelect
-              
-              ;Repeat-Delete Button
-              Select Value_Memory_Repeat_Delete
-                Case 1
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_On), 192, 424)
-                Case 0
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 192, 424)
-              EndSelect
-              
-              ;Playback-Enter Button
-              Select Value_Memory_Playback_Enter
-                Case 1
-                  DrawAlphaImage(ImageID(#Img_Button_Wide_On), 162, 480)
-                Case 0
-                  DrawAlphaImage(ImageID(#Img_Button_Wide_Off), 162, 480)
-              EndSelect
-              
-              StopDrawing()
-              
-            EndIf
+            ;Memory Button
+            Select Value_Memory_Enable
+              Case 1
+                DrawAlphaImage(ImageID(#Img_LED_On), 94, 396)
+                DrawAlphaImage(ImageID(#Img_Button_Red_On), 126, 424)
+              Case 0
+                DrawAlphaImage(ImageID(#Img_LED_Off), 94, 396)
+                DrawAlphaImage(ImageID(#Img_Button_Red_Off), 126, 424)
+            EndSelect
+            
+            ;Playback-Record Button
+            Select Value_Memory_Playback_Record
+              Case 1
+                DrawAlphaImage(ImageID(#Img_Button_Dark_On), 159, 424)
+              Case 0
+                DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 159, 424)
+            EndSelect
+            
+            ;Repeat-Delete Button
+            Select Value_Memory_Repeat_Delete
+              Case 1
+                DrawAlphaImage(ImageID(#Img_Button_Dark_On), 192, 424)
+              Case 0
+                DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 192, 424)
+            EndSelect
+            
+            ;Playback-Enter Button
+            Select Value_Memory_Playback_Enter
+              Case 1
+                DrawAlphaImage(ImageID(#Img_Button_Wide_On), 162, 480)
+              Case 0
+                DrawAlphaImage(ImageID(#Img_Button_Wide_Off), 162, 480)
+            EndSelect
             
             
           Case #Event_Repaint_Chord
-            If StartDrawing(CanvasOutput(#Gad_Canvas))
-              ;Chord Buttons
-              For i = #Note_First To #Note_Fc
-                Select i
-                  Case #Note_Eb
-                    If Keys(ChordKeys(#Chord_Maj, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Light_Down_On), 271+i*31, 240)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Light_Down_Off), 271+i*31, 240)
-                    EndIf
-                  Case #Note_Bb
-                    If Keys(ChordKeys(#Chord_Maj, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Light_Up_On), 271+i*31, 240)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Light_Up_Off), 271+i*31, 240)
-                    EndIf
-                  Case #Note_A, #Note_E, #Note_B
-                    If Keys(ChordKeys(#Chord_Maj, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Light_O_On), 271+i*31, 240)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Light_O_Off), 271+i*31, 240)
-                    EndIf
-                  Default
-                    If Keys(ChordKeys(#Chord_Maj, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
-                    EndIf
-                EndSelect
-                
-                Select i
-                  Case #Note_Db, #Note_Bb, #Note_D
-                    If Keys(ChordKeys(#Chord_Min, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286+i*31, 283)
-                    EndIf
-                  Case #Note_A, #Note_E
-                    If Keys(ChordKeys(#Chord_Min, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_C_On), 286+i*31, 283)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_C_Off), 286+i*31, 283)
-                    EndIf
-                  Case #Note_B
-                    If Keys(ChordKeys(#Chord_Min, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Light_C_On), 286+i*31, 283)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Light_C_Off), 286+i*31, 283)
-                    EndIf
-                  Default
-                    If Keys(ChordKeys(#Chord_Min, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286+i*31, 283)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 286+i*31, 283)
-                    EndIf
-                EndSelect
-                
-                Select i
-                  Case #Note_F, #Note_C, #Note_G
-                    If Keys(ChordKeys(#Chord_7th, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_On), 301+i*31, 326)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_Off), 301+i*31, 326)
-                    EndIf
-                  Case #Note_A, #Note_E, #Note_B
-                    If Keys(ChordKeys(#Chord_7th, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_X_On), 301+i*31, 326)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_X_Off), 301+i*31, 326)
-                    EndIf
-                  Default
-                    If Keys(ChordKeys(#Chord_7th, i)) = 1
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
-                    Else
-                      DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
-                    EndIf
-                EndSelect
-              Next
+            ;Chord Buttons
+            For i = #Note_First To #Note_Fc
+              Select i
+                Case #Note_Eb
+                  If Keys(ChordKeys(#Chord_Maj, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Light_Down_On), 271+i*31, 240)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Light_Down_Off), 271+i*31, 240)
+                  EndIf
+                Case #Note_Bb
+                  If Keys(ChordKeys(#Chord_Maj, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Light_Up_On), 271+i*31, 240)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Light_Up_Off), 271+i*31, 240)
+                  EndIf
+                Case #Note_A, #Note_E, #Note_B
+                  If Keys(ChordKeys(#Chord_Maj, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Light_O_On), 271+i*31, 240)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Light_O_Off), 271+i*31, 240)
+                  EndIf
+                Default
+                  If Keys(ChordKeys(#Chord_Maj, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
+                  EndIf
+              EndSelect
               
-              StopDrawing()
+              Select i
+                Case #Note_Db, #Note_Bb, #Note_D
+                  If Keys(ChordKeys(#Chord_Min, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286+i*31, 283)
+                  EndIf
+                Case #Note_A, #Note_E
+                  If Keys(ChordKeys(#Chord_Min, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_C_On), 286+i*31, 283)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_C_Off), 286+i*31, 283)
+                  EndIf
+                Case #Note_B
+                  If Keys(ChordKeys(#Chord_Min, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Light_C_On), 286+i*31, 283)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Light_C_Off), 286+i*31, 283)
+                  EndIf
+                Default
+                  If Keys(ChordKeys(#Chord_Min, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286+i*31, 283)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 286+i*31, 283)
+                  EndIf
+              EndSelect
               
-            EndIf
+              Select i
+                Case #Note_F, #Note_C, #Note_G
+                  If Keys(ChordKeys(#Chord_7th, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_On), 301+i*31, 326)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_Off), 301+i*31, 326)
+                  EndIf
+                Case #Note_A, #Note_E, #Note_B
+                  If Keys(ChordKeys(#Chord_7th, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_X_On), 301+i*31, 326)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_X_Off), 301+i*31, 326)
+                  EndIf
+                Default
+                  If Keys(ChordKeys(#Chord_7th, i)) = 1
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
+                  Else
+                    DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
+                  EndIf
+              EndSelect
+            Next
             
             
           Case #PB_Event_CloseWindow
             KillThread(VolumeThread)
             Break
-          Default
+            
+            
         EndSelect
       ForEver
     Else
