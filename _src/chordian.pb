@@ -181,21 +181,27 @@ Enumeration -1
   #Pattern_Frequency = #Pattern_First
   #Pattern_Bass
   #Pattern_Chords
-  #Pattern_Drum_BD
+  #Pattern_Drum_First
+  #Pattern_Drum_BD = #Pattern_Drum_First
   #Pattern_Drum_Click
   #Pattern_Drum_HiHat
   #Pattern_Drum_Ride
   #Pattern_Drum_Snare
-  #Pattern_Last = #Pattern_Drum_Snare
+  #Pattern_Drum_Last = #Pattern_Drum_Snare
+  #Pattern_Last = #Pattern_Drum_Last
 EndEnumeration
 
 Enumeration 1
   #Snd_Bass
-  #Snd_Chord_1
+  
+  #Snd_Chord_First
+  #Snd_Chord_1 = #Snd_Chord_First
   #Snd_Chord_2
   #Snd_Chord_3
+  #Snd_Chord_Last = #Snd_Chord_3
   
-  #Snd_Harp_1_Vibrato
+  #Snd_Harp_First
+  #Snd_Harp_1_Vibrato = #Snd_Harp_First
   #Snd_Harp_1_Standard
   #Snd_Harp_2_Vibrato
   #Snd_Harp_2_Standard
@@ -221,12 +227,16 @@ Enumeration 1
   #Snd_Harp_12_Standard
   #Snd_Harp_13_Vibrato
   #Snd_Harp_13_Standard
+  #Snd_Harp_Last = #Snd_Harp_13_Standard
   
-  #Snd_Drum_BD
+  
+  #Snd_Drum_First
+  #Snd_Drum_BD = #Snd_Drum_First
   #Snd_Drum_Click
   #Snd_Drum_HiHat
   #Snd_Drum_Ride
   #Snd_Drum_Snare
+  #Snd_Drum_Last = #Snd_Drum_Snare
   
   #Snd_Keyboard
 EndEnumeration
@@ -276,14 +286,22 @@ EndEnumeration
 
 Enumeration 0
   #Dat_First
-  #Dat_Bass_1 = #Dat_First
+  
+  #Dat_Bass_First = #Dat_First
+  #Dat_Bass_1 = #Dat_Bass_First
   #Dat_Bass_2
   #Dat_Bass_3
   #Dat_Bass_4
-  #Dat_Chord_1
+  #Dat_Bass_Last = #Dat_Bass_4
+  
+  #Dat_Chord_First
+  #Dat_Chord_1 = #Dat_Chord_First
   #Dat_Chord_2
   #Dat_Chord_3
-  #Dat_Harp_1
+  #Dat_Chord_Last = #Dat_Chord_3
+  
+  #Dat_Harp_First
+  #Dat_Harp_1 = #Dat_Harp_First
   #Dat_Harp_2
   #Dat_Harp_3
   #Dat_Harp_4
@@ -296,11 +314,16 @@ Enumeration 0
   #Dat_Harp_11
   #Dat_Harp_12
   #Dat_Harp_13
-  #Dat_Drum_BD
+  #Dat_Harp_Last = #Dat_Harp_13
+  
+  #Dat_Drum_First
+  #Dat_Drum_BD = #Dat_Drum_First
   #Dat_Drum_Click
   #Dat_Drum_HiHat
   #Dat_Drum_Ride
   #Dat_Drum_Snare
+  #Dat_Drum_Last = #Dat_Drum_Snare
+  
   #Dat_Keyboard
   #Dat_Last = #Dat_Keyboard
 EndEnumeration
@@ -2106,7 +2129,7 @@ Procedure UpdateVolume(*Void)
           Status_Sound(i) = #Curve_None
         Next
       Case 1
-        For i = #Dat_Bass_1 To #Dat_Bass_4
+        For i = #Dat_Bass_First To #Dat_Bass_Last
           Select Status_Sound(i)
             Case #Curve_None
               VolumeStatus(i) = 0.0
@@ -2133,7 +2156,7 @@ Procedure UpdateVolume(*Void)
           EndSelect
         Next
         
-        For i = #Dat_Chord_1 To #Dat_Chord_3
+        For i = #Dat_Chord_First To #Dat_Chord_Last
           Select Status_Sound(i)
             Case #Curve_None
               VolumeStatus(i) = 0.0
@@ -2201,32 +2224,52 @@ Procedure UpdateVolume(*Void)
             VolumeStatus(#Dat_Keyboard) = 1.0
         EndSelect
         
+        For i = #Dat_Drum_First To #Dat_Drum_Last
+          Select Status_Sound(i)
+            Case #Curve_None
+              VolumeStatus(i) = 0.0
+            Case #Curve_Oneshot
+              Status_Sound(i) = #Curve_Trigger
+              i-1
+            Case #Curve_Trigger
+              VolumeStatus(i) = 1.0
+              Status_Sound(i) = #Curve_Attack
+              Select i
+                Case #Dat_Drum_BD
+                  SoundVolumeFine(#Snd_Drum_BD, RhythmVolume)
+                  PlaySound(#Snd_Drum_BD)
+                Case #Dat_Drum_Click
+                  SoundVolumeFine(#Snd_Drum_Click, RhythmVolume)
+                  PlaySound(#Snd_Drum_Click)
+                Case #Dat_Drum_HiHat
+                  SoundVolumeFine(#Snd_Drum_HiHat, RhythmVolume)
+                  PlaySound(#Snd_Drum_HiHat)
+                Case #Dat_Drum_Snare
+                  SoundVolumeFine(#Snd_Drum_Snare, RhythmVolume)
+                  PlaySound(#Snd_Drum_Snare)
+                Case #Dat_Drum_Ride
+                  SoundVolumeFine(#Snd_Drum_Ride, RhythmVolume)
+                  PlaySound(#Snd_Drum_Ride)
+              EndSelect
+              i-1
+            Case #Curve_Attack
+              Status_Sound(i) = #Curve_Decay
+              i-1
+            Case #Curve_Decay
+              Status_Sound(i) = #Curve_Sustain
+              i-1
+            Case #Curve_Sustain
+              Status_Sound(i) = #Curve_Release
+              i-1
+            Case #Curve_Release
+              VolumeStatus(i)-1.0*(TimeDelta/(366.0))
+              If VolumeStatus(i) < 0.0
+                VolumeStatus(i) = 0.0
+                Status_Sound(i) = #Curve_None
+              EndIf
+          EndSelect
+        Next
         
-        If Status_Sound(#Dat_Drum_BD) = #Curve_Trigger Or Status_Sound(#Dat_Drum_BD) = #Curve_Oneshot
-          Status_Sound(#Dat_Drum_BD) = #Curve_Release
-          VolumeStatus(#Dat_Drum_BD) = 1.0
-          PlaySound(#Snd_Drum_BD, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * VolumeStatus(#Dat_Drum_BD))
-        EndIf
-        If Status_Sound(#Dat_Drum_Click) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Click) = #Curve_Oneshot
-          Status_Sound(#Dat_Drum_Click) = #Curve_Release
-          VolumeStatus(#Dat_Drum_Click) = 1.0
-          PlaySound(#Snd_Drum_Click, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * VolumeStatus(#Dat_Drum_Click))
-        EndIf
-        If Status_Sound(#Dat_Drum_HiHat) = #Curve_Trigger Or Status_Sound(#Dat_Drum_HiHat) = #Curve_Oneshot
-          Status_Sound(#Dat_Drum_HiHat) = #Curve_Release
-          VolumeStatus(#Dat_Drum_HiHat) = 1.0
-          PlaySound(#Snd_Drum_HiHat, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * VolumeStatus(#Dat_Drum_HiHat))
-        EndIf
-        If Status_Sound(#Dat_Drum_Snare) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Snare) = #Curve_Oneshot
-          Status_Sound(#Dat_Drum_Snare) = #Curve_Release
-          VolumeStatus(#Dat_Drum_Snare) = 1.0
-          PlaySound(#Snd_Drum_Snare, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * VolumeStatus(#Dat_Drum_Snare))
-        EndIf
-        If Status_Sound(#Dat_Drum_Ride) = #Curve_Trigger Or Status_Sound(#Dat_Drum_Ride) = #Curve_Oneshot
-          Status_Sound(#Dat_Drum_Ride) = #Curve_Release
-          VolumeStatus(#Dat_Drum_Ride) = 1.0
-          PlaySound(#Snd_Drum_Ride, 0, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Ride) <> #Curve_None) * VolumeStatus(#Dat_Drum_Ride))
-        EndIf
         
     EndSelect
     
@@ -2279,21 +2322,11 @@ Procedure UpdateVolume(*Void)
     SetSoundFrequency(#Snd_Harp_12_Vibrato, GetSoundFrequency(#Snd_Harp_12_Standard)*(1.00-0.0048*Sin3Phase))
     SetSoundFrequency(#Snd_Harp_13_Vibrato, GetSoundFrequency(#Snd_Harp_13_Standard)*(1.00-0.0046*Sin3Phase))
     
-    If SoundStatus(#Snd_Drum_BD) = #PB_Sound_Playing
-      SoundVolumeFine(#Snd_Drum_BD, RhythmVolume * Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * VolumeStatus(#Dat_Drum_BD))
-    EndIf
-    If SoundStatus(#Snd_Drum_Click) = #PB_Sound_Playing
-      SoundVolumeFine(#Snd_Drum_Click, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * VolumeStatus(#Dat_Drum_Click))
-    EndIf
-    If SoundStatus(#Snd_Drum_HiHat) = #PB_Sound_Playing
-      SoundVolumeFine(#Snd_Drum_HiHat, RhythmVolume * Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * VolumeStatus(#Dat_Drum_HiHat))
-    EndIf
-    If SoundStatus(#Snd_Drum_Snare) = #PB_Sound_Playing
-      SoundVolumeFine(#Snd_Drum_Snare, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * VolumeStatus(#Dat_Drum_Snare))
-    EndIf
-    If SoundStatus(#Snd_Drum_Ride) = #PB_Sound_Playing
-      SoundVolumeFine(#Snd_Drum_Ride, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Ride) <> #Curve_None) * VolumeStatus(#Dat_Drum_Ride))
-    EndIf
+    SoundVolumeFine(#Snd_Drum_BD, RhythmVolume * Bool(Status_Sound(#Dat_Drum_BD) <> #Curve_None) * VolumeStatus(#Dat_Drum_BD))
+    SoundVolumeFine(#Snd_Drum_Click, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Click) <> #Curve_None) * VolumeStatus(#Dat_Drum_Click))
+    SoundVolumeFine(#Snd_Drum_HiHat, RhythmVolume * Bool(Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * VolumeStatus(#Dat_Drum_HiHat))
+    SoundVolumeFine(#Snd_Drum_Snare, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * VolumeStatus(#Dat_Drum_Snare))
+    SoundVolumeFine(#Snd_Drum_Ride, RhythmVolume * Bool(Status_Sound(#Dat_Drum_Ride) <> #Curve_None) * VolumeStatus(#Dat_Drum_Ride))
     
     SoundVolumeFine(#Snd_Keyboard, Bool(Status_Sound(#Dat_Keyboard) <> #Curve_None) * 100.0 * Value_Master_Volume * Value_Level_Volume_Keyboard * VolumeStatus(#Dat_Keyboard))
     
