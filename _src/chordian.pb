@@ -1089,6 +1089,7 @@ For i = #Note_First To #Note_Last
   Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Bass) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Bass) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Bass) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 13, #Pattern_Bass) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Bass) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 0+16, #Pattern_Bass) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 4+16, #Pattern_Bass) = #Curve_Oneshot
@@ -1105,7 +1106,7 @@ For i = #Note_First To #Note_Last
   Patterns(0, #Rhythm_Disco, i, 5+16, #Pattern_Chords) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 8+16, #Pattern_Chords) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 11+16, #Pattern_Chords) = #Curve_Oneshot
-  Patterns(0, #Rhythm_Disco, i, 14+16, #Pattern_Chords) = #Curve_Oneshot
+  Patterns(0, #Rhythm_Disco, i, 13+16, #Pattern_Chords) = #Curve_Oneshot
   
   Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Drum_BD) = #Curve_Oneshot
   Patterns(0, #Rhythm_Disco, i, 7, #Pattern_Drum_BD) = #Curve_Oneshot
