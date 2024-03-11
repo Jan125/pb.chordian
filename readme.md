@@ -97,7 +97,7 @@ Troubleshooting:
         
         
         
-    "Why CC-0"
+    "Why CC0"
         I felt like it, and GPL is a plague.
         
         
@@ -117,7 +117,6 @@ These things are currently partially implemented:
     -Keyboard mode (Transposing is not implemented)
     
 These things are currently not implemented:
-    -Other rhythm patterns
     -Song creation mode
     
 These things may be implemented:

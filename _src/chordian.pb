@@ -3010,13 +3010,16 @@ Repeat
             Value_Rhythm_Tempo+(MousePositionYPrevious-MousePositionYCurrent)/400.0-(MousePositionXPrevious-MousePositionXCurrent)/2000.0
           Case 2
             Trigger_Rhythm_Knob_Tempo = 0
-            TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-1.0; 45BPM-165BPM)", StrF(Value_Rhythm_Tempo)))
+            TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-1.0; 70.5BPM-300BPM)", StrF(Value_Rhythm_Tempo)+Chr(9)+StrF((((60.0/(1.0/(4.7+Pow(Value_Rhythm_Tempo, 2.2)*15.3))))/4), 2)+"BPM"))
             If Len(TempString) > 0
+              If CountString(TempString, Chr(9))
+                TempString = StringField(TempString, 1, Chr(9))
+              EndIf
               If Len(TempString) >= 3
                 If Right(TempString, 3) = "BPM"
                   TempFloat = ValF(Left(TempString, Len(TempString)-3))
                   TempString = ""
-                  Value_Rhythm_Tempo = (((TempFloat/60)*4)-3.0)/8.0
+                  Value_Rhythm_Tempo = Pow(((((TempFloat/60)*4)-4.7)/15.3), 1/2.2)
                   TempFloat = 0
                 Else
                   Value_Rhythm_Tempo = ValF(TempString)
