@@ -1875,7 +1875,7 @@ Define Chordian.ChordianMachineState
 
 
 ;-Procedures
-Procedure SoundVolumeFine (SoundID.i, Volume.f)
+Procedure SoundVolumeFine(SoundID.i, Volume.f)
   ;Adapted from:
   ; 2006 Hroudtwolf
   ; PureBasic-Lounge.de
@@ -2029,7 +2029,7 @@ Procedure UpdateVolume(*Void)
             NewTick = 1
             NewChord = 1
             Tick = 0
-            Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
+            Tick+(TimeDelta/1000.0)*(4.7+Pow(Value_Rhythm_Tempo, 2.2)*15.3)
             While Tick >= 32.0 Or (Tick >= 24 And (Value_Rhythm_Pattern_Current = #Rhythm_Waltz Or Value_Rhythm_Pattern_Current = #Rhythm_Blues) And Value_Rhythm_Alternate_Current = 1)
               Tick-32.0+8.0*Bool(Tick >= 24 And (Value_Rhythm_Pattern_Current = #Rhythm_Waltz Or Value_Rhythm_Pattern_Current = #Rhythm_Blues) And Value_Rhythm_Alternate_Current = 1)
             Wend
@@ -2050,10 +2050,10 @@ Procedure UpdateVolume(*Void)
             NewChord = 1
             Tick = 0
           Else
-            If Int(Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)) > Int(Tick)
+            If Int(Tick+(TimeDelta/1000.0)*(4.7+Pow(Value_Rhythm_Tempo, 2.2)*15.3)) > Int(Tick)
               NewTick = 1
             EndIf
-            Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
+            Tick+(TimeDelta/1000.0)*(4.7+Pow(Value_Rhythm_Tempo, 2.2)*15.3)
             If Tick >= 32.0 Or (Tick >= 24 And (Value_Rhythm_Pattern_Current = #Rhythm_Waltz Or Value_Rhythm_Pattern_Current = #Rhythm_Blues) And Value_Rhythm_Alternate_Current = 1)
               If Value_Rhythm_Pattern <> Value_Rhythm_Pattern_Current Or Value_Rhythm_Alternate <> Value_Rhythm_Alternate_Current
                 If (Value_Rhythm_Pattern_Current = #Rhythm_Waltz Or Value_Rhythm_Pattern_Current = #Rhythm_Blues) And Value_Rhythm_Alternate_Current = 1
@@ -2077,7 +2077,7 @@ Procedure UpdateVolume(*Void)
           NewTick = 1
           NewChord = 1
           Tick = 0
-          Tick+(TimeDelta/1000.0)*(3.0+Value_Rhythm_Tempo*8.0)
+          Tick+(TimeDelta/1000.0)*(4.7+Pow(Value_Rhythm_Tempo, 2.2)*15.3)
           While Tick >= 32.0 Or (Tick >= 24 And (Value_Rhythm_Pattern_Current = #Rhythm_Waltz Or Value_Rhythm_Pattern_Current = #Rhythm_Blues) And Value_Rhythm_Alternate_Current = 1)
             Tick-32.0+8.0*Bool(Tick >= 24 And (Value_Rhythm_Pattern_Current = #Rhythm_Waltz Or Value_Rhythm_Pattern_Current = #Rhythm_Blues) And Value_Rhythm_Alternate_Current = 1)
           Wend
