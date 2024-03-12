@@ -1717,7 +1717,6 @@ Define VolumeThread.i
 
 ; This is the semaphore communications to stop sounds
 Global Semaphore_StopSounds.i = CreateSemaphore()
-Global Semaphore_SoundsHaveStopped.i = CreateSemaphore()
 
 ; This is used for the keyboard.
 ; Each key event usually returns a value of 0 to 255. 65535 is just to be on the secure end, with Unicode and whatnot.
@@ -2097,7 +2096,6 @@ Procedure UpdateVolume(*Void)
         VolumeStatus(i) = 0.0
         Status_Sound(i) = #Curve_None
       Next
-      SignalSemaphore(Semaphore_SoundsHaveStopped)
     EndIf
     
     
@@ -2970,7 +2968,6 @@ Repeat
         PostEvent(#Event_Repaint_Start)
         PostEvent(#Event_Repaint_Rhythm)
         PostEvent(#Event_Repaint_Finish)
-      Else
       EndIf
       
       If Trigger_Rhythm_Knob_Volume
@@ -3103,8 +3100,8 @@ Repeat
                     EndSelect
                 EndSelect
               Case #PB_Event_CloseWindow
-                KillThread(VolumeThread)
-                Break 2
+                PostEvent(#PB_Event_CloseWindow)
+                Break
               Default
             EndSelect
           ForEver
@@ -3187,8 +3184,8 @@ Repeat
                     EndSelect
                 EndSelect
               Case #PB_Event_CloseWindow
-                KillThread(VolumeThread)
-                Break 2
+                PostEvent(#PB_Event_CloseWindow)
+                Break
               Default
             EndSelect
           ForEver
@@ -3271,8 +3268,8 @@ Repeat
                     EndSelect
                 EndSelect
               Case #PB_Event_CloseWindow
-                KillThread(VolumeThread)
-                Break 2
+                PostEvent(#PB_Event_CloseWindow)
+                Break
               Default
             EndSelect
           ForEver
@@ -3290,8 +3287,9 @@ Repeat
             Next
           Next
           Tick = 0
+          
           SignalSemaphore(Semaphore_StopSounds)
-          WaitSemaphore(Semaphore_SoundsHaveStopped)
+          
           PostEvent(#Event_Repaint_Start)
           PostEvent(#Event_Repaint_Chord)
           PostEvent(#Event_Repaint_Finish)
@@ -3618,7 +3616,6 @@ Repeat
               Value_Chord_Chord = #Chord_None
               Value_Rhythm_Pattern_Current = #Rhythm_None
               SignalSemaphore(Semaphore_StopSounds)
-              WaitSemaphore(Semaphore_SoundsHaveStopped)
             EndIf
           EndIf
           NoChordChange = 0
