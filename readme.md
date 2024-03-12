@@ -1,11 +1,15 @@
-```
 Chordian is a virtual instrument emulating the behaviour of a Suzuki Omnichord OM-84.
+
+![Screenshot of Chordian running on Windows 10](_media/screenshot.png)
 
 Controls:
     Chord keys are by default assigned to the keyboard in the following configuration:
-    1  2  3  4  5  6  7  8  9  0  ß  ´
-     Q  W  E  R  T  Z  U  I  O  P  Ü  +
-      A  S  D  F  G  H  J  K  L  Ö  Ä  #
+    
+    1  2  3  4  5  6  7  8  9  0  ÃŸ  Â´
+    
+     Q  W  E  R  T  Z  U  I  O  P  Ãœ  +
+     
+      A  S  D  F  G  H  J  K  L  Ã–  Ã„  #
     
     Please note that this is a standard configuration made for a German ISO keyboard.
     ASCII keyboards will not be able to assign standard small keys for every chord in a
@@ -103,23 +107,46 @@ Troubleshooting:
         
         
 These things are currently implemented:
+
     -Chord keys
+    
     -Strumplate
+    
     -Volume controls
+    
     -Tempo controls
+    
     -Sustain controls
+    
     -Chord-hold controls
+    
     -Auto bass-sync controls
+    
     -Tuning controls
+    
     -Rhythm section
     
+    
+    
 These things are currently partially implemented:
+
     -Keyboard mode (Transposing is not implemented)
     
+    
+    
 These things are currently not implemented:
+
     -Song creation mode
     
+    
+    
 These things may be implemented:
+
     -Autoplayer
+    
     -Midi input
+    
     -Midi output
+
+
+    
