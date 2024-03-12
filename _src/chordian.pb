@@ -1835,46 +1835,6 @@ Next
 
 Global Dim Status_Harp.i(#Harp_Last)
 
-;-Structures (WIP)
-; Chordian Machine State
-Structure ChordianMachineState
-  Value_Bool_Master_Power.i
-  Value_Float_Master_Volume.f
-  
-  Value_Float_Level_Volume_Harp_1.f
-  Value_Float_Level_Volume_Harp_2.f
-  Value_Float_Level_Sustain.f
-  Value_Float_Level_Volume_Keyboard.f
-  Value_Float_Level_Volume_Chords.f
-  
-  Value_Bool_Rhythm_Alternate.i
-  Value_Bool_Rhythm_Alternate_Current.i
-  Value_Bool_Rhythm_Pattern.i
-  Value_Bool_Rhythm_Pattern_Current.i
-  Value_Bool_Rhythm_AutoBassSync.i
-  Value_Float_Rhythm_Tempo.f
-  Value_Float_Rhythm_Volume.f
-  
-  Value_Bool_Memory_Enable.i
-  Value_Bool_Memory_Playback_Record.i
-  Value_Bool_Memory_Repeat_Delete.i
-  Value_Bool_Memory_Playback_Enter.i
-  
-  Array Value_Bool_Harp_Plate.i(#Harp_Last)
-  Array Status_Harp.i(#Harp_Last)
-  
-  Array MIDI.a(#Note_Last, #Chord_Last, #Dat_Last)
-  Array Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
-  
-  Tick.f
-  NewTick.i
-  NewChord.i
-  NoChordChange.i
-  Tuning.f
-EndStructure
-Define Chordian.ChordianMachineState
-
-
 ;-Procedures
 Procedure SoundVolumeFine(SoundID.i, Volume.f)
   ;Adapted from:
@@ -2506,6 +2466,8 @@ MenuItem(#Itm_Reset, "Reset state")
 MenuBar()
 MenuItem(#Itm_Exit, "Exit")
 
+DisableMenuItem(#Men_Main, #Itm_Load, 1)
+DisableMenuItem(#Men_Main, #Itm_Save, 1)
 DisableMenuItem(#Men_Main, #Itm_Reset, 1)
 
 MenuTitle("Edit")
@@ -2529,35 +2491,8 @@ Repeat
       ;--Menu Actions
       Select EventMenu()
         Case #Itm_Load
-          TempString = OpenFileRequester("Chordian>Load machine state...", "", "JSON (*.json)|*.json|AllFiles (*.*)|*.*", 0)
-          If TempString
-            If LoadJSON(0, TempString)
-              ExtractJSONStructure(JSONValue(0), @Chordian, ChordianMachineState)
-              FreeJSON(0)
-            EndIf
-          EndIf
           
         Case #Itm_Save
-          If CreateJSON(0)
-            InsertJSONStructure(JSONValue(0), @Chordian, ChordianMachineState)
-            TempString = SaveFileRequester("Chordian>Save machine state...", "", "JSON (*.json)|*.json|AllFiles (*.*)|*.*", 0)
-            If TempString
-              Select FileSize(TempString)
-                Case -2
-                  MessageRequester("Chordian>Error", "Cannot save file "+TempString+", entry occupied by folder.")
-                Case -1
-                  SaveJSON(0, TempString)
-                Default
-                  Select MessageRequester("Chordian>Warning", "File "+TempString+" already exists."+#CRLF$+"Do you want to overwrite it?", #PB_MessageRequester_YesNoCancel)
-                    Case #PB_MessageRequester_Yes
-                      SaveJSON(0, TempString)
-                    Case #PB_MessageRequester_Cancel
-                      PostEvent(#PB_Event_Menu , #Win_Main, #Itm_Save)
-                  EndSelect
-              EndSelect
-            EndIf
-            FreeJSON(0)
-          EndIf
           
         Case #Itm_Reset
           
