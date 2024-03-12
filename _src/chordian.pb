@@ -2581,7 +2581,6 @@ Repeat
           RunProgram("readme.md")
           
         Case #Itm_About
-          DisableWindow(#Win_Main, 1)
           CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant)
             TempString = "An Omnichord Emulator"+#CRLF$+
                          "Build "+Str(#PB_Editor_BuildCount)+#CRLF$+
@@ -2602,9 +2601,8 @@ Repeat
                          "https://github.com/Jan125/pb.chordian"
           CompilerEndIf
           MessageRequester("Chordian>About", TempString, #PB_MessageRequester_Ok)
-          DisableWindow(#Win_Main, 0)
-          
       EndSelect
+      
       
     Case #PB_Event_Gadget
       ;--Gadget Actions
