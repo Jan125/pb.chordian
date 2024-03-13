@@ -3538,7 +3538,7 @@ Repeat
             If Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
               Value_Chord_Chord = #Chord_Aug
               NewChord = 1
-              If Value_Rhythm_Pattern = #Rhythm_None
+              If Value_Rhythm_Pattern_Current = #Rhythm_None
                 NewTick = 1
               EndIf
             ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
@@ -3552,7 +3552,7 @@ Repeat
                 Value_Chord_Chord = #Chord_Dim
                 NewChord = 1
               EndIf
-              If Value_Rhythm_Pattern = #Rhythm_None
+              If Value_Rhythm_Pattern_Current = #Rhythm_None
                 NewTick = 1
               EndIf
             ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
@@ -3566,7 +3566,7 @@ Repeat
                 Value_Chord_Chord = #Chord_Ma7
                 NewChord = 1
               EndIf
-              If Value_Rhythm_Pattern = #Rhythm_None
+              If Value_Rhythm_Pattern_Current = #Rhythm_None
                 NewTick = 1
               EndIf
             ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note)) And Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
@@ -3580,7 +3580,7 @@ Repeat
                 Value_Chord_Chord = #Chord_Mi7
                 NewChord = 1
               EndIf
-              If Value_Rhythm_Pattern = #Rhythm_None
+              If Value_Rhythm_Pattern_Current = #Rhythm_None
                 NewTick = 1
               EndIf
             ElseIf Keys(ChordKeys(#Chord_Maj, Value_Chord_Note))
@@ -3589,7 +3589,7 @@ Repeat
                 Value_Chord_Chord = #Chord_Maj
                 NewChord = 1
               EndIf
-              If Value_Rhythm_Pattern = #Rhythm_None
+              If Value_Rhythm_Pattern_Current = #Rhythm_None
                 NewTick = 1
               EndIf
             ElseIf Keys(ChordKeys(#Chord_Min, Value_Chord_Note))
@@ -3598,7 +3598,7 @@ Repeat
                 Value_Chord_Chord = #Chord_Min
                 NewChord = 1
               EndIf
-              If Value_Rhythm_Pattern = #Rhythm_None
+              If Value_Rhythm_Pattern_Current = #Rhythm_None
                 NewTick = 1
               EndIf
             ElseIf Keys(ChordKeys(#Chord_7th, Value_Chord_Note))
@@ -3607,7 +3607,7 @@ Repeat
                 Value_Chord_Chord = #Chord_7th
                 NewChord = 1
               EndIf
-              If Value_Rhythm_Pattern = #Rhythm_None
+              If Value_Rhythm_Pattern_Current = #Rhythm_None
                 NewTick = 1
               EndIf
               
