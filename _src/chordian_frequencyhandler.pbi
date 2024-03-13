@@ -40,18 +40,18 @@ Procedure FrequencyHandler(*Void)
       Sin3Phase = Sqr(Sqr(Abs(SinPhase)))*Sign(SinPhase)
       ;Cos3Phase = Sqr(Sqr(Abs(CosPhase)))*Sign(CosPhase)
       
-      If TrySemaphore(Chordian\Semaphore_EndFrequencyHandler)
+      If WaitForSingleObject_(Chordian\Semaphore_EndFrequencyHandler, 0) = #WAIT_OBJECT_0
         ProcedureReturn
       EndIf
       
-      If TrySemaphore(Chordian\Machine_Event\Semaphore_IsNewTuning)
+      If WaitForSingleObject_(Chordian\Machine_Event\Semaphore_IsNewTuning, 0) = #WAIT_OBJECT_0
         For i = 0 To 127
           Frequencies(i) = (440.0*((1.5+\Value_Circuit_Knob_Tuning)/2.0))*Pow(2.0, (i-71)/12.0)*225.0
         Next
-        SignalSemaphore(Chordian\Machine_Event\Semaphore_IsNewChord)
+        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
       EndIf
       
-      If TrySemaphore(Chordian\Machine_Event\Semaphore_IsNewChord)
+      If WaitForSingleObject_(Chordian\Machine_Event\Semaphore_IsNewChord, 0) = #WAIT_OBJECT_0
         CurrentChord = \Value_Internal_Chord_Chord
         CurrentNote = \Value_Internal_Chord_Note
       EndIf

@@ -4,12 +4,12 @@ Procedure.i RepaintHandler(*Void)
   
   With Chordian
     Repeat
-      WaitSemaphore(\Repaint_Event\Semaphore_Repaint_Commit)
+      WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Commit, -1)
       StartDrawing(CanvasOutput(#Gad_Canvas))
       
       
       ;-Repaint Background and Base
-      If TrySemaphore(\Repaint_Event\Semaphore_Repaint_Base)
+      If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Base, 0) = #WAIT_OBJECT_0
         DrawImage(ImageID(#Img_Background), 0, 0)
         
         DrawAlphaImage(ImageID(#Img_Base), 0, 0)
@@ -17,7 +17,7 @@ Procedure.i RepaintHandler(*Void)
       
       
       ;-Repaint Master section
-      If TrySemaphore(\Repaint_Event\Semaphore_Repaint_Master)
+      If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Master, 0) = #WAIT_OBJECT_0
         ;Power Button and LED
         Select \Machine_State\Value_Master_Button_Power_OnOff
           Case 1
@@ -35,7 +35,7 @@ Procedure.i RepaintHandler(*Void)
       
       
       ;-Repaint Level/Mode section
-      If TrySemaphore(\Repaint_Event\Semaphore_Repaint_Level)
+      If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Level, 0) = #WAIT_OBJECT_0
         ;Harp Voice 2 Volume Knob
         DrawAlphaImage(ImageID(#Img_Knob_Ring), 73, 170)
         Line(94, 191, Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21+Sign(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21) <= 0.5), Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21+Sign(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21) <= 0.5))
@@ -57,7 +57,7 @@ Procedure.i RepaintHandler(*Void)
       
       
       ;-Repaint Rhythm section
-      If TrySemaphore(\Repaint_Event\Semaphore_Repaint_Rhythm)
+      If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Rhythm, 0) = #WAIT_OBJECT_0
         ;Rhythm Alternate Selection Button
         Select \Machine_State\Value_Rhythm_Button_Alternate_OnOff
           Case 1
@@ -91,7 +91,7 @@ Procedure.i RepaintHandler(*Void)
       
       
       ;-Repaint Memory section
-      If TrySemaphore(\Repaint_Event\Semaphore_Repaint_Memory)
+      If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Memory, 0) = #WAIT_OBJECT_0
         ;Memory Button
         Select \Machine_State\Value_Memory_Button_Memory_OnOff
           Case 1
@@ -130,7 +130,7 @@ Procedure.i RepaintHandler(*Void)
       
       
       ;Repaint Chord section
-      If TrySemaphore(\Repaint_Event\Semaphore_Repaint_Chord)
+      If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Chord, 0) = #WAIT_OBJECT_0
         ;Chord Buttons
         For i = #Note_First To #Note_Fc
           Select i

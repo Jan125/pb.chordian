@@ -34,11 +34,11 @@ Procedure VolumeHandler(*Void)
       Sin3Phase = Sqr(Sqr(Abs(SinPhase)))*Sign(SinPhase)
       ;Cos3Phase = Sqr(Sqr(Abs(CosPhase)))*Sign(CosPhase)
       
-      If TrySemaphore(Chordian\Semaphore_EndVolumeHandler)
+      If WaitForSingleObject_(Chordian\Semaphore_EndVolumeHandler, 0) = #WAIT_OBJECT_0
         ProcedureReturn
       EndIf
       
-      If TrySemaphore(Chordian\Machine_Event\Semaphore_StopAllSounds)
+      If WaitForSingleObject_(Chordian\Machine_Event\Semaphore_StopAllSounds, 0) = #WAIT_OBJECT_0
         For i = #Dat_First To #Dat_Last
           \Status_Volume(i) = 0.0
           \Status_Sound(i) = #Curve_None

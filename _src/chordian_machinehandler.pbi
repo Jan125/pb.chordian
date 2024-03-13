@@ -1358,11 +1358,11 @@ Procedure MachineHandler(*Void)
       
       If SendNewChord
         SendNewChord = 0
-        SignalSemaphore(Chordian\Machine_Event\Semaphore_IsNewChord)
+        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
       EndIf
       If SendNewTick
         SendNewTick = 0
-        SignalSemaphore(Chordian\Machine_Event\Semaphore_IsNewTick)
+        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
       EndIf
       
       

@@ -193,56 +193,56 @@ EndStructure
 Global Chordian.Chordian_State
 
 With Chordian
-  \Semaphore_EndRepaintHandler = CreateSemaphore()
-  \Semaphore_EndMachineHandler = CreateSemaphore()
-  \Semaphore_EndPatternHandler = CreateSemaphore()
-  \Semaphore_EndVolumeHandler = CreateSemaphore()
-  \Semaphore_EndFrequencyHandler = CreateSemaphore()
+  \Semaphore_EndRepaintHandler = CreateSemaphore_(0, 0, 1, "Semaphore_EndRepaintHandler")
+  \Semaphore_EndMachineHandler = CreateSemaphore_(0, 0, 1, "Semaphore_EndMachineHandler")
+  \Semaphore_EndPatternHandler = CreateSemaphore_(0, 0, 1, "Semaphore_EndPatternHandler")
+  \Semaphore_EndVolumeHandler = CreateSemaphore_(0, 0, 1, "Semaphore_EndVolumeHandler")
+  \Semaphore_EndFrequencyHandler = CreateSemaphore_(0, 0, 1, "Semaphore_EndFrequencyHandler")
 EndWith
 
 With Chordian\Input_Event
 EndWith
 
 With Chordian\Repaint_Event
-  \Semaphore_Repaint_Commit = CreateSemaphore()
-  \Semaphore_Repaint_Base = CreateSemaphore()
-  \Semaphore_Repaint_Master = CreateSemaphore()
-  \Semaphore_Repaint_Level = CreateSemaphore()
-  \Semaphore_Repaint_Rhythm = CreateSemaphore()
-  \Semaphore_Repaint_Memory = CreateSemaphore()
-  \Semaphore_Repaint_Chord = CreateSemaphore()
+  \Semaphore_Repaint_Commit = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Commit")
+  \Semaphore_Repaint_Base = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Base")
+  \Semaphore_Repaint_Master = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Master")
+  \Semaphore_Repaint_Level = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Level")
+  \Semaphore_Repaint_Rhythm = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Rhythm")
+  \Semaphore_Repaint_Memory = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Memory")
+  \Semaphore_Repaint_Chord = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Chord")
 EndWith
 
 With Chordian\Machine_Event
-  \Semaphore_Master_Button_Power_OnOff = CreateSemaphore()
-  \Semaphore_Master_Knob_Volume = CreateSemaphore()
+  \Semaphore_Master_Button_Power_OnOff = CreateSemaphore_(0, 0, 1, "Semaphore_Master_Button_Power_OnOff")
+  \Semaphore_Master_Knob_Volume = CreateSemaphore_(0, 0, 1, "Semaphore_Master_Knob_Volume")
   
-  \Semaphore_Level_Knob_Volume_Harp_1 = CreateSemaphore()
-  \Semaphore_Level_Knob_Volume_Harp_2 = CreateSemaphore()
-  \Semaphore_Level_Knob_Sustain = CreateSemaphore()
-  \Semaphore_Level_Knob_Volume_Keyboard = CreateSemaphore()
-  \Semaphore_Level_Knob_Volume_Chords = CreateSemaphore()
+  \Semaphore_Level_Knob_Volume_Harp_1 = CreateSemaphore_(0, 0, 1, "Semaphore_Level_Knob_Volume_Harp_1")
+  \Semaphore_Level_Knob_Volume_Harp_2 = CreateSemaphore_(0, 0, 1, "Semaphore_Level_Knob_Volume_Harp_2")
+  \Semaphore_Level_Knob_Sustain = CreateSemaphore_(0, 0, 1, "Semaphore_Level_Knob_Sustain")
+  \Semaphore_Level_Knob_Volume_Keyboard = CreateSemaphore_(0, 0, 1, "Semaphore_Level_Knob_Volume_Keyboard")
+  \Semaphore_Level_Knob_Volume_Chords = CreateSemaphore_(0, 0, 1, "Semaphore_Level_Knob_Volume_Chords")
   
-  \Semaphore_Rhythm_Button_Alternate = CreateSemaphore()
-  \Semaphore_Rhythm_Button_Pattern = CreateSemaphore()
-  \Semaphore_Rhythm_Button_AutoBassSync = CreateSemaphore()
-  \Semaphore_Rhythm_Knob_Tempo = CreateSemaphore()
-  \Semaphore_Rhythm_Knob_Volume = CreateSemaphore()
+  \Semaphore_Rhythm_Button_Alternate = CreateSemaphore_(0, 0, 1, "Semaphore_Rhythm_Button_Alternate")
+  \Semaphore_Rhythm_Button_Pattern = CreateSemaphore_(0, 0, 1, "Semaphore_Rhythm_Button_Pattern")
+  \Semaphore_Rhythm_Button_AutoBassSync = CreateSemaphore_(0, 0, 1, "Semaphore_Rhythm_Button_AutoBassSync")
+  \Semaphore_Rhythm_Knob_Tempo = CreateSemaphore_(0, 0, 1, "Semaphore_Rhythm_Knob_Tempo")
+  \Semaphore_Rhythm_Knob_Volume = CreateSemaphore_(0, 0, 1, "Semaphore_Rhythm_Knob_Volume")
   
-  \Semaphore_Memory_Button_Memory_OnOff = CreateSemaphore()
-  \Semaphore_Memory_Button_Playback_Record = CreateSemaphore()
-  \Semaphore_Memory_Button_Repeat_Delete = CreateSemaphore()
-  \Semaphore_Memory_Button_Playback_Enter = CreateSemaphore()
+  \Semaphore_Memory_Button_Memory_OnOff = CreateSemaphore_(0, 0, 1, "Semaphore_Memory_Button_Memory_OnOff")
+  \Semaphore_Memory_Button_Playback_Record = CreateSemaphore_(0, 0, 1, "Semaphore_Memory_Button_Playback_Record")
+  \Semaphore_Memory_Button_Repeat_Delete = CreateSemaphore_(0, 0, 1, "Semaphore_Memory_Button_Repeat_Delete")
+  \Semaphore_Memory_Button_Playback_Enter = CreateSemaphore_(0, 0, 1, "Semaphore_Memory_Button_Playback_Enter")
   
-  \Semaphore_Chord_Button_Major = CreateSemaphore()
-  \Semaphore_Chord_Button_Minor = CreateSemaphore()
-  \Semaphore_Chord_Button_7th = CreateSemaphore()
+  \Semaphore_Chord_Button_Major = CreateSemaphore_(0, 0, 1, "Semaphore_Chord_Button_Major")
+  \Semaphore_Chord_Button_Minor = CreateSemaphore_(0, 0, 1, "Semaphore_Chord_Button_Minor")
+  \Semaphore_Chord_Button_7th = CreateSemaphore_(0, 0, 1, "Semaphore_Chord_Button_7th")
   
-  \Semaphore_Harp = CreateSemaphore()
+  \Semaphore_Harp = CreateSemaphore_(0, 0, 1, "Semaphore_Harp")
   
-  \Semaphore_StopAllSounds = CreateSemaphore()
-  \Semaphore_IsNewChord = CreateSemaphore()
-  \Semaphore_IsNewTick = CreateSemaphore()
-  \Semaphore_IsNewTuning = CreateSemaphore()
+  \Semaphore_StopAllSounds = CreateSemaphore_(0, 0, 1, "Semaphore_StopAllSounds")
+  \Semaphore_IsNewChord = CreateSemaphore_(0, 0, 1, "Semaphore_IsNewChord")
+  \Semaphore_IsNewTick = CreateSemaphore_(0, 0, 1, "Semaphore_IsNewTick")
+  \Semaphore_IsNewTuning = CreateSemaphore_(0, 0, 1, "Semaphore_IsNewTuning")
 EndWith
 

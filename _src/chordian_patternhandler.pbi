@@ -7,7 +7,7 @@
   
   With Chordian\Machine_State
     Repeat
-      WaitSemaphore(Chordian\Machine_Event\Semaphore_IsNewTick)
+      WaitForSingleObject_(Chordian\Machine_Event\Semaphore_IsNewTick, -1)
       CurrentTick = Int(\Value_Internal_Tick)
       If CurrentTick >= 32
         CurrentTick = 0
@@ -19,7 +19,7 @@
       
       Select CurrentRhythm
         Case #Rhythm_None
-          SignalSemaphore(Chordian\Machine_Event\Semaphore_IsNewChord)
+          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
           If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
             \Status_Sound(#Dat_Bass_1) = #Curve_Trigger
             \Status_Sound(#Dat_Chord_1) = #Curve_Trigger
@@ -29,7 +29,7 @@
         Default
           If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
             If \Value_Rhythm_Button_AutoBassSync_OnOff
-              SignalSemaphore(Chordian\Machine_Event\Semaphore_IsNewChord)
+              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
               \Status_Sound(#Dat_Bass_1) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Bass)
               \Status_Sound(#Dat_Chord_1) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
               \Status_Sound(#Dat_Chord_2) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
