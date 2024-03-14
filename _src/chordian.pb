@@ -330,6 +330,7 @@ Procedure Main()
             If TempString
               If LoadJSON(#JSON_Main, TempString)
                 ResetMachine()
+                ResetInput()
                 
                 ExtractJSONStructure(JSONValue(#JSON_Main), @TempState, Machine_State_Save)
                 FreeJSON(#JSON_Main)
@@ -391,6 +392,7 @@ Procedure Main()
             
           Case #Itm_Reset
             ResetMachine()
+            ResetInput()
             PostEvent(#PB_Event_Repaint)
             
             
@@ -497,8 +499,10 @@ Procedure Main()
           If \Keymap(EventData()) = 0
             PostEvent(#Event_HandleChordKeys)
             PostEvent(#Event_HandleHarpKeys)
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
           EndIf
           \Keymap(EventData()) = 1
           \LastKey = EventData()
@@ -509,8 +513,10 @@ Procedure Main()
         ;--GeneralKeyUp
         With Chordian\Input_State
           \Keymap(EventData()) = 0
+          PauseThread(Chordian\RepaintHandler_Thread)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+          ResumeThread(Chordian\RepaintHandler_Thread)
           If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
             PostEvent(#Event_HandleChordKeys)
           EndIf
@@ -699,8 +705,10 @@ Procedure Main()
               Chordian\Machine_State\Value_Master_Knob_Volume = 0.0
             EndIf
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -723,8 +731,10 @@ Procedure Main()
               Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1 = 0.0
             EndIf
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -746,8 +756,10 @@ Procedure Main()
               Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2 = 0.0
             EndIf
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -769,8 +781,10 @@ Procedure Main()
               Chordian\Machine_State\Value_Level_Knob_Sustain = 0.0
             EndIf
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -792,8 +806,10 @@ Procedure Main()
               Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard = 0.0
             EndIf
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -816,8 +832,10 @@ Procedure Main()
               Chordian\Machine_State\Value_Level_Knob_Volume_Chords = 0.0
             EndIf
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -827,8 +845,10 @@ Procedure Main()
             Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff)
             
             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -845,8 +865,10 @@ Procedure Main()
               EndIf
             EndIf
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -864,9 +886,11 @@ Procedure Main()
             
             Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff)
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -902,8 +926,10 @@ Procedure Main()
               Chordian\Machine_State\Value_Rhythm_Knob_Tempo = 0.0
             EndIf
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -926,8 +952,10 @@ Procedure Main()
               Chordian\Machine_State\Value_Rhythm_Knob_Volume = 0.0
             EndIf
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -936,8 +964,10 @@ Procedure Main()
             \Trigger_Memory_Button_Memory_OnOff = 0
             Chordian\Machine_State\Value_Memory_Button_Memory_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff)
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -957,8 +987,10 @@ Procedure Main()
             \Trigger_Memory_Button_Repeat_Delete = 0
             Chordian\Machine_State\Value_Memory_Button_Repeat_Delete = Bool(Not Chordian\Machine_State\Value_Memory_Button_Repeat_Delete)
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -967,8 +999,10 @@ Procedure Main()
             \Trigger_Memory_Button_Playback_Enter = 0
             Chordian\Machine_State\Value_Memory_Button_Playback_Enter = Bool(Not Chordian\Machine_State\Value_Memory_Button_Playback_Enter)
             
+            PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
             
           EndIf
           
@@ -1000,21 +1034,27 @@ Procedure Main()
                           Case #PB_EventType_KeyUp
                             Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
                               Case #VK_ESCAPE
+                                PauseThread(Chordian\RepaintHandler_Thread)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                ResumeThread(Chordian\RepaintHandler_Thread)
                                 Break
                               Default
                                 \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                PauseThread(Chordian\RepaintHandler_Thread)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                ResumeThread(Chordian\RepaintHandler_Thread)
                                 Break
                             EndSelect
                             
                           Case #PB_EventType_LeftButtonDown
                             \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
                             \Mouse_Button_Left_Current = 1
+                            PauseThread(Chordian\RepaintHandler_Thread)
                             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ResumeThread(Chordian\RepaintHandler_Thread)
                             Break
                             
                           Case #PB_EventType_LeftButtonUp
@@ -1024,8 +1064,10 @@ Procedure Main()
                           Case #PB_EventType_RightButtonDown
                             \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
                             \Mouse_Button_Right_Current = 1
+                            PauseThread(Chordian\RepaintHandler_Thread)
                             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ResumeThread(Chordian\RepaintHandler_Thread)
                             Break
                             
                           Case #PB_EventType_RightButtonUp
@@ -1035,8 +1077,10 @@ Procedure Main()
                           Case #PB_EventType_MiddleButtonDown
                             \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
                             \Mouse_Button_Middle_Current = 1
+                            PauseThread(Chordian\RepaintHandler_Thread)
                             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ResumeThread(Chordian\RepaintHandler_Thread)
                             Break
                             
                           Case #PB_EventType_MiddleButtonUp
@@ -1081,21 +1125,27 @@ Procedure Main()
                           Case #PB_EventType_KeyUp
                             Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
                               Case #VK_ESCAPE
+                                PauseThread(Chordian\RepaintHandler_Thread)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                ResumeThread(Chordian\RepaintHandler_Thread)
                                 Break
                               Default
                                 \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                PauseThread(Chordian\RepaintHandler_Thread)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                ResumeThread(Chordian\RepaintHandler_Thread)
                                 Break
                             EndSelect
                             
                           Case #PB_EventType_LeftButtonDown
                             \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
                             \Mouse_Button_Left_Current = 1
+                            PauseThread(Chordian\RepaintHandler_Thread)
                             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ResumeThread(Chordian\RepaintHandler_Thread)
                             Break
                             
                           Case #PB_EventType_LeftButtonUp
@@ -1105,8 +1155,10 @@ Procedure Main()
                           Case #PB_EventType_RightButtonDown
                             \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
                             \Mouse_Button_Right_Current = 1
+                            PauseThread(Chordian\RepaintHandler_Thread)
                             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ResumeThread(Chordian\RepaintHandler_Thread)
                             Break
                             
                           Case #PB_EventType_RightButtonUp
@@ -1116,8 +1168,10 @@ Procedure Main()
                           Case #PB_EventType_MiddleButtonDown
                             \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
                             \Mouse_Button_Middle_Current = 1
+                            PauseThread(Chordian\RepaintHandler_Thread)
                             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ResumeThread(Chordian\RepaintHandler_Thread)
                             Break
                             
                           Case #PB_EventType_MiddleButtonUp
@@ -1162,21 +1216,27 @@ Procedure Main()
                           Case #PB_EventType_KeyUp
                             Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
                               Case #VK_ESCAPE
+                                PauseThread(Chordian\RepaintHandler_Thread)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                ResumeThread(Chordian\RepaintHandler_Thread)
                                 Break
                               Default
                                 \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                PauseThread(Chordian\RepaintHandler_Thread)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
                                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                ResumeThread(Chordian\RepaintHandler_Thread)
                                 Break
                             EndSelect
                             
                           Case #PB_EventType_LeftButtonDown
                             \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
                             \Mouse_Button_Left_Current = 1
+                            PauseThread(Chordian\RepaintHandler_Thread)
                             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ResumeThread(Chordian\RepaintHandler_Thread)
                             Break
                             
                           Case #PB_EventType_LeftButtonUp
@@ -1186,8 +1246,10 @@ Procedure Main()
                           Case #PB_EventType_RightButtonDown
                             \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
                             \Mouse_Button_Right_Current = 1
+                            PauseThread(Chordian\RepaintHandler_Thread)
                             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ResumeThread(Chordian\RepaintHandler_Thread)
                             Break
                             
                           Case #PB_EventType_RightButtonUp
@@ -1197,8 +1259,10 @@ Procedure Main()
                           Case #PB_EventType_MiddleButtonDown
                             \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
                             \Mouse_Button_Middle_Current = 1
+                            PauseThread(Chordian\RepaintHandler_Thread)
                             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                            ResumeThread(Chordian\RepaintHandler_Thread)
                             Break
                             
                           Case #PB_EventType_MiddleButtonUp
@@ -1228,8 +1292,10 @@ Procedure Main()
               Next
               Chordian\Machine_State\Value_Internal_Tick = 0
               ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+              PauseThread(Chordian\RepaintHandler_Thread)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
             Else
               
               If \Trigger_Harp
@@ -1706,6 +1772,7 @@ Procedure Main()
         
         
       Case #PB_Event_Repaint
+        PauseThread(Chordian\RepaintHandler_Thread)
         ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
         ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
         ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
@@ -1713,6 +1780,7 @@ Procedure Main()
         ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
         ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
         ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+        ResumeThread(Chordian\RepaintHandler_Thread)
         
       Case #PB_Event_CloseWindow
         KillThread(Chordian\VolumeHandler_Thread)
@@ -1721,6 +1789,7 @@ Procedure Main()
         KillThread(Chordian\PatternHandler_Thread)
         KillThread(Chordian\RepaintHandler_Thread)
         End
+        
     EndSelect
   ForEver
   
