@@ -1,5 +1,5 @@
 ﻿;-Helper Procedures
-Procedure.l AutofillDerivedNotes(Note.l, Chord.l)
+Procedure.i AutofillDerivedNotes(Note.i, Chord.i)
   With Chordian\Machine_State
     \Data_MIDI(Note, Chord, #Dat_Bass_2) = \Data_MIDI(Note, Chord, #Dat_Bass_1)-12
     Select Note
@@ -34,12 +34,12 @@ EndProcedure
 
 
 ;-Main Procedures
-Procedure.l ResetMachine()
-  Protected i.l
-  Protected n.l
-  Protected s.l
-  Protected p.l
-  Protected r.l
+Procedure.i ResetMachine()
+  Protected i.i
+  Protected n.i
+  Protected s.i
+  Protected p.i
+  Protected r.i
   
   With Chordian\Machine_State
     ;-MIDI Data

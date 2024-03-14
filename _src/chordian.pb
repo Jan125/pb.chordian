@@ -20,7 +20,7 @@ XIncludeFile "chordian_volumehandler.pbi"
 
 XIncludeFile "chordian_machinehandler.pbi"
 
-Procedure.l ResetInput()
+Procedure.i ResetInput()
   Protected i.i
   
   With Chordian\Input_State
@@ -136,13 +136,15 @@ Procedure.l ResetInput()
     \Keymap_Harp(#Harp_13) = #VK_F12
     
   EndWith
+  
 EndProcedure
 
 ;-Procedures
 Procedure.i Init()
   Protected i.i
+  
   ;-Initialization
-  If Not OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 620, "Chordian", #PB_Window_SystemMenu)
+  If Not OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 620, "Chordian", #PB_Window_SystemMenu|#PB_Window_MinimizeGadget)
     MessageRequester("Chordian>Error", "Window could not be initialized.")
     End
   EndIf
@@ -173,6 +175,7 @@ Procedure.i Init()
   ResetInput()
   
   UsePNGImageDecoder()
+  
   ;-Get Graphics
   CatchImage(#Img_Background, ?Img_Background)
   CatchImage(#Img_Base, ?Img_Base)
@@ -212,7 +215,6 @@ Procedure.i Init()
   
   CatchImage(#Img_LED_Off, ?Img_LED_Off)
   CatchImage(#Img_LED_On, ?Img_LED_On)
-  
   
   ;-Get Sounds
   CatchSound(#Snd_Bass, ?Snd_Bass)
@@ -268,10 +270,10 @@ Procedure.i Init()
   For i = #Snd_Drum_First To #Snd_Drum_Last
     PlaySound(i, 0, 0)
   Next
+  
   For i = #Snd_Keyboard To #Snd_Keyboard
     PlaySound(i, #PB_Sound_Loop, 0)
   Next
-  
   
   ;-Create Menu
   CreateMenu(#Men_Main, WindowID(#Win_Main))
@@ -311,7 +313,6 @@ Procedure Main()
   Protected TempString.s
   Protected TempState.Machine_State_Save
   
-  Protected NoChordChange.i
   Protected SendNewTick.i
   Protected SendNewChord.i
   
@@ -1538,10 +1539,9 @@ Procedure Main()
                   Chordian\Machine_State\Value_Internal_Chord_Note = #Note_B
                 Case \Keymap_Chord(#Chord_Maj, #Note_Fc), \Keymap_Chord(#Chord_Min, #Note_Fc), \Keymap_Chord(#Chord_7th, #Note_Fc)
                   Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Fc
-                Default
-                  NoChordChange = 1
               EndSelect
-              If Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None And Not NoChordChange
+              
+              If Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None
                 If \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
                   Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
                   SendNewChord = 1
@@ -1571,7 +1571,7 @@ Procedure Main()
                     EndIf
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
-                     SendNewChord = 1
+                    SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
                     SendNewTick = 1
@@ -1581,11 +1581,11 @@ Procedure Main()
                     If \LastKeyEventWasDown
                       \LastKeyEventWasDown = 0
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
-                       SendNewChord = 1
+                      SendNewChord = 1
                     EndIf
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
-                     SendNewChord = 1
+                    SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
                     SendNewTick = 1
@@ -1594,7 +1594,7 @@ Procedure Main()
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Maj
-                     SendNewChord = 1
+                    SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
                     SendNewTick = 1
@@ -1603,10 +1603,10 @@ Procedure Main()
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Min
-                     SendNewChord = 1
+                    SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                     SendNewTick = 1
+                    SendNewTick = 1
                   EndIf
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
@@ -1632,7 +1632,6 @@ Procedure Main()
                 SendNewTick = 0
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
               EndIf
-              NoChordChange = 0
             Else
               If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
                 ;--Keyboard

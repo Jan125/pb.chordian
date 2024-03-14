@@ -1,7 +1,7 @@
 ﻿
 Procedure VolumeHandler(*Void)
   With Chordian\Machine_State
-    Static Dim Data_Frequency.l(127)
+    Static Dim Data_Frequency.i(127)
     
     Protected i.i
     
