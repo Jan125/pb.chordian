@@ -312,6 +312,8 @@ Procedure Main()
   Protected TempState.Machine_State_Save
   
   Protected NoChordChange.i
+  Protected SendNewTick.i
+  Protected SendNewChord.i
   
   Protected i.i
   Protected n.i
@@ -1508,7 +1510,7 @@ Procedure Main()
             If Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
               If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
                 Chordian\Machine_State\Value_Internal_Tick = 0
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                SendNewTick = 1
               EndIf
               
               Select \LastKey
@@ -1542,86 +1544,93 @@ Procedure Main()
               If Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None And Not NoChordChange
                 If \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
                   Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
-                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                  SendNewChord = 1
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                    SendNewTick = 1
                   EndIf
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note))
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
                     If \LastKeyEventWasDown
                       \LastKeyEventWasDown = 0
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                      SendNewChord = 1
                     EndIf
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                    SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                    SendNewTick = 1
                   EndIf
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
                     If \LastKeyEventWasDown
                       \LastKeyEventWasDown = 0
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                      SendNewChord = 1
                     EndIf
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                     SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                    SendNewTick = 1
                   EndIf
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
                     If \LastKeyEventWasDown
                       \LastKeyEventWasDown = 0
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                       SendNewChord = 1
                     EndIf
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                     SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                    SendNewTick = 1
                   EndIf
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note))
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Maj
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                     SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                    SendNewTick = 1
                   EndIf
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note))
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Min
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                     SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                     SendNewTick = 1
                   EndIf
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_7th
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                    SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                    SendNewTick = 1
                   EndIf
-                  
                 ElseIf Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
                   Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
                   Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
                   Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
                   ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
                 EndIf
+              EndIf
+              If SendNewChord
+                SendNewChord = 0
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+              EndIf
+              If SendNewTick
+                SendNewTick = 0
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
               EndIf
               NoChordChange = 0
             Else
