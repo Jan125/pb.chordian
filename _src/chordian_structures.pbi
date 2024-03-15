@@ -59,7 +59,6 @@ Structure Input_State
   Array Keymap.u(262143)
   Array Keymap_Chord.u(#Chord_Last, #Note_Last)
   Array Keymap_Harp.u(#Harp_Last)
-  
 EndStructure
 
 
@@ -188,9 +187,9 @@ Structure Chordian_State
 EndStructure
 
 
-
 ;---Init Structure
 Global Chordian.Chordian_State
+
 
 With Chordian
   \Semaphore_EndRepaintHandler = CreateSemaphore_(0, 0, 1, "Semaphore_EndRepaintHandler")
@@ -200,11 +199,14 @@ With Chordian
   \Semaphore_EndFrequencyHandler = CreateSemaphore_(0, 0, 1, "Semaphore_EndFrequencyHandler")
 EndWith
 
+
 With Chordian\Input_Event
 EndWith
 
+
 With Chordian\Repaint_Event
   \Semaphore_Repaint_Commit = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Commit")
+  
   \Semaphore_Repaint_Base = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Base")
   \Semaphore_Repaint_Master = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Master")
   \Semaphore_Repaint_Level = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Level")
@@ -212,6 +214,7 @@ With Chordian\Repaint_Event
   \Semaphore_Repaint_Memory = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Memory")
   \Semaphore_Repaint_Chord = CreateSemaphore_(0, 0, 1, "Semaphore_Repaint_Chord")
 EndWith
+
 
 With Chordian\Machine_Event
   \Semaphore_Master_Button_Power_OnOff = CreateSemaphore_(0, 0, 1, "Semaphore_Master_Button_Power_OnOff")
@@ -245,4 +248,3 @@ With Chordian\Machine_Event
   \Semaphore_IsNewTick = CreateSemaphore_(0, 0, 1, "Semaphore_IsNewTick")
   \Semaphore_IsNewTuning = CreateSemaphore_(0, 0, 1, "Semaphore_IsNewTuning")
 EndWith
-

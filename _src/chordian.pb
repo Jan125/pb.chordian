@@ -702,11 +702,7 @@ Procedure Main()
                 EndIf
             EndSelect
             
-            If Chordian\Machine_State\Value_Master_Knob_Volume > 1.0
-              Chordian\Machine_State\Value_Master_Knob_Volume = 1.0
-            ElseIf Chordian\Machine_State\Value_Master_Knob_Volume < 0.0
-              Chordian\Machine_State\Value_Master_Knob_Volume = 0.0
-            EndIf
+            KeepInRange(Chordian\Machine_State\Value_Master_Knob_Volume, 0.0, 1.0)
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
@@ -728,11 +724,7 @@ Procedure Main()
                 EndIf
             EndSelect
             
-            If Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1 > 1.0
-              Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1 = 1.0
-            ElseIf Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1 < 0.0
-              Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1 = 0.0
-            EndIf
+            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1, 0.0, 1.0)
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
@@ -753,11 +745,7 @@ Procedure Main()
                 EndIf
             EndSelect
             
-            If Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2 > 1.0
-              Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2 = 1.0
-            ElseIf Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2 < 0.0
-              Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2 = 0.0
-            EndIf
+            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2, 0.0, 1.0)
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
@@ -778,11 +766,7 @@ Procedure Main()
                 EndIf
             EndSelect
             
-            If Chordian\Machine_State\Value_Level_Knob_Sustain > 1.0
-              Chordian\Machine_State\Value_Level_Knob_Sustain = 1.0
-            ElseIf Chordian\Machine_State\Value_Level_Knob_Sustain < 0.0
-              Chordian\Machine_State\Value_Level_Knob_Sustain = 0.0
-            EndIf
+            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Sustain, 0.0, 1.0)
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
@@ -803,11 +787,7 @@ Procedure Main()
                 EndIf
             EndSelect
             
-            If Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard > 1.0
-              Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard = 1.0
-            ElseIf Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard < 0.0
-              Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard = 0.0
-            EndIf
+            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard, 0.0, 1.0)
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
@@ -829,11 +809,7 @@ Procedure Main()
                 EndIf
             EndSelect
             
-            If Chordian\Machine_State\Value_Level_Knob_Volume_Chords > 1.0
-              Chordian\Machine_State\Value_Level_Knob_Volume_Chords = 1.0
-            ElseIf Chordian\Machine_State\Value_Level_Knob_Volume_Chords < 0.0
-              Chordian\Machine_State\Value_Level_Knob_Volume_Chords = 0.0
-            EndIf
+            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Chords, 0.0, 1.0)
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
@@ -923,11 +899,8 @@ Procedure Main()
                   EndIf
                 EndIf
             EndSelect
-            If Chordian\Machine_State\Value_Rhythm_Knob_Tempo > 1.0
-              Chordian\Machine_State\Value_Rhythm_Knob_Tempo = 1.0
-            ElseIf Chordian\Machine_State\Value_Rhythm_Knob_Tempo < 0.0
-              Chordian\Machine_State\Value_Rhythm_Knob_Tempo = 0.0
-            EndIf
+            
+            KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 0.0, 1.0)
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
@@ -949,11 +922,7 @@ Procedure Main()
                 EndIf
             EndSelect
             
-            If Chordian\Machine_State\Value_Rhythm_Knob_Volume > 1.0
-              Chordian\Machine_State\Value_Rhythm_Knob_Volume = 1.0
-            ElseIf Chordian\Machine_State\Value_Rhythm_Knob_Volume < 0.0
-              Chordian\Machine_State\Value_Rhythm_Knob_Volume = 0.0
-            EndIf
+            KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Volume, 0.0, 1.0)
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
@@ -1300,7 +1269,6 @@ Procedure Main()
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
               ResumeThread(Chordian\RepaintHandler_Thread)
             Else
-              
               If \Trigger_Harp
                 Select \Mouse_Position_Y_Current
                   Case 92 To 100
@@ -1497,8 +1465,6 @@ Procedure Main()
                       EndIf
                     EndIf
                 EndSelect
-                
-                
               EndIf
             EndIf
           EndIf
@@ -1778,7 +1744,6 @@ Procedure Main()
           EndIf
         EndWith
         
-        
       Case #PB_Event_Repaint
         PauseThread(Chordian\RepaintHandler_Thread)
         ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
@@ -1801,11 +1766,7 @@ Procedure Main()
     EndSelect
   ForEver
   
-  
-  
 EndProcedure
-
-
 
 
 Main()

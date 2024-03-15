@@ -19,3 +19,11 @@ Procedure.i SoundVolumeFloat(SoundID.i, Volume.f)
   
 EndProcedure 
 
+Macro KeepInRange(Value, Min, Max)
+  If Value > Max
+    Value = Max
+  ElseIf Value < Min
+    Value = Min
+  EndIf
+EndMacro
+

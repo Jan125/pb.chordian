@@ -3,6 +3,7 @@
 Chordian is a virtual instrument emulating the behaviour of a Suzuki Omnichord OM-84.
 ![Screenshot of Chordian running on Windows 10](_media/screenshot.png)
 
+
 ##
 
 ## **Controls:**
@@ -20,6 +21,7 @@ You can reassign chord keys by right-clicking them, then pressing the key that y
 
 Chord keys can also be manually clicked, and will stay clicked until being clicked again, or receiving their assigned button being lifted.
 
+
 ##
 
 The strumplate can be played by running across it with the mouse, with a button held.
@@ -36,6 +38,7 @@ Please note that F10 will by default be intercepted by Windows, and not play.\
 Wine does not have this restriction as of currently.
 
 The buttons currently cannot be reassigned.
+
 
 ##
 
@@ -58,7 +61,8 @@ Please refer to an OM-84 manual for other functions.
 
 Please make sure you have the recommended system requirements if you encounter stuttering or other weird behaviour:
 - Windows Vista+ or compatible OS/subsystem required
-- 2313 CPU Mark with 1350 Single Thread Rating recommended, 32-bit-support required 16MiB of RAM
+- 2313 CPU Mark with 1350 Single Thread Rating recommended, 32-bit-support required
+- 32MiB of RAM
 - Keyboard with 3 key vertical anti-ghosting required, 3 key horizontal anti-ghosting recommended
 - Screen resolution of 1024x768 or higher recommended
 - Tri-button, or two-button+one-wheel mouse recommended

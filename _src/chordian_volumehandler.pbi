@@ -1,5 +1,4 @@
-﻿
-Procedure VolumeHandler(*Void)
+﻿Procedure VolumeHandler(*Void)
   With Chordian\Machine_State
     Static Dim Data_Frequency.i(127)
     
@@ -233,8 +232,6 @@ Procedure VolumeHandler(*Void)
       SoundVolumeFloat(#Snd_Harp_13_Vibrato  , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_13) <> #Curve_None) * \Status_Volume(#Dat_Harp_13) * (0.86-0.14*Cos2Phase) * 0.76)
       SoundVolumeFloat(#Snd_Harp_13_Standard , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_13) <> #Curve_None) * \Status_Volume(#Dat_Harp_13) * 0.76)
       
-      
-      
       SoundVolumeFloat(#Snd_Drum_BD, RhythmVolume * Bool(\Status_Sound(#Dat_Drum_BD) <> #Curve_None) * \Status_Volume(#Dat_Drum_BD))
       SoundVolumeFloat(#Snd_Drum_Click, RhythmVolume * Bool(\Status_Sound(#Dat_Drum_Click) <> #Curve_None) * \Status_Volume(#Dat_Drum_Click))
       SoundVolumeFloat(#Snd_Drum_HiHat, RhythmVolume * Bool(\Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * \Status_Volume(#Dat_Drum_HiHat))
@@ -243,9 +240,8 @@ Procedure VolumeHandler(*Void)
       
       SoundVolumeFloat(#Snd_Keyboard, Bool(\Status_Sound(#Dat_Keyboard) <> #Curve_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Keyboard * \Status_Volume(#Dat_Keyboard))
       
-      
     ForEver
     
-    
   EndWith
+  
 EndProcedure
