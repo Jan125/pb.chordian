@@ -678,7 +678,7 @@ Procedure Main()
                         InputRequester("Chordian>Pattern Editor>Export", "This is the BASE64 string for the current pattern:", PeekS(*TempPointer, -1, #PB_Ascii))
                         FreeMemory(*TempPointer)
                         
-                      Case #Gad_PatEdit_Row_Frequency To #Gad_PatEdit_Row_Frequency+32
+                      Case #Gad_PatEdit_Row_Frequency To #Gad_PatEdit_Row_Frequency+31
                         Select GetGadgetState(#Gad_PatEdit_Select_Note)
                           Case 0
                             For n = #Note_First To #Note_Last
@@ -708,7 +708,7 @@ Procedure Main()
                             Next
                         EndSelect
                         
-                      Case #Gad_PatEdit_Row_Bass To #Gad_PatEdit_Row_Bass+32
+                      Case #Gad_PatEdit_Row_Bass To #Gad_PatEdit_Row_Bass+31
                         Select GetGadgetState(#Gad_PatEdit_Select_Note)
                           Case 0, 1
                             For n = #Note_First To #Note_Last
@@ -722,7 +722,7 @@ Procedure Main()
                             Next
                         EndSelect
                         
-                      Case #Gad_PatEdit_Row_Chords To #Gad_PatEdit_Row_Chords+32
+                      Case #Gad_PatEdit_Row_Chords To #Gad_PatEdit_Row_Chords+31
                         Select GetGadgetState(#Gad_PatEdit_Select_Note)
                           Case 0, 1
                             For n = #Note_First To #Note_Last
@@ -737,7 +737,7 @@ Procedure Main()
                         EndSelect
                         
                         
-                      Case #Gad_PatEdit_Row_Drum_BD To #Gad_PatEdit_Row_Drum_BD+32
+                      Case #Gad_PatEdit_Row_Drum_BD To #Gad_PatEdit_Row_Drum_BD+31
                         Select GetGadgetState(#Gad_PatEdit_Select_Note)
                           Case 0, 1
                             For n = #Note_First To #Note_Last
@@ -752,7 +752,7 @@ Procedure Main()
                         EndSelect
                         
                         
-                      Case #Gad_PatEdit_Row_Drum_Click To #Gad_PatEdit_Row_Drum_Click+32
+                      Case #Gad_PatEdit_Row_Drum_Click To #Gad_PatEdit_Row_Drum_Click+31
                         Select GetGadgetState(#Gad_PatEdit_Select_Note)
                           Case 0, 1
                             For n = #Note_First To #Note_Last
@@ -767,7 +767,7 @@ Procedure Main()
                         EndSelect
                         
                         
-                      Case #Gad_PatEdit_Row_Drum_HiHat To #Gad_PatEdit_Row_Drum_HiHat+32
+                      Case #Gad_PatEdit_Row_Drum_HiHat To #Gad_PatEdit_Row_Drum_HiHat+31
                         Select GetGadgetState(#Gad_PatEdit_Select_Note)
                           Case 0, 1
                             For n = #Note_First To #Note_Last
@@ -782,7 +782,7 @@ Procedure Main()
                         EndSelect
                         
                         
-                      Case #Gad_PatEdit_Row_Drum_Ride To #Gad_PatEdit_Row_Drum_Ride+32
+                      Case #Gad_PatEdit_Row_Drum_Ride To #Gad_PatEdit_Row_Drum_Ride+31
                         Select GetGadgetState(#Gad_PatEdit_Select_Note)
                           Case 0, 1
                             For n = #Note_First To #Note_Last
@@ -797,7 +797,7 @@ Procedure Main()
                         EndSelect
                         
                         
-                      Case #Gad_PatEdit_Row_Drum_Snare To #Gad_PatEdit_Row_Drum_Snare+32
+                      Case #Gad_PatEdit_Row_Drum_Snare To #Gad_PatEdit_Row_Drum_Snare+31
                         Select GetGadgetState(#Gad_PatEdit_Select_Note)
                           Case 0, 1
                             For n = #Note_First To #Note_Last
