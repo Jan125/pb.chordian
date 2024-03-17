@@ -115,7 +115,6 @@
             EndSelect
           Next
           
-          
           For i = #Dat_Harp_1 To #Dat_Harp_13
             Select \Status_Sound(i)
               Case #Curve_None
@@ -198,6 +197,7 @@
       EndSelect
       
       SoundVolumeFloat(#Snd_Bass, Bool(\Status_Sound(#Dat_Bass_1) <> #Curve_None) * Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Bass_1))
+      
       SoundVolumeFloat(#Snd_Chord_1  , Bool(\Status_Sound(#Dat_Chord_1) <> #Curve_None) * Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_1) * 0.86)
       SoundVolumeFloat(#Snd_Chord_2  , Bool(\Status_Sound(#Dat_Chord_2) <> #Curve_None) * Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_2) * 0.86)
       SoundVolumeFloat(#Snd_Chord_3  , Bool(\Status_Sound(#Dat_Chord_3) <> #Curve_None) * Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_3) * 0.86)

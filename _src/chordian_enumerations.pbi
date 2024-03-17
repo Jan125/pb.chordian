@@ -182,7 +182,14 @@ Enumeration 1
   #Img_LED_Off
   #Img_LED_On
   
-  #Img_Last = #Img_LED_On
+  #Img_PatEdit_Curve_Trigger
+  #Img_PatEdit_Curve_Attack
+  #Img_PatEdit_Curve_Decay
+  #Img_PatEdit_Curve_Sustain
+  #Img_PatEdit_Curve_Release
+  #Img_PatEdit_Curve_Oneshot
+  
+  #Img_Last = #Img_PatEdit_Curve_Oneshot
 EndEnumeration
 
 Enumeration 0
@@ -243,10 +250,21 @@ EndEnumeration
 
 Enumeration 1
   #Win_Main
+  #Win_PatEdit
 EndEnumeration
 
 Enumeration 1
   #Gad_Canvas
+  #Gad_PatEdit_Text_Bass
+  
+  #Gad_PatEdit_Row_Frequency
+  #Gad_PatEdit_Row_Bass = #Gad_PatEdit_Row_Frequency+32
+  #Gad_PatEdit_Row_Chords = #Gad_PatEdit_Row_Bass+32
+  #Gad_PatEdit_Row_Drum_BD = #Gad_PatEdit_Row_Chords+32
+  #Gad_PatEdit_Row_Drum_Click = #Gad_PatEdit_Row_Drum_BD+32
+  #Gad_PatEdit_Row_Drum_HiHat = #Gad_PatEdit_Row_Drum_Click+32
+  #Gad_PatEdit_Row_Drum_Ride = #Gad_PatEdit_Row_Drum_HiHat+32
+  #Gad_PatEdit_Row_Drum_Snare = #Gad_PatEdit_Row_Drum_Ride+32
 EndEnumeration
 
 Enumeration 1
@@ -259,7 +277,7 @@ Enumeration 1
   #Itm_Reset
   #Itm_Exit
   #Itm_Tuning
-  #Itm_MasterEditMode
+  #Itm_PatEdit
   #Itm_Manual
   #Itm_About
 EndEnumeration

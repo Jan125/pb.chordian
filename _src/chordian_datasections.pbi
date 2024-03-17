@@ -88,6 +88,19 @@ DataSection
   IncludeBinary "img\led_off.png"
   Img_LED_On:
   IncludeBinary "img\led_on.png"
+  
+  Img_PatEdit_Curve_Trigger:
+  IncludeBinary "img\patedit_curve_trigger.png"
+  Img_PatEdit_Curve_Attack:
+  IncludeBinary "img\patedit_curve_attack.png"
+  Img_PatEdit_Curve_Decay:
+  IncludeBinary "img\patedit_curve_decay.png"
+  Img_PatEdit_Curve_Sustain:
+  IncludeBinary "img\patedit_curve_sustain.png"
+  Img_PatEdit_Curve_Release:
+  IncludeBinary "img\patedit_curve_release.png"
+  Img_PatEdit_Curve_Oneshot:
+  IncludeBinary "img\patedit_curve_oneshot.png"
 EndDataSection
 
 ;--Sound Data

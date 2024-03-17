@@ -216,6 +216,13 @@ Procedure.i Init()
   CatchImage(#Img_LED_Off, ?Img_LED_Off)
   CatchImage(#Img_LED_On, ?Img_LED_On)
   
+  CatchImage(#Img_PatEdit_Curve_Trigger, ?Img_PatEdit_Curve_Trigger)
+  CatchImage(#Img_PatEdit_Curve_Attack, ?Img_PatEdit_Curve_Attack)
+  CatchImage(#Img_PatEdit_Curve_Decay, ?Img_PatEdit_Curve_Decay)
+  CatchImage(#Img_PatEdit_Curve_Sustain, ?Img_PatEdit_Curve_Sustain)
+  CatchImage(#Img_PatEdit_Curve_Release, ?Img_PatEdit_Curve_Release)
+  CatchImage(#Img_PatEdit_Curve_Oneshot, ?Img_PatEdit_Curve_Oneshot)
+  
   ;-Get Sounds
   CatchSound(#Snd_Bass, ?Snd_Bass)
   CatchSound(#Snd_Chord_1, ?Snd_Chord)
@@ -290,9 +297,9 @@ Procedure.i Init()
   MenuTitle("Edit")
   MenuItem(#Itm_Tuning, "Set Tuning...")
   MenuBar()
-  MenuItem(#Itm_MasterEditMode, "Master Edit Mode...")
+  MenuItem(#Itm_PatEdit, "Pattern Editor...")
   
-  DisableMenuItem(#Men_Main, #Itm_MasterEditMode, 1)
+  DisableMenuItem(#Men_Main, #Itm_PatEdit, 1)
   
   MenuTitle("Help")
   MenuItem(#Itm_Manual, "Open manual...")
@@ -409,7 +416,7 @@ Procedure Main()
             EndIf
             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
             
-          Case #Itm_MasterEditMode
+          Case #Itm_PatEdit
             
           Case #Itm_Manual
             ;RunProgram can be used as a form of ShellExecute_()
