@@ -294,22 +294,22 @@ Procedure.i Init()
     End
   EndIf
   
-  ComboBoxGadget(#Gad_PatEdit_Select_Alternate, 50, 10, 150, 20)
+  ComboBoxGadget(#Gad_PatEdit_Select_Alternate, 60, 10, 150, 20)
   AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 1")
   AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 2")
   
   SetGadgetState(#Gad_PatEdit_Select_Alternate, 0)
   
-  ComboBoxGadget(#Gad_PatEdit_Select_Pattern, 250, 10, 150, 20)
+  ComboBoxGadget(#Gad_PatEdit_Select_Pattern, 212, 10, 150, 20)
   AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 1 | March")
   AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 2 | Tango")
   AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Disco | Blues")
   AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Latin | Swing")
-  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Country | March")
+  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Country | Waltz")
   
   SetGadgetState(#Gad_PatEdit_Select_Pattern, 0)
   
-  ComboBoxGadget(#Gad_PatEdit_Select_Note, 450, 10, 150, 20)
+  ComboBoxGadget(#Gad_PatEdit_Select_Note, 364, 10, 150, 20)
   AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "All")
   AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "Scaled")
   AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "C#/Db")
@@ -326,6 +326,9 @@ Procedure.i Init()
   AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "F#/Gb")
   
   SetGadgetState(#Gad_PatEdit_Select_Note, 1)
+  
+  ButtonGadget(#Gad_PatEdit_Button_Import, 516, 10, 70, 20, "Import...")
+  ButtonGadget(#Gad_PatEdit_Button_Export, 591, 10, 70, 20, "Export...")
   
   TextGadget(#Gad_PatEdit_Text_0, 60, 35, 55, 20, "|  0")
   TextGadget(#Gad_PatEdit_Text_4, 212, 35, 55, 20, "|  4")
@@ -491,6 +494,7 @@ Procedure Main()
   Protected TempFloat.f
   Protected TempString.s
   Protected TempState.Machine_State_Save
+  Protected *TempPointer
   
   Protected SendNewTick.i
   Protected SendNewChord.i
@@ -655,8 +659,24 @@ Procedure Main()
                             For i = 0 To 31
                               SetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Snare))
                             Next
-                            
                         EndSelect
+                        
+                      Case #Gad_PatEdit_Button_Import
+                        TempString = InputRequester("Chordian>Pattern Editor>Import", "Input the BASE64 to apply to the current pattern.", "")
+                        If TempString
+                          *TempPointer = AllocateMemory(SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
+                          PokeS(*TempPointer, TempString, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2, #PB_Ascii)
+                          Base64Decoder(*TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2, @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
+                          FreeMemory(*TempPointer)
+                        EndIf
+                        
+                        PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Select_Alternate)
+                        
+                      Case #Gad_PatEdit_Button_Export
+                        *TempPointer = AllocateMemory(SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
+                        Base64Encoder(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
+                        InputRequester("Chordian>Pattern Editor>Export", "This is the BASE64 string for the current pattern:", PeekS(*TempPointer, -1, #PB_Ascii))
+                        FreeMemory(*TempPointer)
                         
                       Case #Gad_PatEdit_Row_Frequency To #Gad_PatEdit_Row_Frequency+32
                         Select GetGadgetState(#Gad_PatEdit_Select_Note)

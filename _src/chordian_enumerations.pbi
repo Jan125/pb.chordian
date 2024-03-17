@@ -265,6 +265,9 @@ Enumeration 1
   #Gad_PatEdit_Select_Pattern
   #Gad_PatEdit_Select_Note
   
+  #Gad_PatEdit_Button_Import
+  #Gad_PatEdit_Button_Export
+  
   #Gad_PatEdit_Text_0
   #Gad_PatEdit_Text_4
   #Gad_PatEdit_Text_8

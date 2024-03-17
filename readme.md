@@ -110,6 +110,7 @@ These things are currently implemented:
  - Auto bass-sync controls
  - Tuning controls
  - Rhythm section
+ - Pattern editor
 
 
 These things are currently partially implemented:
