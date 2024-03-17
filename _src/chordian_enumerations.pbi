@@ -189,6 +189,11 @@ Enumeration 1
   #Img_PatEdit_Curve_Release
   #Img_PatEdit_Curve_Oneshot
   
+  #Img_PatEdit_Note_1
+  #Img_PatEdit_Note_2
+  #Img_PatEdit_Note_3
+  #Img_PatEdit_Note_4
+  
   #Img_Last = #Img_PatEdit_Curve_Oneshot
 EndEnumeration
 
@@ -255,7 +260,24 @@ EndEnumeration
 
 Enumeration 1
   #Gad_Canvas
+  
+  #Gad_PatEdit_Select_Alternate
+  #Gad_PatEdit_Select_Pattern
+  #Gad_PatEdit_Select_Note
+  
+  #Gad_PatEdit_Text_0
+  #Gad_PatEdit_Text_4
+  #Gad_PatEdit_Text_8
+  #Gad_PatEdit_Text_12
+  
+  #Gad_PatEdit_Text_Frequency
   #Gad_PatEdit_Text_Bass
+  #Gad_PatEdit_Text_Chords
+  #Gad_PatEdit_Text_Drum_BD
+  #Gad_PatEdit_Text_Drum_Click
+  #Gad_PatEdit_Text_Drum_HiHat
+  #Gad_PatEdit_Text_Drum_Ride
+  #Gad_PatEdit_Text_Drum_Snare
   
   #Gad_PatEdit_Row_Frequency
   #Gad_PatEdit_Row_Bass = #Gad_PatEdit_Row_Frequency+32

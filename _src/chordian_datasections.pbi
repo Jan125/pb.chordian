@@ -101,6 +101,15 @@ DataSection
   IncludeBinary "img\patedit_curve_release.png"
   Img_PatEdit_Curve_Oneshot:
   IncludeBinary "img\patedit_curve_oneshot.png"
+  
+  Img_PatEdit_Note_1:
+  IncludeBinary "img\patedit_note_1.png"
+  Img_PatEdit_Note_2:
+  IncludeBinary "img\patedit_note_2.png"
+  Img_PatEdit_Note_3:
+  IncludeBinary "img\patedit_note_3.png"
+  Img_PatEdit_Note_4:
+  IncludeBinary "img\patedit_note_4.png"
 EndDataSection
 
 ;--Sound Data
