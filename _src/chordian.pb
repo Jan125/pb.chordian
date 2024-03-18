@@ -174,13 +174,12 @@ Procedure.i Init()
   CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main), #PB_Canvas_Keyboard)
   
   StartDrawing(CanvasOutput(#Gad_Canvas))
+  DrawingMode(#PB_2DDrawing_AlphaBlend)
   FrontColor($FF000000)
   BackColor($00000000)
-  DrawingMode(#PB_2DDrawing_AlphaBlend)
   Box(0, 0, OutputWidth(), OutputHeight(), $FFFFFFFF)
   DrawText(0, 00, "Loading... Please wait.")
   StopDrawing()
-  Delay(300)
   
   SetActiveGadget(#Gad_Canvas)
   
@@ -286,180 +285,6 @@ Procedure.i Init()
   CatchSound(#Snd_Drum_Snare, ?Snd_Drum_Snare)
   
   CatchSound(#Snd_Keyboard, ?Snd_Keyboard)
-  
-  
-  ;-Patter Editor Window
-  If Not OpenWindow(#Win_PatEdit, 0, 0, 680, 580, "Chordian>Pattern Editor", #PB_Window_SystemMenu | #PB_Window_WindowCentered | #PB_Window_Invisible, WindowID(#Win_Main))
-    MessageRequester("Chordian>Error", "Pattern Editor could not be initialized.")
-    End
-  EndIf
-  
-  ComboBoxGadget(#Gad_PatEdit_Select_Alternate, 60, 10, 150, 20)
-  AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 1")
-  AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 2")
-  
-  SetGadgetState(#Gad_PatEdit_Select_Alternate, 0)
-  
-  ComboBoxGadget(#Gad_PatEdit_Select_Pattern, 212, 10, 150, 20)
-  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 1 | March")
-  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 2 | Tango")
-  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Disco | Blues")
-  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Latin | Swing")
-  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Country | Waltz")
-  
-  SetGadgetState(#Gad_PatEdit_Select_Pattern, 0)
-  
-  ComboBoxGadget(#Gad_PatEdit_Select_Note, 364, 10, 150, 20)
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "All")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "Scaled")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "C#/Db")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "G#/Ab")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "D#/Eb")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "A#/Bb")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "F")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "C")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "G")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "D")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "A")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "E")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "B")
-  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "F#/Gb")
-  
-  SetGadgetState(#Gad_PatEdit_Select_Note, 1)
-  
-  ButtonGadget(#Gad_PatEdit_Button_Import, 516, 10, 70, 20, "Import...")
-  ButtonGadget(#Gad_PatEdit_Button_Export, 591, 10, 70, 20, "Export...")
-  
-  TextGadget(#Gad_PatEdit_Text_0, 60, 35, 55, 20, "|  0")
-  TextGadget(#Gad_PatEdit_Text_4, 212, 35, 55, 20, "|  4")
-  TextGadget(#Gad_PatEdit_Text_8, 364, 35, 55, 20, "|  8")
-  TextGadget(#Gad_PatEdit_Text_12, 516, 35, 55, 20, "| 12")
-  
-  
-  TextGadget(#Gad_PatEdit_Text_Frequency, 10, 70, 50, 25, "Frequen.")
-  For i = 0 To 15
-    ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i, 60+36*i+(i/4)*8, 55, 36, 25, #PB_ComboBox_Image)
-    ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i+16, 60+36*i+(i/4)*8, 80, 36, 25, #PB_ComboBox_Image)
-  Next
-  
-  For i = 0 To 31
-    AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "1", ImageID(#Img_PatEdit_Note_1))
-    AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "2", ImageID(#Img_PatEdit_Note_2))
-    AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "3", ImageID(#Img_PatEdit_Note_3))
-    AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "4", ImageID(#Img_PatEdit_Note_4))
-  Next
-  
-  
-  TextGadget(#Gad_PatEdit_Text_Bass, 10, 135, 50, 25, "Bass")
-  For i = 0 To 15
-    ComboBoxGadget(#Gad_PatEdit_Row_Bass+i, 60+36*i+(i/4)*8, 120, 36, 25, #PB_ComboBox_Image)
-    ComboBoxGadget(#Gad_PatEdit_Row_Bass+i+16, 60+36*i+(i/4)*8, 145, 36, 25, #PB_ComboBox_Image)
-  Next
-  
-  For i = 0 To 31
-    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
-    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
-    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
-    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
-    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
-    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
-  Next
-  
-  
-  TextGadget(#Gad_PatEdit_Text_Chords, 10, 200, 50, 25, "Chords")
-  For i = 0 To 15
-    ComboBoxGadget(#Gad_PatEdit_Row_Chords+i, 60+36*i+(i/4)*8, 185, 36, 25, #PB_ComboBox_Image)
-    ComboBoxGadget(#Gad_PatEdit_Row_Chords+i+16, 60+36*i+(i/4)*8, 210, 36, 25, #PB_ComboBox_Image)
-  Next
-  
-  For i = 0 To 31
-    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
-    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
-    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
-    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
-    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
-    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
-  Next
-  
-  
-  TextGadget(#Gad_PatEdit_Text_Drum_BD, 10, 265, 50, 25, "BD")
-  For i = 0 To 15
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i, 60+36*i+(i/4)*8, 250, 36, 25, #PB_ComboBox_Image)
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i+16, 60+36*i+(i/4)*8, 275, 36, 25, #PB_ComboBox_Image)
-  Next
-  
-  For i = 0 To 31
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
-  Next
-  
-  
-  TextGadget(#Gad_PatEdit_Text_Drum_Click, 10, 330, 50, 25, "Click")
-  For i = 0 To 15
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i, 60+36*i+(i/4)*8, 315, 36, 25, #PB_ComboBox_Image)
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i+16, 60+36*i+(i/4)*8, 340, 36, 25, #PB_ComboBox_Image)
-  Next
-  
-  For i = 0 To 31
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
-  Next
-  
-  
-  TextGadget(#Gad_PatEdit_Text_Drum_HiHat, 10, 395, 50, 25, "HiHat")
-  For i = 0 To 15
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i, 60+36*i+(i/4)*8, 380, 36, 25, #PB_ComboBox_Image)
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i+16, 60+36*i+(i/4)*8, 405, 36, 25, #PB_ComboBox_Image)
-  Next
-  
-  For i = 0 To 31
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
-  Next
-  
-  
-  TextGadget(#Gad_PatEdit_Text_Drum_Ride, 10, 460, 50, 25, "Ride")
-  For i = 0 To 15
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i, 60+36*i+(i/4)*8, 445, 36, 25, #PB_ComboBox_Image)
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i+16, 60+36*i+(i/4)*8, 470, 36, 25, #PB_ComboBox_Image)
-  Next
-  
-  For i = 0 To 31
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
-  Next
-  
-  
-  TextGadget(#Gad_PatEdit_Text_Drum_Snare, 10, 525, 50, 25, "Snare")
-  For i = 0 To 15
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i, 60+36*i+(i/4)*8, 510, 36, 25, #PB_ComboBox_Image)
-    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i+16, 60+36*i+(i/4)*8, 535, 36, 25, #PB_ComboBox_Image)
-  Next
-  
-  For i = 0 To 31
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
-    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
-  Next
   
   
   ;-Play all sounds
@@ -595,12 +420,187 @@ Procedure Main()
           Case #Itm_PatEdit
             ;---PatEdit
             If MessageRequester("Chordian>Warning", "You are about to enter the Pattern Editor."+#CRLF$+"Any changes are applied immediately."+#CRLF$+"Do you wish to continue?", #PB_MessageRequester_YesNo) = #PB_MessageRequester_Yes
-              
               DisableWindow(#Win_Main, 1)
-              HideWindow(#Win_PatEdit, 0, #PB_Window_WindowCentered)
-              
+              If IsWindow(#Win_PatEdit)
+                HideWindow(#Win_PatEdit, 0, #PB_Window_WindowCentered)
+              Else
+                If Not OpenWindow(#Win_PatEdit, 0, 0, 680, 580, "Chordian>Pattern Editor", #PB_Window_SystemMenu | #PB_Window_WindowCentered, WindowID(#Win_Main))
+                  MessageRequester("Chordian>Error", "Pattern Editor could not be initialized.")
+                  DisableWindow(#Win_Main, 0)
+                  SetActiveGadget(#Gad_Canvas)
+                  Continue
+                EndIf
+                
+                ComboBoxGadget(#Gad_PatEdit_Select_Alternate, 60, 10, 150, 20)
+                AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 1")
+                AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 2")
+                
+                SetGadgetState(#Gad_PatEdit_Select_Alternate, 0)
+                
+                ComboBoxGadget(#Gad_PatEdit_Select_Pattern, 212, 10, 150, 20)
+                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 1 | March")
+                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 2 | Tango")
+                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Disco | Blues")
+                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Latin | Swing")
+                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Country | Waltz")
+                
+                SetGadgetState(#Gad_PatEdit_Select_Pattern, 0)
+                
+                ComboBoxGadget(#Gad_PatEdit_Select_Note, 364, 10, 150, 20)
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "All")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "Scaled")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "C#/Db")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "G#/Ab")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "D#/Eb")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "A#/Bb")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "F")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "C")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "G")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "D")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "A")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "E")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "B")
+                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "F#/Gb")
+                
+                SetGadgetState(#Gad_PatEdit_Select_Note, 1)
+                
+                ButtonGadget(#Gad_PatEdit_Button_Import, 516, 10, 70, 20, "Import...")
+                ButtonGadget(#Gad_PatEdit_Button_Export, 591, 10, 70, 20, "Export...")
+                
+                TextGadget(#Gad_PatEdit_Text_0, 60, 35, 55, 20, "|  0")
+                TextGadget(#Gad_PatEdit_Text_4, 212, 35, 55, 20, "|  4")
+                TextGadget(#Gad_PatEdit_Text_8, 364, 35, 55, 20, "|  8")
+                TextGadget(#Gad_PatEdit_Text_12, 516, 35, 55, 20, "| 12")
+                
+                
+                TextGadget(#Gad_PatEdit_Text_Frequency, 10, 70, 50, 25, "Frequen.")
+                For i = 0 To 15
+                  ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i, 60+36*i+(i/4)*8, 55, 36, 25, #PB_ComboBox_Image)
+                  ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i+16, 60+36*i+(i/4)*8, 80, 36, 25, #PB_ComboBox_Image)
+                Next
+                
+                For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "1", ImageID(#Img_PatEdit_Note_1))
+                  AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "2", ImageID(#Img_PatEdit_Note_2))
+                  AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "3", ImageID(#Img_PatEdit_Note_3))
+                  AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "4", ImageID(#Img_PatEdit_Note_4))
+                Next
+                
+                
+                TextGadget(#Gad_PatEdit_Text_Bass, 10, 135, 50, 25, "Bass")
+                For i = 0 To 15
+                  ComboBoxGadget(#Gad_PatEdit_Row_Bass+i, 60+36*i+(i/4)*8, 120, 36, 25, #PB_ComboBox_Image)
+                  ComboBoxGadget(#Gad_PatEdit_Row_Bass+i+16, 60+36*i+(i/4)*8, 145, 36, 25, #PB_ComboBox_Image)
+                Next
+                
+                For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
+                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
+                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
+                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
+                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
+                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                Next
+                
+                
+                TextGadget(#Gad_PatEdit_Text_Chords, 10, 200, 50, 25, "Chords")
+                For i = 0 To 15
+                  ComboBoxGadget(#Gad_PatEdit_Row_Chords+i, 60+36*i+(i/4)*8, 185, 36, 25, #PB_ComboBox_Image)
+                  ComboBoxGadget(#Gad_PatEdit_Row_Chords+i+16, 60+36*i+(i/4)*8, 210, 36, 25, #PB_ComboBox_Image)
+                Next
+                
+                For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
+                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
+                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
+                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
+                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
+                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                Next
+                
+                
+                TextGadget(#Gad_PatEdit_Text_Drum_BD, 10, 265, 50, 25, "BD")
+                For i = 0 To 15
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i, 60+36*i+(i/4)*8, 250, 36, 25, #PB_ComboBox_Image)
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i+16, 60+36*i+(i/4)*8, 275, 36, 25, #PB_ComboBox_Image)
+                Next
+                
+                For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                Next
+                
+                
+                TextGadget(#Gad_PatEdit_Text_Drum_Click, 10, 330, 50, 25, "Click")
+                For i = 0 To 15
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i, 60+36*i+(i/4)*8, 315, 36, 25, #PB_ComboBox_Image)
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i+16, 60+36*i+(i/4)*8, 340, 36, 25, #PB_ComboBox_Image)
+                Next
+                
+                For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                Next
+                
+                
+                TextGadget(#Gad_PatEdit_Text_Drum_HiHat, 10, 395, 50, 25, "HiHat")
+                For i = 0 To 15
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i, 60+36*i+(i/4)*8, 380, 36, 25, #PB_ComboBox_Image)
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i+16, 60+36*i+(i/4)*8, 405, 36, 25, #PB_ComboBox_Image)
+                Next
+                
+                For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                Next
+                
+                
+                TextGadget(#Gad_PatEdit_Text_Drum_Ride, 10, 460, 50, 25, "Ride")
+                For i = 0 To 15
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i, 60+36*i+(i/4)*8, 445, 36, 25, #PB_ComboBox_Image)
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i+16, 60+36*i+(i/4)*8, 470, 36, 25, #PB_ComboBox_Image)
+                Next
+                
+                For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                Next
+                
+                
+                TextGadget(#Gad_PatEdit_Text_Drum_Snare, 10, 525, 50, 25, "Snare")
+                For i = 0 To 15
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i, 60+36*i+(i/4)*8, 510, 36, 25, #PB_ComboBox_Image)
+                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i+16, 60+36*i+(i/4)*8, 535, 36, 25, #PB_ComboBox_Image)
+                Next
+                
+                For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                Next
+              EndIf
               PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Select_Alternate)
               
+              ;----PatEdit Events
               Repeat
                 Event = WaitWindowEvent()
                 Select Event
