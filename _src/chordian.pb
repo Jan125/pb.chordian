@@ -680,9 +680,9 @@ Procedure Main()
                       Case #Gad_PatEdit_Button_Import
                         TempString = InputRequester("Chordian>Pattern Editor>Import", "Input the BASE64 to apply to the current pattern.", "")
                         If TempString
-                          *TempPointer = AllocateMemory(SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
-                          PokeS(*TempPointer, TempString, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2, #PB_Ascii)
-                          Base64Decoder(*TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2, @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
+                          *TempPointer = AllocateMemory(Len(TempString)+1)
+                          PokeS(*TempPointer, TempString, MemorySize(*TempPointer), #PB_Ascii)
+                          Base64Decoder(*TempPointer, MemorySize(*TempPointer), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
                           FreeMemory(*TempPointer)
                         EndIf
                         
