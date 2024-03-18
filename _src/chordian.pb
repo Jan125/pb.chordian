@@ -476,6 +476,8 @@ Procedure Main()
                 TextGadget(#Gad_PatEdit_Text_Frequency, 10, 70, 50, 25, "Frequen.")
                 For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i, 60+36*i+(i/4)*8, 55, 36, 25, #PB_ComboBox_Image)
+                Next
+                For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i+16, 60+36*i+(i/4)*8, 80, 36, 25, #PB_ComboBox_Image)
                 Next
                 
@@ -490,6 +492,8 @@ Procedure Main()
                 TextGadget(#Gad_PatEdit_Text_Bass, 10, 135, 50, 25, "Bass")
                 For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Bass+i, 60+36*i+(i/4)*8, 120, 36, 25, #PB_ComboBox_Image)
+                Next
+                For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Bass+i+16, 60+36*i+(i/4)*8, 145, 36, 25, #PB_ComboBox_Image)
                 Next
                 
@@ -506,6 +510,8 @@ Procedure Main()
                 TextGadget(#Gad_PatEdit_Text_Chords, 10, 200, 50, 25, "Chords")
                 For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Chords+i, 60+36*i+(i/4)*8, 185, 36, 25, #PB_ComboBox_Image)
+                Next
+                For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Chords+i+16, 60+36*i+(i/4)*8, 210, 36, 25, #PB_ComboBox_Image)
                 Next
                 
@@ -522,6 +528,8 @@ Procedure Main()
                 TextGadget(#Gad_PatEdit_Text_Drum_BD, 10, 265, 50, 25, "BD")
                 For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i, 60+36*i+(i/4)*8, 250, 36, 25, #PB_ComboBox_Image)
+                Next
+                For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i+16, 60+36*i+(i/4)*8, 275, 36, 25, #PB_ComboBox_Image)
                 Next
                 
@@ -538,6 +546,8 @@ Procedure Main()
                 TextGadget(#Gad_PatEdit_Text_Drum_Click, 10, 330, 50, 25, "Click")
                 For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i, 60+36*i+(i/4)*8, 315, 36, 25, #PB_ComboBox_Image)
+                Next
+                For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i+16, 60+36*i+(i/4)*8, 340, 36, 25, #PB_ComboBox_Image)
                 Next
                 
@@ -554,6 +564,8 @@ Procedure Main()
                 TextGadget(#Gad_PatEdit_Text_Drum_HiHat, 10, 395, 50, 25, "HiHat")
                 For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i, 60+36*i+(i/4)*8, 380, 36, 25, #PB_ComboBox_Image)
+                Next
+                For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i+16, 60+36*i+(i/4)*8, 405, 36, 25, #PB_ComboBox_Image)
                 Next
                 
@@ -570,6 +582,8 @@ Procedure Main()
                 TextGadget(#Gad_PatEdit_Text_Drum_Ride, 10, 460, 50, 25, "Ride")
                 For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i, 60+36*i+(i/4)*8, 445, 36, 25, #PB_ComboBox_Image)
+                Next
+                For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i+16, 60+36*i+(i/4)*8, 470, 36, 25, #PB_ComboBox_Image)
                 Next
                 
@@ -586,6 +600,8 @@ Procedure Main()
                 TextGadget(#Gad_PatEdit_Text_Drum_Snare, 10, 525, 50, 25, "Snare")
                 For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i, 60+36*i+(i/4)*8, 510, 36, 25, #PB_ComboBox_Image)
+                Next
+                For i = 0 To 15
                   ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i+16, 60+36*i+(i/4)*8, 535, 36, 25, #PB_ComboBox_Image)
                 Next
                 
