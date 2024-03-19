@@ -44,8 +44,10 @@
         Next
       EndIf
       
+      RhythmVolume = 100.0 * \Value_Master_Knob_Volume * \Value_Rhythm_Knob_Volume
       
-      RhythmVolume = Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Rhythm_Knob_Volume
+      Harp1Volume = Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Harp_1 * (1.0 - \Value_Level_Knob_Volume_Harp_2 * 0.6)
+      Harp2Volume = Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * (\Value_Level_Knob_Volume_Harp_1/1.5 + \Value_Level_Knob_Volume_Harp_2/(1.0+2.0*\Value_Level_Knob_Volume_Harp_1))
       
       Select \Value_Master_Button_Power_OnOff
         Case 0
@@ -196,49 +198,46 @@
           
       EndSelect
       
-      SoundVolumeFloat(#Snd_Bass, Bool(\Status_Sound(#Dat_Bass_1) <> #Curve_None) * Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Bass_1))
+      SoundVolumeFloat(#Snd_Bass,             100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Bass_1))
       
-      SoundVolumeFloat(#Snd_Chord_1  , Bool(\Status_Sound(#Dat_Chord_1) <> #Curve_None) * Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_1) * 0.86)
-      SoundVolumeFloat(#Snd_Chord_2  , Bool(\Status_Sound(#Dat_Chord_2) <> #Curve_None) * Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_2) * 0.86)
-      SoundVolumeFloat(#Snd_Chord_3  , Bool(\Status_Sound(#Dat_Chord_3) <> #Curve_None) * Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_3) * 0.86)
+      SoundVolumeFloat(#Snd_Chord_1,          100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_1) * 0.86)
+      SoundVolumeFloat(#Snd_Chord_2,          100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_2) * 0.86)
+      SoundVolumeFloat(#Snd_Chord_3,          100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_3) * 0.86)
       
-      Harp1Volume = Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Harp_1 * (1.0 - \Value_Level_Knob_Volume_Harp_2 * 0.6)
-      Harp2Volume = Bool(\Value_Internal_Chord_Chord <> #Chord_None And \Value_Internal_Chord_Note <> #Note_None) * 100.0 * \Value_Master_Knob_Volume * (\Value_Level_Knob_Volume_Harp_1/1.5 + \Value_Level_Knob_Volume_Harp_2/(1.0+2.0*\Value_Level_Knob_Volume_Harp_1))
+      SoundVolumeFloat(#Snd_Harp_1_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_1) * (0.74-0.26*Cos2Phase) * 1.00)
+      SoundVolumeFloat(#Snd_Harp_1_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_1) * 1.00)
+      SoundVolumeFloat(#Snd_Harp_2_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_2) * (0.75-0.25*Cos2Phase) * 0.98)
+      SoundVolumeFloat(#Snd_Harp_2_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_2) * 0.98)
+      SoundVolumeFloat(#Snd_Harp_3_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_3) * (0.76-0.24*Cos2Phase) * 0.96)
+      SoundVolumeFloat(#Snd_Harp_3_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_3) * 0.96)
+      SoundVolumeFloat(#Snd_Harp_4_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_4) * (0.77-0.23*Cos2Phase) * 0.94)
+      SoundVolumeFloat(#Snd_Harp_4_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_4) * 0.94)
+      SoundVolumeFloat(#Snd_Harp_5_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_5) * (0.78-0.22*Cos2Phase) * 0.92)
+      SoundVolumeFloat(#Snd_Harp_5_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_5) * 0.92)
+      SoundVolumeFloat(#Snd_Harp_6_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_6) * (0.79-0.21*Cos2Phase) * 0.90)
+      SoundVolumeFloat(#Snd_Harp_6_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_6) * 0.90)
+      SoundVolumeFloat(#Snd_Harp_7_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_7) * (0.80-0.20*Cos2Phase) * 0.88)
+      SoundVolumeFloat(#Snd_Harp_7_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_7) * 0.88)
+      SoundVolumeFloat(#Snd_Harp_8_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_8) * (0.81-0.19*Cos2Phase) * 0.86)
+      SoundVolumeFloat(#Snd_Harp_8_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_8) * 0.86)
+      SoundVolumeFloat(#Snd_Harp_9_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_9) * (0.82-0.18*Cos2Phase) * 0.84)
+      SoundVolumeFloat(#Snd_Harp_9_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_9) * 0.84)
+      SoundVolumeFloat(#Snd_Harp_10_Vibrato,  Harp1Volume * \Status_Volume(#Dat_Harp_10) * (0.83-0.17*Cos2Phase) * 0.82)
+      SoundVolumeFloat(#Snd_Harp_10_Standard, Harp2Volume * \Status_Volume(#Dat_Harp_10) * 0.82)
+      SoundVolumeFloat(#Snd_Harp_11_Vibrato,  Harp1Volume * \Status_Volume(#Dat_Harp_11) * (0.84-0.16*Cos2Phase) * 0.80)
+      SoundVolumeFloat(#Snd_Harp_11_Standard, Harp2Volume * \Status_Volume(#Dat_Harp_11) * 0.80)
+      SoundVolumeFloat(#Snd_Harp_12_Vibrato,  Harp1Volume * \Status_Volume(#Dat_Harp_12) * (0.85-0.15*Cos2Phase) * 0.78)
+      SoundVolumeFloat(#Snd_Harp_12_Standard, Harp2Volume * \Status_Volume(#Dat_Harp_12) * 0.78)
+      SoundVolumeFloat(#Snd_Harp_13_Vibrato,  Harp1Volume * \Status_Volume(#Dat_Harp_13) * (0.86-0.14*Cos2Phase) * 0.76)
+      SoundVolumeFloat(#Snd_Harp_13_Standard, Harp2Volume * \Status_Volume(#Dat_Harp_13) * 0.76)
       
-      SoundVolumeFloat(#Snd_Harp_1_Vibrato   , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_1) <> #Curve_None) * \Status_Volume(#Dat_Harp_1) * (0.74-0.26*Cos2Phase) * 1.00)
-      SoundVolumeFloat(#Snd_Harp_1_Standard  , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_1) <> #Curve_None) * \Status_Volume(#Dat_Harp_1) * 1.00)
-      SoundVolumeFloat(#Snd_Harp_2_Vibrato   , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_2) <> #Curve_None) * \Status_Volume(#Dat_Harp_2) * (0.75-0.25*Cos2Phase) * 0.98)
-      SoundVolumeFloat(#Snd_Harp_2_Standard  , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_2) <> #Curve_None) * \Status_Volume(#Dat_Harp_2) * 0.98)
-      SoundVolumeFloat(#Snd_Harp_3_Vibrato   , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_3) <> #Curve_None) * \Status_Volume(#Dat_Harp_3) * (0.76-0.24*Cos2Phase) * 0.96)
-      SoundVolumeFloat(#Snd_Harp_3_Standard  , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_3) <> #Curve_None) * \Status_Volume(#Dat_Harp_3) * 0.96)
-      SoundVolumeFloat(#Snd_Harp_4_Vibrato   , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_4) <> #Curve_None) * \Status_Volume(#Dat_Harp_4) * (0.77-0.23*Cos2Phase) * 0.94)
-      SoundVolumeFloat(#Snd_Harp_4_Standard  , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_4) <> #Curve_None) * \Status_Volume(#Dat_Harp_4) * 0.94)
-      SoundVolumeFloat(#Snd_Harp_5_Vibrato   , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_5) <> #Curve_None) * \Status_Volume(#Dat_Harp_5) * (0.78-0.22*Cos2Phase) * 0.92)
-      SoundVolumeFloat(#Snd_Harp_5_Standard  , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_5) <> #Curve_None) * \Status_Volume(#Dat_Harp_5) * 0.92)
-      SoundVolumeFloat(#Snd_Harp_6_Vibrato   , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_6) <> #Curve_None) * \Status_Volume(#Dat_Harp_6) * (0.79-0.21*Cos2Phase) * 0.90)
-      SoundVolumeFloat(#Snd_Harp_6_Standard  , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_6) <> #Curve_None) * \Status_Volume(#Dat_Harp_6) * 0.90)
-      SoundVolumeFloat(#Snd_Harp_7_Vibrato   , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_7) <> #Curve_None) * \Status_Volume(#Dat_Harp_7) * (0.80-0.20*Cos2Phase) * 0.88)
-      SoundVolumeFloat(#Snd_Harp_7_Standard  , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_7) <> #Curve_None) * \Status_Volume(#Dat_Harp_7) * 0.88)
-      SoundVolumeFloat(#Snd_Harp_8_Vibrato   , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_8) <> #Curve_None) * \Status_Volume(#Dat_Harp_8) * (0.81-0.19*Cos2Phase) * 0.86)
-      SoundVolumeFloat(#Snd_Harp_8_Standard  , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_8) <> #Curve_None) * \Status_Volume(#Dat_Harp_8) * 0.86)
-      SoundVolumeFloat(#Snd_Harp_9_Vibrato   , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_9) <> #Curve_None) * \Status_Volume(#Dat_Harp_9) * (0.82-0.18*Cos2Phase) * 0.84)
-      SoundVolumeFloat(#Snd_Harp_9_Standard  , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_9) <> #Curve_None) * \Status_Volume(#Dat_Harp_9) * 0.84)
-      SoundVolumeFloat(#Snd_Harp_10_Vibrato  , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_10) <> #Curve_None) * \Status_Volume(#Dat_Harp_10) * (0.83-0.17*Cos2Phase) * 0.82)
-      SoundVolumeFloat(#Snd_Harp_10_Standard , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_10) <> #Curve_None) * \Status_Volume(#Dat_Harp_10) * 0.82)
-      SoundVolumeFloat(#Snd_Harp_11_Vibrato  , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_11) <> #Curve_None) * \Status_Volume(#Dat_Harp_11) * (0.84-0.16*Cos2Phase) * 0.80)
-      SoundVolumeFloat(#Snd_Harp_11_Standard , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_11) <> #Curve_None) * \Status_Volume(#Dat_Harp_11) * 0.80)
-      SoundVolumeFloat(#Snd_Harp_12_Vibrato  , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_12) <> #Curve_None) * \Status_Volume(#Dat_Harp_12) * (0.85-0.15*Cos2Phase) * 0.78)
-      SoundVolumeFloat(#Snd_Harp_12_Standard , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_12) <> #Curve_None) * \Status_Volume(#Dat_Harp_12) * 0.78)
-      SoundVolumeFloat(#Snd_Harp_13_Vibrato  , Harp1Volume * Bool(\Status_Sound(#Dat_Harp_13) <> #Curve_None) * \Status_Volume(#Dat_Harp_13) * (0.86-0.14*Cos2Phase) * 0.76)
-      SoundVolumeFloat(#Snd_Harp_13_Standard , Harp2Volume * Bool(\Status_Sound(#Dat_Harp_13) <> #Curve_None) * \Status_Volume(#Dat_Harp_13) * 0.76)
+      SoundVolumeFloat(#Snd_Drum_BD,          RhythmVolume * \Status_Volume(#Dat_Drum_BD))
+      SoundVolumeFloat(#Snd_Drum_Click,       RhythmVolume * \Status_Volume(#Dat_Drum_Click))
+      SoundVolumeFloat(#Snd_Drum_HiHat,       RhythmVolume * \Status_Volume(#Dat_Drum_HiHat))
+      SoundVolumeFloat(#Snd_Drum_Snare,       RhythmVolume * \Status_Volume(#Dat_Drum_Snare))
+      SoundVolumeFloat(#Snd_Drum_Ride,        RhythmVolume * \Status_Volume(#Dat_Drum_Ride))
       
-      SoundVolumeFloat(#Snd_Drum_BD, RhythmVolume * Bool(\Status_Sound(#Dat_Drum_BD) <> #Curve_None) * \Status_Volume(#Dat_Drum_BD))
-      SoundVolumeFloat(#Snd_Drum_Click, RhythmVolume * Bool(\Status_Sound(#Dat_Drum_Click) <> #Curve_None) * \Status_Volume(#Dat_Drum_Click))
-      SoundVolumeFloat(#Snd_Drum_HiHat, RhythmVolume * Bool(\Status_Sound(#Dat_Drum_HiHat) <> #Curve_None) * \Status_Volume(#Dat_Drum_HiHat))
-      SoundVolumeFloat(#Snd_Drum_Snare, RhythmVolume * Bool(\Status_Sound(#Dat_Drum_Snare) <> #Curve_None) * \Status_Volume(#Dat_Drum_Snare))
-      SoundVolumeFloat(#Snd_Drum_Ride, RhythmVolume * Bool(\Status_Sound(#Dat_Drum_Ride) <> #Curve_None) * \Status_Volume(#Dat_Drum_Ride))
-      
-      SoundVolumeFloat(#Snd_Keyboard, Bool(\Status_Sound(#Dat_Keyboard) <> #Curve_None) * 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Keyboard * \Status_Volume(#Dat_Keyboard))
+      SoundVolumeFloat(#Snd_Keyboard, 100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Keyboard * \Status_Volume(#Dat_Keyboard))
       
     ForEver
     
