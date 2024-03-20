@@ -200,9 +200,9 @@
       
       SoundVolumeFloat(#Snd_Bass,             100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Bass_1))
       
-      SoundVolumeFloat(#Snd_Chord_1,          100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_1) * 0.86)
-      SoundVolumeFloat(#Snd_Chord_2,          100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_2) * 0.86)
-      SoundVolumeFloat(#Snd_Chord_3,          100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_3) * 0.86)
+      SoundVolumeFloat(#Snd_Chord_1,          100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_1) * 0.85)
+      SoundVolumeFloat(#Snd_Chord_2,          100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_2) * 0.85)
+      SoundVolumeFloat(#Snd_Chord_3,          100.0 * \Value_Master_Knob_Volume * \Value_Level_Knob_Volume_Chords * \Status_Volume(#Dat_Chord_3) * 0.85)
       
       SoundVolumeFloat(#Snd_Harp_1_Vibrato,   Harp1Volume * \Status_Volume(#Dat_Harp_1) * (0.74-0.26*Cos2Phase) * 1.00)
       SoundVolumeFloat(#Snd_Harp_1_Standard,  Harp2Volume * \Status_Volume(#Dat_Harp_1) * 1.00)
