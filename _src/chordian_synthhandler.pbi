@@ -45,6 +45,8 @@ Procedure.i SynthHandler(*Void)
     Protected i.i
     Protected u.i
     
+    Protected MSCounter.i
+    
     Protected RhythmVolume.f
     
     Protected Harp1Volume.f
@@ -97,8 +99,6 @@ Procedure.i SynthHandler(*Void)
       For a = 0 To MemorySize(*Block) / WaveFormatExDescriptor\nBlockAlign
         Result = 0
         Select \Value_Internal_Chord_Note
-          Case #Note_None
-            Phase + 0.0
           Case #Note_G
             Phase + ((3.125 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_F
@@ -124,9 +124,15 @@ Procedure.i SynthHandler(*Void)
           Case #Note_Ab
             Phase + ((3.162 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Default
-            Phase + 0.045
-            
+            Phase + 0.0
         EndSelect
+        
+        MSCounter + 1
+        While MSCounter >= (WaveFormatExDescriptor\nSamplesPerSec/1000)
+          MSCounter - (WaveFormatExDescriptor\nSamplesPerSec/1000)
+          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallMachineHandler, 1, 0)
+          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+        Wend
         
         Sin3Phase = Pow(Abs(Sin(Radian(Phase+125))), 0.33)*Sign(Sin(Radian(Phase+125)))
         

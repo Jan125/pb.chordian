@@ -143,6 +143,8 @@ Structure Machine_Event
   Semaphore_IsNewChord.i
   Semaphore_IsNewTick.i
   Semaphore_IsNewTuning.i
+  Semaphore_CallMachineHandler.i
+  Semaphore_CallFrequencyHandler.i
 EndStructure
 
 
@@ -243,4 +245,6 @@ With Chordian\Machine_Event
   \Semaphore_IsNewChord = CreateSemaphore_(0, 0, 1, 0)
   \Semaphore_IsNewTick = CreateSemaphore_(0, 0, 1, 0)
   \Semaphore_IsNewTuning = CreateSemaphore_(0, 0, 1, 0)
+  \Semaphore_CallMachineHandler = CreateSemaphore_(0, 0, 99999, 0)
+  \Semaphore_CallFrequencyHandler = CreateSemaphore_(0, 0, 99999, 0)
 EndWith

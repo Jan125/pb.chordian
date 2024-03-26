@@ -1272,18 +1272,11 @@ Procedure MachineHandler(*Void)
     
     Protected i.i
     
-    Protected Time.q = ElapsedMilliseconds()
-    Protected Delta.i
-    
     Protected SendNewChord.i
     Protected SendNewTick.i
     
     Repeat
-      Repeat
-        Delta = ElapsedMilliseconds()-Time
-        Delay(Bool(Not Delta))
-      Until Delta
-      Time = Time + Delta
+      WaitForSingleObject_(Chordian\Machine_Event\Semaphore_CallMachineHandler, -1)
       
       Select \Value_Rhythm_Button_Pattern_Current
         Case #Rhythm_None
@@ -1292,7 +1285,7 @@ Procedure MachineHandler(*Void)
               \Value_Rhythm_Button_Alternate_OnOff_Current = \Value_Rhythm_Button_Alternate_OnOff
               \Value_Rhythm_Button_Pattern_Current = \Value_Rhythm_Button_Pattern
               \Value_Internal_Tick = 0
-              \Value_Internal_Tick+(Delta/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)
+              \Value_Internal_Tick+(1.0/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)
               While \Value_Internal_Tick >= 32.0 Or (\Value_Internal_Tick >= 24.0 And (\Value_Rhythm_Button_Pattern_Current = #Rhythm_Waltz Or \Value_Rhythm_Button_Pattern_Current = #Rhythm_Blues) And \Value_Rhythm_Button_Alternate_OnOff_Current = 1)
                 \Value_Internal_Tick-32.0+8.0*Bool(\Value_Internal_Tick >= 24.0 And (\Value_Rhythm_Button_Pattern_Current = #Rhythm_Waltz Or \Value_Rhythm_Button_Pattern_Current = #Rhythm_Blues) And \Value_Rhythm_Button_Alternate_OnOff_Current = 1)
               Wend
@@ -1303,7 +1296,7 @@ Procedure MachineHandler(*Void)
             \Value_Rhythm_Button_Alternate_OnOff_Current = \Value_Rhythm_Button_Alternate_OnOff
             \Value_Rhythm_Button_Pattern_Current = \Value_Rhythm_Button_Pattern
             \Value_Internal_Tick = 0
-            \Value_Internal_Tick+(Delta/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)
+            \Value_Internal_Tick+(1.0/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)
             While \Value_Internal_Tick >= 32.0 Or (\Value_Internal_Tick >= 24.0 And (\Value_Rhythm_Button_Pattern_Current = #Rhythm_Waltz Or \Value_Rhythm_Button_Pattern_Current = #Rhythm_Blues) And \Value_Rhythm_Button_Alternate_OnOff_Current = 1)
               \Value_Internal_Tick-32.0+8.0*Bool(\Value_Internal_Tick >= 24.0 And (\Value_Rhythm_Button_Pattern_Current = #Rhythm_Waltz Or \Value_Rhythm_Button_Pattern_Current = #Rhythm_Blues) And \Value_Rhythm_Button_Alternate_OnOff_Current = 1)
             Wend
@@ -1318,10 +1311,10 @@ Procedure MachineHandler(*Void)
               SendNewChord = 1
               SendNewTick = 1
             Else
-              If Int(\Value_Internal_Tick+(Delta/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)) > Int(\Value_Internal_Tick)
+              If Int(\Value_Internal_Tick+(1.0/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)) > Int(\Value_Internal_Tick)
                 SendNewTick = 1
               EndIf
-              \Value_Internal_Tick+(Delta/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)
+              \Value_Internal_Tick+(1.0/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)
               If \Value_Internal_Tick >= 32.0 Or (\Value_Internal_Tick >= 24.0 And (\Value_Rhythm_Button_Pattern_Current = #Rhythm_Waltz Or \Value_Rhythm_Button_Pattern_Current = #Rhythm_Blues) And \Value_Rhythm_Button_Alternate_OnOff_Current = 1) Or \Value_Rhythm_Button_Pattern_Current = #Rhythm_None
                 If \Value_Rhythm_Button_Pattern <> \Value_Rhythm_Button_Pattern_Current Or \Value_Rhythm_Button_Alternate_OnOff <> \Value_Rhythm_Button_Alternate_OnOff_Current
                   If (\Value_Rhythm_Button_Pattern_Current = #Rhythm_Waltz Or \Value_Rhythm_Button_Pattern_Current = #Rhythm_Blues) And \Value_Rhythm_Button_Alternate_OnOff_Current = 1
@@ -1344,7 +1337,7 @@ Procedure MachineHandler(*Void)
             \Value_Rhythm_Button_Pattern_Current = \Value_Rhythm_Button_Pattern
             \Value_Internal_Tick = 0
             
-            \Value_Internal_Tick+(Delta/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)
+            \Value_Internal_Tick+(1.0/1000.0)*(4.7+Pow(\Value_Rhythm_Knob_Tempo, 2.2)*15.3)
             While \Value_Internal_Tick >= 32.0 Or (\Value_Internal_Tick >= 24.0 And (\Value_Rhythm_Button_Pattern_Current = #Rhythm_Waltz Or \Value_Rhythm_Button_Pattern_Current = #Rhythm_Blues) And \Value_Rhythm_Button_Alternate_OnOff_Current = 1)
               \Value_Internal_Tick-32.0+8.0*Bool(\Value_Internal_Tick >= 24.0 And (\Value_Rhythm_Button_Pattern_Current = #Rhythm_Waltz Or \Value_Rhythm_Button_Pattern_Current = #Rhythm_Blues) And \Value_Rhythm_Button_Alternate_OnOff_Current = 1)
             Wend
