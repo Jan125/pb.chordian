@@ -120,6 +120,8 @@ DataSection
   Snd_Chord:
   IncludeBinary "snd\chordian_chord.raw"
   
+  Snd_Harp:
+  IncludeBinary "snd\chordian_harp.raw"
   Snd_Harp_Base:
   IncludeBinary "snd\chordian_harp_base.raw"
   Snd_Harp_Mod:

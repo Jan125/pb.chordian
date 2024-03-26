@@ -123,8 +123,10 @@ Enumeration 1
   #Snd_Drum_Snare
   #Snd_Drum_Last = #Snd_Drum_Snare
   
-  #Snd_Keyboard
-  #Snd_Last = #Snd_Keyboard
+  #Snd_Keyboard_First
+  #Snd_Keyboard = #Snd_Keyboard_First
+  #Snd_Keyboard_Last = #Snd_Keyboard
+  #Snd_Last = #Snd_Keyboard_Last
 EndEnumeration
 
 Enumeration 1

@@ -172,46 +172,46 @@ Structure DSCEFFECTDESC Align #PB_Structure_AlignC
 EndStructure
 
 Structure DSCAPS Align #PB_Structure_AlignC
-dwSize.l
-dwFlags.l
-dwMinSecondarySampleRate.l
-dwMaxSecondarySampleRate.l
-dwPrimaryBuffers.l
-dwMaxHwMixingAllBuffers.l
-dwMaxHwMixingStaticBuffers.l
-dwMaxHwMixingStreamingBuffers.l
-dwFreeHwMixingAllBuffers.l
-dwFreeHwMixingStaticBuffers.l
-dwFreeHwMixingStreamingBuffers.l
-dwMaxHw3DAllBuffers.l
-dwMaxHw3DStaticBuffers.l
-dwMaxHw3DStreamingBuffers.l
-dwFreeHw3DAllBuffers.l
-dwFreeHw3DStaticBuffers.l
-dwFreeHw3DStreamingBuffers.l
-dwTotalHwMemBytes.l
-dwFreeHwMemBytes.l
-dwMaxContigFreeHwMemBytes.l
-dwUnlockTransferRateHwBuffers.l
-dwPlayCpuOverheadSwBuffers.l
-dwReserved1.l
-dwReserved2.l
+  dwSize.l
+  dwFlags.l
+  dwMinSecondarySampleRate.l
+  dwMaxSecondarySampleRate.l
+  dwPrimaryBuffers.l
+  dwMaxHwMixingAllBuffers.l
+  dwMaxHwMixingStaticBuffers.l
+  dwMaxHwMixingStreamingBuffers.l
+  dwFreeHwMixingAllBuffers.l
+  dwFreeHwMixingStaticBuffers.l
+  dwFreeHwMixingStreamingBuffers.l
+  dwMaxHw3DAllBuffers.l
+  dwMaxHw3DStaticBuffers.l
+  dwMaxHw3DStreamingBuffers.l
+  dwFreeHw3DAllBuffers.l
+  dwFreeHw3DStaticBuffers.l
+  dwFreeHw3DStreamingBuffers.l
+  dwTotalHwMemBytes.l
+  dwFreeHwMemBytes.l
+  dwMaxContigFreeHwMemBytes.l
+  dwUnlockTransferRateHwBuffers.l
+  dwPlayCpuOverheadSwBuffers.l
+  dwReserved1.l
+  dwReserved2.l
 EndStructure
 
 Structure DSBCAPS Align #PB_Structure_AlignC
-dwSize.l
-dwFlags.l
-dwBufferBytes.l
-dwUnlockTransferRate.l
-dwPlayCpuOverhead.l
+  dwSize.l
+  dwFlags.l
+  dwBufferBytes.l
+  dwUnlockTransferRate.l
+  dwPlayCpuOverhead.l
 EndStructure
 
 Structure DSBUFFERDESC Align #PB_Structure_AlignC
-dwSize.l
-dwFlags.l
-dwBufferBytes.l
-dwReserved.l
-*lpwfxFormat.WAVEFORMATEX
+  dwSize.l
+  dwFlags.l
+  dwBufferBytes.l
+  dwReserved.l
+  *lpwfxFormat.WAVEFORMATEX
 EndStructure
 
 Structure D3DVECTOR Align #PB_Structure_AlignC
@@ -234,21 +234,21 @@ Structure DS3DBUFFER Align #PB_Structure_AlignC
 EndStructure
 
 Structure DS3DLISTENER Align #PB_Structure_AlignC
-dwSize.l
-vPosition.D3DVECTOR
-vVelocity.D3DVECTOR
-vOrientFront.D3DVECTOR
-vOrientTop.D3DVECTOR
-flDistanceFactor.f ;Is this a float?
-flRolloffFactor.f ;Is this a float?
-flDopplerFactor.f ;Is this a float?
+  dwSize.l
+  vPosition.D3DVECTOR
+  vVelocity.D3DVECTOR
+  vOrientFront.D3DVECTOR
+  vOrientTop.D3DVECTOR
+  flDistanceFactor.f ;Is this a float?
+  flRolloffFactor.f  ;Is this a float?
+  flDopplerFactor.f  ;Is this a float?
 EndStructure
 
 Structure DSCCAPS
-dwSize.l
-dwFlags.l
-dwFormats.l
-dwChannels.l
+  dwSize.l
+  dwFlags.l
+  dwFormats.l
+  dwChannels.l
 EndStructure
 
 Structure DSCBUFFERDESC Align #PB_Structure_AlignC
@@ -262,10 +262,10 @@ Structure DSCBUFFERDESC Align #PB_Structure_AlignC
 EndStructure
 
 Structure DSCBCAPS Align #PB_Structure_AlignC
-dwSize.l
-dwFlags.l
-dwBufferBytes.l
-dwReserved.l
+  dwSize.l
+  dwFlags.l
+  dwBufferBytes.l
+  dwReserved.l
 EndStructure
 
 Structure DSBPOSITIONNOTIFY Align #PB_Structure_AlignC
@@ -355,8 +355,8 @@ Structure DSFXSend Align #PB_Structure_AlignC
 EndStructure
 
 Structure DSFXGargle Align #PB_Structure_AlignC
-dwRateHz.l
-dwWaveShape.l
+  dwRateHz.l
+  dwWaveShape.l
 EndStructure
 
 Enumeration DSFXGARGLE_VALUE
@@ -365,76 +365,76 @@ Enumeration DSFXGARGLE_VALUE
 EndEnumeration
 
 Structure DSFXChorus Align #PB_Structure_AlignC
-fWetDryMix.f
-fDepth.f
-fFeedback.f
-fFrequency.f
-lWaveform.l
-fDelay.f
-lPhase.l
+  fWetDryMix.f
+  fDepth.f
+  fFeedback.f
+  fFrequency.f
+  lWaveform.l
+  fDelay.f
+  lPhase.l
 EndStructure
 
 Structure DSFXFlanger Align #PB_Structure_AlignC
-fWetDryMix.f
-fDepth.f
-fFeedback.f
-fFrequency.f
-lWaveform.l
-fDelay.f
-lPhase.l
+  fWetDryMix.f
+  fDepth.f
+  fFeedback.f
+  fFrequency.f
+  lWaveform.l
+  fDelay.f
+  lPhase.l
 EndStructure
 
 Structure DSFXEcho Align #PB_Structure_AlignC
-fWetDryMix.f
-fFeedback.f
-fLeftDelay.f
-fRightDelay.f
-lPanDelay.l
+  fWetDryMix.f
+  fFeedback.f
+  fLeftDelay.f
+  fRightDelay.f
+  lPanDelay.l
 EndStructure
 
 Structure DSFXDistortion Align #PB_Structure_AlignC
-fGain.f
-fEdge.f
-fPostEQCenterFrequency.f
-fPostEQBandwidth.f
-fPreLowpassCutoff.f
+  fGain.f
+  fEdge.f
+  fPostEQCenterFrequency.f
+  fPostEQBandwidth.f
+  fPreLowpassCutoff.f
 EndStructure
 
 Structure DSFXCompressor Align #PB_Structure_AlignC
-fGain.f
-fAttack.f
-fRelease.f
-fThreshold.f
-fRatio.f
-fPredelay.f
+  fGain.f
+  fAttack.f
+  fRelease.f
+  fThreshold.f
+  fRatio.f
+  fPredelay.f
 EndStructure
 
 Structure DSFXParamEq Align #PB_Structure_AlignC
-fCenter.f
-fBandwidth.f
-fGain.f
+  fCenter.f
+  fBandwidth.f
+  fGain.f
 EndStructure
 
 Structure DSFXI3DL2Reverb Align #PB_Structure_AlignC
-lRoom.l
-lRoomHF.l
-flRoomRolloffFactor.f
-flDecayTime.f
-flDecayHFRatio.f
-lReflections.l
-flReflectionsDelay.f
-lReverb.l
-flReverbDelay.f
-flDiffusion.f
-flDensity.f
-flHFReference.f
+  lRoom.l
+  lRoomHF.l
+  flRoomRolloffFactor.f
+  flDecayTime.f
+  flDecayHFRatio.f
+  lReflections.l
+  flReflectionsDelay.f
+  lReverb.l
+  flReverbDelay.f
+  flDiffusion.f
+  flDensity.f
+  flHFReference.f
 EndStructure
 
 Structure DSFXWavesReverb Align #PB_Structure_AlignC
-fInGain.f
-fReverbMix.f
-fReverbTime.f
-fHighFreqRTRatio.f
+  fInGain.f
+  fReverbMix.f
+  fReverbTime.f
+  fHighFreqRTRatio.f
 EndStructure
 
 Enumeration KSPROPERTY_SUPPORT_MASK

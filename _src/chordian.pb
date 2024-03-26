@@ -640,7 +640,7 @@ Procedure Main()
                             Base64Decoder(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
                           CompilerEndIf
                           ;FreeMemory(*TempPointer)
-                        LocalFree_(*TempPointer)
+                          LocalFree_(*TempPointer)
                         EndIf
                         
                         PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Select_Alternate)

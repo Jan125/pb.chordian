@@ -12,7 +12,7 @@ Procedure FrequencyHandler(*Void)
     
     Repeat
       WaitForSingleObject_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, -1)
-
+      
       If WaitForSingleObject_(Chordian\Semaphore_EndFrequencyHandler, 0) = #WAIT_OBJECT_0
         ProcedureReturn
       EndIf
@@ -54,24 +54,28 @@ Procedure FrequencyHandler(*Void)
                 \Status_Frequency(#Snd_Bass) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1)-71)/12.0)
             EndSelect
         EndSelect
-      \Status_Frequency(#Snd_Chord_1) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_1)-71)/12.0)
-      \Status_Frequency(#Snd_Chord_2) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_2)-71)/12.0)
-      \Status_Frequency(#Snd_Chord_3) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_3)-71)/12.0)
-      
-      \Status_Frequency(#Snd_Harp_1) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_1)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_2) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_2)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_3) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_3)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_4) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_4)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_5) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_5)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_6) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_6)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_7) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_7)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_8) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_8)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_9) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_9)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_10) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_10)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_11) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_11)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_12) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_12)-71)/12.0)
-      \Status_Frequency(#Snd_Harp_13) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_13)-71)/12.0)
+        \Status_Frequency(#Snd_Chord_1) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_1)-71)/12.0)
+        \Status_Frequency(#Snd_Chord_2) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_2)-71)/12.0)
+        \Status_Frequency(#Snd_Chord_3) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_3)-71)/12.0)
+        
+        \Status_Frequency(#Snd_Harp_1) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_1)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_2) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_2)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_3) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_3)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_4) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_4)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_5) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_5)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_6) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_6)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_7) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_7)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_8) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_8)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_9) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_9)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_10) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_10)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_11) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_11)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_12) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_12)-71)/12.0)
+        \Status_Frequency(#Snd_Harp_13) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_13)-71)/12.0)
+        
       EndIf
+      
+      \Status_Frequency(#Snd_Keyboard) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Value_Internal_Keyboard_Note-71)/12.0)
+      
     ForEver
   EndWith
   
