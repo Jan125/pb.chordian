@@ -89,7 +89,9 @@ EndEnumeration
 
 Enumeration 1
   #Snd_First
-  #Snd_Bass = #Snd_First
+  #Snd_Bass_First = #Snd_First
+  #Snd_Bass = #Snd_Bass_First
+  #Snd_Bass_Last = #Snd_Bass
   
   #Snd_Chord_First
   #Snd_Chord_1 = #Snd_Chord_First
@@ -98,33 +100,20 @@ Enumeration 1
   #Snd_Chord_Last = #Snd_Chord_3
   
   #Snd_Harp_First
-  #Snd_Harp_1_Vibrato = #Snd_Harp_First
-  #Snd_Harp_1_Standard
-  #Snd_Harp_2_Vibrato
-  #Snd_Harp_2_Standard
-  #Snd_Harp_3_Vibrato
-  #Snd_Harp_3_Standard
-  #Snd_Harp_4_Vibrato
-  #Snd_Harp_4_Standard
-  #Snd_Harp_5_Vibrato
-  #Snd_Harp_5_Standard
-  #Snd_Harp_6_Vibrato
-  #Snd_Harp_6_Standard
-  #Snd_Harp_7_Vibrato
-  #Snd_Harp_7_Standard
-  #Snd_Harp_8_Vibrato
-  #Snd_Harp_8_Standard
-  #Snd_Harp_9_Vibrato
-  #Snd_Harp_9_Standard
-  #Snd_Harp_10_Vibrato
-  #Snd_Harp_10_Standard
-  #Snd_Harp_11_Vibrato
-  #Snd_Harp_11_Standard
-  #Snd_Harp_12_Vibrato
-  #Snd_Harp_12_Standard
-  #Snd_Harp_13_Vibrato
-  #Snd_Harp_13_Standard
-  #Snd_Harp_Last = #Snd_Harp_13_Standard
+  #Snd_Harp_1 = #Snd_Harp_First
+  #Snd_Harp_2
+  #Snd_Harp_3
+  #Snd_Harp_4
+  #Snd_Harp_5
+  #Snd_Harp_6
+  #Snd_Harp_7
+  #Snd_Harp_8
+  #Snd_Harp_9
+  #Snd_Harp_10
+  #Snd_Harp_11
+  #Snd_Harp_12
+  #Snd_Harp_13
+  #Snd_Harp_Last = #Snd_Harp_13
   
   #Snd_Drum_First
   #Snd_Drum_BD = #Snd_Drum_First

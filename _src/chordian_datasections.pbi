@@ -115,27 +115,32 @@ EndDataSection
 ;--Sound Data
 DataSection
   Snd_Bass:
-  IncludeBinary "snd\chordian_bass.wav"
+  IncludeBinary "snd\chordian_bass.raw"
   
   Snd_Chord:
-  IncludeBinary "snd\chordian_chord.wav"
+  IncludeBinary "snd\chordian_chord.raw"
   
-  Snd_Harp:
-  IncludeBinary "snd\chordian_harp.wav"
+  Snd_Harp_Base:
+  IncludeBinary "snd\chordian_harp_base.raw"
   Snd_Harp_Mod:
-  IncludeBinary "snd\chordian_harp_mod.wav"
+  IncludeBinary "snd\chordian_harp_mod.raw"
   
   Snd_Drum_BD:
-  IncludeBinary "snd\chordian_drum_bd.wav"
+  IncludeBinary "snd\chordian_drum_bd.raw"
+  Snd_Drum_BD_End:
   Snd_Drum_Click:
-  IncludeBinary "snd\chordian_drum_click.wav"
+  IncludeBinary "snd\chordian_drum_click.raw"
+  Snd_Drum_Click_End:
   Snd_Drum_HiHat:
-  IncludeBinary "snd\chordian_drum_hihat.wav"
+  IncludeBinary "snd\chordian_drum_hihat.raw"
+  Snd_Drum_HiHat_End:
   Snd_Drum_Ride:
-  IncludeBinary "snd\chordian_drum_ride.wav"
+  IncludeBinary "snd\chordian_drum_ride.raw"
+  Snd_Drum_Ride_End:
   Snd_Drum_Snare:
-  IncludeBinary "snd\chordian_drum_snare.wav"
+  IncludeBinary "snd\chordian_drum_snare.raw"
+  Snd_Drum_Snare_End:
   
   Snd_Keyboard:
-  IncludeBinary "snd\chordian_keyboard.wav"
+  IncludeBinary "snd\chordian_keyboard.raw"
 EndDataSection

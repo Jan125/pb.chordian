@@ -15,9 +15,9 @@ Procedure.i AutofillDerivedNotes(Note.i, Chord.i)
         \Data_MIDI(Note, Chord, #Dat_Bass_4) = \Data_MIDI(Note, Chord, #Dat_Bass_3)-4
     EndSelect
     
-    \Data_MIDI(Note, Chord, #Dat_Harp_1) = \Data_MIDI(Note, Chord, #Dat_Chord_1)-24
-    \Data_MIDI(Note, Chord, #Dat_Harp_2) = \Data_MIDI(Note, Chord, #Dat_Chord_2)-24
-    \Data_MIDI(Note, Chord, #Dat_Harp_3) = \Data_MIDI(Note, Chord, #Dat_Chord_3)-24
+    \Data_MIDI(Note, Chord, #Dat_Harp_1) = \Data_MIDI(Note, Chord, #Dat_Chord_1)
+    \Data_MIDI(Note, Chord, #Dat_Harp_2) = \Data_MIDI(Note, Chord, #Dat_Chord_2)
+    \Data_MIDI(Note, Chord, #Dat_Harp_3) = \Data_MIDI(Note, Chord, #Dat_Chord_3)
     \Data_MIDI(Note, Chord, #Dat_Harp_4) = \Data_MIDI(Note, Chord, #Dat_Harp_1)+12
     \Data_MIDI(Note, Chord, #Dat_Harp_5) = \Data_MIDI(Note, Chord, #Dat_Harp_2)+12
     \Data_MIDI(Note, Chord, #Dat_Harp_6) = \Data_MIDI(Note, Chord, #Dat_Harp_3)+12
@@ -1259,7 +1259,7 @@ Procedure.i ResetMachine()
     
     \Value_Internal_Tick = 0.0
     
-    For i = #Dat_First To #Dat_Last
+    For i = #Snd_First To #Snd_Last
       \Status_Sound(i) = #Curve_None
     Next
     
@@ -1284,8 +1284,6 @@ Procedure MachineHandler(*Void)
         Delay(Bool(Not Delta))
       Until Delta
       Time = Time + Delta
-      
-      \Value_Internal_Phase+1080.0*(Delta/1000.0)*(0.9+\Value_Rhythm_Knob_Tempo/5)
       
       Select \Value_Rhythm_Button_Pattern_Current
         Case #Rhythm_None

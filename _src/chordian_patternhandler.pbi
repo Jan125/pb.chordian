@@ -21,31 +21,31 @@
         Case #Rhythm_None
           ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
           If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
-            \Status_Sound(#Dat_Bass_1) = #Curve_Trigger
-            \Status_Sound(#Dat_Chord_1) = #Curve_Trigger
-            \Status_Sound(#Dat_Chord_2) = #Curve_Trigger
-            \Status_Sound(#Dat_Chord_3) = #Curve_Trigger
+            \Status_Sound(#Snd_Bass) = #Curve_Trigger
+            \Status_Sound(#Snd_Chord_1) = #Curve_Trigger
+            \Status_Sound(#Snd_Chord_2) = #Curve_Trigger
+            \Status_Sound(#Snd_Chord_3) = #Curve_Trigger
           EndIf
         Default
           If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
             If \Value_Rhythm_Button_AutoBassSync_OnOff
               ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-              \Status_Sound(#Dat_Bass_1) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Bass)
-              \Status_Sound(#Dat_Chord_1) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
-              \Status_Sound(#Dat_Chord_2) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
-              \Status_Sound(#Dat_Chord_3) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
+              \Status_Sound(#Snd_Bass) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Bass)
+              \Status_Sound(#Snd_Chord_1) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
+              \Status_Sound(#Snd_Chord_2) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
+              \Status_Sound(#Snd_Chord_3) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
             Else
-              \Status_Sound(#Dat_Bass_1) = #Curve_Trigger
-              \Status_Sound(#Dat_Chord_1) = #Curve_Trigger
-              \Status_Sound(#Dat_Chord_2) = #Curve_Trigger
-              \Status_Sound(#Dat_Chord_3) = #Curve_Trigger
+              \Status_Sound(#Snd_Bass) = #Curve_Trigger
+              \Status_Sound(#Snd_Chord_1) = #Curve_Trigger
+              \Status_Sound(#Snd_Chord_2) = #Curve_Trigger
+              \Status_Sound(#Snd_Chord_3) = #Curve_Trigger
             EndIf
             
-            \Status_Sound(#Dat_Drum_BD) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_BD)
-            \Status_Sound(#Dat_Drum_Click) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_Click)
-            \Status_Sound(#Dat_Drum_HiHat) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_HiHat)
-            \Status_Sound(#Dat_Drum_Snare) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_Snare)
-            \Status_Sound(#Dat_Drum_Ride) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_Ride)
+            \Status_Sound(#Snd_Drum_BD) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_BD)
+            \Status_Sound(#Snd_Drum_Click) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_Click)
+            \Status_Sound(#Snd_Drum_HiHat) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_HiHat)
+            \Status_Sound(#Snd_Drum_Snare) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_Snare)
+            \Status_Sound(#Snd_Drum_Ride) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_Ride)
             
           EndIf
       EndSelect

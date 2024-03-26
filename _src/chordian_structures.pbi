@@ -104,8 +104,10 @@ Structure Machine_State Extends Machine_State_Save
   
   Value_Internal_Keyboard_Note.i
   
-  Array Status_Sound.i(#Dat_Last)
-  Array Status_Volume.f(#Dat_Last)
+  Array Status_Sound.i(#Snd_Last)
+  Array Status_Volume.f(#Snd_Last)
+  Array Status_Position.f(#Snd_Last)
+  Array Status_Frequency.f(#Snd_Last)
   Array Status_Harp.i(#Harp_Last)
 EndStructure
 
@@ -159,24 +161,18 @@ Structure Repaint_Event
 EndStructure
 
 
-
-Structure Sound_Event
-  
-EndStructure
-
-
 Structure Chordian_State
   RepaintHandler_Thread.i
   MachineHandler_Thread.i
   PatternHandler_Thread.i
-  VolumeHandler_Thread.i
   FrequencyHandler_Thread.i
+  SynthHandler_Thread.i
   
   Semaphore_EndRepaintHandler.i
   Semaphore_EndMachineHandler.i
   Semaphore_EndPatternHandler.i
-  Semaphore_EndVolumeHandler.i
   Semaphore_EndFrequencyHandler.i
+  Semaphore_EndSynthHandler.i
   
   Input_State.Input_State
   Input_Event.Input_Event
@@ -195,8 +191,8 @@ With Chordian
   \Semaphore_EndRepaintHandler = CreateSemaphore_(0, 0, 1, 0)
   \Semaphore_EndMachineHandler = CreateSemaphore_(0, 0, 1, 0)
   \Semaphore_EndPatternHandler = CreateSemaphore_(0, 0, 1, 0)
-  \Semaphore_EndVolumeHandler = CreateSemaphore_(0, 0, 1, 0)
   \Semaphore_EndFrequencyHandler = CreateSemaphore_(0, 0, 1, 0)
+  \Semaphore_EndSynthHandler = CreateSemaphore_(0, 0, 1, 0)
 EndWith
 
 

@@ -10,8 +10,8 @@
       Partially compatible with PB versions:
       -6.04 LTS ASM (x86, x64, WILL NOT RUN ON WIN7)
       -6.04 LTS C (x86, x64, WILL NOT RUN ON WIN7)
-      -6.10 BETA ASM (x86, x64, NO DIRECTSOUND SUPPORT - NO SMOOTH ADSR)
-      -6.10 BETA C (x86, x64, NO DIRECTSOUND SUPPORT - NO SMOOTH ADSR)
+      -6.10 BETA ASM (x86, x64, WILL NOT RUN ON WIN7)
+      -6.10 BETA C (x86, x64, WILL NOT RUN ON WIN7)
       Incompatible with PB versions:
       -&lt;5.30: Missing JSON library
     </comment>
@@ -19,36 +19,36 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-03-26 15:50" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2024-03-26 15:53" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="67f87c28bd8030756848c207d55bff3a"/>
+      <fingerprint md5="f1c6402fd7a8ce55eaffe173b716bd83"/>
     </file>
     <file name="chordian_datasections.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="8b8ad5a18d8a46659707a49b81e38129"/>
+      <fingerprint md5="cc4448f717858d16f1ce8418359ee7f5"/>
     </file>
     <file name="chordian_enumerations.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="47a42a667abb7f7bf1ad8c423ef6a258"/>
+      <fingerprint md5="da822835552ba63fe919bff0160897b8"/>
     </file>
     <file name="chordian_frequencyhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="9807396283507618e85210bd6793d560"/>
+      <fingerprint md5="b9eb2443ab6b054b08e6247227fe52b3"/>
     </file>
     <file name="chordian_helpers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="ad9e071623912e2886a7163da06cab0b"/>
+      <fingerprint md5="d67526b86acbde7e50699955b1a3c388"/>
     </file>
     <file name="chordian_machinehandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="67636aa93145f58488c2be9d24a90d49"/>
+      <fingerprint md5="c46fd0a3332c003903f47987a30cb42f"/>
     </file>
     <file name="chordian_patternhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="3f8e8da8d6cac684acd5b6f1316289d3"/>
+      <fingerprint md5="e1dffcb122054770951bd7bca6371693"/>
     </file>
     <file name="chordian_repainthandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
@@ -56,11 +56,11 @@
     </file>
     <file name="chordian_structures.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="3f1cc10f366377078a1d1b57d708d779"/>
+      <fingerprint md5="919b27ea5fde5abadf4c1f1b79be4c71"/>
     </file>
-    <file name="chordian_volumehandler.pbi">
+    <file name="chordian_synthhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="7b8e831e98780f8e93ab209f46690f73"/>
+      <fingerprint md5="215c054d5ab55fce41ebc5c1fc232197"/>
     </file>
   </section>
   <section name="targets">
@@ -72,7 +72,7 @@
       <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="0">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <compilecount enable="1" value="1196"/>
+      <compilecount enable="1" value="1451"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -99,7 +99,7 @@
       <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="242"/>
+      <buildcount enable="1" value="273"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -127,7 +127,7 @@
       <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="242"/>
+      <buildcount enable="1" value="273"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -154,7 +154,7 @@
       <executable value="..\chordian_legacy.exe"/>
       <options thread="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
-      <buildcount enable="1" value="242"/>
+      <buildcount enable="1" value="273"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
