@@ -19,7 +19,7 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-03-26 15:53" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2024-03-26 19:26" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
@@ -60,7 +60,11 @@
     </file>
     <file name="chordian_synthhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
-      <fingerprint md5="215c054d5ab55fce41ebc5c1fc232197"/>
+      <fingerprint md5="e7818638e6a28cc44c885da34f7998ce"/>
+    </file>
+    <file name="dsound.pbi">
+      <config load="0" scan="1" panel="1" warn="1" lastopen="1" panelstate="+"/>
+      <fingerprint md5="ddf3b3f7611d632bb809e4009289373b"/>
     </file>
   </section>
   <section name="targets">
@@ -69,10 +73,10 @@
       <outputfile value=""/>
       <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
       <executable value="..\chordian610b6c.exe"/>
-      <options unicode="1" thread="1" xpskin="1" debug="1"/>
+      <options unicode="1" thread="1" xpskin="1"/>
       <icon enable="0">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <compilecount enable="1" value="1451"/>
+      <compilecount enable="1" value="1468"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -99,7 +103,7 @@
       <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="273"/>
+      <buildcount enable="1" value="282"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -127,7 +131,7 @@
       <options unicode="1" thread="1" xpskin="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="273"/>
+      <buildcount enable="1" value="282"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -154,7 +158,7 @@
       <executable value="..\chordian_legacy.exe"/>
       <options thread="1" debug="1"/>
       <icon enable="1">chordian.ico</icon>
-      <buildcount enable="1" value="273"/>
+      <buildcount enable="1" value="282"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>

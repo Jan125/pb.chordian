@@ -6,11 +6,14 @@ Global Dim DirectSoundNotifyArray.DSBPOSITIONNOTIFY(3)
 Global Dim DirectSoundEventArray.i(ArraySize(DirectSoundNotifyArray()))
 Global InitDS_Loop.i
 
+OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+".ini")
+PreferenceGroup("Sound")
+
 Global WaveFormatExDescriptor.WAVEFORMATEX
 With WaveFormatExDescriptor
   \wFormatTag = #WAVE_FORMAT_PCM
   \nChannels = 1
-  \nSamplesPerSec = 96000
+  \nSamplesPerSec = ReadPreferenceLong("SampleRate", 96000)
   \wBitsPerSample = 16
   \cbSize = 0
   
@@ -22,13 +25,12 @@ Global DirectSoundBufferDescription.DSBUFFERDESC
 With DirectSoundBufferDescription
   \dwSize = SizeOf(DSBUFFERDESC)
   \dwFlags = #DSBCAPS_CTRLPOSITIONNOTIFY|#DSBCAPS_GLOBALFOCUS
-  \dwBufferBytes = Int(1024 * (WaveFormatExDescriptor\nSamplesPerSec/44100.0)) * (ArraySize(DirectSoundNotifyArray())+1) * WaveFormatExDescriptor\nBlockAlign
+  \dwBufferBytes = Int(768 * (WaveFormatExDescriptor\nSamplesPerSec/44100.0)) * (ArraySize(DirectSoundNotifyArray())+1) * WaveFormatExDescriptor\nBlockAlign
   \dwReserved = 0
   \lpwfxFormat = @WaveFormatExDescriptor
 EndWith
 
-
-
+ClosePreferences()
 
 For InitDS_Loop = 0 To ArraySize(DirectSoundNotifyArray())
   DirectSoundEventArray(InitDS_Loop) = CreateEvent_(#Null, #False, #False, #Null)
@@ -254,7 +256,7 @@ Procedure.i SynthHandler(*Void)
                 Continue
               EndIf
           EndSelect
-          Result + (LinearInterpolation(PeekW(?Snd_Harp_Base+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Harp_Base+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i))) + LinearInterpolation(PeekW(?Snd_Harp_Mod+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Harp_Mod+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i)))*LinearInterpolation(0.5+(Sin3Phase/2.0), 0.2, (i-#Snd_Harp_First)/14.0))*\Status_Volume(i)*\Value_Level_Knob_Volume_Harp_1*\Value_Master_Knob_Volume*(1.0-\Value_Level_Knob_Volume_Harp_2/2.0)*(1.0-(i-#Snd_Harp_First)*0.03)
+          Result + (LinearInterpolation(PeekW(?Snd_Harp_Base+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Harp_Base+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i))) + LinearInterpolation(PeekW(?Snd_Harp_Mod+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Harp_Mod+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i)))*LinearInterpolation(0.5+(Sin3Phase/2.0), 0.2, (i-#Snd_Harp_First)/14.0))*\Status_Volume(i)*\Value_Level_Knob_Volume_Harp_1*\Value_Master_Knob_Volume*(1.0-\Value_Level_Knob_Volume_Harp_2/2.0)*(1.0-(i-#Snd_Harp_First)*0.025)
           Result + LinearInterpolation(PeekW(?Snd_Harp_Base+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Harp_Base+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Harp_2*\Value_Master_Knob_Volume*(1.0-\Value_Level_Knob_Volume_Harp_1/2.0)*0.75*(1.0-(i-#Snd_Harp_First)*0.03)
 
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
