@@ -256,7 +256,7 @@ Procedure.i SynthHandler(*Void)
               i-1
               Continue
             Case #Curve_Release
-              \Status_Volume(i)-(1.0/WaveFormatExDescriptor\nSamplesPerSec)/(0.366+2.734*\Value_Level_Knob_Sustain)
+              \Status_Volume(i)-(1.0/WaveFormatExDescriptor\nSamplesPerSec)/(0.366+2.734*\Value_Level_Knob_Sustain)*(0.20+\Status_Volume(i)*1.8)
               If \Status_Volume(i) < 0.0
                 \Status_Sound(i) = #Curve_None
                 i-1
