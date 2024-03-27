@@ -8,13 +8,13 @@ Global InitDS_Loop.i
 
 OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+".ini")
 PreferenceGroup("Sound")
-
+#WAVE_FORMAT_IEEE_FLOAT = $0003
 Global WaveFormatExDescriptor.WAVEFORMATEX
 With WaveFormatExDescriptor
-  \wFormatTag = #WAVE_FORMAT_PCM
+  \wFormatTag = #WAVE_FORMAT_IEEE_FLOAT
   \nChannels = 1
   \nSamplesPerSec = ReadPreferenceLong("SampleRate", 96000)
-  \wBitsPerSample = 16
+  \wBitsPerSample = 32
   \cbSize = 0
   
   \nBlockAlign = (\nChannels * \wBitsPerSample) / 8
@@ -171,7 +171,7 @@ Procedure.i SynthHandler(*Void)
                 Continue
               EndIf
           EndSelect
-          Result + LinearInterpolation(PeekW(?Snd_Bass+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Bass+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Chords*\Value_Master_Knob_Volume
+          Result + LinearInterpolation(PeekF(?Snd_Bass+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Bass+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Chords*\Value_Master_Knob_Volume
           
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
@@ -218,7 +218,7 @@ Procedure.i SynthHandler(*Void)
                 Continue
               EndIf
           EndSelect
-          Result + LinearInterpolation(PeekW(?Snd_Chord+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Chord+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*0.40*\Value_Level_Knob_Volume_Chords*\Value_Master_Knob_Volume
+          Result + LinearInterpolation(PeekF(?Snd_Chord+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Chord+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*0.40*\Value_Level_Knob_Volume_Chords*\Value_Master_Knob_Volume
           
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
@@ -262,8 +262,8 @@ Procedure.i SynthHandler(*Void)
                 Continue
               EndIf
           EndSelect
-          Result + (LinearInterpolation(PeekW(?Snd_Harp_Base+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Harp_Base+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i))) + LinearInterpolation(PeekW(?Snd_Harp_Mod+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Harp_Mod+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i)))*LinearInterpolation(0.5+(Sin3Phase/2.0), 0.2, (i-#Snd_Harp_First)/14.0))*\Status_Volume(i)*\Value_Level_Knob_Volume_Harp_1*\Value_Master_Knob_Volume*(1.0-\Value_Level_Knob_Volume_Harp_2/2.0)*(1.0-(i-#Snd_Harp_First)*0.025)
-          Result + LinearInterpolation(PeekW(?Snd_Harp+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Harp+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Harp_2*\Value_Master_Knob_Volume*(1.0-\Value_Level_Knob_Volume_Harp_1/2.0)*0.75*(1.0-(i-#Snd_Harp_First)*0.03)
+          Result + (LinearInterpolation(PeekF(?Snd_Harp_Base+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Harp_Base+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i))) + LinearInterpolation(PeekF(?Snd_Harp_Mod+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Harp_Mod+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*LinearInterpolation(0.5+(Sin3Phase/2.0), 0.2, (i-#Snd_Harp_First)/14.0))*\Status_Volume(i)*\Value_Level_Knob_Volume_Harp_1*\Value_Master_Knob_Volume*(1.0-\Value_Level_Knob_Volume_Harp_2/2.0)*(1.0-(i-#Snd_Harp_First)*0.025)
+          Result + LinearInterpolation(PeekF(?Snd_Harp+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Harp+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Harp_2*\Value_Master_Knob_Volume*(1.0-\Value_Level_Knob_Volume_Harp_1/2.0)*0.75*(1.0-(i-#Snd_Harp_First)*0.03)
           
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
@@ -303,46 +303,46 @@ Procedure.i SynthHandler(*Void)
             Case #Curve_Release
               Select i
                 Case #Snd_Drum_BD
-                  Result + PeekW(?Snd_Drum_BD+Int(\Status_Position(i))*2) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
+                  Result + PeekF(?Snd_Drum_BD+Int(\Status_Position(i))*WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
                 Case #Snd_Drum_Click
-                  Result + PeekW(?Snd_Drum_Click+Int(\Status_Position(i))*2) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
+                  Result + PeekF(?Snd_Drum_Click+Int(\Status_Position(i))*WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
                 Case #Snd_Drum_HiHat
-                  Result + PeekW(?Snd_Drum_HiHat+Int(\Status_Position(i))*2) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
+                  Result + PeekF(?Snd_Drum_HiHat+Int(\Status_Position(i))*WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
                 Case #Snd_Drum_Ride
-                  Result + PeekW(?Snd_Drum_Ride+Int(\Status_Position(i))*2) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
+                  Result + PeekF(?Snd_Drum_Ride+Int(\Status_Position(i))*WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
                 Case #Snd_Drum_Snare
-                  Result + PeekW(?Snd_Drum_Snare+Int(\Status_Position(i))*2) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
+                  Result + PeekF(?Snd_Drum_Snare+Int(\Status_Position(i))*WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
               EndSelect
               
               \Status_Position(i) + 44100.0/WaveFormatExDescriptor\nSamplesPerSec
               
               Select i
                 Case #Snd_Drum_BD
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_BD_End-?Snd_Drum_BD)/2
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_BD_End-?Snd_Drum_BD)/WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
                     i-1
                     Continue
                   EndIf
                 Case #Snd_Drum_Click
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_Click_End-?Snd_Drum_Click)/2
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_Click_End-?Snd_Drum_Click)/WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
                     i-1
                     Continue
                   EndIf
                 Case #Snd_Drum_HiHat
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_HiHat_End-?Snd_Drum_HiHat)/2
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_HiHat_End-?Snd_Drum_HiHat)/WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
                     i-1
                     Continue
                   EndIf
                 Case #Snd_Drum_Ride
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_Ride_End-?Snd_Drum_Ride)/2
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_Ride_End-?Snd_Drum_Ride)/WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
                     i-1
                     Continue
                   EndIf
                 Case #Snd_Drum_Snare
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_Snare_End-?Snd_Drum_Snare)/2
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_Snare_End-?Snd_Drum_Snare)/WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
                     i-1
                     Continue
@@ -383,7 +383,7 @@ Procedure.i SynthHandler(*Void)
               i-1
               Continue
           EndSelect
-          Result + LinearInterpolation(PeekW(?Snd_Keyboard+(Int(\Status_Position(i))%100)*2), PeekW(?Snd_Keyboard+((Int(\Status_Position(i))+1)%100)*2), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Keyboard*\Value_Master_Knob_Volume
+          Result + LinearInterpolation(PeekF(?Snd_Keyboard+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Keyboard+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Keyboard*\Value_Master_Knob_Volume
           
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
@@ -391,7 +391,7 @@ Procedure.i SynthHandler(*Void)
           Wend
         Next
         
-        PokeW(*Block + (a * WaveFormatExDescriptor\nBlockAlign), Result*0.25)
+        PokeF(*Block + (a * WaveFormatExDescriptor\nBlockAlign), Result*0.5)
       Next
       
       While Phase > 360.0
