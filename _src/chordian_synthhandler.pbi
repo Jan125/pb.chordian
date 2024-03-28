@@ -75,8 +75,6 @@ Procedure.i SynthHandler(*Void)
         CurrentBlock = 0
       EndIf
       
-      
-      
       ;-Check for Interrupt
       If WaitForSingleObject_(Chordian\Semaphore_EndSynthHandler, 0) = #WAIT_OBJECT_0
         ProcedureReturn
@@ -88,6 +86,7 @@ Procedure.i SynthHandler(*Void)
           \Status_Sound(i) = #Curve_None
         Next
       EndIf
+      
       Select \Value_Master_Button_Power_OnOff
         Case 0
           For i = #Snd_First To #Snd_Last
@@ -98,7 +97,7 @@ Procedure.i SynthHandler(*Void)
       
       ;-Write memory
       For a = 0 To MemorySize(*Block) / WaveFormatExDescriptor\nBlockAlign
-        Result = 0
+        Result = 0.0
         Select \Value_Internal_Chord_Note
           Case #Note_G
             Phase + ((3.125 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
