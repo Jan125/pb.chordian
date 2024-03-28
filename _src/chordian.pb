@@ -260,6 +260,12 @@ Procedure.i Init()
   Chordian\FrequencyHandler_Thread = CreateThread(@FrequencyHandler(), 0)
   
   Chordian\SynthHandler_Thread = CreateThread(@SynthHandler(), 0)
+  
+  ThreadPriority(Chordian\RepaintHandler_Thread, 1)
+  ThreadPriority(Chordian\PatternHandler_Thread, 31)
+  ThreadPriority(Chordian\MachineHandler_Thread, 31)
+  ThreadPriority(Chordian\SynthHandler_Thread, 31)
+  
   DirectSoundBuffer\Play(0, 0, #DSBPLAY_LOOPING)
   
 EndProcedure
