@@ -57,10 +57,34 @@ This button, and everything that has not yet been named, cannot be reassigned as
 Please refer to an OM-84 manual for other functions.
 
 
+## **Pattern Editor:**
+
+![Screenshot of Chordian's Pattern Editor on Windows 10](_media/patedit.png)
+
+The Pattern Editor is a custom feature of Chordian that allows you to define your own rhythm pattern.\
+The Blues and Waltz patterns have 24 steps, all other patterns use 32 steps.
+
+You can edit the pattern for specific notes for more variety.\
+The Scaled mode aliases 1 and 2 to their respective Omnichord-like frequencies for specific patterns.\
+The All mode applies notes as entered directly, as do the note edit modes.
+
+Overview of the symbols:
+- 1: Normal frequency for the bass.
+- 2: Low frequency for the bass.
+- 3: High frequency for the bass.
+- 3: Medium frequency for the bass. (Affected by chord)
+- T: Trigger: Initializes note and causes special behaviour.
+- A: Attack: The initial swelling of the sound. Will not do anything in most cases and can NOT be used in space of Trigger
+- D: Decay: The initial ebbing of the sound.
+- S: Sustain: Will keep the sound at the current level.
+- R: Release: Will let the sound end after some time.
+- O: Oneshot: Special variant of Trigger and immediately releases the sound.
+
+
 ## **Troubleshooting:**
 
 Please make sure you have the recommended system requirements if you encounter stuttering or other weird behaviour:
-- Windows Vista+ or compatible OS/subsystem required
+- Windows 7+ or compatible OS/subsystem required
 - 2313 CPU Mark with 1350 Single Thread Rating recommended, 32-bit-support required
 - 32MiB of RAM
 - Keyboard with 3 key vertical anti-ghosting required, 3 key horizontal anti-ghosting recommended
@@ -73,7 +97,7 @@ Please make sure you have the recommended system requirements if you encounter s
 
 **> "My antivirus says this is a malicious file"**
 
-This issue has plague PureBasic since at least 4 years now.\
+This issue has plagued PureBasic since at least 4 years now.\
 My best guess is that PureBasic compiled things very rigidly, so a lot of the parts will stay the same in the final executable.\
 There must have been a malicious program submitted for review, and since then, pretty much every PureBasic-generated executable will be flagged as "potentially malicious" by some vendors.\
 There is nothing I can do about it.\
@@ -84,12 +108,14 @@ If paranoid, please compile the program yourself.
 
 If the conditions of the system requirements are met, here are some tips:
 
- - Try increasing your sound device's sample and bit depth
- - Try reducing your sound device's sample and bit depth
+ - Try increasing your sound device's sample rate and bit depth
+ - Try reducing your sound device's sample rate and bit depth
+ - Try reducing Chordian's sample rate and increasing its buffer size
  - Update your chipset drivers
 
-This program runs volume and wobbly strings frequency updates in a thread that will attempt to run every 1 miliseconds at the most.\
-If this program is too much to handle and the thread goes behind schedule, you may encounter blocky audio curves, mistimed rhythms, and a failure to stop the sound from the device.
+This program uses a DirectSound stream synthesizer.\
+Frequency and pattern updates are called every milisecond.\
+If this program is too much to handle and the thread goes behind schedule, you may encounter blocky audio curves, mistimed rhythms, abrupt sound stutter, and a failure to stop the sound from the device.
 
 
 **> "Why CC0"**

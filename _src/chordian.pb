@@ -147,6 +147,8 @@ Procedure.i Init()
   Protected i.i
   
   ;-Initialization
+  SetPriorityClass_(GetCurrentProcess_(), #HIGH_PRIORITY_CLASS)
+  
   If Not OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 620, "Chordian", #PB_Window_SystemMenu|#PB_Window_MinimizeGadget)
     MessageRequester("Chordian>Error", "Window could not be initialized.")
     End
@@ -262,8 +264,9 @@ Procedure.i Init()
   Chordian\SynthHandler_Thread = CreateThread(@SynthHandler(), 0)
   
   ThreadPriority(Chordian\RepaintHandler_Thread, 1)
-  ThreadPriority(Chordian\PatternHandler_Thread, 31)
-  ThreadPriority(Chordian\MachineHandler_Thread, 31)
+  ThreadPriority(Chordian\PatternHandler_Thread, 30)
+  ThreadPriority(Chordian\MachineHandler_Thread, 30)
+  
   ThreadPriority(Chordian\SynthHandler_Thread, 31)
   
   DirectSoundBuffer\Play(0, 0, #DSBPLAY_LOOPING)
