@@ -314,7 +314,7 @@ Procedure.i SynthHandler(*Void)
                   Result + PeekF(?Snd_Drum_Snare+Int(\Status_Position(i))*WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i)*\Value_Rhythm_Knob_Volume*\Value_Master_Knob_Volume
               EndSelect
               
-              \Status_Position(i) + 44100.0/WaveFormatExDescriptor\nSamplesPerSec
+              \Status_Position(i) + \Status_Frequency(i)*(44100.0/WaveFormatExDescriptor\nSamplesPerSec)
               
               Select i
                 Case #Snd_Drum_BD

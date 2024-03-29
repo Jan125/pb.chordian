@@ -74,6 +74,10 @@ Procedure FrequencyHandler(*Void)
         
       EndIf
       
+      For i = #Snd_Drum_First To #Snd_Drum_Last
+        \Status_Frequency(i) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)
+      Next
+      
       \Status_Frequency(#Snd_Keyboard) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (\Value_Internal_Keyboard_Note-71)/12.0)
       
     ForEver
