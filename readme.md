@@ -72,9 +72,9 @@ Overview of the symbols:
 - 1: Normal frequency for the bass.
 - 2: Low frequency for the bass.
 - 3: High frequency for the bass.
-- 3: Medium frequency for the bass. (Affected by chord)
+- 4: Medium frequency for the bass. (Affected by chord.)
 - T: Trigger: Initializes note and causes special behaviour.
-- A: Attack: The initial swelling of the sound. Will not do anything in most cases and can NOT be used in space of Trigger
+- A: Attack: The initial swelling of the sound. Will not do anything in most cases and can NOT be used in place of Trigger.
 - D: Decay: The initial ebbing of the sound.
 - S: Sustain: Will keep the sound at the current level.
 - R: Release: Will let the sound end after some time.
