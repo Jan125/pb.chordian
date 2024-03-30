@@ -110,10 +110,10 @@ If paranoid, please compile the program yourself.
 
 If the conditions of the system requirements are met, here are some tips:
 
- - Try increasing your sound device's sample rate and bit depth
- - Try reducing your sound device's sample rate and bit depth
- - Try reducing Chordian's sample rate and increasing its buffer size
- - Update your chipset drivers
+- Try increasing your sound device's sample rate and bit depth
+- Try reducing your sound device's sample rate and bit depth
+- Try reducing Chordian's sample rate and increasing its buffer size
+- Update your chipset drivers
 
 This program uses a DirectSound stream synthesizer.\
 Frequency and pattern updates are called every milisecond.\
@@ -129,31 +129,32 @@ I felt like it, and GPL is a plague.
 
 These things are currently implemented:
 
- - Chord keys
- - Strumplate
- - Volume controls
- - Tempo controls
- - Sustain controls
- - Chord-hold controls
- - Auto bass-sync controls
- - Tuning controls
- - Rhythm section
- - Pattern editor
+- Chord keys
+- Strumplate
+- Volume controls
+- Tempo controls
+- Sustain controls
+- Chord-hold controls
+- Auto bass-sync controls
+- Tuning controls
+- Rhythm section
+- Pattern editor
+- Keyboard mode
 
 
 These things are currently partially implemented:
 
- - Keyboard mode (Transposing is not implemented)
+- This section is currently empty
 
 
 These things are currently not implemented:
 
- - Song creation mode
+- Song creation mode
 
 
 These things may be implemented:
 
- - Autoplayer
- - Midi input
- - Midi output
+- Autoplayer
+- Midi input
+- Midi output
 

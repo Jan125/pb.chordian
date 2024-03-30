@@ -103,6 +103,9 @@ Structure Machine_State Extends Machine_State_Save
   Value_Internal_Phase.f
   
   Value_Internal_Keyboard_Note.i
+  Value_Internal_Keyboard_Transpose.i
+  Value_Internal_Keyboard_ButtonUp.i
+  Value_Internal_Keyboard_ButtonDown.i
   
   Array Status_Sound.i(#Snd_Last)
   Array Status_Volume.f(#Snd_Last)

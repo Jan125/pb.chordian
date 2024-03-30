@@ -1258,12 +1258,14 @@ Procedure Main()
                 Chordian\Machine_State\Value_Rhythm_Button_Pattern = #Rhythm_None
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
               Else
+                If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
+                EndIf
                 Chordian\Machine_State\Value_Rhythm_Button_Pattern = (\Mouse_Position_X_Current-68)/32
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-                Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
-                Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
-                Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
-                Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
               EndIf
             EndIf
             
@@ -1289,6 +1291,11 @@ Procedure Main()
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
               EndIf
+            Else
+              Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
+              Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
+              Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
+              Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
             EndIf
             
             Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff)
@@ -2029,68 +2036,81 @@ Procedure Main()
             Else
               If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
                 ;--Keyboard
+                If \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Eb)) And Not Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp
+                  Chordian\Machine_State\Value_Internal_Keyboard_Transpose - 1
+                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown = 1
+                ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Bb))
+                  Chordian\Machine_State\Value_Internal_Keyboard_Transpose + 1
+                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 1
+                Else
+                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 0
+                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown = 0
+                EndIf
+                
+                KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, -1, 1)
+                
                 If \Keymap(\Keymap_Chord(#Chord_7th, #Note_Db))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 36
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 36 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Ab))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 37
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 37 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Ab))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 38
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 38 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Eb))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 39
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 39 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Eb))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 40
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 40 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                   
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Bb))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 41
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 41 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_F))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 42
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 42 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_F))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 43
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 43 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_C))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 44
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 44 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_C))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 45
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 45 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_G))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 46
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 46 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_G))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 47
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 47 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                   
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_D))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 48
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 48 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_A))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 49
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 49 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_A))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 50
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 50 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_E))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 51
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 51 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_E))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 52
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 52 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                   
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_B))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 53
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 53 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Fc))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 54
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 54 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Fc))
-                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 55
+                  Chordian\Machine_State\Value_Internal_Keyboard_Note = 55 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 Else
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
