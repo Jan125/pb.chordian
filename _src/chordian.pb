@@ -1260,6 +1260,10 @@ Procedure Main()
               Else
                 Chordian\Machine_State\Value_Rhythm_Button_Pattern = (\Mouse_Position_X_Current-68)/32
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
+                Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
+                Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
+                Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
               EndIf
             EndIf
             
@@ -1279,6 +1283,11 @@ Procedure Main()
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
+              Else
+                Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
+                Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
+                Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
+                Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
               EndIf
             EndIf
             

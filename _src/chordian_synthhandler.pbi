@@ -171,7 +171,7 @@ Procedure.i SynthHandler(*Void)
                 Continue
               EndIf
           EndSelect
-          Result + LinearInterpolation(PeekF(?Snd_Bass+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Bass+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Chords*\Value_Master_Knob_Volume
+          Result + GetLinearInterpolatedSample(?Snd_Bass, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume
           
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
@@ -218,7 +218,7 @@ Procedure.i SynthHandler(*Void)
                 Continue
               EndIf
           EndSelect
-          Result + LinearInterpolation(PeekF(?Snd_Chord+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Chord+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*0.40*\Value_Level_Knob_Volume_Chords*\Value_Master_Knob_Volume
+          Result + GetLinearInterpolatedSample(?Snd_Chord, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * 0.40 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume
           
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
@@ -262,8 +262,9 @@ Procedure.i SynthHandler(*Void)
                 Continue
               EndIf
           EndSelect
-          Result + (LinearInterpolation(PeekF(?Snd_Harp_Base+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Harp_Base+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i))) + LinearInterpolation(PeekF(?Snd_Harp_Mod+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Harp_Mod+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*LinearInterpolation(0.5+(Sin3Phase/2.0), 0.2, (i-#Snd_Harp_First)/14.0))*\Status_Volume(i)*\Value_Level_Knob_Volume_Harp_1*\Value_Master_Knob_Volume*(1.0-\Value_Level_Knob_Volume_Harp_2/2.0)*(1.0-(i-#Snd_Harp_First)*0.025)*Bool(\Value_Internal_Chord_Note <> #Note_None And \Value_Internal_Chord_Chord <> #Chord_None)
-          Result + LinearInterpolation(PeekF(?Snd_Harp+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Harp+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Harp_2*\Value_Master_Knob_Volume*(1.0-\Value_Level_Knob_Volume_Harp_1/2.0)*0.75*(1.0-(i-#Snd_Harp_First)*0.03)*Bool(\Value_Internal_Chord_Note <> #Note_None And \Value_Internal_Chord_Chord <> #Chord_None)
+          
+          Result + (GetLinearInterpolatedSample(?Snd_Harp_Base, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) + (GetLinearInterpolatedSample(?Snd_Harp_Mod, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * LinearInterpolation(0.5 + (Sin3Phase / 2.0), 0.2, (i - #Snd_Harp_First) / 14.0)))* \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_1 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_2 / 2.0)) * (1.0 - (i - #Snd_Harp_First) * 0.025) * Bool(\Value_Internal_Chord_Note <> #Note_None And \Value_Internal_Chord_Chord <> #Chord_None)
+          Result + GetLinearInterpolatedSample(?Snd_Harp, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_2 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_1 / 2.0)) * 0.75 * (1.0 - (i - #Snd_Harp_First) * 0.025) * Bool(\Value_Internal_Chord_Note <> #Note_None And \Value_Internal_Chord_Chord <> #Chord_None)
           
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
@@ -383,7 +384,7 @@ Procedure.i SynthHandler(*Void)
               i-1
               Continue
           EndSelect
-          Result + LinearInterpolation(PeekF(?Snd_Keyboard+(Int(\Status_Position(i))%100)*WaveFormatExDescriptor\nBlockAlign), PeekF(?Snd_Keyboard+((Int(\Status_Position(i))+1)%100)*WaveFormatExDescriptor\nBlockAlign), \Status_Position(i)-Int(\Status_Position(i)))*\Status_Volume(i)*\Value_Level_Knob_Volume_Keyboard*\Value_Master_Knob_Volume
+          Result + GetLinearInterpolatedSample(?Snd_Keyboard, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Level_Knob_Volume_Keyboard * \Value_Master_Knob_Volume
           
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0

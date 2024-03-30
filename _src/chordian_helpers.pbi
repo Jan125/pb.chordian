@@ -6,9 +6,9 @@ Procedure.f LinearInterpolation(Value1.f, Value2.f, Fraction.f)
   ProcedureReturn Value1*(1.0-Fraction)+Value2*Fraction
 EndProcedure
 
-Procedure.f CubicInterpolation(Value1.f, Value2.f, Fraction.f)
-  ProcedureReturn Value1*(1.0-Fraction)+Value2*Fraction
-EndProcedure
+Macro GetLinearInterpolatedSample(Memory, Position, Length, Size)
+  LinearInterpolation(PeekF(Memory+(Int(Position)%Length)*Size), PeekF(Memory+((Int(Position)+1)%Length)*Size), Position-Int(Position))
+EndMacro
 
 Macro KeepInRange(Value, Min, Max)
   If Value > Max
