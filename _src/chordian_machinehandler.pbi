@@ -508,10 +508,8 @@ Procedure.i ResetMachine()
               Select p
                 Case #Pattern_Frequency
                   \Data_Patterns(s, r, n, i, p) = 0
-                Case #Pattern_Drum_First To #Pattern_Drum_Last
-                  \Data_Patterns(s, r, n, i, p) = #Curve_Ignore
                 Default
-                  \Data_Patterns(s, r, n, i, p) = #Curve_Release
+                  \Data_Patterns(s, r, n, i, p) = #Curve_Ignore
               EndSelect
             Next
           Next
