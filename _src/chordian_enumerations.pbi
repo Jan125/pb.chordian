@@ -173,12 +173,14 @@ Enumeration 1
   #Img_LED_Off
   #Img_LED_On
   
+  #Img_PatEdit_Curve_None
   #Img_PatEdit_Curve_Trigger
   #Img_PatEdit_Curve_Attack
   #Img_PatEdit_Curve_Decay
   #Img_PatEdit_Curve_Sustain
   #Img_PatEdit_Curve_Release
   #Img_PatEdit_Curve_Oneshot
+  #Img_PatEdit_Curve_Ignore
   
   #Img_PatEdit_Note_1
   #Img_PatEdit_Note_2
@@ -241,7 +243,8 @@ Enumeration -1
   #Curve_Sustain
   #Curve_Release
   #Curve_Oneshot
-  #Curve_Last = #Curve_Oneshot
+  #Curve_Ignore
+  #Curve_Last = #Curve_Ignore
 EndEnumeration
 
 Enumeration 1

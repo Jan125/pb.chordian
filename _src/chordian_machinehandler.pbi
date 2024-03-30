@@ -505,9 +505,15 @@ Procedure.i ResetMachine()
         For n = #Note_First To #Note_Last
           For i = 0 To 31
             For p = #Pattern_First To #Pattern_Last
-              \Data_Patterns(s, r, n, i, p) = #Curve_Release
+              Select p
+                Case #Pattern_Frequency
+                  \Data_Patterns(s, r, n, i, p) = 0
+                Case #Pattern_Drum_First To #Pattern_Drum_Last
+                  \Data_Patterns(s, r, n, i, p) = #Curve_Ignore
+                Default
+                  \Data_Patterns(s, r, n, i, p) = #Curve_Release
+              EndSelect
             Next
-            \Data_Patterns(s, r, n, i, #Pattern_Frequency) = 0
           Next
         Next
       Next

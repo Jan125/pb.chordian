@@ -73,12 +73,14 @@ Overview of the symbols:
 - 2: Low frequency for the bass.
 - 3: High frequency for the bass.
 - 4: Medium frequency for the bass. (Affected by chord.)
+- N: None: Immediately cuts off the sound.
 - T: Trigger: Initializes note and causes special behaviour.
 - A: Attack: The initial swelling of the sound. Will not do anything in most cases and can NOT be used in place of Trigger.
 - D: Decay: The initial ebbing of the sound.
 - S: Sustain: Will keep the sound at the current level.
 - R: Release: Will let the sound end after some time.
 - O: Oneshot: Special variant of Trigger and immediately releases the sound.
+- I: Ignore: Does not stand for any command and will be ignored.
 
 
 ## **Troubleshooting:**

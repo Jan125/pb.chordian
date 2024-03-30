@@ -244,12 +244,14 @@ Procedure.i Init()
   CatchImage(#Img_LED_Off, ?Img_LED_Off)
   CatchImage(#Img_LED_On, ?Img_LED_On)
   
+  CatchImage(#Img_PatEdit_Curve_None, ?Img_PatEdit_Curve_None)
   CatchImage(#Img_PatEdit_Curve_Trigger, ?Img_PatEdit_Curve_Trigger)
   CatchImage(#Img_PatEdit_Curve_Attack, ?Img_PatEdit_Curve_Attack)
   CatchImage(#Img_PatEdit_Curve_Decay, ?Img_PatEdit_Curve_Decay)
   CatchImage(#Img_PatEdit_Curve_Sustain, ?Img_PatEdit_Curve_Sustain)
   CatchImage(#Img_PatEdit_Curve_Release, ?Img_PatEdit_Curve_Release)
   CatchImage(#Img_PatEdit_Curve_Oneshot, ?Img_PatEdit_Curve_Oneshot)
+  CatchImage(#Img_PatEdit_Curve_Ignore, ?Img_PatEdit_Curve_Ignore)
   
   CatchImage(#Img_PatEdit_Note_1, ?Img_PatEdit_Note_1)
   CatchImage(#Img_PatEdit_Note_2, ?Img_PatEdit_Note_2)
@@ -458,12 +460,14 @@ Procedure Main()
                 Next
                 
                 For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "None", ImageID(#Img_PatEdit_Curve_None))
                   AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
                   AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
                   AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
                   AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
                   AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
                   AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Ignore", ImageID(#Img_PatEdit_Curve_Ignore))
                 Next
                 
                 
@@ -476,12 +480,14 @@ Procedure Main()
                 Next
                 
                 For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "None", ImageID(#Img_PatEdit_Curve_None))
                   AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
                   AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
                   AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
                   AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
                   AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
                   AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Ignore", ImageID(#Img_PatEdit_Curve_Ignore))
                 Next
                 
                 
@@ -494,12 +500,14 @@ Procedure Main()
                 Next
                 
                 For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "None", ImageID(#Img_PatEdit_Curve_None))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Ignore", ImageID(#Img_PatEdit_Curve_Ignore))
                 Next
                 
                 
@@ -512,12 +520,14 @@ Procedure Main()
                 Next
                 
                 For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "None", ImageID(#Img_PatEdit_Curve_None))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Ignore", ImageID(#Img_PatEdit_Curve_Ignore))
                 Next
                 
                 
@@ -530,12 +540,14 @@ Procedure Main()
                 Next
                 
                 For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "None", ImageID(#Img_PatEdit_Curve_None))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Ignore", ImageID(#Img_PatEdit_Curve_Ignore))
                 Next
                 
                 
@@ -548,12 +560,14 @@ Procedure Main()
                 Next
                 
                 For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "None", ImageID(#Img_PatEdit_Curve_None))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Ignore", ImageID(#Img_PatEdit_Curve_Ignore))
                 Next
                 
                 
@@ -566,12 +580,14 @@ Procedure Main()
                 Next
                 
                 For i = 0 To 31
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "None", ImageID(#Img_PatEdit_Curve_None))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Trigger", ImageID(#Img_PatEdit_Curve_Trigger))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Attack", ImageID(#Img_PatEdit_Curve_Attack))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Decay", ImageID(#Img_PatEdit_Curve_Decay))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Sustain", ImageID(#Img_PatEdit_Curve_Sustain))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Release", ImageID(#Img_PatEdit_Curve_Release))
                   AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Oneshot", ImageID(#Img_PatEdit_Curve_Oneshot))
+                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Ignore", ImageID(#Img_PatEdit_Curve_Ignore))
                 Next
               EndIf
               PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Select_Alternate)
@@ -589,25 +605,25 @@ Procedure Main()
                               SetGadgetState(#Gad_PatEdit_Row_Frequency+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Frequency))
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Bass+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Bass))
+                              SetGadgetState(#Gad_PatEdit_Row_Bass+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Bass)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Chords+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Chords))
+                              SetGadgetState(#Gad_PatEdit_Row_Chords+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Chords)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_BD+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_BD))
+                              SetGadgetState(#Gad_PatEdit_Row_Drum_BD+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_BD)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Click+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Click))
+                              SetGadgetState(#Gad_PatEdit_Row_Drum_Click+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Click)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_HiHat))
+                              SetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_HiHat)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Ride))
+                              SetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Ride)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Snare))
+                              SetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Snare)+1)
                             Next
                             
                           Default
@@ -615,22 +631,22 @@ Procedure Main()
                               SetGadgetState(#Gad_PatEdit_Row_Frequency+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Frequency))
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Bass+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Bass))
+                              SetGadgetState(#Gad_PatEdit_Row_Bass+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Bass)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Chords+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Chords))
+                              SetGadgetState(#Gad_PatEdit_Row_Chords+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Chords)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_BD+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_BD))
+                              SetGadgetState(#Gad_PatEdit_Row_Drum_BD+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_BD)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Click+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Click))
+                              SetGadgetState(#Gad_PatEdit_Row_Drum_Click+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Click)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_HiHat))
+                              SetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_HiHat)+1)
                             Next
                             For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Ride))
+                              SetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Ride)+1)
                             Next
                             For i = 0 To 31
                               SetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Snare))
@@ -701,12 +717,12 @@ Procedure Main()
                           Case 0, 1
                             For n = #Note_First To #Note_Last
                               For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Bass) = GetGadgetState(#Gad_PatEdit_Row_Bass+i)
+                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Bass) = GetGadgetState(#Gad_PatEdit_Row_Bass+i)-1
                               Next
                             Next
                           Default
                             For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Bass) = GetGadgetState(#Gad_PatEdit_Row_Bass+i)
+                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Bass) = GetGadgetState(#Gad_PatEdit_Row_Bass+i)-1
                             Next
                         EndSelect
                         
@@ -715,12 +731,12 @@ Procedure Main()
                           Case 0, 1
                             For n = #Note_First To #Note_Last
                               For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Chords) = GetGadgetState(#Gad_PatEdit_Row_Chords+i)
+                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Chords) = GetGadgetState(#Gad_PatEdit_Row_Chords+i)-1
                               Next
                             Next
                           Default
                             For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Chords) = GetGadgetState(#Gad_PatEdit_Row_Chords+i)
+                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Chords) = GetGadgetState(#Gad_PatEdit_Row_Chords+i)-1
                             Next
                         EndSelect
                         
@@ -730,12 +746,12 @@ Procedure Main()
                           Case 0, 1
                             For n = #Note_First To #Note_Last
                               For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_BD) = GetGadgetState(#Gad_PatEdit_Row_Drum_BD+i)
+                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_BD) = GetGadgetState(#Gad_PatEdit_Row_Drum_BD+i)-1
                               Next
                             Next
                           Default
                             For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_BD) = GetGadgetState(#Gad_PatEdit_Row_Drum_BD+i)
+                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_BD) = GetGadgetState(#Gad_PatEdit_Row_Drum_BD+i)-1
                             Next
                         EndSelect
                         
@@ -745,12 +761,12 @@ Procedure Main()
                           Case 0, 1
                             For n = #Note_First To #Note_Last
                               For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Click) = GetGadgetState(#Gad_PatEdit_Row_Drum_Click+i)
+                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Click) = GetGadgetState(#Gad_PatEdit_Row_Drum_Click+i)-1
                               Next
                             Next
                           Default
                             For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Click) = GetGadgetState(#Gad_PatEdit_Row_Drum_Click+i)
+                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Click) = GetGadgetState(#Gad_PatEdit_Row_Drum_Click+i)-1
                             Next
                         EndSelect
                         
@@ -760,12 +776,12 @@ Procedure Main()
                           Case 0, 1
                             For n = #Note_First To #Note_Last
                               For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_HiHat) = GetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i)
+                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_HiHat) = GetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i)-1
                               Next
                             Next
                           Default
                             For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_HiHat) = GetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i)
+                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_HiHat) = GetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i)-1
                             Next
                         EndSelect
                         
@@ -775,12 +791,12 @@ Procedure Main()
                           Case 0, 1
                             For n = #Note_First To #Note_Last
                               For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Ride) = GetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i)
+                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Ride) = GetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i)-1
                               Next
                             Next
                           Default
                             For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Ride) = GetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i)
+                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Ride) = GetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i)-1
                             Next
                         EndSelect
                         
@@ -790,12 +806,12 @@ Procedure Main()
                           Case 0, 1
                             For n = #Note_First To #Note_Last
                               For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Snare) = GetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i)
+                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Snare) = GetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i)-1
                               Next
                             Next
                           Default
                             For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Snare) = GetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i)
+                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Snare) = GetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i)-1
                             Next
                         EndSelect
                         

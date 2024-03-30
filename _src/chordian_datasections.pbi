@@ -89,6 +89,8 @@ DataSection
   Img_LED_On:
   IncludeBinary "img\led_on.png"
   
+  Img_PatEdit_Curve_None:
+  IncludeBinary "img\patedit_curve_none.png"
   Img_PatEdit_Curve_Trigger:
   IncludeBinary "img\patedit_curve_trigger.png"
   Img_PatEdit_Curve_Attack:
@@ -101,6 +103,8 @@ DataSection
   IncludeBinary "img\patedit_curve_release.png"
   Img_PatEdit_Curve_Oneshot:
   IncludeBinary "img\patedit_curve_oneshot.png"
+  Img_PatEdit_Curve_Ignore:
+  IncludeBinary "img\patedit_curve_ignore.png"
   
   Img_PatEdit_Note_1:
   IncludeBinary "img\patedit_note_1.png"
