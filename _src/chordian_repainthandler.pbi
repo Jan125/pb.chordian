@@ -5,7 +5,7 @@ Procedure.i RepaintHandler(*Void)
   With Chordian
     Repeat
       WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Commit, -1)
-      StartDrawing(CanvasOutput(#Gad_Canvas))
+      If StartDrawing(CanvasOutput(#Gad_Canvas))
       
       
       ;-Repaint Background and Base
@@ -212,6 +212,7 @@ Procedure.i RepaintHandler(*Void)
       
       
       StopDrawing()
+      EndIf
     ForEver
   EndWith
   

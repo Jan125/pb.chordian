@@ -1,9 +1,10 @@
 ﻿EnableExplicit
-;-Data Sections
-XIncludeFile "chordian_datasections.pbi"
 
 ;-DSound
 XIncludeFile "dsound.pbi"
+
+;-Data Sections
+XIncludeFile "chordian_datasections.pbi"
 
 ;-Enumerations
 XIncludeFile "chordian_enumerations.pbi"
@@ -161,6 +162,7 @@ Procedure.i Init()
           DirectSoundBuffer\QueryInterface(?IID_DirectSoundNotify, @DirectSoundNotify) = #S_OK And 
           DirectSoundNotify\SetNotificationPositions(ArraySize(DirectSoundNotifyArray())+1, @DirectSoundNotifyArray(0)) = #DS_OK)
     MessageRequester("Chordian>Error", "DirectSound could not be initialized.")
+    DirectSound\Release()
     End
   EndIf
   
@@ -2036,15 +2038,17 @@ Procedure Main()
             Else
               If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
                 ;--Keyboard
-                If \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Eb)) And Not Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp
+                If \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Eb)) And Not Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown
                   Chordian\Machine_State\Value_Internal_Keyboard_Transpose - 1
                   Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown = 1
-                ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Bb))
+                ElseIf Not \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Eb))
+                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown = 0
+                EndIf
+                If \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Bb)) And Not Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp
                   Chordian\Machine_State\Value_Internal_Keyboard_Transpose + 1
                   Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 1
-                Else
+                ElseIf Not \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Bb))
                   Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 0
-                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown = 0
                 EndIf
                 
                 KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, -1, 1)
@@ -2209,6 +2213,7 @@ Procedure Main()
         KillThread(Chordian\MachineHandler_Thread)
         KillThread(Chordian\PatternHandler_Thread)
         KillThread(Chordian\RepaintHandler_Thread)
+        DirectSound\Release()
         End
         
     EndSelect
