@@ -1373,6 +1373,8 @@ Procedure Main()
             \Trigger_Memory_Button_Memory_OnOff = 0
             Chordian\Machine_State\Value_Memory_Button_Memory_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff)
             
+            Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
+            
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
@@ -1384,6 +1386,8 @@ Procedure Main()
           If \Trigger_Memory_Button_Playback_Record_OnOff
             \Trigger_Memory_Button_Playback_Record_OnOff = 0
             Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
+            
+            Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
             
             PostEvent(#Event_HandleChordKeys)
             PostEvent(#Event_HandleHarpKeys)
