@@ -182,6 +182,8 @@ Procedure.i Init()
   MenuTitle("Edit")
   MenuItem(#Itm_Tuning, "Set Tuning...")
   MenuBar()
+  MenuItem(#Itm_Chordiate, "Chordiate Mode (Less Constraints)")
+  MenuBar()
   MenuItem(#Itm_PatEdit, "Pattern Editor...")
   
   MenuTitle("Help")
@@ -332,10 +334,13 @@ Procedure Main()
                 
                 Chordian\Machine_State\Value_Circuit_Knob_Tuning = TempState\Value_Circuit_Knob_Tuning
                 
+                Chordian\Machine_State\Value_External_Chordiate = TempState\Value_External_Chordiate
+                
                 CopyArray(TempState\Data_MIDI(), Chordian\Machine_State\Data_MIDI())
                 CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
                 
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
+                SetMenuItemState(#Men_Main, #Itm_Chordiate, Chordian\Machine_State\Value_External_Chordiate)
                 PostEvent(#PB_Event_Repaint)
               EndIf
               
@@ -380,6 +385,10 @@ Procedure Main()
               Chordian\Machine_State\Value_Circuit_Knob_Tuning = ValF(TempString)
             EndIf
             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
+            
+          Case #Itm_Chordiate
+            SetMenuItemState(#Men_Main, #Itm_Chordiate, Bool(Not GetMenuItemState(#Men_Main, #Itm_Chordiate)))
+            Chordian\Machine_State\Value_External_Chordiate = GetMenuItemState(#Men_Main, #Itm_Chordiate)
             
           Case #Itm_PatEdit
             ;---PatEdit
@@ -2055,7 +2064,11 @@ Procedure Main()
                   Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 0
                 EndIf
                 
-                KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, -1, 1)
+                If Chordian\Machine_State\Value_External_Chordiate
+                  KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, -2, 2)
+                Else
+                  KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, 0, 1)
+                EndIf
                 
                 If \Keymap(\Keymap_Chord(#Chord_7th, #Note_Db))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 36 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)

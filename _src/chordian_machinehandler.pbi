@@ -1263,6 +1263,8 @@ Procedure.i ResetMachine()
     
     \Value_Internal_Tick = 0.0
     
+    \Value_External_Chordiate = 0
+    
     For i = #Snd_First To #Snd_Last
       \Status_Sound(i) = #Curve_None
     Next

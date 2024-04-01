@@ -89,6 +89,8 @@ Structure Machine_State_Save
   
   Value_Circuit_Knob_Tuning.f
   
+  Value_External_Chordiate.i
+  
   Array Data_MIDI.a(#Note_Last, #Chord_Last, #Dat_Last)
   Array Data_Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
 EndStructure
