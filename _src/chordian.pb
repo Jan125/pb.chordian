@@ -182,7 +182,7 @@ Procedure.i Init()
   MenuTitle("Edit")
   MenuItem(#Itm_Tuning, "Set Tuning...")
   MenuBar()
-  MenuItem(#Itm_Chordiate, "Chordiate Mode (Less Constraints)")
+  MenuItem(#Itm_ChordiateMode, "Chordiate Mode (Less Constraints)")
   MenuBar()
   MenuItem(#Itm_PatEdit, "Pattern Editor...")
   
@@ -334,13 +334,13 @@ Procedure Main()
                 
                 Chordian\Machine_State\Value_Circuit_Knob_Tuning = TempState\Value_Circuit_Knob_Tuning
                 
-                Chordian\Machine_State\Value_External_Chordiate = TempState\Value_External_Chordiate
+                Chordian\Machine_State\Value_External_ChordiateMode = TempState\Value_External_ChordiateMode
                 
                 CopyArray(TempState\Data_MIDI(), Chordian\Machine_State\Data_MIDI())
                 CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
                 
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
-                SetMenuItemState(#Men_Main, #Itm_Chordiate, Chordian\Machine_State\Value_External_Chordiate)
+                SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Chordian\Machine_State\Value_External_ChordiateMode)
                 PostEvent(#PB_Event_Repaint)
               EndIf
               
@@ -384,11 +384,19 @@ Procedure Main()
             If Len(TempString) > 0
               Chordian\Machine_State\Value_Circuit_Knob_Tuning = ValF(TempString)
             EndIf
+            
+            Select Chordian\Machine_State\Value_External_ChordiateMode
+              Case 1
+                KeepInRange(Chordian\Machine_State\Value_Circuit_Knob_Tuning, -2.0, 2.0)
+              Default
+                KeepInRange(Chordian\Machine_State\Value_Circuit_Knob_Tuning, 0.0, 1.0)
+            EndSelect
+            
             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
             
-          Case #Itm_Chordiate
-            SetMenuItemState(#Men_Main, #Itm_Chordiate, Bool(Not GetMenuItemState(#Men_Main, #Itm_Chordiate)))
-            Chordian\Machine_State\Value_External_Chordiate = GetMenuItemState(#Men_Main, #Itm_Chordiate)
+          Case #Itm_ChordiateMode
+            SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Bool(Not GetMenuItemState(#Men_Main, #Itm_ChordiateMode)))
+            Chordian\Machine_State\Value_External_ChordiateMode = GetMenuItemState(#Men_Main, #Itm_ChordiateMode)
             
           Case #Itm_PatEdit
             ;---PatEdit
@@ -1190,13 +1198,25 @@ Procedure Main()
                 Chordian\Machine_State\Value_Level_Knob_Sustain+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
               Case 2
                 \Trigger_Level_Knob_Sustain = 0
-                TempString = InputRequester("Chordian>Harp>Sustain", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Sustain))
+                
+                Select Chordian\Machine_State\Value_External_ChordiateMode
+                  Case 1
+                    TempString = InputRequester("Chordian>Harp>Sustain", "Insert new Volume. (-0.12-5.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Sustain))
+                  Default
+                    TempString = InputRequester("Chordian>Harp>Sustain", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Sustain))
+                EndSelect
+                
                 If Len(TempString) > 0
                   Chordian\Machine_State\Value_Level_Knob_Sustain = ValF(TempString)
                 EndIf
             EndSelect
             
-            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Sustain, 0.0, 1.0)
+            Select Chordian\Machine_State\Value_External_ChordiateMode
+              Case 1
+                KeepInRange(Chordian\Machine_State\Value_Level_Knob_Sustain, -0.12, 5.0)
+              Default
+                KeepInRange(Chordian\Machine_State\Value_Level_Knob_Sustain, 0.0, 1.0)
+            EndSelect
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
@@ -1326,7 +1346,14 @@ Procedure Main()
                 Chordian\Machine_State\Value_Rhythm_Knob_Tempo+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
               Case 2
                 \Trigger_Rhythm_Knob_Tempo = 0
-                TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-1.0; 70.5BPM-300BPM)", StrF(Chordian\Machine_State\Value_Rhythm_Knob_Tempo)+Chr(9)+StrF((((60.0/(1.0/(4.7+Pow(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 2.2)*15.3))))/4), 2)+"BPM"))
+                
+                Select Chordian\Machine_State\Value_External_ChordiateMode
+                  Case 1
+                    TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-5.0; 70.5BPM-7986.70BPM)", StrF(Chordian\Machine_State\Value_Rhythm_Knob_Tempo)+Chr(9)+StrF((((60.0/(1.0/(4.7+Pow(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 2.2)*15.3))))/4), 2)+"BPM"))
+                  Default
+                    TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-1.0; 70.5BPM-300BPM)", StrF(Chordian\Machine_State\Value_Rhythm_Knob_Tempo)+Chr(9)+StrF((((60.0/(1.0/(4.7+Pow(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 2.2)*15.3))))/4), 2)+"BPM"))
+                EndSelect
+                
                 If Len(TempString) > 0
                   If CountString(TempString, Chr(9))
                     TempString = StringField(TempString, 1, Chr(9))
@@ -1346,7 +1373,12 @@ Procedure Main()
                 EndIf
             EndSelect
             
-            KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 0.0, 1.0)
+            Select Chordian\Machine_State\Value_External_ChordiateMode
+              Case 1
+                KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 0.0, 5.0)
+              Default
+                KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 0.0, 1.0)
+            EndSelect
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
@@ -2064,11 +2096,12 @@ Procedure Main()
                   Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 0
                 EndIf
                 
-                If Chordian\Machine_State\Value_External_Chordiate
-                  KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, -2, 2)
-                Else
-                  KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, 0, 1)
-                EndIf
+                Select Chordian\Machine_State\Value_External_ChordiateMode
+                  Case 1
+                    KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, -2, 2)
+                  Default
+                    KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, 0, 1)
+                EndSelect
                 
                 If \Keymap(\Keymap_Chord(#Chord_7th, #Note_Db))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 36 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)

@@ -296,7 +296,7 @@ Enumeration 1
   #Itm_Reset
   #Itm_Exit
   #Itm_Tuning
-  #Itm_Chordiate
+  #Itm_ChordiateMode
   #Itm_PatEdit
   #Itm_Manual
   #Itm_About
