@@ -941,7 +941,7 @@ Procedure Main()
       Case #Event_GeneralKeyDown
         ;--GeneralKeyDown
         With Chordian\Input_State
-          If \Keymap(EventData()) = 0
+          If Not \Keymap(EventData())
             PostEvent(#Event_HandleChordKeys)
             PostEvent(#Event_HandleHarpKeys)
             PostEvent(#Event_HandleFunctionKeys)
@@ -966,8 +966,9 @@ Procedure Main()
           If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
             PostEvent(#Event_HandleChordKeys)
           EndIf
-          \LastKeyEventWasDown = 0
+            PostEvent(#Event_HandleHarpKeys)
           PostEvent(#Event_HandleFunctionKeys)
+          \LastKeyEventWasDown = 0
         EndWith
         
         ;--GetTriggers
@@ -2053,8 +2054,10 @@ Procedure Main()
           If Chordian\Machine_State\Value_Master_Button_Power_OnOff
             For i = #Harp_First-#Harp_First To #Harp_Last-#Harp_First
               If \Keymap(\Keymap_Harp(i))
-                Chordian\Machine_State\Status_Harp(i) = 1
-                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+i) = #Curve_Trigger
+                If Not Chordian\Machine_State\Status_Harp(i)
+                  Chordian\Machine_State\Status_Harp(i) = 1
+                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+i) = #Curve_Trigger
+                EndIf
               Else
                 Chordian\Machine_State\Status_Harp(i) = 0
               EndIf
