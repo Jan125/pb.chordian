@@ -342,6 +342,7 @@ Procedure Main()
                 CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
                 
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                 SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Chordian\Machine_State\Value_External_ChordiateMode)
                 PostEvent(#PB_Event_Repaint)
               EndIf
@@ -395,6 +396,7 @@ Procedure Main()
             EndSelect
             
             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
+            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
             
           Case #Itm_ChordiateMode
             SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Bool(Not GetMenuItemState(#Men_Main, #Itm_ChordiateMode)))
@@ -1320,17 +1322,20 @@ Procedure Main()
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
               Else
                 Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
               EndIf
             Else
               Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
               Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
               Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
               Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
+              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
             EndIf
             
             Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff)
@@ -1921,10 +1926,12 @@ Procedure Main()
               If SendNewChord
                 SendNewChord = 0
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
               EndIf
               If SendNewTick
                 SendNewTick = 0
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
               EndIf
             Else
               If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
