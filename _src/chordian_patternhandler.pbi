@@ -19,6 +19,8 @@
       CurrentChord = \Value_Internal_Chord_Chord
       CurrentNote = \Value_Internal_Chord_Note
       
+      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+      
       Select CurrentRhythm
         Case #Rhythm_None
           ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)

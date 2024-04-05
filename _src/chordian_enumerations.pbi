@@ -309,8 +309,28 @@ Enumeration #PB_Event_FirstCustomValue
   #Event_GeneralKeyUp
   #Event_HandleChordKeys
   #Event_HandleHarpKeys
+  #Event_HandleFunctionKeys
 EndEnumeration
 
 Enumeration 0
   #JSON_Main
 EndEnumeration
+
+Enumeration -1
+  #Btn_None
+  #Btn_First
+  #Btn_Master_Power = #Btn_First
+  #Btn_Rhythm_Alternate
+  #Btn_Rhythm_Rock1_March
+  #Btn_Rhythm_Rock2_Tango
+  #Btn_Rhythm_Disco_Blues
+  #Btn_Rhythm_Latin_Swing
+  #Btn_Rhythm_Country_Waltz
+  #Btn_Rhythm_AutoBassSync
+  #Btn_Memory
+  #Btn_Memory_Playback_Record
+  #Btn_Memory_Repeat_Delete
+  #Btn_Memory_Playback_Enter
+  #Btn_Last = #Btn_Memory_Playback_Enter
+EndEnumeration
+

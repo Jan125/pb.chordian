@@ -139,6 +139,8 @@ Procedure.i ResetInput()
     \Keymap_Harp(#Harp_12) = #VK_F11
     \Keymap_Harp(#Harp_13) = #VK_F12
     
+    \Keymap_Function(#Btn_Memory_Playback_Enter) = #VK_CONTROL
+    
   EndWith
   
 EndProcedure
@@ -940,6 +942,7 @@ Procedure Main()
           If \Keymap(EventData()) = 0
             PostEvent(#Event_HandleChordKeys)
             PostEvent(#Event_HandleHarpKeys)
+            PostEvent(#Event_HandleFunctionKeys)
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
@@ -962,6 +965,7 @@ Procedure Main()
             PostEvent(#Event_HandleChordKeys)
           EndIf
           \LastKeyEventWasDown = 0
+          PostEvent(#Event_HandleFunctionKeys)
         EndWith
         
         ;--GetTriggers
@@ -1451,7 +1455,11 @@ Procedure Main()
           
           If \Trigger_Memory_Button_Playback_Enter
             \Trigger_Memory_Button_Playback_Enter = 0
-            Chordian\Machine_State\Value_Memory_Button_Playback_Enter = Bool(Not Chordian\Machine_State\Value_Memory_Button_Playback_Enter)
+            If \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
+              PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Memory_Playback_Enter))
+            Else
+              PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Memory_Playback_Enter))
+            EndIf
             
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
@@ -1464,7 +1472,7 @@ Procedure Main()
           If \Trigger_Chord_Button_Major = 1
             \Trigger_Chord_Button_Major = 0
             If (\Mouse_Position_X_Current-271)%31 <= 20
-              If \Keymap(\Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31)) = 0
+              If Not \Keymap(\Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
                 PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
               Else
                 PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
@@ -1555,7 +1563,7 @@ Procedure Main()
           If \Trigger_Chord_Button_Minor = 1
             \Trigger_Chord_Button_Minor = 0
             If (\Mouse_Position_X_Current-286)%31 <= 20
-              If \Keymap(\Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31)) = 0
+              If Not \Keymap(\Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
                 PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
               Else
                 PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
@@ -1646,7 +1654,7 @@ Procedure Main()
           If \Trigger_Chord_Button_7th = 1
             \Trigger_Chord_Button_7th = 0
             If (\Mouse_Position_X_Current-301)%31 <= 20
-              If \Keymap(\Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31)) = 0
+              If Not \Keymap(\Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
                 PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
               Else
                 PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
@@ -1753,201 +1761,39 @@ Procedure Main()
             Else
               If \Trigger_Harp
                 Select \Mouse_Position_Y_Current
-                  Case 92 To 100
-                    If Chordian\Machine_State\Status_Harp(#Harp_13) = 0
-                      For i = 0 To #Harp_13
+                  Case 92 To 388
+                    If Not Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-389)/24)
+                      For i = #Harp_First To #Harp_Last
                         Chordian\Machine_State\Status_Harp(i) = 0
                       Next
-                      Chordian\Machine_State\Status_Harp(#Harp_13) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_13) = #Curve_Trigger
-                    EndIf
-                  Case 101 To 124
-                    If Chordian\Machine_State\Status_Harp(#Harp_12) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_12) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_12) = #Curve_Trigger
+                      Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-389)/24) = 1
+                      Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                       If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_13) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 125 To 148
-                    If Chordian\Machine_State\Status_Harp(#Harp_11) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_11) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_11) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_12) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_13) = #Curve_Trigger
+                        If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                          Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                        EndIf
+                        If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                          Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                        EndIf
                       EndIf
                       If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_13) = #Curve_Trigger
+                        If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                          Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                        EndIf
+                        If #Harp_First+4-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                          Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                        EndIf
                       EndIf
                     EndIf
-                  Case 149 To 172
-                    If Chordian\Machine_State\Status_Harp(#Harp_10) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_10) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_10) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_11) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_12) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_12) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 173 To 196
-                    If Chordian\Machine_State\Status_Harp(#Harp_9) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_9) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_9) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_10) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_11) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_11) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_13) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 197 To 220
-                    If Chordian\Machine_State\Status_Harp(#Harp_8) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_8) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_8) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_9) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_10) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_10) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_12) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 221 To 244
-                    If Chordian\Machine_State\Status_Harp(#Harp_7) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_7) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_7) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_8) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_9) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_9) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_11) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 245 To 268
-                    If Chordian\Machine_State\Status_Harp(#Harp_6) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_6) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_6) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_7) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_8) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_8) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_10) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 269 To 292
-                    If Chordian\Machine_State\Status_Harp(#Harp_5) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_5) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_5) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_6) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_7) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_7) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_9) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 293 To 316
-                    If Chordian\Machine_State\Status_Harp(#Harp_4) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_4) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_4) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_5) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_6) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_6) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_8) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 317 To 340
-                    If Chordian\Machine_State\Status_Harp(#Harp_3) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_3) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_3) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_4) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_5) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_5) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_7) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 341 To 364
-                    If Chordian\Machine_State\Status_Harp(#Harp_2) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_2) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_2) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_3) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_4) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_4) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_6) = #Curve_Trigger
-                      EndIf
-                    EndIf
-                  Case 365 To 388
-                    If Chordian\Machine_State\Status_Harp(#Harp_1) = 0
-                      For i = 0 To #Harp_13
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      Chordian\Machine_State\Status_Harp(#Harp_1) = 1
-                      Chordian\Machine_State\Status_Sound(#Snd_Harp_1) = #Curve_Trigger
-                      If \Trigger_Harp & 2
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_2) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_3) = #Curve_Trigger
-                      EndIf
-                      If \Trigger_Harp & 4
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_3) = #Curve_Trigger
-                        Chordian\Machine_State\Status_Sound(#Snd_Harp_5) = #Curve_Trigger
-                      EndIf
-                    EndIf
+                    
+                  Default
+                    For i = #Harp_First To #Harp_Last
+                      Chordian\Machine_State\Status_Harp(i) = 0
+                    Next
+                    
                 EndSelect
               EndIf
+              
             EndIf
           EndIf
         EndWith
@@ -2105,66 +1951,86 @@ Procedure Main()
                 
                 If \Keymap(\Keymap_Chord(#Chord_7th, #Note_Db))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 36 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Ab))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 37 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Ab))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 38 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Eb))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 39 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Eb))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 40 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                   
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Bb))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 41 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_F))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 42 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_F))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 43 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_C))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 44 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_C))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 45 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_G))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 46 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_G))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 47 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                   
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_D))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 48 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_A))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 49 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_A))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 50 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_E))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 51 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_E))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 52 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                   
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_B))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 53 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Fc))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 54 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Fc))
                   Chordian\Machine_State\Value_Internal_Keyboard_Note = 55 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                 Else
                   Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
@@ -2243,6 +2109,17 @@ Procedure Main()
               Chordian\Machine_State\Status_Harp(#Harp_13) = 1
               Chordian\Machine_State\Status_Sound(#Snd_Harp_13) = #Curve_Trigger
             EndIf
+          EndIf
+        EndWith
+        
+      Case #Event_HandleFunctionKeys
+        With Chordian\Input_State
+          If Chordian\Machine_State\Value_Memory_Button_Playback_Enter <> \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
+            Chordian\Machine_State\Value_Memory_Button_Playback_Enter = \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
+            PauseThread(Chordian\RepaintHandler_Thread)
+            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
           EndIf
         EndWith
         

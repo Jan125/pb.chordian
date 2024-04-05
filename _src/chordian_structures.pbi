@@ -59,6 +59,7 @@ Structure Input_State
   Array Keymap.u(262143)
   Array Keymap_Chord.u(#Chord_Last, #Note_Last)
   Array Keymap_Harp.u(#Harp_Last)
+  Array Keymap_Function.u(#Btn_Last)
 EndStructure
 
 

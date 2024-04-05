@@ -131,7 +131,6 @@ Procedure.i SynthHandler(*Void)
         While MSCounter >= (WaveFormatExDescriptor\nSamplesPerSec/1000)
           MSCounter - (WaveFormatExDescriptor\nSamplesPerSec/1000)
           ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallMachineHandler, 1, 0)
-          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
         Wend
         
         Sin3Phase = Pow(Abs(Sin(Radian(Phase+125))), 0.33)*Sign(Sin(Radian(Phase+125)))
