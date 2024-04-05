@@ -118,8 +118,10 @@ EndDataSection
 
 ;--Sound Data
 DataSection
-  Snd_Bass:
-  IncludeBinary "snd\chordian_bass.raw"
+  Snd_Bass_Base:
+  IncludeBinary "snd\chordian_bass_base.raw"
+  Snd_Bass_Mod:
+  IncludeBinary "snd\chordian_bass_mod.raw"
   
   Snd_Chord:
   IncludeBinary "snd\chordian_chord.raw"

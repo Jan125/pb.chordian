@@ -150,7 +150,7 @@ Procedure.i SynthHandler(*Void)
               Continue
             Case #Curve_Oneshot
               \Status_Volume(i) = 1.0
-              \Status_Sound(i) = #Curve_Release
+              \Status_Sound(i) = #Curve_Decay
               i-1
               Continue
             Case #Curve_Attack
@@ -158,19 +158,25 @@ Procedure.i SynthHandler(*Void)
               i-1
               Continue
             Case #Curve_Decay
-              \Status_Sound(i) = #Curve_Sustain
-              i-1
-              Continue
+              If \Status_Volume(i) > 0.95
+                \Status_Volume(i)-(1.0/WaveFormatExDescriptor\nSamplesPerSec)/1.222
+                If \Status_Volume(i) < 0.95
+                  \Status_Volume(i) = 0.95
+                  \Status_Sound(i) = #Curve_Release
+                  i-1
+                  Continue
+                EndIf
+              EndIf
             Case #Curve_Sustain
             Case #Curve_Release
-              \Status_Volume(i)-(1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.333
+              \Status_Volume(i)-((1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.333)*(0.5+\Status_Volume(i))
               If \Status_Volume(i) < 0.0
                 \Status_Sound(i) = #Curve_None
                 i-1
                 Continue
               EndIf
           EndSelect
-          Result + GetLinearInterpolatedSample(?Snd_Bass, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume
+          Result + (GetLinearInterpolatedSample(?Snd_Bass_Base, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) + (GetLinearInterpolatedSample(?Snd_Bass_Mod, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * (1.0 - (\Status_Volume(i) * \Status_Volume(i))))) * \Status_Volume(i) * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume
           
           \Status_Position(i) + \Status_Frequency(i)*(99773.2426/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
@@ -254,7 +260,7 @@ Procedure.i SynthHandler(*Void)
               i-1
               Continue
             Case #Curve_Release
-              \Status_Volume(i)-(1.0/WaveFormatExDescriptor\nSamplesPerSec)/(0.366+2.734*\Value_Level_Knob_Sustain)*(0.20+\Status_Volume(i)*1.8)
+              \Status_Volume(i)-((1.0/WaveFormatExDescriptor\nSamplesPerSec)/(0.366+2.734*\Value_Level_Knob_Sustain))*(0.20+\Status_Volume(i)*1.8)
               If \Status_Volume(i) < 0.0
                 \Status_Sound(i) = #Curve_None
                 i-1
