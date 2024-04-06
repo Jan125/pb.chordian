@@ -3,6 +3,9 @@
 ;-DSound
 XIncludeFile "dsound.pbi"
 
+;-MIDI
+XIncludeFile "midi.pbi"
+
 ;-Data Sections
 XIncludeFile "chordian_datasections.pbi"
 
@@ -168,7 +171,19 @@ Procedure.i Init()
     End
   EndIf
   
-  
+  OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+".ini")
+  PreferenceGroup("Midi")
+  If ReadPreferenceInteger("OutputDevice", -1) <> -1
+    midiOutOpen_(@MIDIHandle, ReadPreferenceInteger("OutputDevice", -1), #Null, #Null, #CALLBACK_NULL)
+  EndIf
+  If MIDIHandle
+    SendMIDIProgram(MIDIHandle, 0, 87)
+    SendMIDIProgram(MIDIHandle, 1, 87)
+    SendMIDIProgram(MIDIHandle, 2, 96)
+    SendMIDIProgram(MIDIHandle, 9, 26)
+  EndIf
+  ClosePreferences()
+
   ;-Create Menu
   CreateMenu(#Men_Main, WindowID(#Win_Main))
   

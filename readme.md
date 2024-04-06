@@ -145,6 +145,7 @@ These things are currently implemented:
 These things are currently partially implemented:
 
 - This section is currently empty
+- Midi output
 
 
 These things are currently not implemented:
@@ -156,5 +157,4 @@ These things may be implemented:
 
 - Autoplayer
 - Midi input
-- Midi output
 

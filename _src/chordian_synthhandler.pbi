@@ -48,6 +48,15 @@ Procedure.i SynthHandler(*Void)
     
     Protected MSCounter.i
     
+    Protected CurrentChord.i = \Value_Internal_Chord_Chord
+    Protected CurrentNote.i = \Value_Internal_Chord_Note
+    Protected CurrentAlternate.i = \Value_Rhythm_Button_Alternate_OnOff_Current
+    Protected CurrentPattern.i = \Value_Rhythm_Button_Pattern_Current
+    Protected CurrentTick.i = Int(\Value_Internal_Tick)
+    If CurrentTick >= 32
+      CurrentTick = 0
+    EndIf
+    
     Protected RhythmVolume.f
     
     Protected Harp1Volume.f
@@ -97,6 +106,27 @@ Procedure.i SynthHandler(*Void)
       
       ;-Write memory
       For a = 0 To MemorySize(*Block) / WaveFormatExDescriptor\nBlockAlign
+        
+        If MIDIHandle
+          If CurrentChord <> \Value_Internal_Chord_Chord Or CurrentNote <> \Value_Internal_Chord_Note
+              SendMIDIStop(MIDIHandle, 2)
+            If \Value_Internal_Chord_Chord = #Chord_None Or \Value_Internal_Chord_Note = #Note_None
+              SendMIDIStop(MIDIHandle, 0)
+              SendMIDIStop(MIDIHandle, 1)
+              SendMIDIStop(MIDIHandle, 9)
+            EndIf
+          EndIf
+        EndIf
+        
+        CurrentChord = \Value_Internal_Chord_Chord
+        CurrentNote = \Value_Internal_Chord_Note
+        CurrentAlternate = \Value_Rhythm_Button_Alternate_OnOff_Current
+        CurrentPattern = \Value_Rhythm_Button_Pattern_Current
+        CurrentTick.i = Int(\Value_Internal_Tick)
+        If CurrentTick >= 32
+          CurrentTick = 0
+        EndIf
+        
         Result = 0.0
         Select \Value_Internal_Chord_Note
           Case #Note_G
@@ -144,11 +174,33 @@ Procedure.i SynthHandler(*Void)
               \Status_Position(i) = 0.0
               Continue
             Case #Curve_Trigger
+              If MIDIHandle
+                SendMIDIStop(MIDIHandle, 0)
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                  Select CurrentPattern
+                    Case #Rhythm_None
+                      SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), 80)
+                    Default
+                      SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), 80)
+                  EndSelect
+                EndIf
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Sustain
               i-1
               Continue
             Case #Curve_Oneshot
+              If MIDIHandle
+                SendMIDIStop(MIDIHandle, 0)
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                  Select CurrentPattern
+                    Case #Rhythm_None
+                      SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), 80)
+                    Default
+                      SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), 80)
+                  EndSelect
+                EndIf
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Decay
               i-1
@@ -171,6 +223,9 @@ Procedure.i SynthHandler(*Void)
             Case #Curve_Release
               \Status_Volume(i)-((1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.333)*(0.5+\Status_Volume(i))
               If \Status_Volume(i) < 0.0
+                If MIDIHandle
+                  SendMIDIStop(MIDIHandle, 0)
+                EndIf
                 \Status_Sound(i) = #Curve_None
                 i-1
                 Continue
@@ -191,11 +246,27 @@ Procedure.i SynthHandler(*Void)
               \Status_Position(i) = 0.0
               Continue
             Case #Curve_Trigger
+              If MIDIHandle
+                If i = #Snd_Chord_First
+                  SendMIDIStop(MIDIHandle, 1)
+                EndIf
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                  SendMIDINote(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First+i-#Snd_Chord_First), 64)
+                EndIf
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Decay
               i-1
               Continue
             Case #Curve_Oneshot
+              If MIDIHandle
+                If i = #Snd_Chord_First
+                  SendMIDIStop(MIDIHandle, 1)
+                EndIf
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                  SendMIDINote(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First+i-#Snd_Chord_First), 64)
+                EndIf
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
               i-1
@@ -218,6 +289,9 @@ Procedure.i SynthHandler(*Void)
             Case #Curve_Release 
               \Status_Volume(i)-(1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.18
               If \Status_Volume(i) < 0.0
+                If MIDIHandle And i = #Snd_Chord_Last
+                  SendMIDIStop(MIDIHandle, 1)
+                EndIf
                 \Status_Sound(i) = #Curve_None
                 i-1
                 Continue
@@ -238,11 +312,21 @@ Procedure.i SynthHandler(*Void)
               \Status_Position(i) = 0.0
               Continue
             Case #Curve_Trigger
+              If MIDIHandle
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                  SendMIDINote(MIDIHandle, 2, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First+i-#Snd_Harp_First), 80)
+                EndIf
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
               i-1
               Continue
             Case #Curve_Oneshot
+              If MIDIHandle
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                  SendMIDINote(MIDIHandle, 2, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First+i-#Snd_Harp_First), 80)
+                EndIf
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
               i-1
@@ -283,12 +367,40 @@ Procedure.i SynthHandler(*Void)
               \Status_Volume(i) = 0.0
               Continue
             Case #Curve_Trigger
+              If MIDIHandle
+                Select i
+                  Case #Snd_Drum_BD
+                    SendMIDINote(MIDIHandle, 9, 36-12, 80)
+                  Case #Snd_Drum_Click
+                    SendMIDINote(MIDIHandle, 9, 37-12, 80)
+                  Case #Snd_Drum_HiHat
+                    SendMIDINote(MIDIHandle, 9, 42-12, 80)
+                  Case #Snd_Drum_Ride
+                    SendMIDINote(MIDIHandle, 9, 46-12, 80)
+                  Case #Snd_Drum_Snare
+                    SendMIDINote(MIDIHandle, 9, 38-12, 80)
+                EndSelect
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
               \Status_Position(i) = 0.0
               i-1
               Continue
             Case #Curve_Oneshot
+              If MIDIHandle
+                Select i
+                  Case #Snd_Drum_BD
+                    SendMIDINote(MIDIHandle, 9, 36-12, 80)
+                  Case #Snd_Drum_Click
+                    SendMIDINote(MIDIHandle, 9, 37-12, 80)
+                  Case #Snd_Drum_HiHat
+                    SendMIDINote(MIDIHandle, 9, 42-12, 80)
+                  Case #Snd_Drum_Ride
+                    SendMIDINote(MIDIHandle, 9, 46-12, 80)
+                  Case #Snd_Drum_Snare
+                    SendMIDINote(MIDIHandle, 9, 38-12, 80)
+                EndSelect
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
               \Status_Position(i) = 0.0
