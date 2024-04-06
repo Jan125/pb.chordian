@@ -50,6 +50,7 @@ Procedure.i SynthHandler(*Void)
     
     Protected CurrentChord.i = \Value_Internal_Chord_Chord
     Protected CurrentNote.i = \Value_Internal_Chord_Note
+    Protected CurrentKeyboard.i = \Value_Internal_Keyboard_Note
     Protected CurrentAlternate.i = \Value_Rhythm_Button_Alternate_OnOff_Current
     Protected CurrentPattern.i = \Value_Rhythm_Button_Pattern_Current
     Protected CurrentTick.i = Int(\Value_Internal_Tick)
@@ -109,10 +110,10 @@ Procedure.i SynthHandler(*Void)
         
         If MIDIHandle
           If CurrentChord <> \Value_Internal_Chord_Chord Or CurrentNote <> \Value_Internal_Chord_Note
-              SendMIDIStop(MIDIHandle, 2)
+            SendMIDIStop(MIDIHandle, 0)
+            SendMIDIStop(MIDIHandle, 1)
+            SendMIDIStop(MIDIHandle, 2)
             If \Value_Internal_Chord_Chord = #Chord_None Or \Value_Internal_Chord_Note = #Note_None
-              SendMIDIStop(MIDIHandle, 0)
-              SendMIDIStop(MIDIHandle, 1)
               SendMIDIStop(MIDIHandle, 9)
             EndIf
           EndIf
@@ -120,6 +121,7 @@ Procedure.i SynthHandler(*Void)
         
         CurrentChord = \Value_Internal_Chord_Chord
         CurrentNote = \Value_Internal_Chord_Note
+        CurrentKeyboard = \Value_Internal_Keyboard_Note
         CurrentAlternate = \Value_Rhythm_Button_Alternate_OnOff_Current
         CurrentPattern = \Value_Rhythm_Button_Pattern_Current
         CurrentTick.i = Int(\Value_Internal_Tick)
@@ -478,11 +480,23 @@ Procedure.i SynthHandler(*Void)
               \Status_Position(i) = 0.0
               Continue
             Case #Curve_Trigger
+              If MIDIHandle
+                SendMIDIStop(MIDIHandle, 3)
+                If CurrentKeyboard <> -1
+                  SendMIDINote(MIDIHandle, 3, CurrentKeyboard, 80)
+                EndIf
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Sustain
               i-1
               Continue
             Case #Curve_Oneshot
+              If MIDIHandle
+                SendMIDIStop(MIDIHandle, 3)
+                If CurrentKeyboard <> -1
+                  SendMIDINote(MIDIHandle, 3, CurrentKeyboard, 80)
+                EndIf
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
               i-1
@@ -497,6 +511,9 @@ Procedure.i SynthHandler(*Void)
               Continue
             Case #Curve_Sustain
             Case #Curve_Release
+              If MIDIHandle
+                SendMIDIStop(MIDIHandle, 3)
+              EndIf
               \Status_Sound(i) = #Curve_None
               i-1
               Continue
