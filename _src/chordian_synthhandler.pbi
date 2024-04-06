@@ -114,10 +114,10 @@ Procedure.i SynthHandler(*Void)
         
         If MIDIHandle
           If CurrentChord <> \Value_Internal_Chord_Chord Or CurrentNote <> \Value_Internal_Chord_Note
-            SendMIDIStop(MIDIHandle, 0)
-            SendMIDIStop(MIDIHandle, 1)
             SendMIDIStop(MIDIHandle, 2)
             If \Value_Internal_Chord_Chord = #Chord_None Or \Value_Internal_Chord_Note = #Note_None
+              SendMIDIStop(MIDIHandle, 0)
+              SendMIDIStop(MIDIHandle, 1)
               SendMIDIStop(MIDIHandle, 9)
             EndIf
           EndIf
@@ -187,7 +187,11 @@ Procedure.i SynthHandler(*Void)
                     Case #Rhythm_None
                       SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                     Default
-                      SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                      If \Value_Rhythm_Button_AutoBassSync_OnOff
+                        SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                      Else
+                        SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                      EndIf
                   EndSelect
                 EndIf
               EndIf
@@ -203,7 +207,11 @@ Procedure.i SynthHandler(*Void)
                     Case #Rhythm_None
                       SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                     Default
-                      SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                      If \Value_Rhythm_Button_AutoBassSync_OnOff
+                        SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                      Else
+                        SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                      EndIf
                   EndSelect
                 EndIf
               EndIf

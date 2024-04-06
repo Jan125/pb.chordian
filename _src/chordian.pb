@@ -181,7 +181,7 @@ Procedure.i Init()
     SendMIDIProgram(MIDIHandle, 1, ReadPreferenceInteger("ChordProgram", 87))
     SendMIDIProgram(MIDIHandle, 2, ReadPreferenceInteger("HarpProgram", 96))
     SendMIDIProgram(MIDIHandle, 3, ReadPreferenceInteger("KeyboardProgram", 90))
-    SendMIDIProgram(MIDIHandle, 9, ReadPreferenceInteger("DrumProgram", 26))
+    SendMIDIProgram(MIDIHandle, 9, ReadPreferenceInteger("DrumProgram", 0))
   EndIf
   ClosePreferences()
   
@@ -1313,10 +1313,17 @@ Procedure Main()
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
               Else
                 If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
-                  Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
-                  Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
-                  Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
+                  If Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                    Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
+                    Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
+                    Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
+                    Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
+                  Else
+                    Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                    Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
+                    Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
+                    Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
+                  EndIf
                 EndIf
                 Chordian\Machine_State\Value_Rhythm_Button_Pattern = (\Mouse_Position_X_Current-68)/32
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
@@ -1939,9 +1946,18 @@ Procedure Main()
                   Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
                   ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
                 EndIf
+              ElseIf Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                SendNewChord = 1
               EndIf
+              
               If SendNewChord
                 SendNewChord = 0
+                If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                  For i = #Snd_Chord_First To #Snd_Chord_Last
+                    Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
+                  Next
+                EndIf
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
               EndIf
