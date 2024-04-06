@@ -9,7 +9,3 @@ EndMacro
 Macro SendMIDIProgram(Handle, Channel, Program)
   midiOutShortMsg_(Handle, ($C0+Channel)+(Program<<8))
 EndMacro
-
-Procedure.i MidiOutProcDummy(hmo.i, wMsg.i, dwInstance.i, dwParam1.i, dwParam2.i)
-EndProcedure
-

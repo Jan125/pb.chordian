@@ -19,7 +19,7 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-04-06 02:11" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2024-04-06 08:34" user="Dino" host="HUSKLET"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
@@ -52,7 +52,7 @@
     </file>
     <file name="chordian_repainthandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="8" panelstate="+"/>
-      <fingerprint md5="f7b998f615786d6cd6bf156b73453ba5"/>
+      <fingerprint md5="0cd081d3c29c3cd31674ea2bda0bbaab"/>
     </file>
     <file name="chordian_structures.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="9" panelstate="+"/>
@@ -68,7 +68,7 @@
     </file>
     <file name="midi.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="12" panelstate="+"/>
-      <fingerprint md5="9c0ba17a16d89a704845e7948d3249e9"/>
+      <fingerprint md5="85eacbe8c1dda97f0941621afdcc867f"/>
     </file>
   </section>
   <section name="targets">
@@ -104,10 +104,10 @@
       <outputfile value="..\chordian.exe"/>
       <compiler version="PureBasic 6.10 LTS - C Backend (Windows - x86)"/>
       <executable value="..\chordian.exe"/>
-      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="0"/>
+      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="342"/>
+      <buildcount enable="1" value="345"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -132,10 +132,10 @@
       <outputfile value="..\chordian_x64.exe"/>
       <compiler version="PureBasic 6.10 LTS - C Backend (Windows - x64)"/>
       <executable value="..\chordian_x64.exe"/>
-      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="0"/>
+      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="342"/>
+      <buildcount enable="1" value="345"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -162,7 +162,7 @@
       <executable value="..\chordian_legacy.exe"/>
       <options thread="1" debug="1" optimizer="0"/>
       <icon enable="1">chordian.ico</icon>
-      <buildcount enable="1" value="342"/>
+      <buildcount enable="1" value="345"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>

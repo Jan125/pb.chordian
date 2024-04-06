@@ -212,7 +212,8 @@ Procedure.i RepaintHandler(*Void)
       
       
       StopDrawing()
-      EndIf
+    EndIf
+    Delay(10)
     ForEver
   EndWith
   
