@@ -42,450 +42,96 @@ Procedure.i ResetMachine()
   Protected r.i
   
   With Chordian\Machine_State
+    
     ;-MIDI Data
-    ;--C#/Db
-    ;    Maj
-    \Data_MIDI(#Note_Db, #Chord_Maj, #Dat_Bass_1) = 37
-    \Data_MIDI(#Note_Db, #Chord_Maj, #Dat_Chord_1) = 49
-    \Data_MIDI(#Note_Db, #Chord_Maj, #Dat_Chord_2) = 53
-    \Data_MIDI(#Note_Db, #Chord_Maj, #Dat_Chord_3) = 44
-    ;    Min
-    \Data_MIDI(#Note_Db, #Chord_Min, #Dat_Bass_1) = 37
-    \Data_MIDI(#Note_Db, #Chord_Min, #Dat_Chord_1) = 49
-    \Data_MIDI(#Note_Db, #Chord_Min, #Dat_Chord_2) = 52
-    \Data_MIDI(#Note_Db, #Chord_Min, #Dat_Chord_3) = 44
-    ;    7th
-    \Data_MIDI(#Note_Db, #Chord_7th, #Dat_Bass_1) = 37
-    \Data_MIDI(#Note_Db, #Chord_7th, #Dat_Chord_1) = 49
-    \Data_MIDI(#Note_Db, #Chord_7th, #Dat_Chord_2) = 53
-    \Data_MIDI(#Note_Db, #Chord_7th, #Dat_Chord_3) = 47
-    ;    Dim
-    \Data_MIDI(#Note_Db, #Chord_Dim, #Dat_Bass_1) = 37
-    \Data_MIDI(#Note_Db, #Chord_Dim, #Dat_Chord_1) = 49
-    \Data_MIDI(#Note_Db, #Chord_Dim, #Dat_Chord_2) = 52
-    \Data_MIDI(#Note_Db, #Chord_Dim, #Dat_Chord_3) = 46
-    ;    Ma7
-    \Data_MIDI(#Note_Db, #Chord_Ma7, #Dat_Bass_1) = 37
-    \Data_MIDI(#Note_Db, #Chord_Ma7, #Dat_Chord_1) = 49
-    \Data_MIDI(#Note_Db, #Chord_Ma7, #Dat_Chord_2) = 53
-    \Data_MIDI(#Note_Db, #Chord_Ma7, #Dat_Chord_3) = 48
-    ;    Mi7
-    \Data_MIDI(#Note_Db, #Chord_Mi7, #Dat_Bass_1) = 37
-    \Data_MIDI(#Note_Db, #Chord_Mi7, #Dat_Chord_1) = 49
-    \Data_MIDI(#Note_Db, #Chord_Mi7, #Dat_Chord_2) = 52
-    \Data_MIDI(#Note_Db, #Chord_Mi7, #Dat_Chord_3) = 47
-    ;    Aug
-    \Data_MIDI(#Note_Db, #Chord_Aug, #Dat_Bass_1) = 37
-    \Data_MIDI(#Note_Db, #Chord_Aug, #Dat_Chord_1) = 49
-    \Data_MIDI(#Note_Db, #Chord_Aug, #Dat_Chord_2) = 53
-    \Data_MIDI(#Note_Db, #Chord_Aug, #Dat_Chord_3) = 45
-    
-    ;--G#/Ab
-    ;    Maj
-    \Data_MIDI(#Note_Ab, #Chord_Maj, #Dat_Bass_1) = 32
-    \Data_MIDI(#Note_Ab, #Chord_Maj, #Dat_Chord_1) = 44
-    \Data_MIDI(#Note_Ab, #Chord_Maj, #Dat_Chord_2) = 48
-    \Data_MIDI(#Note_Ab, #Chord_Maj, #Dat_Chord_3) = 51
-    ;    Min
-    \Data_MIDI(#Note_Ab, #Chord_Min, #Dat_Bass_1) = 32
-    \Data_MIDI(#Note_Ab, #Chord_Min, #Dat_Chord_1) = 44
-    \Data_MIDI(#Note_Ab, #Chord_Min, #Dat_Chord_2) = 47
-    \Data_MIDI(#Note_Ab, #Chord_Min, #Dat_Chord_3) = 51
-    ;    7th
-    \Data_MIDI(#Note_Ab, #Chord_7th, #Dat_Bass_1) = 32
-    \Data_MIDI(#Note_Ab, #Chord_7th, #Dat_Chord_1) = 44
-    \Data_MIDI(#Note_Ab, #Chord_7th, #Dat_Chord_2) = 48
-    \Data_MIDI(#Note_Ab, #Chord_7th, #Dat_Chord_3) = 42
-    ;    Dim
-    \Data_MIDI(#Note_Ab, #Chord_Dim, #Dat_Bass_1) = 32
-    \Data_MIDI(#Note_Ab, #Chord_Dim, #Dat_Chord_1) = 44
-    \Data_MIDI(#Note_Ab, #Chord_Dim, #Dat_Chord_2) = 47
-    \Data_MIDI(#Note_Ab, #Chord_Dim, #Dat_Chord_3) = 53
-    ;    Ma7
-    \Data_MIDI(#Note_Ab, #Chord_Ma7, #Dat_Bass_1) = 32
-    \Data_MIDI(#Note_Ab, #Chord_Ma7, #Dat_Chord_1) = 44
-    \Data_MIDI(#Note_Ab, #Chord_Ma7, #Dat_Chord_2) = 48
-    \Data_MIDI(#Note_Ab, #Chord_Ma7, #Dat_Chord_3) = 43
-    ;    Mi7
-    \Data_MIDI(#Note_Ab, #Chord_Mi7, #Dat_Bass_1) = 32
-    \Data_MIDI(#Note_Ab, #Chord_Mi7, #Dat_Chord_1) = 44
-    \Data_MIDI(#Note_Ab, #Chord_Mi7, #Dat_Chord_2) = 47
-    \Data_MIDI(#Note_Ab, #Chord_Mi7, #Dat_Chord_3) = 42
-    ;    Aug
-    \Data_MIDI(#Note_Ab, #Chord_Aug, #Dat_Bass_1) = 32
-    \Data_MIDI(#Note_Ab, #Chord_Aug, #Dat_Chord_1) = 44
-    \Data_MIDI(#Note_Ab, #Chord_Aug, #Dat_Chord_2) = 48
-    \Data_MIDI(#Note_Ab, #Chord_Aug, #Dat_Chord_3) = 52
-    
-    ;--D#/Eb
-    ;    Maj
-    \Data_MIDI(#Note_Eb, #Chord_Maj, #Dat_Bass_1) = 39
-    \Data_MIDI(#Note_Eb, #Chord_Maj, #Dat_Chord_1) = 51
-    \Data_MIDI(#Note_Eb, #Chord_Maj, #Dat_Chord_2) = 43
-    \Data_MIDI(#Note_Eb, #Chord_Maj, #Dat_Chord_3) = 46
-    ;    Min
-    \Data_MIDI(#Note_Eb, #Chord_Min, #Dat_Bass_1) = 39
-    \Data_MIDI(#Note_Eb, #Chord_Min, #Dat_Chord_1) = 51
-    \Data_MIDI(#Note_Eb, #Chord_Min, #Dat_Chord_2) = 42
-    \Data_MIDI(#Note_Eb, #Chord_Min, #Dat_Chord_3) = 46
-    ;    7th
-    \Data_MIDI(#Note_Eb, #Chord_7th, #Dat_Bass_1) = 39
-    \Data_MIDI(#Note_Eb, #Chord_7th, #Dat_Chord_1) = 51
-    \Data_MIDI(#Note_Eb, #Chord_7th, #Dat_Chord_2) = 43
-    \Data_MIDI(#Note_Eb, #Chord_7th, #Dat_Chord_3) = 49
-    ;    Dim
-    \Data_MIDI(#Note_Eb, #Chord_Dim, #Dat_Bass_1) = 39
-    \Data_MIDI(#Note_Eb, #Chord_Dim, #Dat_Chord_1) = 51
-    \Data_MIDI(#Note_Eb, #Chord_Dim, #Dat_Chord_2) = 42
-    \Data_MIDI(#Note_Eb, #Chord_Dim, #Dat_Chord_3) = 48
-    ;    Ma7
-    \Data_MIDI(#Note_Eb, #Chord_Ma7, #Dat_Bass_1) = 39
-    \Data_MIDI(#Note_Eb, #Chord_Ma7, #Dat_Chord_1) = 51
-    \Data_MIDI(#Note_Eb, #Chord_Ma7, #Dat_Chord_2) = 43
-    \Data_MIDI(#Note_Eb, #Chord_Ma7, #Dat_Chord_3) = 50
-    ;    Mi7
-    \Data_MIDI(#Note_Eb, #Chord_Mi7, #Dat_Bass_1) = 39
-    \Data_MIDI(#Note_Eb, #Chord_Mi7, #Dat_Chord_1) = 51
-    \Data_MIDI(#Note_Eb, #Chord_Mi7, #Dat_Chord_2) = 42
-    \Data_MIDI(#Note_Eb, #Chord_Mi7, #Dat_Chord_3) = 49
-    ;    Aug
-    \Data_MIDI(#Note_Eb, #Chord_Aug, #Dat_Bass_1) = 39
-    \Data_MIDI(#Note_Eb, #Chord_Aug, #Dat_Chord_1) = 51
-    \Data_MIDI(#Note_Eb, #Chord_Aug, #Dat_Chord_2) = 43
-    \Data_MIDI(#Note_Eb, #Chord_Aug, #Dat_Chord_3) = 47
-    
-    ;--A#/Bb
-    ;    Maj
-    \Data_MIDI(#Note_Bb, #Chord_Maj, #Dat_Bass_1) = 34
-    \Data_MIDI(#Note_Bb, #Chord_Maj, #Dat_Chord_1) = 46
-    \Data_MIDI(#Note_Bb, #Chord_Maj, #Dat_Chord_2) = 50
-    \Data_MIDI(#Note_Bb, #Chord_Maj, #Dat_Chord_3) = 53
-    ;    Min
-    \Data_MIDI(#Note_Bb, #Chord_Min, #Dat_Bass_1) = 34
-    \Data_MIDI(#Note_Bb, #Chord_Min, #Dat_Chord_1) = 46
-    \Data_MIDI(#Note_Bb, #Chord_Min, #Dat_Chord_2) = 49
-    \Data_MIDI(#Note_Bb, #Chord_Min, #Dat_Chord_3) = 53
-    ;    7th
-    \Data_MIDI(#Note_Bb, #Chord_7th, #Dat_Bass_1) = 34
-    \Data_MIDI(#Note_Bb, #Chord_7th, #Dat_Chord_1) = 46
-    \Data_MIDI(#Note_Bb, #Chord_7th, #Dat_Chord_2) = 50
-    \Data_MIDI(#Note_Bb, #Chord_7th, #Dat_Chord_3) = 44
-    ;    Dim
-    \Data_MIDI(#Note_Bb, #Chord_Dim, #Dat_Bass_1) = 34
-    \Data_MIDI(#Note_Bb, #Chord_Dim, #Dat_Chord_1) = 46
-    \Data_MIDI(#Note_Bb, #Chord_Dim, #Dat_Chord_2) = 49
-    \Data_MIDI(#Note_Bb, #Chord_Dim, #Dat_Chord_3) = 43
-    ;    Ma7
-    \Data_MIDI(#Note_Bb, #Chord_Ma7, #Dat_Bass_1) = 34
-    \Data_MIDI(#Note_Bb, #Chord_Ma7, #Dat_Chord_1) = 46
-    \Data_MIDI(#Note_Bb, #Chord_Ma7, #Dat_Chord_2) = 50
-    \Data_MIDI(#Note_Bb, #Chord_Ma7, #Dat_Chord_3) = 45
-    ;    Mi7
-    \Data_MIDI(#Note_Bb, #Chord_Mi7, #Dat_Bass_1) = 34
-    \Data_MIDI(#Note_Bb, #Chord_Mi7, #Dat_Chord_1) = 46
-    \Data_MIDI(#Note_Bb, #Chord_Mi7, #Dat_Chord_2) = 49
-    \Data_MIDI(#Note_Bb, #Chord_Mi7, #Dat_Chord_3) = 44
-    ;    Aug
-    \Data_MIDI(#Note_Bb, #Chord_Aug, #Dat_Bass_1) = 34
-    \Data_MIDI(#Note_Bb, #Chord_Aug, #Dat_Chord_1) = 46
-    \Data_MIDI(#Note_Bb, #Chord_Aug, #Dat_Chord_2) = 50
-    \Data_MIDI(#Note_Bb, #Chord_Aug, #Dat_Chord_3) = 42
-    
-    ;--F
-    ;    Maj
-    \Data_MIDI(#Note_F, #Chord_Maj, #Dat_Bass_1) = 41
-    \Data_MIDI(#Note_F, #Chord_Maj, #Dat_Chord_1) = 53
-    \Data_MIDI(#Note_F, #Chord_Maj, #Dat_Chord_2) = 45
-    \Data_MIDI(#Note_F, #Chord_Maj, #Dat_Chord_3) = 48
-    ;    Min
-    \Data_MIDI(#Note_F, #Chord_Min, #Dat_Bass_1) = 41
-    \Data_MIDI(#Note_F, #Chord_Min, #Dat_Chord_1) = 53
-    \Data_MIDI(#Note_F, #Chord_Min, #Dat_Chord_2) = 44
-    \Data_MIDI(#Note_F, #Chord_Min, #Dat_Chord_3) = 48
-    ;    7th
-    \Data_MIDI(#Note_F, #Chord_7th, #Dat_Bass_1) = 41
-    \Data_MIDI(#Note_F, #Chord_7th, #Dat_Chord_1) = 53
-    \Data_MIDI(#Note_F, #Chord_7th, #Dat_Chord_2) = 45
-    \Data_MIDI(#Note_F, #Chord_7th, #Dat_Chord_3) = 51
-    ;    Dim
-    \Data_MIDI(#Note_F, #Chord_Dim, #Dat_Bass_1) = 41
-    \Data_MIDI(#Note_F, #Chord_Dim, #Dat_Chord_1) = 53
-    \Data_MIDI(#Note_F, #Chord_Dim, #Dat_Chord_2) = 44
-    \Data_MIDI(#Note_F, #Chord_Dim, #Dat_Chord_3) = 50
-    ;    Ma7
-    \Data_MIDI(#Note_F, #Chord_Ma7, #Dat_Bass_1) = 41
-    \Data_MIDI(#Note_F, #Chord_Ma7, #Dat_Chord_1) = 53
-    \Data_MIDI(#Note_F, #Chord_Ma7, #Dat_Chord_2) = 45
-    \Data_MIDI(#Note_F, #Chord_Ma7, #Dat_Chord_3) = 52
-    ;    Mi7
-    \Data_MIDI(#Note_F, #Chord_Mi7, #Dat_Bass_1) = 41
-    \Data_MIDI(#Note_F, #Chord_Mi7, #Dat_Chord_1) = 53
-    \Data_MIDI(#Note_F, #Chord_Mi7, #Dat_Chord_2) = 44
-    \Data_MIDI(#Note_F, #Chord_Mi7, #Dat_Chord_3) = 51
-    ;    Aug
-    \Data_MIDI(#Note_F, #Chord_Aug, #Dat_Bass_1) = 41
-    \Data_MIDI(#Note_F, #Chord_Aug, #Dat_Chord_1) = 53
-    \Data_MIDI(#Note_F, #Chord_Aug, #Dat_Chord_2) = 45
-    \Data_MIDI(#Note_F, #Chord_Aug, #Dat_Chord_3) = 49
-    
-    ;--C
-    ;    Maj
-    \Data_MIDI(#Note_C, #Chord_Maj, #Dat_Bass_1) = 36
-    \Data_MIDI(#Note_C, #Chord_Maj, #Dat_Chord_1) = 48
-    \Data_MIDI(#Note_C, #Chord_Maj, #Dat_Chord_2) = 52
-    \Data_MIDI(#Note_C, #Chord_Maj, #Dat_Chord_3) = 43
-    ;    Min
-    \Data_MIDI(#Note_C, #Chord_Min, #Dat_Bass_1) = 36
-    \Data_MIDI(#Note_C, #Chord_Min, #Dat_Chord_1) = 48
-    \Data_MIDI(#Note_C, #Chord_Min, #Dat_Chord_2) = 51
-    \Data_MIDI(#Note_C, #Chord_Min, #Dat_Chord_3) = 43
-    ;    7th
-    \Data_MIDI(#Note_C, #Chord_7th, #Dat_Bass_1) = 36
-    \Data_MIDI(#Note_C, #Chord_7th, #Dat_Chord_1) = 48
-    \Data_MIDI(#Note_C, #Chord_7th, #Dat_Chord_2) = 52
-    \Data_MIDI(#Note_C, #Chord_7th, #Dat_Chord_3) = 46
-    ;    Dim
-    \Data_MIDI(#Note_C, #Chord_Dim, #Dat_Bass_1) = 36
-    \Data_MIDI(#Note_C, #Chord_Dim, #Dat_Chord_1) = 48
-    \Data_MIDI(#Note_C, #Chord_Dim, #Dat_Chord_2) = 51
-    \Data_MIDI(#Note_C, #Chord_Dim, #Dat_Chord_3) = 45
-    ;    Ma7
-    \Data_MIDI(#Note_C, #Chord_Ma7, #Dat_Bass_1) = 36
-    \Data_MIDI(#Note_C, #Chord_Ma7, #Dat_Chord_1) = 48
-    \Data_MIDI(#Note_C, #Chord_Ma7, #Dat_Chord_2) = 52
-    \Data_MIDI(#Note_C, #Chord_Ma7, #Dat_Chord_3) = 47
-    ;    Mi7
-    \Data_MIDI(#Note_C, #Chord_Mi7, #Dat_Bass_1) = 36
-    \Data_MIDI(#Note_C, #Chord_Mi7, #Dat_Chord_1) = 48
-    \Data_MIDI(#Note_C, #Chord_Mi7, #Dat_Chord_2) = 51
-    \Data_MIDI(#Note_C, #Chord_Mi7, #Dat_Chord_3) = 46
-    ;    Aug
-    \Data_MIDI(#Note_C, #Chord_Aug, #Dat_Bass_1) = 36
-    \Data_MIDI(#Note_C, #Chord_Aug, #Dat_Chord_1) = 48
-    \Data_MIDI(#Note_C, #Chord_Aug, #Dat_Chord_2) = 52
-    \Data_MIDI(#Note_C, #Chord_Aug, #Dat_Chord_3) = 44
-    
-    ;--G
-    ;    Maj
-    \Data_MIDI(#Note_G, #Chord_Maj, #Dat_Bass_1) = 31
-    \Data_MIDI(#Note_G, #Chord_Maj, #Dat_Chord_1) = 43
-    \Data_MIDI(#Note_G, #Chord_Maj, #Dat_Chord_2) = 47
-    \Data_MIDI(#Note_G, #Chord_Maj, #Dat_Chord_3) = 50
-    ;    Min
-    \Data_MIDI(#Note_G, #Chord_Min, #Dat_Bass_1) = 31
-    \Data_MIDI(#Note_G, #Chord_Min, #Dat_Chord_1) = 43
-    \Data_MIDI(#Note_G, #Chord_Min, #Dat_Chord_2) = 46
-    \Data_MIDI(#Note_G, #Chord_Min, #Dat_Chord_3) = 50
-    ;    7th
-    \Data_MIDI(#Note_G, #Chord_7th, #Dat_Bass_1) = 31
-    \Data_MIDI(#Note_G, #Chord_7th, #Dat_Chord_1) = 43
-    \Data_MIDI(#Note_G, #Chord_7th, #Dat_Chord_2) = 47
-    \Data_MIDI(#Note_G, #Chord_7th, #Dat_Chord_3) = 53
-    ;    Dim
-    \Data_MIDI(#Note_G, #Chord_Dim, #Dat_Bass_1) = 31
-    \Data_MIDI(#Note_G, #Chord_Dim, #Dat_Chord_1) = 43
-    \Data_MIDI(#Note_G, #Chord_Dim, #Dat_Chord_2) = 46
-    \Data_MIDI(#Note_G, #Chord_Dim, #Dat_Chord_3) = 52
-    ;    Ma7
-    \Data_MIDI(#Note_G, #Chord_Ma7, #Dat_Bass_1) = 31
-    \Data_MIDI(#Note_G, #Chord_Ma7, #Dat_Chord_1) = 43
-    \Data_MIDI(#Note_G, #Chord_Ma7, #Dat_Chord_2) = 47
-    \Data_MIDI(#Note_G, #Chord_Ma7, #Dat_Chord_3) = 42
-    ;    Mi7
-    \Data_MIDI(#Note_G, #Chord_Mi7, #Dat_Bass_1) = 31
-    \Data_MIDI(#Note_G, #Chord_Mi7, #Dat_Chord_1) = 43
-    \Data_MIDI(#Note_G, #Chord_Mi7, #Dat_Chord_2) = 46
-    \Data_MIDI(#Note_G, #Chord_Mi7, #Dat_Chord_3) = 53
-    ;    Aug
-    \Data_MIDI(#Note_G, #Chord_Aug, #Dat_Bass_1) = 31
-    \Data_MIDI(#Note_G, #Chord_Aug, #Dat_Chord_1) = 43
-    \Data_MIDI(#Note_G, #Chord_Aug, #Dat_Chord_2) = 47
-    \Data_MIDI(#Note_G, #Chord_Aug, #Dat_Chord_3) = 51
-    
-    ;--D
-    ;    Maj
-    \Data_MIDI(#Note_D, #Chord_Maj, #Dat_Bass_1) = 38
-    \Data_MIDI(#Note_D, #Chord_Maj, #Dat_Chord_1) = 50
-    \Data_MIDI(#Note_D, #Chord_Maj, #Dat_Chord_2) = 42
-    \Data_MIDI(#Note_D, #Chord_Maj, #Dat_Chord_3) = 45
-    ;    Min
-    \Data_MIDI(#Note_D, #Chord_Min, #Dat_Bass_1) = 38
-    \Data_MIDI(#Note_D, #Chord_Min, #Dat_Chord_1) = 50
-    \Data_MIDI(#Note_D, #Chord_Min, #Dat_Chord_2) = 53
-    \Data_MIDI(#Note_D, #Chord_Min, #Dat_Chord_3) = 45
-    ;    7th
-    \Data_MIDI(#Note_D, #Chord_7th, #Dat_Bass_1) = 38
-    \Data_MIDI(#Note_D, #Chord_7th, #Dat_Chord_1) = 50
-    \Data_MIDI(#Note_D, #Chord_7th, #Dat_Chord_2) = 42
-    \Data_MIDI(#Note_D, #Chord_7th, #Dat_Chord_3) = 48
-    ;    Dim
-    \Data_MIDI(#Note_D, #Chord_Dim, #Dat_Bass_1) = 38
-    \Data_MIDI(#Note_D, #Chord_Dim, #Dat_Chord_1) = 50
-    \Data_MIDI(#Note_D, #Chord_Dim, #Dat_Chord_2) = 53
-    \Data_MIDI(#Note_D, #Chord_Dim, #Dat_Chord_3) = 47
-    ;    Ma7
-    \Data_MIDI(#Note_D, #Chord_Ma7, #Dat_Bass_1) = 38
-    \Data_MIDI(#Note_D, #Chord_Ma7, #Dat_Chord_1) = 50
-    \Data_MIDI(#Note_D, #Chord_Ma7, #Dat_Chord_2) = 42
-    \Data_MIDI(#Note_D, #Chord_Ma7, #Dat_Chord_3) = 49
-    ;    Mi7
-    \Data_MIDI(#Note_D, #Chord_Mi7, #Dat_Bass_1) = 38
-    \Data_MIDI(#Note_D, #Chord_Mi7, #Dat_Chord_1) = 50
-    \Data_MIDI(#Note_D, #Chord_Mi7, #Dat_Chord_2) = 53
-    \Data_MIDI(#Note_D, #Chord_Mi7, #Dat_Chord_3) = 48
-    ;    Aug
-    \Data_MIDI(#Note_D, #Chord_Aug, #Dat_Bass_1) = 38
-    \Data_MIDI(#Note_D, #Chord_Aug, #Dat_Chord_1) = 50
-    \Data_MIDI(#Note_D, #Chord_Aug, #Dat_Chord_2) = 42
-    \Data_MIDI(#Note_D, #Chord_Aug, #Dat_Chord_3) = 46
-    
-    ;--A
-    ;    Maj
-    \Data_MIDI(#Note_A, #Chord_Maj, #Dat_Bass_1) = 33
-    \Data_MIDI(#Note_A, #Chord_Maj, #Dat_Chord_1) = 45
-    \Data_MIDI(#Note_A, #Chord_Maj, #Dat_Chord_2) = 49
-    \Data_MIDI(#Note_A, #Chord_Maj, #Dat_Chord_3) = 52
-    ;    Min
-    \Data_MIDI(#Note_A, #Chord_Min, #Dat_Bass_1) = 33
-    \Data_MIDI(#Note_A, #Chord_Min, #Dat_Chord_1) = 45
-    \Data_MIDI(#Note_A, #Chord_Min, #Dat_Chord_2) = 48
-    \Data_MIDI(#Note_A, #Chord_Min, #Dat_Chord_3) = 52
-    ;    7th
-    \Data_MIDI(#Note_A, #Chord_7th, #Dat_Bass_1) = 33
-    \Data_MIDI(#Note_A, #Chord_7th, #Dat_Chord_1) = 45
-    \Data_MIDI(#Note_A, #Chord_7th, #Dat_Chord_2) = 49
-    \Data_MIDI(#Note_A, #Chord_7th, #Dat_Chord_3) = 43
-    ;    Dim
-    \Data_MIDI(#Note_A, #Chord_Dim, #Dat_Bass_1) = 33
-    \Data_MIDI(#Note_A, #Chord_Dim, #Dat_Chord_1) = 45
-    \Data_MIDI(#Note_A, #Chord_Dim, #Dat_Chord_2) = 48
-    \Data_MIDI(#Note_A, #Chord_Dim, #Dat_Chord_3) = 42
-    ;    Ma7
-    \Data_MIDI(#Note_A, #Chord_Ma7, #Dat_Bass_1) = 33
-    \Data_MIDI(#Note_A, #Chord_Ma7, #Dat_Chord_1) = 45
-    \Data_MIDI(#Note_A, #Chord_Ma7, #Dat_Chord_2) = 49
-    \Data_MIDI(#Note_A, #Chord_Ma7, #Dat_Chord_3) = 44
-    ;    Mi7
-    \Data_MIDI(#Note_A, #Chord_Mi7, #Dat_Bass_1) = 33
-    \Data_MIDI(#Note_A, #Chord_Mi7, #Dat_Chord_1) = 45
-    \Data_MIDI(#Note_A, #Chord_Mi7, #Dat_Chord_2) = 48
-    \Data_MIDI(#Note_A, #Chord_Mi7, #Dat_Chord_3) = 43
-    ;    Aug
-    \Data_MIDI(#Note_A, #Chord_Aug, #Dat_Bass_1) = 33
-    \Data_MIDI(#Note_A, #Chord_Aug, #Dat_Chord_1) = 45
-    \Data_MIDI(#Note_A, #Chord_Aug, #Dat_Chord_2) = 49
-    \Data_MIDI(#Note_A, #Chord_Aug, #Dat_Chord_3) = 53
-    
-    ;--E
-    ;    Maj
-    \Data_MIDI(#Note_E, #Chord_Maj, #Dat_Bass_1) = 40
-    \Data_MIDI(#Note_E, #Chord_Maj, #Dat_Chord_1) = 52
-    \Data_MIDI(#Note_E, #Chord_Maj, #Dat_Chord_2) = 44
-    \Data_MIDI(#Note_E, #Chord_Maj, #Dat_Chord_3) = 47
-    ;    Min
-    \Data_MIDI(#Note_E, #Chord_Min, #Dat_Bass_1) = 40
-    \Data_MIDI(#Note_E, #Chord_Min, #Dat_Chord_1) = 52
-    \Data_MIDI(#Note_E, #Chord_Min, #Dat_Chord_2) = 43
-    \Data_MIDI(#Note_E, #Chord_Min, #Dat_Chord_3) = 47
-    ;    7th
-    \Data_MIDI(#Note_E, #Chord_7th, #Dat_Bass_1) = 40
-    \Data_MIDI(#Note_E, #Chord_7th, #Dat_Chord_1) = 52
-    \Data_MIDI(#Note_E, #Chord_7th, #Dat_Chord_2) = 44
-    \Data_MIDI(#Note_E, #Chord_7th, #Dat_Chord_3) = 50
-    ;    Dim
-    \Data_MIDI(#Note_E, #Chord_Dim, #Dat_Bass_1) = 40
-    \Data_MIDI(#Note_E, #Chord_Dim, #Dat_Chord_1) = 52
-    \Data_MIDI(#Note_E, #Chord_Dim, #Dat_Chord_2) = 43
-    \Data_MIDI(#Note_E, #Chord_Dim, #Dat_Chord_3) = 49
-    ;    Ma7
-    \Data_MIDI(#Note_E, #Chord_Ma7, #Dat_Bass_1) = 40
-    \Data_MIDI(#Note_E, #Chord_Ma7, #Dat_Chord_1) = 52
-    \Data_MIDI(#Note_E, #Chord_Ma7, #Dat_Chord_2) = 44
-    \Data_MIDI(#Note_E, #Chord_Ma7, #Dat_Chord_3) = 51
-    ;    Mi7
-    \Data_MIDI(#Note_E, #Chord_Mi7, #Dat_Bass_1) = 40
-    \Data_MIDI(#Note_E, #Chord_Mi7, #Dat_Chord_1) = 52
-    \Data_MIDI(#Note_E, #Chord_Mi7, #Dat_Chord_2) = 43
-    \Data_MIDI(#Note_E, #Chord_Mi7, #Dat_Chord_3) = 50
-    ;    Aug
-    \Data_MIDI(#Note_E, #Chord_Aug, #Dat_Bass_1) = 40
-    \Data_MIDI(#Note_E, #Chord_Aug, #Dat_Chord_1) = 52
-    \Data_MIDI(#Note_E, #Chord_Aug, #Dat_Chord_2) = 44
-    \Data_MIDI(#Note_E, #Chord_Aug, #Dat_Chord_3) = 48
-    
-    ;--B
-    ;    Maj
-    \Data_MIDI(#Note_B, #Chord_Maj, #Dat_Bass_1) = 35
-    \Data_MIDI(#Note_B, #Chord_Maj, #Dat_Chord_1) = 47
-    \Data_MIDI(#Note_B, #Chord_Maj, #Dat_Chord_2) = 51
-    \Data_MIDI(#Note_B, #Chord_Maj, #Dat_Chord_3) = 42
-    ;    Min
-    \Data_MIDI(#Note_B, #Chord_Min, #Dat_Bass_1) = 35
-    \Data_MIDI(#Note_B, #Chord_Min, #Dat_Chord_1) = 47
-    \Data_MIDI(#Note_B, #Chord_Min, #Dat_Chord_2) = 50
-    \Data_MIDI(#Note_B, #Chord_Min, #Dat_Chord_3) = 42
-    ;    7th
-    \Data_MIDI(#Note_B, #Chord_7th, #Dat_Bass_1) = 35
-    \Data_MIDI(#Note_B, #Chord_7th, #Dat_Chord_1) = 47
-    \Data_MIDI(#Note_B, #Chord_7th, #Dat_Chord_2) = 51
-    \Data_MIDI(#Note_B, #Chord_7th, #Dat_Chord_3) = 45
-    ;    Dim
-    \Data_MIDI(#Note_B, #Chord_Dim, #Dat_Bass_1) = 35
-    \Data_MIDI(#Note_B, #Chord_Dim, #Dat_Chord_1) = 47
-    \Data_MIDI(#Note_B, #Chord_Dim, #Dat_Chord_2) = 50
-    \Data_MIDI(#Note_B, #Chord_Dim, #Dat_Chord_3) = 44
-    ;    Ma7
-    \Data_MIDI(#Note_B, #Chord_Ma7, #Dat_Bass_1) = 35
-    \Data_MIDI(#Note_B, #Chord_Ma7, #Dat_Chord_1) = 47
-    \Data_MIDI(#Note_B, #Chord_Ma7, #Dat_Chord_2) = 51
-    \Data_MIDI(#Note_B, #Chord_Ma7, #Dat_Chord_3) = 46
-    ;    Mi7
-    \Data_MIDI(#Note_B, #Chord_Mi7, #Dat_Bass_1) = 35
-    \Data_MIDI(#Note_B, #Chord_Mi7, #Dat_Chord_1) = 47
-    \Data_MIDI(#Note_B, #Chord_Mi7, #Dat_Chord_2) = 50
-    \Data_MIDI(#Note_B, #Chord_Mi7, #Dat_Chord_3) = 45
-    ;    Aug
-    \Data_MIDI(#Note_B, #Chord_Aug, #Dat_Bass_1) = 35
-    \Data_MIDI(#Note_B, #Chord_Aug, #Dat_Chord_1) = 47
-    \Data_MIDI(#Note_B, #Chord_Aug, #Dat_Chord_2) = 51
-    \Data_MIDI(#Note_B, #Chord_Aug, #Dat_Chord_3) = 43
-    
-    ;--F#/Gb
-    ;    Maj
-    \Data_MIDI(#Note_Fc, #Chord_Maj, #Dat_Bass_1) = 30
-    \Data_MIDI(#Note_Fc, #Chord_Maj, #Dat_Chord_1) = 42
-    \Data_MIDI(#Note_Fc, #Chord_Maj, #Dat_Chord_2) = 46
-    \Data_MIDI(#Note_Fc, #Chord_Maj, #Dat_Chord_3) = 49
-    ;    Min
-    \Data_MIDI(#Note_Fc, #Chord_Min, #Dat_Bass_1) = 30
-    \Data_MIDI(#Note_Fc, #Chord_Min, #Dat_Chord_1) = 42
-    \Data_MIDI(#Note_Fc, #Chord_Min, #Dat_Chord_2) = 45
-    \Data_MIDI(#Note_Fc, #Chord_Min, #Dat_Chord_3) = 49
-    ;    7th
-    \Data_MIDI(#Note_Fc, #Chord_7th, #Dat_Bass_1) = 30
-    \Data_MIDI(#Note_Fc, #Chord_7th, #Dat_Chord_1) = 42
-    \Data_MIDI(#Note_Fc, #Chord_7th, #Dat_Chord_2) = 46
-    \Data_MIDI(#Note_Fc, #Chord_7th, #Dat_Chord_3) = 52
-    ;    Dim
-    \Data_MIDI(#Note_Fc, #Chord_Dim, #Dat_Bass_1) = 30
-    \Data_MIDI(#Note_Fc, #Chord_Dim, #Dat_Chord_1) = 42
-    \Data_MIDI(#Note_Fc, #Chord_Dim, #Dat_Chord_2) = 45
-    \Data_MIDI(#Note_Fc, #Chord_Dim, #Dat_Chord_3) = 51
-    ;    Ma7
-    \Data_MIDI(#Note_Fc, #Chord_Ma7, #Dat_Bass_1) = 30
-    \Data_MIDI(#Note_Fc, #Chord_Ma7, #Dat_Chord_1) = 42
-    \Data_MIDI(#Note_Fc, #Chord_Ma7, #Dat_Chord_2) = 46
-    \Data_MIDI(#Note_Fc, #Chord_Ma7, #Dat_Chord_3) = 53
-    ;    Mi7
-    \Data_MIDI(#Note_Fc, #Chord_Mi7, #Dat_Bass_1) = 30
-    \Data_MIDI(#Note_Fc, #Chord_Mi7, #Dat_Chord_1) = 42
-    \Data_MIDI(#Note_Fc, #Chord_Mi7, #Dat_Chord_2) = 45
-    \Data_MIDI(#Note_Fc, #Chord_Mi7, #Dat_Chord_3) = 52
-    ;    Aug
-    \Data_MIDI(#Note_Fc, #Chord_Aug, #Dat_Bass_1) = 30
-    \Data_MIDI(#Note_Fc, #Chord_Aug, #Dat_Chord_1) = 42
-    \Data_MIDI(#Note_Fc, #Chord_Aug, #Dat_Chord_2) = 46
-    \Data_MIDI(#Note_Fc, #Chord_Aug, #Dat_Chord_3) = 50
+    For i = #Note_First To #Note_Last
+      For n = #Chord_First To #Chord_Last
+        Select i
+          Case #Note_Db
+            \Data_MIDI(i, n, #Dat_Bass_1) = 49
+          Case #Note_Ab
+            \Data_MIDI(i, n, #Dat_Bass_1) = 44
+          Case #Note_Eb
+            \Data_MIDI(i, n, #Dat_Bass_1) = 51
+          Case #Note_Bb
+            \Data_MIDI(i, n, #Dat_Bass_1) = 46
+          Case #Note_F
+            \Data_MIDI(i, n, #Dat_Bass_1) = 53
+          Case #Note_C
+            \Data_MIDI(i, n, #Dat_Bass_1) = 48
+          Case #Note_G
+            \Data_MIDI(i, n, #Dat_Bass_1) = 43
+          Case #Note_D
+            \Data_MIDI(i, n, #Dat_Bass_1) = 50
+          Case #Note_A
+            \Data_MIDI(i, n, #Dat_Bass_1) = 45
+          Case #Note_E
+            \Data_MIDI(i, n, #Dat_Bass_1) = 52
+          Case #Note_B
+            \Data_MIDI(i, n, #Dat_Bass_1) = 47
+          Case #Note_Fc
+            \Data_MIDI(i, n, #Dat_Bass_1) = 42
+        EndSelect
+        
+        Select n
+          Case #Chord_Maj, #Chord_7th, #Chord_Ma7, #Chord_Aug
+            Select i
+              Case #Note_Eb, #Note_F, #Note_D, #Note_E
+                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+4
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+16
+            EndSelect
+          Default
+            Select i
+              Case #Note_Eb, #Note_F, #Note_E
+                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+3
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+15
+            EndSelect
+        EndSelect
+        
+        Select n
+          Case #Chord_Maj, #Chord_Min
+            Select i
+              Case #Note_Db, #Note_Eb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+7
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+19
+            EndSelect
+          Case #Chord_7th, #Chord_Mi7
+            Select i
+              Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E, #Note_B
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+10
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+22
+            EndSelect
+          Case #Chord_Dim
+            Select i
+              Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E, #Note_B
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+9
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+21
+            EndSelect
+          Case #Chord_Ma7
+            Select i
+              Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_G, #Note_D, #Note_A, #Note_E, #Note_B
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+11
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+23
+            EndSelect
+          Case #Chord_Aug
+            Select i
+              Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+8
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+20
+            EndSelect
+        EndSelect
+        
+        \Data_MIDI(i, n, #Dat_Chord_1) = \Data_MIDI(i, n, #Dat_Bass_1)+12
+        
+      Next
+    Next
     
     ;--Autofill
     For i = #Note_First To #Note_Last

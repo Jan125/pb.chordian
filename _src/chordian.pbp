@@ -19,12 +19,12 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-04-06 09:59" user="Dino" host="HUSKLET"/>
+    <lastopen date="2024-04-06 13:57" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
-      <fingerprint md5="a75e47791dddc3fa8f9fe7edf577db94"/>
+      <fingerprint md5="ecd32a2241579818b652760a1f78dcdd"/>
     </file>
     <file name="chordian_datasections.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate="+"/>
@@ -36,7 +36,7 @@
     </file>
     <file name="chordian_frequencyhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="4" panelstate="+"/>
-      <fingerprint md5="0672e6ce1abcc2a0aa8ba849724a6852"/>
+      <fingerprint md5="34aa5e50f44ec10c132b6fdbd19fe2e2"/>
     </file>
     <file name="chordian_helpers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="5" panelstate="+"/>
@@ -44,7 +44,7 @@
     </file>
     <file name="chordian_machinehandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="6" panelstate="+"/>
-      <fingerprint md5="916b1b07c9088caea1ef591d661a04bd"/>
+      <fingerprint md5="d06be60c191a5c2216fe1f7c58aff9e9"/>
     </file>
     <file name="chordian_patternhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="7" panelstate="+"/>
@@ -60,7 +60,7 @@
     </file>
     <file name="chordian_synthhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="10" panelstate="+"/>
-      <fingerprint md5="e217f444b45ef854c0d14603a91087ce"/>
+      <fingerprint md5="094d42302fdb2aa8a1b750f1ee19d01a"/>
     </file>
     <file name="dsound.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="11" panelstate="+"/>
@@ -68,7 +68,7 @@
     </file>
     <file name="midi.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="12" panelstate="+"/>
-      <fingerprint md5="85eacbe8c1dda97f0941621afdcc867f"/>
+      <fingerprint md5="94b0c72d16d100e5e124b39885db9373"/>
     </file>
   </section>
   <section name="targets">
@@ -80,7 +80,7 @@
       <options unicode="1" thread="1" xpskin="1" optimizer="0"/>
       <icon enable="0">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <compilecount enable="1" value="1654"/>
+      <compilecount enable="1" value="1673"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -107,7 +107,7 @@
       <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="352"/>
+      <buildcount enable="1" value="358"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -135,7 +135,7 @@
       <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="352"/>
+      <buildcount enable="1" value="358"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -162,7 +162,7 @@
       <executable value="..\chordian_legacy.exe"/>
       <options thread="1" debug="1" optimizer="0"/>
       <icon enable="1">chordian.ico</icon>
-      <buildcount enable="1" value="352"/>
+      <buildcount enable="1" value="358"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
