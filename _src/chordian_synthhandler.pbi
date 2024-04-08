@@ -10,7 +10,7 @@ Global InitDS_Loop.i
 
 Global DSGainMult.f
 
-OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+".ini")
+OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+".data\chordian.ini")
 PreferenceGroup("Sound")
 Global WaveFormatExDescriptor.WAVEFORMATEX
 With WaveFormatExDescriptor

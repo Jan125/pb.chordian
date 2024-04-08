@@ -18,3 +18,8 @@ Macro KeepInRange(Value, Min, Max)
   EndIf
 EndMacro
 
+Macro LocalCatchImage(ImgID, ImgAddress, ImgFile)
+  If Not LoadImage(ImgID, GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+ImgFile)
+    CatchImage(ImgID, ImgAddress)
+  EndIf
+EndMacro
