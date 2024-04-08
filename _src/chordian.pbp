@@ -19,12 +19,12 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-04-08 09:38" user="Dino" host="HUSKLET"/>
+    <lastopen date="2024-04-08 15:40" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
-      <fingerprint md5="9f9cb49728faaaf48e1bd78bcae97b74"/>
+      <fingerprint md5="ba9084fab605b4595b34e2f3092b9a0b"/>
     </file>
     <file name="chordian_datasections.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate="+"/>
@@ -52,7 +52,7 @@
     </file>
     <file name="chordian_repainthandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="8" panelstate="+"/>
-      <fingerprint md5="0cd081d3c29c3cd31674ea2bda0bbaab"/>
+      <fingerprint md5="1dd14980d8ee0392e74b5940d85694df"/>
     </file>
     <file name="chordian_structures.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="9" panelstate="+"/>
@@ -60,7 +60,7 @@
     </file>
     <file name="chordian_synthhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="10" panelstate="+"/>
-      <fingerprint md5="f5880a4fe507cd0e8b046a41513b5995"/>
+      <fingerprint md5="6d73a1d41806cfe1ee26c4d240b8bce5"/>
     </file>
     <file name="dsound.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="11" panelstate="+"/>
@@ -104,10 +104,10 @@
       <outputfile value="..\chordian.exe"/>
       <compiler version="PureBasic 6.10 LTS - C Backend (Windows - x86)"/>
       <executable value="..\chordian.exe"/>
-      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="1"/>
+      <options unicode="1" thread="1" xpskin="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="373"/>
+      <buildcount enable="1" value="375"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -120,7 +120,7 @@
         <field7 value="chordian"/>
         <field8 value="chordian.exe"/>
         <field9 value="CC0 1.0 Universal"/>
-        <field12 value="5.46"/>
+        <field12 value="6.10 C x86"/>
         <field13 value="synkronas@outlook.com"/>
         <field14 value="https://github.com/Jan125/pb.chordian"/>
         <field15 value="VOS_NT"/>
@@ -132,10 +132,10 @@
       <outputfile value="..\chordian_x64.exe"/>
       <compiler version="PureBasic 6.10 LTS - C Backend (Windows - x64)"/>
       <executable value="..\chordian_x64.exe"/>
-      <options unicode="1" thread="1" xpskin="1" debug="1" optimizer="1"/>
+      <options unicode="1" thread="1" xpskin="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="373"/>
+      <buildcount enable="1" value="375"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -148,7 +148,7 @@
         <field7 value="chordian"/>
         <field8 value="chordian_x64.exe"/>
         <field9 value="CC0 1.0 Universal"/>
-        <field12 value="5.46_x64"/>
+        <field12 value="6.10 C x64"/>
         <field13 value="synkronas@outlook.com"/>
         <field14 value="https://github.com/Jan125/pb.chordian"/>
         <field15 value="VOS_NT"/>
@@ -160,9 +160,9 @@
       <outputfile value="..\chordian_legacy.exe"/>
       <compiler version="PureBasic 5.46 LTS (Windows - x86)"/>
       <executable value="..\chordian_legacy.exe"/>
-      <options thread="1" debug="1" optimizer="0"/>
+      <options thread="1" optimizer="0"/>
       <icon enable="1">chordian.ico</icon>
-      <buildcount enable="1" value="373"/>
+      <buildcount enable="1" value="375"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -175,7 +175,7 @@
         <field7 value="chordian"/>
         <field8 value="chordian_legacy.exe"/>
         <field9 value="CC0 1.0 Universal"/>
-        <field12 value="5.46_Legacy"/>
+        <field12 value="5.46 x86"/>
         <field13 value="synkronas@outlook.com"/>
         <field14 value="https://github.com/Jan125/pb.chordian"/>
         <field15 value="VOS_NT"/>

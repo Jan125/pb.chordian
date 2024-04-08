@@ -50,7 +50,7 @@ Procedure.i SynthHandler(*Void)
     Protected i.i
     Protected u.i
     
-    Protected MSCounter.i
+    Protected MSCounter.f
     
     Protected CurrentChord.i = \Value_Internal_Chord_Chord
     Protected CurrentNote.i = \Value_Internal_Chord_Note
@@ -84,7 +84,7 @@ Procedure.i SynthHandler(*Void)
     
     Repeat
       WaitForMultipleObjects_(ArraySize(DirectSoundNotifyArray())+1, DirectSoundEventArray(), #False, -1)
-      CurrentBlock+1
+      CurrentBlock + 1
       If CurrentBlock > ArraySize(DirectSoundNotifyArray())
         CurrentBlock = 0
       EndIf
@@ -134,6 +134,7 @@ Procedure.i SynthHandler(*Void)
         EndIf
         
         Result = 0.0
+        
         Select \Value_Internal_Chord_Note
           Case #Note_G
             Phase + ((3.125 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
@@ -163,16 +164,16 @@ Procedure.i SynthHandler(*Void)
             Phase + 0.0
         EndSelect
         
-        MSCounter + 1
-        While MSCounter >= (WaveFormatExDescriptor\nSamplesPerSec/1000)
-          MSCounter - (WaveFormatExDescriptor\nSamplesPerSec/1000)
+        MSCounter + (1000.0 / WaveFormatExDescriptor\nSamplesPerSec)
+        While MSCounter >= 1.0
+          MSCounter - 1.0
           ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallMachineHandler, 1, 0)
         Wend
         
-        Sin3Phase = Pow(Abs(Sin(Radian(Phase+125))), 0.33)*Sign(Sin(Radian(Phase+125)))
+        Sin3Phase = Sin(Radian(Phase+125.0))
+        Sin3Phase = Pow(Abs(Sin3Phase), 0.33)*Sign(Sin3Phase)
         
         ;-Calc curves
-        
         For i = #Snd_Bass_First To #Snd_Bass_Last
           Select \Status_Sound(i)
             Case #Curve_None
