@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 6.10 LTS (Windows - x86)">
+  <section name="config">
+    <options closefiles="1" openmode="1" name="VecMake"/>
+    <comment>
+      6.10 LTS: Can only be run with x64.
+      Please wait for 6.11 for x86 support.
+    </comment>
+  </section>
+  <section name="data">
+    <explorer view="C:\Program Files (x86)\PureBasic\Examples\" pattern="0"/>
+    <log show="1"/>
+    <lastopen date="2024-04-12 15:09" user="dino" host="DESKTOP-C5DN0BR"/>
+  </section>
+  <section name="files">
+    <file name="vecmake.pb">
+      <config load="1" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
+      <fingerprint md5="dd594a14185a9074d1d8c251bf9e15ca"/>
+    </file>
+  </section>
+  <section name="targets">
+    <target name="Default Target" enabled="1" default="1">
+      <inputfile value="vecmake.pb"/>
+      <outputfile value=""/>
+      <compiler version="PureBasic 6.10 LTS (Windows - x64)"/>
+      <directory value="..\img\"/>
+      <options xpskin="1" dpiaware="1" debug="1" optimizer="0"/>
+    </target>
+  </section>
+</project>

@@ -161,8 +161,8 @@ Enumeration 1
   #Img_Button_Light_C_Off
   #Img_Button_Light_C_On
   
-  #Img_Button_Wide_Off
-  #Img_Button_Wide_On
+  #Img_Button_Wide_Black_Off
+  #Img_Button_Wide_Black_On
   #Img_Button_Wide_Red_Off
   #Img_Button_Wide_Red_On
   

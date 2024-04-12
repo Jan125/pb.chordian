@@ -17,6 +17,9 @@ Procedure.i RepaintHandler(*Void)
         
         ;-Repaint Master section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Master, 0) = #WAIT_OBJECT_0
+          ClipOutput(63, 29, 162, 121)
+          DrawImage(ImageID(#Img_Background), 0, 0)
+          DrawAlphaImage(ImageID(#Img_Base), 0, 0)
           ;Power Button and LED
           Select \Machine_State\Value_Master_Button_Power_OnOff
             Case 1
@@ -35,6 +38,9 @@ Procedure.i RepaintHandler(*Void)
         
         ;-Repaint Level/Mode section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Level, 0) = #WAIT_OBJECT_0
+          ClipOutput(24, 154, 201, 96)
+          DrawImage(ImageID(#Img_Background), 0, 0)
+          DrawAlphaImage(ImageID(#Img_Base), 0, 0)
           ;Harp Voice 2 Volume Knob
           DrawAlphaImage(ImageID(#Img_Knob_Ring), 73, 170)
           Line(94, 191, Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21+Sign(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21) <= 0.5), Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21+Sign(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21) <= 0.5))
@@ -57,6 +63,9 @@ Procedure.i RepaintHandler(*Void)
         
         ;-Repaint Rhythm section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Rhythm, 0) = #WAIT_OBJECT_0
+          ClipOutput(23, 254, 202, 126)
+          DrawImage(ImageID(#Img_Background), 0, 0)
+          DrawAlphaImage(ImageID(#Img_Base), 0, 0)
           ;Rhythm Alternate Selection Button
           Select \Machine_State\Value_Rhythm_Button_Alternate_OnOff
             Case 1
@@ -91,6 +100,9 @@ Procedure.i RepaintHandler(*Void)
         
         ;-Repaint Memory section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Memory, 0) = #WAIT_OBJECT_0
+          ClipOutput(32, 384, 193, 186)
+          DrawImage(ImageID(#Img_Background), 0, 0)
+          DrawAlphaImage(ImageID(#Img_Base), 0, 0)
           ;Memory Button
           Select \Machine_State\Value_Memory_Button_Memory_OnOff
             Case 1
@@ -120,9 +132,9 @@ Procedure.i RepaintHandler(*Void)
           ;Playback-Enter Button
           Select \Machine_State\Value_Memory_Button_Playback_Enter
             Case 1
-              DrawAlphaImage(ImageID(#Img_Button_Wide_On), 162, 480)
+              DrawAlphaImage(ImageID(#Img_Button_Wide_Black_On), 162, 480)
             Case 0
-              DrawAlphaImage(ImageID(#Img_Button_Wide_Off), 162, 480)
+              DrawAlphaImage(ImageID(#Img_Button_Wide_Black_Off), 162, 480)
           EndSelect
         EndIf
         
@@ -130,6 +142,9 @@ Procedure.i RepaintHandler(*Void)
         
         ;Repaint Chord section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Chord, 0) = #WAIT_OBJECT_0
+          ClipOutput(229, 215, 441, 148)
+          DrawImage(ImageID(#Img_Background), 0, 0)
+          DrawAlphaImage(ImageID(#Img_Base), 0, 0)
           ;Chord Buttons
           For i = #Note_First To #Note_Fc
             Select i
@@ -208,7 +223,7 @@ Procedure.i RepaintHandler(*Void)
             EndSelect
           Next
         EndIf
-        
+        ClipOutput(0, 0, 800, 600)
         
         StopDrawing()
       EndIf
