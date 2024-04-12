@@ -11,12 +11,12 @@
   <section name="data">
     <explorer view="C:\Program Files (x86)\PureBasic\Examples\" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-04-12 15:09" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2024-04-12 15:32" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="vecmake.pb">
       <config load="1" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
-      <fingerprint md5="dd594a14185a9074d1d8c251bf9e15ca"/>
+      <fingerprint md5="6b645032227fb754f289aa311001b731"/>
     </file>
   </section>
   <section name="targets">

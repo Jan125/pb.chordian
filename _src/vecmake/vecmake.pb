@@ -1056,7 +1056,7 @@ Macro RenderBody()
   TranslateCoordinates(10, 0)
   MovePathCursor(0, 0)
   AddPathCircle(20, 40, 20)
-  MovePathCursor(40, 20)
+  MovePathCursor(40, 40)
   AddPathLine(40, 60)
   
   ;n

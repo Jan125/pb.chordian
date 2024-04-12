@@ -1806,7 +1806,7 @@ Procedure Main()
           
           
           If \Trigger_Harp
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 749, 130, 777, 150)
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 752, 131, 772, 150)
               Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
               Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
               For i = #Note_First To #Note_Last
