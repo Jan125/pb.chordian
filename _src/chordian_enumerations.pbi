@@ -299,6 +299,7 @@ Enumeration 1
   #Itm_StrumMode_Primary_First
   #Itm_StrumMode_Primary_None = #Itm_StrumMode_Primary_First
   #Itm_StrumMode_Primary_Single
+  #Itm_StrumMode_Primary_Double
   #Itm_StrumMode_Primary_Chord
   #Itm_StrumMode_Primary_Spread
   #Itm_StrumMode_Primary_Octave
@@ -310,6 +311,7 @@ Enumeration 1
   #Itm_StrumMode_Secondary_First
   #Itm_StrumMode_Secondary_None = #Itm_StrumMode_Secondary_First
   #Itm_StrumMode_Secondary_Single
+  #Itm_StrumMode_Secondary_Double
   #Itm_StrumMode_Secondary_Chord
   #Itm_StrumMode_Secondary_Spread
   #Itm_StrumMode_Secondary_Octave
@@ -321,6 +323,7 @@ Enumeration 1
   #Itm_StrumMode_Tertiary_First
   #Itm_StrumMode_Tertiary_None = #Itm_StrumMode_Tertiary_First
   #Itm_StrumMode_Tertiary_Single
+  #Itm_StrumMode_Tertiary_Double
   #Itm_StrumMode_Tertiary_Chord
   #Itm_StrumMode_Tertiary_Spread
   #Itm_StrumMode_Tertiary_Octave
@@ -338,6 +341,7 @@ EndEnumeration
 Enumeration -1
   #Str_None
   #Str_Single
+  #Str_Double
   #Str_Chord
   #Str_Spread
   #Str_Octave

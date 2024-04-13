@@ -36,6 +36,7 @@ The behaviour of the patterns is like follows:
 
 - None: Will not play anything.
 - Single: Will play the selected note.
+- Double: Plays the selected note, plus the one upward of it.
 - Chord: Plays the selected note, plus the two upwards of it. (Full chord)
 - Spread: Selected note, +2 upwards, +4 upwards. (Octave with middle note)
 - Octave: Selected note, +3 upwards, +6 upwards, +9 upwards. (Multiple Octaves)

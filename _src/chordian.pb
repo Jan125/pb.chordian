@@ -204,6 +204,7 @@ Procedure.i Init()
   MenuItem(#Itm_StrumMode_Primary_None, "None")
   MenuBar()
   MenuItem(#Itm_StrumMode_Primary_Single, "Single")
+  MenuItem(#Itm_StrumMode_Primary_Double, "Double")
   MenuItem(#Itm_StrumMode_Primary_Chord, "Chord")
   MenuItem(#Itm_StrumMode_Primary_Spread, "Spread")
   MenuItem(#Itm_StrumMode_Primary_Octave, "Octave")
@@ -216,6 +217,7 @@ Procedure.i Init()
   MenuItem(#Itm_StrumMode_Secondary_None, "None")
   MenuBar()
   MenuItem(#Itm_StrumMode_Secondary_Single, "Single")
+  MenuItem(#Itm_StrumMode_Secondary_Double, "Double")
   MenuItem(#Itm_StrumMode_Secondary_Chord, "Chord")
   MenuItem(#Itm_StrumMode_Secondary_Spread, "Spread")
   MenuItem(#Itm_StrumMode_Secondary_Octave, "Octave")
@@ -228,6 +230,7 @@ Procedure.i Init()
   MenuItem(#Itm_StrumMode_Tertiary_None, "None")
   MenuBar()
   MenuItem(#Itm_StrumMode_Tertiary_Single, "Single")
+  MenuItem(#Itm_StrumMode_Tertiary_Double, "Double")
   MenuItem(#Itm_StrumMode_Tertiary_Chord, "Chord")
   MenuItem(#Itm_StrumMode_Tertiary_Spread, "Spread")
   MenuItem(#Itm_StrumMode_Tertiary_Octave, "Octave")
@@ -238,6 +241,7 @@ Procedure.i Init()
   
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_None, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_None))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Single, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Single))
+  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Double, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Double))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Chord, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Chord))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Spread, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Spread))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Octave, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Octave))
@@ -248,6 +252,7 @@ Procedure.i Init()
   
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_None, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_None))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Single, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Single))
+  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Double, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Double))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Chord, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Chord))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Spread, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Spread))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Octave, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Octave))
@@ -258,6 +263,7 @@ Procedure.i Init()
   
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_None, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_None))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Single, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Single))
+  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Double, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Double))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Chord, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Chord))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Spread, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Spread))
   SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Octave, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Octave))
@@ -436,6 +442,7 @@ Procedure Main()
                 
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_None, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_None))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Single, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Single))
+                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Double, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Double))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Chord, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Chord))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Spread, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Spread))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Octave, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Octave))
@@ -446,6 +453,7 @@ Procedure Main()
                 
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_None, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_None))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Single, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Single))
+                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Double, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Double))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Chord, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Chord))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Spread, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Spread))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Octave, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Octave))
@@ -456,6 +464,7 @@ Procedure Main()
                 
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_None, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_None))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Single, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Single))
+                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Double, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Double))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Chord, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Chord))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Spread, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Spread))
                 SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Octave, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Octave))
@@ -537,6 +546,8 @@ Procedure Main()
                 Chordian\Input_State\PrimaryStrumMode = #Str_None
               Case #Itm_StrumMode_Primary_Single
                 Chordian\Input_State\PrimaryStrumMode = #Str_Single
+              Case #Itm_StrumMode_Primary_Double
+                Chordian\Input_State\PrimaryStrumMode = #Str_Double
               Case #Itm_StrumMode_Primary_Chord
                 Chordian\Input_State\PrimaryStrumMode = #Str_Chord
               Case #Itm_StrumMode_Primary_Spread
@@ -555,6 +566,7 @@ Procedure Main()
             
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_None, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_None))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Single, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Single))
+            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Double, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Double))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Chord, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Chord))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Spread, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Spread))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Octave, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Octave))
@@ -569,6 +581,8 @@ Procedure Main()
                 Chordian\Input_State\SecondaryStrumMode = #Str_None
               Case #Itm_StrumMode_Secondary_Single
                 Chordian\Input_State\SecondaryStrumMode = #Str_Single
+              Case #Itm_StrumMode_Secondary_Double
+                Chordian\Input_State\SecondaryStrumMode = #Str_Double
               Case #Itm_StrumMode_Secondary_Chord
                 Chordian\Input_State\SecondaryStrumMode = #Str_Chord
               Case #Itm_StrumMode_Secondary_Spread
@@ -587,6 +601,7 @@ Procedure Main()
             
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_None, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_None))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Single, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Single))
+            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Double, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Double))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Chord, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Chord))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Spread, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Spread))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Octave, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Octave))
@@ -601,6 +616,8 @@ Procedure Main()
                 Chordian\Input_State\TertiaryStrumMode = #Str_None
               Case #Itm_StrumMode_Tertiary_Single
                 Chordian\Input_State\TertiaryStrumMode = #Str_Single
+              Case #Itm_StrumMode_Tertiary_Double
+                Chordian\Input_State\TertiaryStrumMode = #Str_Double
               Case #Itm_StrumMode_Tertiary_Chord
                 Chordian\Input_State\TertiaryStrumMode = #Str_Chord
               Case #Itm_StrumMode_Tertiary_Spread
@@ -619,6 +636,7 @@ Procedure Main()
             
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_None, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_None))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Single, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Single))
+            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Double, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Double))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Chord, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Chord))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Spread, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Spread))
             SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Octave, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Octave))
@@ -2032,6 +2050,11 @@ Procedure Main()
                           Case #Str_None
                           Case #Str_Single
                             Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                          Case #Str_Double
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            EndIf
                           Case #Str_Chord
                             Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                             If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
@@ -2076,11 +2099,11 @@ Procedure Main()
                             Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                             Select (-(\Mouse_Position_Y_Current-389)/24)%3
                               Case 0
-                                If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
+                                If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
                                   Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                                 EndIf
                               Case 2
-                                If #Harp_First-2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                                If #Harp_First-2-(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
                                   Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                                 EndIf
                             EndSelect
@@ -2092,6 +2115,11 @@ Procedure Main()
                           Case #Str_None
                           Case #Str_Single
                             Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                          Case #Str_Double
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            EndIf
                           Case #Str_Chord
                             Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                             If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
@@ -2136,11 +2164,11 @@ Procedure Main()
                             Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                             Select (-(\Mouse_Position_Y_Current-389)/24)%3
                               Case 0
-                                If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
+                                If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
                                   Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                                 EndIf
                               Case 2
-                                If #Harp_First-2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                                If #Harp_First-2-(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
                                   Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                                 EndIf
                             EndSelect
@@ -2152,6 +2180,11 @@ Procedure Main()
                           Case #Str_None
                           Case #Str_Single
                             Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                          Case #Str_Double
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            EndIf
                           Case #Str_Chord
                             Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                             If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
@@ -2196,11 +2229,11 @@ Procedure Main()
                             Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                             Select (-(\Mouse_Position_Y_Current-389)/24)%3
                               Case 0
-                                If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
+                                If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
                                   Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                                 EndIf
                               Case 2
-                                If #Harp_First-2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
+                                If #Harp_First-2-(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
                                   Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
                                 EndIf
                             EndSelect
