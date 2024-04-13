@@ -296,11 +296,57 @@ Enumeration 1
   #Itm_Reset
   #Itm_Exit
   #Itm_Tuning
+  #Itm_StrumMode_Primary_First
+  #Itm_StrumMode_Primary_None = #Itm_StrumMode_Primary_First
+  #Itm_StrumMode_Primary_Single
+  #Itm_StrumMode_Primary_Chord
+  #Itm_StrumMode_Primary_Spread
+  #Itm_StrumMode_Primary_Octave
+  #Itm_StrumMode_Primary_Full
+  #Itm_StrumMode_Primary_Reverse
+  #Itm_StrumMode_Primary_Mirror
+  #Itm_StrumMode_Primary_Segment
+  #Itm_StrumMode_Primary_Last = #Itm_StrumMode_Primary_Segment
+  #Itm_StrumMode_Secondary_First
+  #Itm_StrumMode_Secondary_None = #Itm_StrumMode_Secondary_First
+  #Itm_StrumMode_Secondary_Single
+  #Itm_StrumMode_Secondary_Chord
+  #Itm_StrumMode_Secondary_Spread
+  #Itm_StrumMode_Secondary_Octave
+  #Itm_StrumMode_Secondary_Full
+  #Itm_StrumMode_Secondary_Reverse
+  #Itm_StrumMode_Secondary_Mirror
+  #Itm_StrumMode_Secondary_Segment
+  #Itm_StrumMode_Secondary_Last = #Itm_StrumMode_Secondary_Segment
+  #Itm_StrumMode_Tertiary_First
+  #Itm_StrumMode_Tertiary_None = #Itm_StrumMode_Tertiary_First
+  #Itm_StrumMode_Tertiary_Single
+  #Itm_StrumMode_Tertiary_Chord
+  #Itm_StrumMode_Tertiary_Spread
+  #Itm_StrumMode_Tertiary_Octave
+  #Itm_StrumMode_Tertiary_Full
+  #Itm_StrumMode_Tertiary_Reverse
+  #Itm_StrumMode_Tertiary_Mirror
+  #Itm_StrumMode_Tertiary_Segment
+  #Itm_StrumMode_Tertiary_Last = #Itm_StrumMode_Tertiary_Segment
   #Itm_ChordiateMode
   #Itm_PatEdit
   #Itm_Manual
   #Itm_About
 EndEnumeration
+
+Enumeration -1
+  #Str_None
+  #Str_Single
+  #Str_Chord
+  #Str_Spread
+  #Str_Octave
+  #Str_Full
+  #Str_Reverse
+  #Str_Mirror
+  #Str_Segment
+EndEnumeration
+
 
 Enumeration #PB_Event_FirstCustomValue
   #Event_GetTriggers

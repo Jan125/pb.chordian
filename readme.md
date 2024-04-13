@@ -26,9 +26,23 @@ Chord keys can also be manually clicked, and will stay clicked until being click
 
 The strumplate can be played by running across it with the mouse, with a button held.
 
-- Left button: Single note.
-- Right button: 3 notes, the one you are pointing at being the lowest, plus the next 2 higher ones (full chord)
-- Middle button/wheel click: 3 notes, the one you are pointing at being the lowest, skip one note, play the next, skip one  note, play the next
+By default, the buttons are assigned the following pattern:
+
+- Left button: Single
+- Right button: Chord
+- Middle button/wheel click: Mirror
+
+The behaviour of the patterns is like follows:
+
+- None: Will not play anything.
+- Single: Will play the selected note.
+- Chord: Plays the selected note, plus the two upwards of it. (Full chord)
+- Spread: Selected note, +2 upwards, +4 upwards. (Octave with middle note)
+- Octave: Selected note, +3 upwards, +6 upwards, +9 upwards. (Multiple Octaves)
+- Full: Everything. (Warning: Loud.)
+- Reverse: Reverse order Single.
+- Mirror: Reverse plus Single.
+- Segment: Alternating pattern: In each octave, first note will trigger the last note in said octave, middle note is unaffected.
 
 It can also be played with:
 

@@ -56,6 +56,10 @@ Structure Input_State
   LastKey.i
   LastKeyEventWasDown.i
   
+  PrimaryStrumMode.i
+  SecondaryStrumMode.i
+  TertiaryStrumMode.i
+  
   Array Keymap.u(262143)
   Array Keymap_Chord.u(#Chord_Last, #Note_Last)
   Array Keymap_Harp.u(#Harp_Last)
@@ -204,7 +208,10 @@ With Chordian
 EndWith
 
 
-With Chordian\Input_Event
+With Chordian\Input_State
+  \PrimaryStrumMode = #Str_Single
+  \SecondaryStrumMode = #Str_Chord
+  \TertiaryStrumMode = #Str_Mirror
 EndWith
 
 
