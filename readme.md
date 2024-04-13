@@ -13,6 +13,7 @@ Chord keys are by default assigned to the keyboard in the following configuratio
     1  2  3  4  5  6  7  8  9  0  ß  ´
      Q  W  E  R  T  Z  U  I  O  P  Ü  +
       A  S  D  F  G  H  J  K  L  Ö  Ä  #
+            '=====SPACE===='
 
 Please note that this is a standard configuration made for a German ISO keyboard.\
 ASCII keyboards will not be able to assign standard small keys for every chord in a consistent manner.
@@ -20,6 +21,27 @@ ASCII keyboards will not be able to assign standard small keys for every chord i
 You can reassign chord keys by right-clicking them, then pressing the key that you want them to be.
 
 Chord keys can also be manually clicked, and will stay clicked until being clicked again, or receiving their assigned button being lifted.
+
+These last two points do NOT extend to the Space key.\
+The Space key is marked as a special Chordiate Mode key.
+
+The chords you can play are as follows:
+
+- First Row = Major
+- Second Row = Minor
+- Third Row = 7th
+
+You can combine the keys for more chords:
+
+- Major + Minor = Diminished
+- Major + 7th = Major 7th
+- Minor + 7th = Minor 7th
+- Major + Minor + 7th = Minor 7th
+
+The following combinations are only available in Chordiate Mode:
+
+- Major + Chordiate = Add9
+- Minor + Chordiate = Sus4
 
 
 ##

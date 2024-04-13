@@ -2,15 +2,28 @@
 Enumeration -1
   #Chord_None
   #Chord_First
+  
+  ;Default Chords
   #Chord_Maj = #Chord_First
   #Chord_Min
   #Chord_7th
-  #Chord_Middle = #Chord_7th
   #Chord_Dim
   #Chord_Ma7
   #Chord_Mi7
   #Chord_Aug
-  #Chord_Last = #Chord_Aug
+  
+  ;Custom Chords
+  #Chord_Add
+  #Chord_Sus
+  
+  ;Reserved Chords for future use
+  #Chord_RE3
+  #Chord_RE4
+  #Chord_RE5
+  #Chord_RE6
+  #Chord_RE7
+  
+  #Chord_Last = #Chord_RE7
 EndEnumeration
 
 Enumeration -1
@@ -381,6 +394,7 @@ Enumeration -1
   #Btn_Memory_Playback_Record
   #Btn_Memory_Repeat_Delete
   #Btn_Memory_Playback_Enter
-  #Btn_Last = #Btn_Memory_Playback_Enter
+  #Btn_Chordiate
+  #Btn_Last = #Btn_Chordiate
 EndEnumeration
 

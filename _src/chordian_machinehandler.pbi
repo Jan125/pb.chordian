@@ -11,6 +11,8 @@ Procedure.i AutofillDerivedNotes(Note.i, Chord.i)
     Select Chord
       Case #Chord_Maj, #Chord_7th, #Chord_Ma7, #Chord_Aug
         \Data_MIDI(Note, Chord, #Dat_Bass_4) = \Data_MIDI(Note, Chord, #Dat_Bass_3)-3
+      Case #Chord_Add, #Chord_Sus
+        \Data_MIDI(Note, Chord, #Dat_Bass_4) = \Data_MIDI(Note, Chord, #Dat_Bass_3)-2
       Default
         \Data_MIDI(Note, Chord, #Dat_Bass_4) = \Data_MIDI(Note, Chord, #Dat_Bass_3)-4
     EndSelect
@@ -81,6 +83,20 @@ Procedure.i ResetMachine()
               Default
                 \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+16
             EndSelect
+          Case #Chord_Add
+            Select i
+              Case #Note_Eb, #Note_F, #Note_D, #Note_E
+                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+2
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+14
+            EndSelect
+          Case #Chord_Sus
+            Select i
+              Case #Note_Eb, #Note_F, #Note_D, #Note_E
+                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+5
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+17
+            EndSelect
           Default
             Select i
               Case #Note_Eb, #Note_F, #Note_E
@@ -91,13 +107,6 @@ Procedure.i ResetMachine()
         EndSelect
         
         Select n
-          Case #Chord_Maj, #Chord_Min
-            Select i
-              Case #Note_Db, #Note_Eb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+7
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+19
-            EndSelect
           Case #Chord_7th, #Chord_Mi7
             Select i
               Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E, #Note_B
@@ -125,6 +134,13 @@ Procedure.i ResetMachine()
                 \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+8
               Default
                 \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+20
+            EndSelect
+          Default
+            Select i
+              Case #Note_Db, #Note_Eb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+7
+              Default
+                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+19
             EndSelect
         EndSelect
         

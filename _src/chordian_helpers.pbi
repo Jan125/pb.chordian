@@ -18,6 +18,19 @@ Macro KeepInRange(Value, Min, Max)
   EndIf
 EndMacro
 
+Macro RollInRange(Value, Min, Max)
+  If Min = Max
+    Value = Min
+  Else
+    While (Value-Min) > (Max-Min)
+      Value-((Max-Min)+1)
+    Wend
+    While (Value-Min) < 0
+      Value+((Max-Min)+1)
+    Wend
+  EndIf
+EndMacro
+
 Macro LocalCatchImage(ImgID, ImgAddress, ImgFile)
   If Not LoadImage(ImgID, GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+ImgFile)
     CatchImage(ImgID, ImgAddress)
