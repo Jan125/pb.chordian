@@ -13,17 +13,17 @@ Enumeration -1
   #Chord_Aug
   
   ;Custom Chords
-  #Chord_Add
-  #Chord_Sus
+  #Chord_Ad9
+  #Chord_Su4
   
   ;Reserved Chords for future use
-  #Chord_RE3
-  #Chord_RE4
-  #Chord_RE5
-  #Chord_RE6
-  #Chord_RE7
+  #Chord_Ad2
+  #Chord_Chr
+  #Chord_Ac4
+  #Chord_Am4
+  #Chord_Inv
   
-  #Chord_Last = #Chord_RE7
+  #Chord_Last = #Chord_Inv
 EndEnumeration
 
 Enumeration -1

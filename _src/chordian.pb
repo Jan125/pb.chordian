@@ -2297,7 +2297,11 @@ Procedure Main()
                 If \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And
                    \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And
                    \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
-                  Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
+                  If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Inv
+                  Else
+                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
+                  EndIf
                   SendNewChord = 1
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
                     SendNewTick = 1
@@ -2307,11 +2311,19 @@ Procedure Main()
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
                     If \LastKeyEventWasDown
                       \LastKeyEventWasDown = 0
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
+                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Chr
+                      Else
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
+                      EndIf
                       SendNewChord = 1
                     EndIf
                   Else
-                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
+                    If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Chr
+                    Else
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
+                    EndIf
                     SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
@@ -2322,11 +2334,19 @@ Procedure Main()
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
                     If \LastKeyEventWasDown
                       \LastKeyEventWasDown = 0
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
+                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ac4
+                      Else
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
+                      EndIf
                       SendNewChord = 1
                     EndIf
                   Else
-                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
+                    If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ac4
+                    Else
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
+                    EndIf
                     SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
@@ -2337,11 +2357,19 @@ Procedure Main()
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
                     If \LastKeyEventWasDown
                       \LastKeyEventWasDown = 0
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
+                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Am4
+                      Else
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
+                      EndIf
                       SendNewChord = 1
                     EndIf
                   Else
-                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
+                    If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Am4
+                    Else
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
+                    EndIf
                     SendNewChord = 1
                   EndIf
                   If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
@@ -2351,7 +2379,7 @@ Procedure Main()
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
                   Else
                     If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Add
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ad9
                     Else
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Maj
                     EndIf
@@ -2364,7 +2392,7 @@ Procedure Main()
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
                   Else
                     If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Sus
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Su4
                     Else
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Min
                     EndIf
@@ -2377,7 +2405,7 @@ Procedure Main()
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
                   Else
                     If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_7th
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ad2
                     Else
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_7th
                     EndIf
