@@ -334,6 +334,11 @@ Procedure.i Init()
   LocalCatchImage(#Img_Button_Light_C_Off, ?Img_Button_Light_C_Off, ".data\img\button_light_c_off.png")
   LocalCatchImage(#Img_Button_Light_C_On, ?Img_Button_Light_C_On, ".data\img\button_light_c_on.png")
   
+  LocalCatchImage(#Img_Button_Bar_Light_Off, ?Img_Button_Bar_Light_Off, ".data\img\button_bar_light_off.png")
+  LocalCatchImage(#Img_Button_Bar_Light_On, ?Img_Button_Bar_Light_On, ".data\img\button_bar_light_on.png")
+  LocalCatchImage(#Img_Button_Bar_Red_Off, ?Img_Button_Bar_Red_Off, ".data\img\button_bar_red_off.png")
+  LocalCatchImage(#Img_Button_Bar_Red_On, ?Img_Button_Bar_Red_On, ".data\img\button_bar_red_on.png")
+  
   LocalCatchImage(#Img_Button_Wide_Black_Off, ?Img_Button_Wide_Black_Off, ".data\img\button_wide_black_off.png")
   LocalCatchImage(#Img_Button_Wide_Black_On, ?Img_Button_Wide_Black_On, ".data\img\button_wide_black_on.png")
   LocalCatchImage(#Img_Button_Wide_Red_Off, ?Img_Button_Wide_Red_Off, ".data\img\button_wide_red_off.png")
@@ -1247,7 +1252,9 @@ Procedure Main()
             
             \Trigger_Chord_Button_Major = 0
             \Trigger_Chord_Button_Minor = 0
-            \Trigger_Chord_Button_7th = 0
+            \Trigger_Chord_Button_Minor = 0
+            
+            \Trigger_Chordiate = 0
             
             \Trigger_Harp = 0
             
@@ -1350,6 +1357,11 @@ Procedure Main()
           
           If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 301, 326, 661, 350)
             \Trigger_Chord_Button_7th = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+          EndIf
+          
+          ;Chordiate bar
+          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 361, 368, 597, 393)
+            \Trigger_Chordiate = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
           EndIf
           
           ;Strumplate
@@ -2019,6 +2031,19 @@ Procedure Main()
             EndIf
           EndIf
           
+          If \Trigger_Chordiate
+            \Trigger_Chordiate = 0
+            If \Keymap(\Keymap_Function(#Btn_Chordiate))
+              PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Chordiate))
+            Else
+              PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Chordiate))
+            EndIf
+            
+            PauseThread(Chordian\RepaintHandler_Thread)
+            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            ResumeThread(Chordian\RepaintHandler_Thread)
+          EndIf
           
           If \Trigger_Harp
             If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 752, 131, 772, 150)
@@ -2645,6 +2670,9 @@ Procedure Main()
         KillThread(Chordian\PatternHandler_Thread)
         KillThread(Chordian\RepaintHandler_Thread)
         DirectSound\Release()
+        If MIDIHandle
+          midiOutClose_(MIDIHandle)
+        EndIf
         End
         
     EndSelect

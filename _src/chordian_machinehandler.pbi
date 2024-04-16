@@ -797,12 +797,26 @@ Procedure.i ResetMachine()
     Next
     
     For n = #Note_First To #Note_Last
-      For i = 0 To 23
+      For i = 0 To 31
         Select i
           Case 0+12 To 5+12, 10+12 To 11+12
             \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Frequency) = 2
           Case 10 To 11, 6+12 To 9+12
             \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Frequency) = 3
+          Case 24 To 31
+            Select n
+              Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
+                \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Frequency) = 1
+              Default
+                \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Frequency) = 0
+            EndSelect
+            \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Bass) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Chords) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Drum_BD) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Drum_Click) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Drum_HiHat) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Drum_Ride) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Drum_Snare) = #Curve_None
           Default
             Select n
               Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
@@ -914,12 +928,26 @@ Procedure.i ResetMachine()
     Next
     
     For n = #Note_First To #Note_Last
-      For i = 0 To 23
+      For i = 0 To 31
         Select i
           Case 0+12 To 7+12
             \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 2
           Case 8+12 To 11+12
             \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 3
+          Case 24 To 31
+            Select n
+              Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
+                \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 1
+              Default
+                \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 0
+            EndSelect
+            \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Bass) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Chords) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Drum_BD) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Drum_Click) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Drum_HiHat) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Drum_Ride) = #Curve_None
+            \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Drum_Snare) = #Curve_None
           Default
             Select n
               Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E

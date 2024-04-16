@@ -6,6 +6,7 @@ Procedure FrequencyHandler(*Void)
     
     Protected CurrentChord.i = \Value_Internal_Chord_Chord
     Protected CurrentNote.i = \Value_Internal_Chord_Note
+    Protected CurrentKeyboard.i = \Value_Internal_Keyboard_Note
     Protected CurrentAlternate.i = \Value_Rhythm_Button_Alternate_OnOff_Current
     Protected CurrentPattern.i = \Value_Rhythm_Button_Pattern_Current
     Protected CurrentTick.i
@@ -32,6 +33,8 @@ Procedure FrequencyHandler(*Void)
         CurrentChord = \Value_Internal_Chord_Chord
         CurrentNote = \Value_Internal_Chord_Note
       EndIf
+      
+      CurrentKeyboard.i = \Value_Internal_Keyboard_Note
       
       CurrentAlternate = \Value_Rhythm_Button_Alternate_OnOff_Current
       CurrentPattern = \Value_Rhythm_Button_Pattern_Current
@@ -79,7 +82,9 @@ Procedure FrequencyHandler(*Void)
         \Status_Frequency(i) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)
       Next
       
-      \Status_Frequency(#Snd_Keyboard) = Frequencies(\Value_Internal_Keyboard_Note)
+      If CurrentKeyboard >= 0 And CurrentKeyboard <= 127
+        \Status_Frequency(#Snd_Keyboard) = Frequencies(CurrentKeyboard)
+      EndIf
       
     ForEver
   EndWith

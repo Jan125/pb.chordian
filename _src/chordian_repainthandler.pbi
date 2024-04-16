@@ -142,7 +142,7 @@ Procedure.i RepaintHandler(*Void)
         
         ;Repaint Chord section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Chord, 0) = #WAIT_OBJECT_0
-          ClipOutput(229, 215, 441, 148)
+          ClipOutput(230, 217, 438, 192)
           DrawImage(ImageID(#Img_Background), 0, 0)
           DrawAlphaImage(ImageID(#Img_Base), 0, 0)
           ;Chord Buttons
@@ -222,7 +222,15 @@ Procedure.i RepaintHandler(*Void)
                 EndIf
             EndSelect
           Next
+          
+          If \Input_State\Keymap(\Input_State\Keymap_Function(#Btn_Chordiate))
+            DrawAlphaImage(ImageID(#Img_Button_Bar_Light_On), 361, 369)
+          Else
+            DrawAlphaImage(ImageID(#Img_Button_Bar_Light_Off), 361, 369)
+          EndIf
+          
         EndIf
+        
         ClipOutput(0, 0, 800, 600)
         
         StopDrawing()

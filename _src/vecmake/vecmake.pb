@@ -1,4 +1,4 @@
-﻿#INTERNALSCALE = 16.0
+﻿#INTERNALSCALE = 8.0
 #EXPORTSCALE = 1.0
 TRANSPARENTCOLOR = RGBA(128, 128, 128, 0)
 
@@ -14,8 +14,9 @@ Procedure Vec_DrawRoundedCornerButton(Width.d, Height.d, Corner.d, Offset.d)
   ClosePath()
 EndProcedure
 
-Procedure Vec_DrawShadedButton(Width.d, Height.d, Color.i, Pressed.i, Corner.d = 1)
-  
+Procedure Vec_DrawShadedButton(Width.d, Height.d, Color.i, Pressed.i, Corner.d = 1, Depth.d = 1)
+  WidthHeightRatio.d = 3*Pow(0.85, Sqr(Height))+2
+  HeightWidthRatio.d = 3*Pow(0.85, Sqr(Width))+2
   ;Up
   MovePathCursor(Corner*0.9, 1.0)
   AddPathLine(Width-Corner*0.9, 1.0)
@@ -24,7 +25,8 @@ Procedure Vec_DrawShadedButton(Width.d, Height.d, Color.i, Pressed.i, Corner.d =
   
   SaveVectorState()
   MovePathCursor(0, 0)
-  AddPathLine(Width/2, Height/2-1.0)
+  AddPathLine(Width/2-Width/HeightWidthRatio, Height/2-1.0-Height/WidthHeightRatio)
+  AddPathLine(Width/2+Width/HeightWidthRatio, Height/2-1.0-Height/WidthHeightRatio)
   AddPathLine(Width, 0)
   ClosePath()
   ClipPath()
@@ -42,7 +44,8 @@ Procedure Vec_DrawShadedButton(Width.d, Height.d, Color.i, Pressed.i, Corner.d =
   ;Right
   SaveVectorState()
   MovePathCursor(Width, 0)
-  AddPathLine(Width/2, Height/2-1.0)
+  AddPathLine(Width/2+Width/HeightWidthRatio, Height/2-1.0-Height/WidthHeightRatio)
+  AddPathLine(Width/2+Width/HeightWidthRatio, Height/2-1.0+Height/WidthHeightRatio)
   AddPathLine(Width, Height)
   ClosePath()
   ClipPath()
@@ -60,7 +63,8 @@ Procedure Vec_DrawShadedButton(Width.d, Height.d, Color.i, Pressed.i, Corner.d =
   ;Down
   SaveVectorState()
   MovePathCursor(Width, Height)
-  AddPathLine(Width/2, Height/2-1.0)
+  AddPathLine(Width/2+Width/HeightWidthRatio, Height/2-1.0+Height/WidthHeightRatio)
+  AddPathLine(Width/2-Width/HeightWidthRatio, Height/2-1.0+Height/WidthHeightRatio)
   AddPathLine(0, Height)
   ClosePath()
   ClipPath()
@@ -78,7 +82,8 @@ Procedure Vec_DrawShadedButton(Width.d, Height.d, Color.i, Pressed.i, Corner.d =
   ;Left
   SaveVectorState()
   MovePathCursor(0, Height)
-  AddPathLine(Width/2, Height/2-1.0)
+  AddPathLine(Width/2-Width/HeightWidthRatio, Height/2-1.0+Height/WidthHeightRatio)
+  AddPathLine(Width/2-Width/HeightWidthRatio, Height/2-1.0-Height/WidthHeightRatio)
   AddPathLine(0, 0)
   ClosePath()
   ClipPath()
@@ -94,7 +99,7 @@ Procedure Vec_DrawShadedButton(Width.d, Height.d, Color.i, Pressed.i, Corner.d =
   RestoreVectorState()
   
   SaveVectorState()
-  Vec_DrawRoundedCornerButton(Width, Height-0.3, Corner/1.5, 1.4+Sqr(Sqr(Sqr(Corner))))
+  Vec_DrawRoundedCornerButton(Width, Height-0.3, Corner/1.5, Depth+0.4+Sqr(Sqr(Sqr(Corner))))
   Select Pressed
     Case 0
       VectorSourceColor(Color)
@@ -171,9 +176,9 @@ Procedure Vec_DrawOrnament(Width.d, Height.d, Color.i, Pressed.i, Ornament.s)
 EndProcedure
 
 
-Macro DrawPNGAndSVGButtonSet(Name, ColorPayload, Width, Height, Corner = 1)
+Macro DrawPNGAndSVGButtonSet(Name, ColorPayload, Width, Height, Corner = 1, Depth = 1)
   If StartVectorDrawing(SvgVectorOutput(Name+"_off.svg", Width, Height, #PB_Unit_Pixel))
-    Vec_DrawShadedButton(Width, Height, ColorPayload, 0, Corner)
+    Vec_DrawShadedButton(Width, Height, ColorPayload, 0, Corner, Depth)
     StopVectorDrawing()
   EndIf
   CreateImage(0, Width*#INTERNALSCALE, Height*#INTERNALSCALE, 32, TRANSPARENTCOLOR)
@@ -184,7 +189,7 @@ Macro DrawPNGAndSVGButtonSet(Name, ColorPayload, Width, Height, Corner = 1)
   EndIf
   If StartVectorDrawing(ImageVectorOutput(0, #PB_Unit_Pixel))
     ScaleCoordinates(#INTERNALSCALE, #INTERNALSCALE)
-    Vec_DrawShadedButton(Width, Height, ColorPayload, 0, Corner)
+    Vec_DrawShadedButton(Width, Height, ColorPayload, 0, Corner, Depth)
     StopVectorDrawing()
     ResizeImage(0, Width*#EXPORTSCALE, Height*#EXPORTSCALE)
     SaveImage(0, Name+"_off.png", #PB_ImagePlugin_PNG, 0, 32)
@@ -192,7 +197,7 @@ Macro DrawPNGAndSVGButtonSet(Name, ColorPayload, Width, Height, Corner = 1)
   FreeImage(0)
   
   If StartVectorDrawing(SvgVectorOutput(Name+"_on.svg", Width, Height, #PB_Unit_Pixel))
-    Vec_DrawShadedButton(Width, Height, ColorPayload, 1, Corner)
+    Vec_DrawShadedButton(Width, Height, ColorPayload, 1, Corner, Depth)
     StopVectorDrawing()
   EndIf
   CreateImage(0, Width*#INTERNALSCALE, Height*#INTERNALSCALE, 32, TRANSPARENTCOLOR)
@@ -203,16 +208,16 @@ Macro DrawPNGAndSVGButtonSet(Name, ColorPayload, Width, Height, Corner = 1)
   EndIf
   If StartVectorDrawing(ImageVectorOutput(0, #PB_Unit_Pixel))
     ScaleCoordinates(#INTERNALSCALE, #INTERNALSCALE)
-    Vec_DrawShadedButton(Width, Height, ColorPayload, 1, Corner)
+    Vec_DrawShadedButton(Width, Height, ColorPayload, 1, Corner, Depth)
     StopVectorDrawing()
     ResizeImage(0, Width*#EXPORTSCALE, Height*#EXPORTSCALE)
     SaveImage(0, Name+"_on.png", #PB_ImagePlugin_PNG, 0, 32)
   EndIf
   FreeImage(0)
 EndMacro
-Macro DrawPNGAndSVGButtonOrnamentSet(Name, Ornament, ColorPayload, Width, Height, Corner = 1)
+Macro DrawPNGAndSVGButtonOrnamentSet(Name, Ornament, ColorPayload, Width, Height, Corner = 1, Depth = 1)
   If StartVectorDrawing(SvgVectorOutput(Name+"_off.svg", Width, Height, #PB_Unit_Pixel))
-    Vec_DrawShadedButton(Width, Height, ColorPayload, 0, Corner)
+    Vec_DrawShadedButton(Width, Height, ColorPayload, 0, Corner, Depth)
     Vec_DrawOrnament(Width, Height, ColorPayload, 0, Ornament)
     StopVectorDrawing()
   EndIf
@@ -224,7 +229,7 @@ Macro DrawPNGAndSVGButtonOrnamentSet(Name, Ornament, ColorPayload, Width, Height
   EndIf
   If StartVectorDrawing(ImageVectorOutput(0, #PB_Unit_Pixel))
     ScaleCoordinates(#INTERNALSCALE, #INTERNALSCALE)
-    Vec_DrawShadedButton(Width, Height, ColorPayload, 0, Corner)
+    Vec_DrawShadedButton(Width, Height, ColorPayload, 0, Corner, Depth)
     Vec_DrawOrnament(Width, Height, ColorPayload, 0, Ornament)
     StopVectorDrawing()
     ResizeImage(0, Width*#EXPORTSCALE, Height*#EXPORTSCALE)
@@ -233,7 +238,7 @@ Macro DrawPNGAndSVGButtonOrnamentSet(Name, Ornament, ColorPayload, Width, Height
   FreeImage(0)
   
   If StartVectorDrawing(SvgVectorOutput(Name+"_on.svg", Width, Height, #PB_Unit_Pixel))
-    Vec_DrawShadedButton(Width, Height, ColorPayload, 1, Corner)
+    Vec_DrawShadedButton(Width, Height, ColorPayload, 1, Corner, Depth)
     Vec_DrawOrnament(Width, Height, ColorPayload, 1, Ornament)
     StopVectorDrawing()
   EndIf
@@ -245,7 +250,7 @@ Macro DrawPNGAndSVGButtonOrnamentSet(Name, Ornament, ColorPayload, Width, Height
   EndIf
   If StartVectorDrawing(ImageVectorOutput(0, #PB_Unit_Pixel))
     ScaleCoordinates(#INTERNALSCALE, #INTERNALSCALE)
-    Vec_DrawShadedButton(Width, Height, ColorPayload, 1, Corner)
+    Vec_DrawShadedButton(Width, Height, ColorPayload, 1, Corner, Depth)
     Vec_DrawOrnament(Width, Height, ColorPayload, 1, Ornament)
     StopVectorDrawing()
     ResizeImage(0, Width*#EXPORTSCALE, Height*#EXPORTSCALE)
@@ -278,29 +283,29 @@ Macro DrawPNGAndSVGButtonHole(Name, Width, Height, Corner = 1)
   FreeImage(0)
 EndMacro
 
-Macro CreateButtonSet(Name, Color, Width, Height, Corner = 1)
-  DrawPNGAndSVGButtonSet(Name, Color, Width, Height, Corner)
-  DrawPNGAndSVGButtonOrnamentSet(Name+"_up", "Up", Color, Width, Height, Corner)
-  DrawPNGAndSVGButtonOrnamentSet(Name+"_down", "Down", Color, Width, Height, Corner)
-  DrawPNGAndSVGButtonOrnamentSet(Name+"_x", "X", Color, Width, Height, Corner)
-  DrawPNGAndSVGButtonOrnamentSet(Name+"_c", "C", Color, Width, Height, Corner)
-  DrawPNGAndSVGButtonOrnamentSet(Name+"_o", "O", Color, Width, Height, Corner)
-  DrawPNGAndSVGButtonOrnamentSet(Name+"_tri", "Tri", Color, Width, Height, Corner)
+Macro CreateButtonSet(Name, Color, Width, Height, Corner = 1, Depth = 1)
+  DrawPNGAndSVGButtonSet(Name, Color, Width, Height, Corner, Depth)
+  DrawPNGAndSVGButtonOrnamentSet(Name+"_up", "Up", Color, Width, Height, Corner, Depth)
+  DrawPNGAndSVGButtonOrnamentSet(Name+"_down", "Down", Color, Width, Height, Corner, Depth)
+  DrawPNGAndSVGButtonOrnamentSet(Name+"_x", "X", Color, Width, Height, Corner, Depth)
+  DrawPNGAndSVGButtonOrnamentSet(Name+"_c", "C", Color, Width, Height, Corner, Depth)
+  DrawPNGAndSVGButtonOrnamentSet(Name+"_o", "O", Color, Width, Height, Corner, Depth)
+  DrawPNGAndSVGButtonOrnamentSet(Name+"_tri", "Tri", Color, Width, Height, Corner, Depth)
 EndMacro
 
 Macro BodyShape()
   
-  MovePathCursor(800, 60)
+  MovePathCursor(808, 60.6)
   AddPathCircle(300, 300, 300, 275, 45, #PB_Path_CounterClockwise|#PB_Path_Connected)
   AddPathCurve(560, 463, 631, 438, 672, 428)
-  AddPathCurve(730, 418, 730, 423, 800, 398)
+  AddPathCurve(730, 418, 730, 423, 808, 394.02)
   ClosePath()
 EndMacro
 
 Macro BodyLines()
   SaveVectorState()
   TranslateCoordinates(0, 20)
-  MovePathCursor(800, 66)
+  MovePathCursor(808, 60.6)
   RestoreVectorState()
   
   SaveVectorState()
@@ -313,15 +318,9 @@ Macro BodyLines()
   TranslateCoordinates(0, -20)
   
   AddPathCurve(560, 463, 631, 438, 672, 428)
-  AddPathCurve(730, 418, 730, 423, 800, 398)
-  
-  AddPathLine(830, 398)
+  AddPathCurve(730, 418, 730, 423, 808, 394.02)
   RestoreVectorState()
   
-  SaveVectorState()
-  TranslateCoordinates(0, 20)
-  AddPathLine(830, 60)
-  RestoreVectorState()
   ClosePath()
 EndMacro
 
@@ -487,6 +486,11 @@ Macro RenderBody()
   AddPathLine(-43, 0, #PB_Path_Relative)
   ClosePath()
   
+  MovePathCursor(255+1*31+52+24/2.0, 363)
+  AddPathLine(52/4.0, 147/4.0, #PB_Path_Relative)
+  AddPathLine(8*31, 0, #PB_Path_Relative)
+  AddPathLine(-52/4.0, -147/4.0, #PB_Path_Relative)
+  
   VectorSourceColor(RGBA(137, 138, 127, 255))
   StrokePath(1.0)
   
@@ -556,126 +560,102 @@ Macro RenderBody()
   SaveVectorState()
   TranslateCoordinates(133, 97)
   AddPathCircle(6/2.0, 6/2.0, 6/2.0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   ;main:power
   SaveVectorState()
   TranslateCoordinates(126, 113)
   Vec_DrawRoundedCornerButton(20, 25, 2, 0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   ;main:volume
   SaveVectorState()
   TranslateCoordinates(169, 95)
   AddPathCircle(43/2.0, 43/2.0, 43/2.0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   ;level:volume:harp
   SaveVectorState()
   TranslateCoordinates(73, 170)
   AddPathCircle(43/2.0, 43/2.0, 43/2.0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   ;level:sustain
   SaveVectorState()
   TranslateCoordinates(121, 170)
   AddPathCircle(43/2.0, 43/2.0, 43/2.0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   ;level:volume_chords
   SaveVectorState()
   TranslateCoordinates(169, 170)
   AddPathCircle(43/2.0, 43/2.0, 43/2.0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   For i = 0 To 5
     SaveVectorState()
     TranslateCoordinates(36+i*32, 274)
     Vec_DrawRoundedCornerButton(20, 25, 2, 0)
-    VectorSourceColor(RGBA(51, 51, 51, 255))
-    FillPath()
     RestoreVectorState()
   Next
   
   SaveVectorState()
   TranslateCoordinates(84, 329)
   Vec_DrawRoundedCornerButton(20, 25, 2, 0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   ;rhythm:tempo
   SaveVectorState()
   TranslateCoordinates(121, 318)
   AddPathCircle(43/2.0, 43/2.0, 43/2.0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   ;rhythm:volume
   SaveVectorState()
   TranslateCoordinates(169, 318)
   AddPathCircle(43/2.0, 43/2.0, 43/2.0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   ;memory:led
   SaveVectorState()
   TranslateCoordinates(94, 396)
   AddPathCircle(6/2.0, 6/2.0, 6/2.0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   For i = 0 To 2
     SaveVectorState()
     TranslateCoordinates(126+i*33, 424)
     Vec_DrawRoundedCornerButton(20, 25, 2, 0)
-    VectorSourceColor(RGBA(51, 51, 51, 255))
-    FillPath()
     RestoreVectorState()
   Next
   
   SaveVectorState()
   TranslateCoordinates(162, 480)
   Vec_DrawRoundedCornerButton(45, 26, 11, 0)
-  VectorSourceColor(RGBA(51, 51, 51, 255))
-  FillPath()
   RestoreVectorState()
   
   For i = 0 To 11
     SaveVectorState()
     TranslateCoordinates(271+i*31, 240)
     Vec_DrawRoundedCornerButton(20, 25, 2, 0)
-    VectorSourceColor(RGBA(51, 51, 51, 255))
-    FillPath()
     RestoreVectorState()
     SaveVectorState()
     TranslateCoordinates(286+i*31, 283)
     Vec_DrawRoundedCornerButton(20, 25, 2, 0)
-    VectorSourceColor(RGBA(51, 51, 51, 255))
-    FillPath()
     RestoreVectorState()
     SaveVectorState()
     TranslateCoordinates(301+i*31, 326)
     Vec_DrawRoundedCornerButton(20, 25, 2, 0)
-    VectorSourceColor(RGBA(51, 51, 51, 255))
-    FillPath()
     RestoreVectorState()
   Next
+  
+  SaveVectorState()
+  TranslateCoordinates(361, 369)
+  Vec_DrawRoundedCornerButton(237, 25, 7, 0)
+  RestoreVectorState()
+  
+  VectorSourceColor(RGBA(51, 51, 51, 255))
+  FillPath()
   
   ;decorations
   ;swirly1
@@ -1081,19 +1061,22 @@ Macro RenderBody()
   
 EndMacro
 
+Macro CreateColorSet(Name, Width, Height, Corner = 1, Depth = 1)
+  CreateButtonSet(Name+"_black", RGBA(34, 34, 34, 255), Width, Height, Corner, Depth)
+  CreateButtonSet(Name+"_blue", RGBA(16, 204, 224, 255), Width, Height, Corner, Depth)
+  CreateButtonSet(Name+"_dark", RGBA(98, 103, 97, 255), Width, Height, Corner, Depth)
+  CreateButtonSet(Name+"_light", RGBA(152, 153, 140, 255), Width, Height, Corner, Depth)
+  CreateButtonSet(Name+"_red", RGBA(224, 32, 32, 255), Width, Height, Corner, Depth)
+  DrawPNGAndSVGButtonHole(Name, Width, Height, Corner+1)
+EndMacro
+
+
 ;--start
 UsePNGImageEncoder()
 
-CreateButtonSet("button_black", RGBA(34, 34, 34, 255), 20, 25)
-CreateButtonSet("button_dark", RGBA(98, 103, 97, 255), 20, 25)
-CreateButtonSet("button_light", RGBA(152, 153, 140, 255), 20, 25)
-CreateButtonSet("button_blue", RGBA(16, 204, 224, 255), 20, 25)
-CreateButtonSet("button_red", RGBA(224, 32, 32, 255), 20, 25)
-CreateButtonSet("button_wide_black", RGBA(34, 34, 34, 255), 45, 26, 10)
-CreateButtonSet("button_wide_red", RGBA(224, 32, 32, 255), 45, 26, 10)
-
-DrawPNGAndSVGButtonHole("button", 20, 25, 2)
-DrawPNGAndSVGButtonHole("button_wide", 45, 26, 11)
+CreateColorSet("button", 20, 25)
+CreateColorSet("button_wide", 45, 26, 10)
+CreateColorSet("button_bar", 237, 25, 6, 0.5)
 
 If StartVectorDrawing(SvgVectorOutput("knob_hole.svg", 43, 43, #PB_Unit_Pixel))
   AddPathCircle(43/2.0, 43/2.0, 43/2.0)

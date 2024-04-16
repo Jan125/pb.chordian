@@ -67,6 +67,16 @@ DataSection
   Img_Button_Light_C_On:
   IncludeBinary "img\button_light_c_on.png"
   
+  Img_Button_Bar_Light_Off:
+  IncludeBinary "img\button_bar_light_off.png"
+  Img_Button_Bar_Light_On:
+  IncludeBinary "img\button_bar_light_on.png"
+  
+  Img_Button_Bar_Red_Off:
+  IncludeBinary "img\button_bar_red_off.png"
+  Img_Button_Bar_Red_On:
+  IncludeBinary "img\button_bar_red_on.png"
+  
   Img_Button_Wide_Black_Off:
   IncludeBinary "img\button_wide_black_off.png"
   Img_Button_Wide_Black_On:

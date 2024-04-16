@@ -53,6 +53,9 @@ Structure Input_State
   ;   Harp Section
   Trigger_Harp.i
   
+  ;   Function Section
+  Trigger_Chordiate.i
+  
   LastKey.i
   LastKeyEventWasDown.i
   
@@ -95,6 +98,10 @@ Structure Machine_State_Save
   Value_Circuit_Knob_Tuning.f
   
   Value_External_ChordiateMode.i
+  
+  Value_Internal_Memory_Position_Current.i
+  Value_Internal_Memory_Position_Skip.i
+  Array Internal_Memory_Chord.i(50)
   
   Array Data_MIDI.a(#Note_Last, #Chord_Last, #Dat_Last)
   Array Data_Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)

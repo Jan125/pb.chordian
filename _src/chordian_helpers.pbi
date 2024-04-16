@@ -32,7 +32,7 @@ Macro RollInRange(Value, Min, Max)
 EndMacro
 
 Macro LocalCatchImage(ImgID, ImgAddress, ImgFile)
-  If Not LoadImage(ImgID, GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+ImgFile)
+  If Not FileSize(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+ImgFile) >= 0 Or Not LoadImage(ImgID, GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+ImgFile)
     CatchImage(ImgID, ImgAddress)
   EndIf
 EndMacro
