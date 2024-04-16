@@ -1,5 +1,4 @@
-﻿
-Procedure.i RepaintHandler(*Void)
+﻿Procedure.i RepaintHandler(*Void)
   Protected i.i
   
   With Chordian

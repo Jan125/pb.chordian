@@ -1,5 +1,4 @@
-﻿
-Procedure FrequencyHandler(*Void)
+﻿Procedure FrequencyHandler(*Void)
   With Chordian\Machine_State
     
     Protected i.i

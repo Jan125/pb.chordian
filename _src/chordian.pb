@@ -518,6 +518,9 @@ Procedure Main()
           Case #Itm_Reset
             ResetMachine()
             ResetInput()
+            
+            SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Chordian\Machine_State\Value_External_ChordiateMode)
+            
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
@@ -1365,7 +1368,7 @@ Procedure Main()
           EndIf
           
           ;Strumplate
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 675, 0, 777, 600)
+          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 674, 0, 800, 600)
             \Trigger_Harp = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
           EndIf
           
@@ -2046,7 +2049,7 @@ Procedure Main()
           EndIf
           
           If \Trigger_Harp
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 752, 131, 772, 150)
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 752, 131, 800, 150)
               Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
               Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
               For i = #Note_First To #Note_Last
@@ -2064,73 +2067,73 @@ Procedure Main()
               If \Trigger_Harp
                 Select \Mouse_Position_Y_Current
                   Case 92 To 388
-                    If Not Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-389)/24)
+                    If Not Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-388)/24)
                       For i = #Harp_First To #Harp_Last
                         Chordian\Machine_State\Status_Harp(i) = 0
                       Next
                       
-                      Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-389)/24) = 1
+                      Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-388)/24) = 1
                       
                       If \Trigger_Harp & 1
                         Select \PrimaryStrumMode
                           Case #Str_None
                           Case #Str_Single
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                           Case #Str_Double
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Chord
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Spread
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+4-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+4-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Octave
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+3-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+3-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+6-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+6-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+9-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+9-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Full
                             For i = #Snd_Harp_First To #Snd_Harp_Last
                               Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
                             Next
                           Case #Str_Reverse
-                            If #Harp_Last+(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Mirror
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_Last+(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Segment
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            Select (-(\Mouse_Position_Y_Current-389)/24)%3
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            Select (-(\Mouse_Position_Y_Current-388)/24)%3
                               Case 0
-                                If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                                If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                                 EndIf
                               Case 2
-                                If #Harp_First-2-(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                                If #Harp_First-2-(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                                 EndIf
                             EndSelect
                         EndSelect
@@ -2140,62 +2143,62 @@ Procedure Main()
                         Select \SecondaryStrumMode
                           Case #Str_None
                           Case #Str_Single
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                           Case #Str_Double
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Chord
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Spread
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+4-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+4-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Octave
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+3-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+3-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+6-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+6-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+9-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+9-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Full
                             For i = #Snd_Harp_First To #Snd_Harp_Last
                               Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
                             Next
                           Case #Str_Reverse
-                            If #Harp_Last+(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Mirror
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_Last+(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Segment
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            Select (-(\Mouse_Position_Y_Current-389)/24)%3
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            Select (-(\Mouse_Position_Y_Current-388)/24)%3
                               Case 0
-                                If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                                If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                                 EndIf
                               Case 2
-                                If #Harp_First-2-(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                                If #Harp_First-2-(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                                 EndIf
                             EndSelect
                         EndSelect
@@ -2205,62 +2208,62 @@ Procedure Main()
                         Select \TertiaryStrumMode
                           Case #Str_None
                           Case #Str_Single
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                           Case #Str_Double
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Chord
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Spread
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+4-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+4-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Octave
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_First+3-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_First+3-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+6-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+6-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
-                            If #Harp_First+9-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_First+9-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Full
                             For i = #Snd_Harp_First To #Snd_Harp_Last
                               Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
                             Next
                           Case #Str_Reverse
-                            If #Harp_Last+(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Mirror
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            If #Harp_Last+(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                             EndIf
                           Case #Str_Segment
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
-                            Select (-(\Mouse_Position_Y_Current-389)/24)%3
+                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            Select (-(\Mouse_Position_Y_Current-388)/24)%3
                               Case 0
-                                If #Harp_First+2-(\Mouse_Position_Y_Current-389)/24 <= #Harp_Last
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                                If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                                 EndIf
                               Case 2
-                                If #Harp_First-2-(\Mouse_Position_Y_Current-389)/24 >= #Harp_First
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-389)/24) = #Curve_Trigger
+                                If #Harp_First-2-(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
                                 EndIf
                             EndSelect
                         EndSelect
