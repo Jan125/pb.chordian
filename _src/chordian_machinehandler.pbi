@@ -1,52 +1,10 @@
 ﻿;-Helper Procedures
-Procedure.i AutofillDerivedNotes(Note.i, Chord.i)
-  With Chordian\Machine_State
-    \Data_MIDI(Note, Chord, #Dat_Bass_2) = \Data_MIDI(Note, Chord, #Dat_Bass_1)-12
-    
-    Select Note
-      Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
-        \Data_MIDI(Note, Chord, #Dat_Bass_3) = \Data_MIDI(Note, Chord, #Dat_Bass_2)+7
-      Default
-        \Data_MIDI(Note, Chord, #Dat_Bass_3) = \Data_MIDI(Note, Chord, #Dat_Bass_1)+7
-    EndSelect
-    
-    Select Chord
-      Case #Chord_Maj, #Chord_7th, #Chord_Ma7, #Chord_Aug, #Chord_Ad2
-        \Data_MIDI(Note, Chord, #Dat_Bass_4) = \Data_MIDI(Note, Chord, #Dat_Bass_3)-3
-      Case #Chord_Ad9, #Chord_Su4, #Chord_Chr
-        \Data_MIDI(Note, Chord, #Dat_Bass_4) = \Data_MIDI(Note, Chord, #Dat_Bass_3)-2
-      Default
-        \Data_MIDI(Note, Chord, #Dat_Bass_4) = \Data_MIDI(Note, Chord, #Dat_Bass_3)-4
-    EndSelect
-    
-    \Data_MIDI(Note, Chord, #Dat_Harp_1) = \Data_MIDI(Note, Chord, #Dat_Chord_1)
-    \Data_MIDI(Note, Chord, #Dat_Harp_2) = \Data_MIDI(Note, Chord, #Dat_Chord_2)
-    \Data_MIDI(Note, Chord, #Dat_Harp_3) = \Data_MIDI(Note, Chord, #Dat_Chord_3)
-    \Data_MIDI(Note, Chord, #Dat_Harp_4) = \Data_MIDI(Note, Chord, #Dat_Harp_1)+12
-    \Data_MIDI(Note, Chord, #Dat_Harp_5) = \Data_MIDI(Note, Chord, #Dat_Harp_2)+12
-    \Data_MIDI(Note, Chord, #Dat_Harp_6) = \Data_MIDI(Note, Chord, #Dat_Harp_3)+12
-    \Data_MIDI(Note, Chord, #Dat_Harp_7) = \Data_MIDI(Note, Chord, #Dat_Harp_4)+12
-    \Data_MIDI(Note, Chord, #Dat_Harp_8) = \Data_MIDI(Note, Chord, #Dat_Harp_5)+12
-    \Data_MIDI(Note, Chord, #Dat_Harp_9) = \Data_MIDI(Note, Chord, #Dat_Harp_6)+12
-    \Data_MIDI(Note, Chord, #Dat_Harp_10) = \Data_MIDI(Note, Chord, #Dat_Harp_7)+12
-    \Data_MIDI(Note, Chord, #Dat_Harp_11) = \Data_MIDI(Note, Chord, #Dat_Harp_8)+12
-    \Data_MIDI(Note, Chord, #Dat_Harp_12) = \Data_MIDI(Note, Chord, #Dat_Harp_9)+12
-    \Data_MIDI(Note, Chord, #Dat_Harp_13) = \Data_MIDI(Note, Chord, #Dat_Harp_10)+12
-    
-  EndWith
-EndProcedure
-
-
-;-Main Procedures
-Procedure.i ResetMachine()
+Procedure.i AutofillChords()
   Protected i.i
   Protected n.i
   Protected s.i
-  Protected p.i
-  Protected r.i
   
   With Chordian\Machine_State
-    
     ;-MIDI Data
     For i = #Note_First To #Note_Last
       For n = #Chord_First To #Chord_Last
@@ -77,121 +35,217 @@ Procedure.i ResetMachine()
             \Data_MIDI(i, n, #Dat_Bass_1) = 42
         EndSelect
         
-        Select n
-          Case #Chord_Maj, #Chord_7th, #Chord_Ma7, #Chord_Aug
-            Select i
-              Case #Note_Eb, #Note_F, #Note_D, #Note_E
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+4
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+16
-            EndSelect
-          Case #Chord_Ad9, #Chord_Ad2
-            Select i
-              Case #Note_Eb, #Note_F, #Note_D, #Note_E
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+2
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+14
-            EndSelect
-          Case #Chord_Su4, #Chord_Inv
-            Select i
-              Case #Note_Eb, #Note_F, #Note_D, #Note_E
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+5
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+17
-            EndSelect
-          Case #Chord_Chr
-            Select i
-              Case #Note_Eb, #Note_F, #Note_D, #Note_E
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+1
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+13
-            EndSelect
+        \Data_MIDI(i, n, #Dat_Bass_2) = \Data_MIDI(i, n, #Dat_Bass_1) - 12
+        \Data_MIDI(i, n, #Dat_Bass_3) = \Data_MIDI(i, n, #Dat_Bass_2) + 7
+        Select i
+          Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
           Default
-            Select i
-              Case #Note_Eb, #Note_F, #Note_E
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+3
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_2) = \Data_MIDI(i, n, #Dat_Bass_1)+15
-            EndSelect
+            \Data_MIDI(i, n, #Dat_Bass_3) + 12
         EndSelect
         
         Select n
-          Case #Chord_7th, #Chord_Mi7
-            Select i
-              Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+10
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+22
-            EndSelect
-          Case #Chord_Dim
-            Select i
-              Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+9
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+21
-            EndSelect
-          Case #Chord_Ma7
-            Select i
-              Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_G, #Note_D, #Note_A, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+11
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+23
-            EndSelect
-          Case #Chord_Aug, #Chord_Inv
-            Select i
-              Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+8
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+20
-            EndSelect
-          Case #Chord_Ad2
-            Select i
-              Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+4
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+16
-            EndSelect
-          Case #Chord_Chr
-            Select i
-              Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+2
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+14
-            EndSelect
-          Case #Chord_Ac4
-            Select i
-              Case #Note_Db, #Note_Eb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+6
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+18
-            EndSelect
-          Case #Chord_Am4
-            Select i
-              Case #Note_Db, #Note_Eb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+5
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+17
-            EndSelect
+          Case #Chord_Maj, #Chord_7th, #Chord_Ma7, #Chord_Aug, #Chord_Ad2
+            \Data_MIDI(i, n, #Dat_Bass_4) = \Data_MIDI(i, n, #Dat_Bass_3) - 3
+          Case #Chord_Ad9, #Chord_Su4, #Chord_As2
+            \Data_MIDI(i, n, #Dat_Bass_4) = \Data_MIDI(i, n, #Dat_Bass_3) - 2
           Default
-            Select i
-              Case #Note_Db, #Note_Eb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+7
-              Default
-                \Data_MIDI(i, n, #Dat_Chord_3) = \Data_MIDI(i, n, #Dat_Bass_1)+19
-            EndSelect
+            \Data_MIDI(i, n, #Dat_Bass_4) = \Data_MIDI(i, n, #Dat_Bass_3) - 4
         EndSelect
         
-        \Data_MIDI(i, n, #Dat_Chord_1) = \Data_MIDI(i, n, #Dat_Bass_1)+12
+        
+        For s = #Dat_Chord_First To #Dat_Chord_Last
+          Select \Data_Chords1(n) * Bool(s = #Dat_Chord_1) + \Data_Chords2(n) * Bool(s = #Dat_Chord_2) + \Data_Chords3(n) * Bool(s = #Dat_Chord_3)
+            Case #Transpose_0
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1)
+              Select i
+                Case #Note_None
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_1
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 1
+              Select i
+                Case #Note_None
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_2
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 2
+              Select i
+                Case #Note_Eb, #Note_F, #Note_D, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_3
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 3
+              Select i
+                Case #Note_Eb, #Note_F, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_4
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 4
+              Select i
+                Case #Note_Eb, #Note_F, #Note_D, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_5
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 5
+              Select i
+                Case #Note_Eb, #Note_F, #Note_D, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_6
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 6
+              Select i
+                Case #Note_Eb, #Note_F, #Note_D, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_7
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 7
+              Select i
+                Case #Note_Db, #Note_Eb, #Note_F, #Note_C, #Note_D, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_8
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 8
+              Select i
+                Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_9
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 9
+              Select i
+                Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_10
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 10
+              Select i
+                Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+            Case #Transpose_11
+              \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 11
+              Select i
+                Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_G, #Note_D, #Note_A, #Note_E
+                Default
+                  \Data_MIDI(i, n, s) + 12
+              EndSelect
+              
+          EndSelect
+        Next
         
       Next
     Next
     
-    ;--Autofill
+  EndWith
+EndProcedure
+
+Procedure.i AutofillDerivedNotes()
+  Protected i.i
+  Protected n.i
+  
+  With Chordian\Machine_State
+    
     For i = #Note_First To #Note_Last
       For n = #Chord_First To #Chord_Last
-        AutofillDerivedNotes(i, n)
+        
+        \Data_MIDI(i, n, #Dat_Harp_1) = \Data_MIDI(i, n, #Dat_Chord_1)
+        \Data_MIDI(i, n, #Dat_Harp_2) = \Data_MIDI(i, n, #Dat_Chord_2)
+        \Data_MIDI(i, n, #Dat_Harp_3) = \Data_MIDI(i, n, #Dat_Chord_3)
+        \Data_MIDI(i, n, #Dat_Harp_4) = \Data_MIDI(i, n, #Dat_Harp_1)+12
+        \Data_MIDI(i, n, #Dat_Harp_5) = \Data_MIDI(i, n, #Dat_Harp_2)+12
+        \Data_MIDI(i, n, #Dat_Harp_6) = \Data_MIDI(i, n, #Dat_Harp_3)+12
+        \Data_MIDI(i, n, #Dat_Harp_7) = \Data_MIDI(i, n, #Dat_Harp_4)+12
+        \Data_MIDI(i, n, #Dat_Harp_8) = \Data_MIDI(i, n, #Dat_Harp_5)+12
+        \Data_MIDI(i, n, #Dat_Harp_9) = \Data_MIDI(i, n, #Dat_Harp_6)+12
+        \Data_MIDI(i, n, #Dat_Harp_10) = \Data_MIDI(i, n, #Dat_Harp_7)+12
+        \Data_MIDI(i, n, #Dat_Harp_11) = \Data_MIDI(i, n, #Dat_Harp_8)+12
+        \Data_MIDI(i, n, #Dat_Harp_12) = \Data_MIDI(i, n, #Dat_Harp_9)+12
+        \Data_MIDI(i, n, #Dat_Harp_13) = \Data_MIDI(i, n, #Dat_Harp_10)+12
+        
       Next
     Next
+    
+  EndWith
+EndProcedure
+
+
+
+
+;-Main Procedures
+Procedure.i ResetMachine()
+  Protected i.i
+  Protected n.i
+  Protected s.i
+  Protected p.i
+  Protected r.i
+  
+  With Chordian\Machine_State
+    ;-Chord Data
+    \Data_Chords2(#Chord_Maj) = #Transpose_4
+    \Data_Chords3(#Chord_Maj) = #Transpose_7
+    
+    \Data_Chords2(#Chord_Min) = #Transpose_3
+    \Data_Chords3(#Chord_Min) = #Transpose_7
+    
+    \Data_Chords2(#Chord_7th) = #Transpose_4
+    \Data_Chords3(#Chord_7th) = #Transpose_10
+    
+    \Data_Chords2(#Chord_Dim) = #Transpose_3
+    \Data_Chords3(#Chord_Dim) = #Transpose_9
+    
+    \Data_Chords2(#Chord_Ma7) = #Transpose_4
+    \Data_Chords3(#Chord_Ma7) = #Transpose_11
+    
+    \Data_Chords2(#Chord_Mi7) = #Transpose_3
+    \Data_Chords3(#Chord_Mi7) = #Transpose_10
+    
+    \Data_Chords2(#Chord_Aug) = #Transpose_4
+    \Data_Chords3(#Chord_Aug) = #Transpose_8
+    
+    \Data_Chords2(#Chord_Ad9) = #Transpose_2
+    \Data_Chords3(#Chord_Ad9) = #Transpose_7
+    
+    \Data_Chords2(#Chord_Su4) = #Transpose_5
+    \Data_Chords3(#Chord_Su4) = #Transpose_7
+    
+    \Data_Chords2(#Chord_Ad2) = #Transpose_2
+    \Data_Chords3(#Chord_Ad2) = #Transpose_4
+    
+    \Data_Chords2(#Chord_As2) = #Transpose_2
+    \Data_Chords3(#Chord_As2) = #Transpose_8
+    
+    \Data_Chords2(#Chord_Ac4) = #Transpose_3
+    \Data_Chords3(#Chord_Ac4) = #Transpose_6
+    
+    \Data_Chords2(#Chord_Mc4) = #Transpose_3
+    \Data_Chords3(#Chord_Mc4) = #Transpose_5
+    
+    \Data_Chords2(#Chord_Chr) = #Transpose_1
+    \Data_Chords3(#Chord_Chr) = #Transpose_2
+    
+    AutofillChords()
+    AutofillDerivedNotes()
     
     
     ;--Pattern Data

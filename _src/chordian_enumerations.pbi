@@ -18,12 +18,28 @@ Enumeration -1
   
   ;Reserved Chords for future use
   #Chord_Ad2
-  #Chord_Chr
+  #Chord_As2
   #Chord_Ac4
-  #Chord_Am4
-  #Chord_Inv
+  #Chord_Mc4
+  #Chord_Chr
   
-  #Chord_Last = #Chord_Inv
+  #Chord_Last = #Chord_Chr
+EndEnumeration
+
+Enumeration -1
+  #Transpose_None
+  #Transpose_0
+  #Transpose_1
+  #Transpose_2
+  #Transpose_3
+  #Transpose_4
+  #Transpose_5
+  #Transpose_6
+  #Transpose_7
+  #Transpose_8
+  #Transpose_9
+  #Transpose_10
+  #Transpose_11
 EndEnumeration
 
 Enumeration -1
@@ -273,6 +289,22 @@ EndEnumeration
 Enumeration 1
   #Gad_Canvas
   
+  #Gad_ChordEdit_Row_Maj
+  #Gad_ChordEdit_Row_Min = #Gad_ChordEdit_Row_Maj + 3
+  #Gad_ChordEdit_Row_7th = #Gad_ChordEdit_Row_Min + 3
+  #Gad_ChordEdit_Row_Dim = #Gad_ChordEdit_Row_7th + 3
+  #Gad_ChordEdit_Row_Ma7 = #Gad_ChordEdit_Row_Dim + 3
+  #Gad_ChordEdit_Row_Mi7 = #Gad_ChordEdit_Row_Ma7 + 3
+  #Gad_ChordEdit_Row_Aug = #Gad_ChordEdit_Row_Mi7 + 3
+  
+  #Gad_ChordEdit_Row_Ad9 = #Gad_ChordEdit_Row_Aug + 3
+  #Gad_ChordEdit_Row_Su4 = #Gad_ChordEdit_Row_Ad9 + 3
+  #Gad_ChordEdit_Row_Ad2 = #Gad_ChordEdit_Row_Su4 + 3
+  #Gad_ChordEdit_Row_As2 = #Gad_ChordEdit_Row_Ad2 + 3
+  #Gad_ChordEdit_Row_Ac4 = #Gad_ChordEdit_Row_As2 + 3
+  #Gad_ChordEdit_Row_Mc4 = #Gad_ChordEdit_Row_Ac4 + 3
+  #Gad_ChordEdit_Row_Chr = #Gad_ChordEdit_Row_Mc4 + 3
+  
   #Gad_PatEdit_Select_Alternate
   #Gad_PatEdit_Select_Pattern
   #Gad_PatEdit_Select_Note
@@ -295,13 +327,13 @@ Enumeration 1
   #Gad_PatEdit_Text_Drum_Snare
   
   #Gad_PatEdit_Row_Frequency
-  #Gad_PatEdit_Row_Bass = #Gad_PatEdit_Row_Frequency+32
-  #Gad_PatEdit_Row_Chords = #Gad_PatEdit_Row_Bass+32
-  #Gad_PatEdit_Row_Drum_BD = #Gad_PatEdit_Row_Chords+32
-  #Gad_PatEdit_Row_Drum_Click = #Gad_PatEdit_Row_Drum_BD+32
-  #Gad_PatEdit_Row_Drum_HiHat = #Gad_PatEdit_Row_Drum_Click+32
-  #Gad_PatEdit_Row_Drum_Ride = #Gad_PatEdit_Row_Drum_HiHat+32
-  #Gad_PatEdit_Row_Drum_Snare = #Gad_PatEdit_Row_Drum_Ride+32
+  #Gad_PatEdit_Row_Bass = #Gad_PatEdit_Row_Frequency + 32
+  #Gad_PatEdit_Row_Chords = #Gad_PatEdit_Row_Bass + 32
+  #Gad_PatEdit_Row_Drum_BD = #Gad_PatEdit_Row_Chords + 32
+  #Gad_PatEdit_Row_Drum_Click = #Gad_PatEdit_Row_Drum_BD + 32
+  #Gad_PatEdit_Row_Drum_HiHat = #Gad_PatEdit_Row_Drum_Click + 32
+  #Gad_PatEdit_Row_Drum_Ride = #Gad_PatEdit_Row_Drum_HiHat + 32
+  #Gad_PatEdit_Row_Drum_Snare = #Gad_PatEdit_Row_Drum_Ride + 32
 EndEnumeration
 
 Enumeration 1
@@ -351,6 +383,7 @@ Enumeration 1
   #Itm_StrumMode_Tertiary_Segment
   #Itm_StrumMode_Tertiary_Last = #Itm_StrumMode_Tertiary_Segment
   #Itm_ChordiateMode
+  #Itm_ChordEdit
   #Itm_PatEdit
   #Itm_Manual
   #Itm_About
@@ -368,7 +401,6 @@ Enumeration -1
   #Str_Mirror
   #Str_Segment
 EndEnumeration
-
 
 Enumeration #PB_Event_FirstCustomValue
   #Event_GetTriggers

@@ -7,7 +7,7 @@ Procedure.f LinearInterpolation(Value1.f, Value2.f, Fraction.f)
 EndProcedure
 
 Macro GetLinearInterpolatedSample(Memory, Position, Length, Size)
-  LinearInterpolation(PeekF(Memory+(Int(Position)%Length)*Size), PeekF(Memory+((Int(Position)+1)%Length)*Size), Position-Int(Position))
+  LinearInterpolation(PeekF(Memory+((Int(Position)+Length)%Length)*Size), PeekF(Memory+((Int(Position)+Length+1)%Length)*Size), Position-Int(Position))
 EndMacro
 
 Macro KeepInRange(Value, Min, Max)

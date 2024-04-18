@@ -439,8 +439,14 @@ Procedure Main()
                 
                 Chordian\Machine_State\Value_External_ChordiateMode = TempState\Value_External_ChordiateMode
                 
-                CopyArray(TempState\Data_MIDI(), Chordian\Machine_State\Data_MIDI())
+                CopyArray(TempState\Data_Chords1(), Chordian\Machine_State\Data_Chords1())
+                CopyArray(TempState\Data_Chords2(), Chordian\Machine_State\Data_Chords2())
+                CopyArray(TempState\Data_Chords3(), Chordian\Machine_State\Data_Chords3())
+                
                 CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
+                
+                AutofillChords()
+                AutofillDerivedNotes()
                 
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
@@ -2326,7 +2332,7 @@ Procedure Main()
                    \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And
                    \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
                   If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Inv
+                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Chr
                   Else
                     Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
                   EndIf
@@ -2340,7 +2346,7 @@ Procedure Main()
                     If \LastKeyEventWasDown
                       \LastKeyEventWasDown = 0
                       If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Chr
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_As2
                       Else
                         Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
                       EndIf
@@ -2348,7 +2354,7 @@ Procedure Main()
                     EndIf
                   Else
                     If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Chr
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_As2
                     Else
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
                     EndIf
@@ -2386,7 +2392,7 @@ Procedure Main()
                     If \LastKeyEventWasDown
                       \LastKeyEventWasDown = 0
                       If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Am4
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mc4
                       Else
                         Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
                       EndIf
@@ -2394,7 +2400,7 @@ Procedure Main()
                     EndIf
                   Else
                     If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Am4
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mc4
                     Else
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
                     EndIf

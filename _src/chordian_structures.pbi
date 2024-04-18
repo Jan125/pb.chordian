@@ -103,7 +103,10 @@ Structure Machine_State_Save
   Value_Internal_Memory_Position_Skip.i
   Array Internal_Memory_Chord.i(50)
   
-  Array Data_MIDI.a(#Note_Last, #Chord_Last, #Dat_Last)
+  Array Data_Chords1.a(#Chord_Last)
+  Array Data_Chords2.a(#Chord_Last)
+  Array Data_Chords3.a(#Chord_Last)
+  
   Array Data_Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
 EndStructure
 
@@ -120,6 +123,8 @@ Structure Machine_State Extends Machine_State_Save
   Value_Internal_Keyboard_Transpose.i
   Value_Internal_Keyboard_ButtonUp.i
   Value_Internal_Keyboard_ButtonDown.i
+  
+  Array Data_MIDI.a(#Note_Last, #Chord_Last, #Dat_Last)
   
   Array Status_Sound.i(#Snd_Last)
   Array Status_Volume.f(#Snd_Last)

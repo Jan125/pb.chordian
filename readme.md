@@ -43,10 +43,10 @@ The following combinations are only available in Chordiate Mode:
 - Major + Chordiate = Add9
 - Minor + Chordiate = Sus4
 - 7th + Chordiate = Add2
-- Major + Minor + Chordiate = Chromatic
+- Major + Minor + Chordiate = Aug(sus2)
 - Major + 7th + Chordiate = Addm4#
 - Minor + 7th + Chordiate = Addm4
-- Major + Minor + 7th + Chordiate = Inverted Minor
+- Major + Minor + 7th + Chordiate = Chromatic
 
 
 
