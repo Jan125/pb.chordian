@@ -52,8 +52,8 @@ Procedure.i SynthHandler(*Void)
     
     Protected MSCounter.f
     
-    Protected CurrentChord.i = \Value_Internal_Chord_Chord
-    Protected CurrentNote.i = \Value_Internal_Chord_Note
+    Protected CurrentChord.i = CurrentChord
+    Protected CurrentNote.i = CurrentNote
     Protected CurrentKeyboard.i = \Value_Internal_Keyboard_Note
     Protected CurrentAlternate.i = \Value_Rhythm_Button_Alternate_OnOff_Current
     Protected CurrentPattern.i = \Value_Rhythm_Button_Pattern_Current
@@ -96,8 +96,10 @@ Procedure.i SynthHandler(*Void)
       
       If WaitForSingleObject_(Chordian\Machine_Event\Semaphore_StopAllSounds, 0) = #WAIT_OBJECT_0
         For i = #Snd_First To #Snd_Last
-          \Status_Volume(i) = 0.0
-          \Status_Sound(i) = #Curve_None
+          If i <> #Snd_Beep Or Not Chordian\Machine_State\Value_Master_Button_Power_OnOff
+            \Status_Volume(i) = 0.0
+            \Status_Sound(i) = #Curve_None
+          EndIf
         Next
       EndIf
       
@@ -113,12 +115,15 @@ Procedure.i SynthHandler(*Void)
       For a = 0 To MemorySize(*Block) / WaveFormatExDescriptor\nBlockAlign
         
         If MIDIHandle
-          If CurrentChord <> \Value_Internal_Chord_Chord Or CurrentNote <> \Value_Internal_Chord_Note
+          If CurrentChord <> CurrentChord Or CurrentNote <> CurrentNote
             SendMIDIStop(MIDIHandle, 2)
-            If \Value_Internal_Chord_Chord = #Chord_None Or \Value_Internal_Chord_Note = #Note_None
+            If CurrentChord = #Chord_None Or CurrentNote = #Note_None
               SendMIDIStop(MIDIHandle, 0)
               SendMIDIStop(MIDIHandle, 1)
               SendMIDIStop(MIDIHandle, 9)
+            ElseIf CurrentChord = #Chord_Ignore Or CurrentNote = #Chord_Ignore
+              SendMIDIStop(MIDIHandle, 0)
+              SendMIDIStop(MIDIHandle, 1)
             EndIf
           EndIf
         EndIf
@@ -135,7 +140,7 @@ Procedure.i SynthHandler(*Void)
         
         Result = 0.0
         
-        Select \Value_Internal_Chord_Note
+        Select CurrentNote
           Case #Note_G
             Phase + ((3.125 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_F
@@ -183,7 +188,7 @@ Procedure.i SynthHandler(*Void)
             Case #Curve_Trigger
               If MIDIHandle
                 SendMIDIStop(MIDIHandle, 0)
-                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
                   Select CurrentPattern
                     Case #Rhythm_None
                       SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
@@ -203,7 +208,7 @@ Procedure.i SynthHandler(*Void)
             Case #Curve_Oneshot
               If MIDIHandle
                 SendMIDIStop(MIDIHandle, 0)
-                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
                   Select CurrentPattern
                     Case #Rhythm_None
                       SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
@@ -265,7 +270,7 @@ Procedure.i SynthHandler(*Void)
                 If i = #Snd_Chord_First
                   SendMIDIStop(MIDIHandle, 1)
                 EndIf
-                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
                   SendMIDINote(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First+i-#Snd_Chord_First), Int(127.0 * 0.8 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
@@ -278,7 +283,7 @@ Procedure.i SynthHandler(*Void)
                 If i = #Snd_Chord_First
                   SendMIDIStop(MIDIHandle, 1)
                 EndIf
-                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
                   SendMIDINote(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First+i-#Snd_Chord_First), Int(127.0 * 0.8 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
@@ -328,7 +333,7 @@ Procedure.i SynthHandler(*Void)
               Continue
             Case #Curve_Trigger
               If MIDIHandle
-                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
                   SendMIDINote(MIDIHandle, 2, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First+i-#Snd_Harp_First), Int(127.0 * ((\Value_Level_Knob_Volume_Harp_1 + \Value_Level_Knob_Volume_Harp_2) / 2.0) * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
@@ -338,7 +343,7 @@ Procedure.i SynthHandler(*Void)
               Continue
             Case #Curve_Oneshot
               If MIDIHandle
-                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+                If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
                   SendMIDINote(MIDIHandle, 2, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First+i-#Snd_Harp_First), Int(127.0 * ((\Value_Level_Knob_Volume_Harp_1 + \Value_Level_Knob_Volume_Harp_2) / 2.0) * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
@@ -367,8 +372,8 @@ Procedure.i SynthHandler(*Void)
               EndIf
           EndSelect
           
-          Result + (GetLinearInterpolatedSample(?Snd_Harp_Base, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) + (GetLinearInterpolatedSample(?Snd_Harp_Mod, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * LinearInterpolation(0.5 + (Sin3Phase / 2.0), 0.2, (i - #Snd_Harp_First) / 14.0)))* \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_1 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_2 / 2.0)) * (1.0 - (i - #Snd_Harp_First) * 0.025) * Bool(\Value_Internal_Chord_Note <> #Note_None And \Value_Internal_Chord_Chord <> #Chord_None)
-          Result + GetLinearInterpolatedSample(?Snd_Harp, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_2 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_1 / 2.0)) * 0.75 * (1.0 - (i - #Snd_Harp_First) * 0.025) * Bool(\Value_Internal_Chord_Note <> #Note_None And \Value_Internal_Chord_Chord <> #Chord_None)
+          Result + (GetLinearInterpolatedSample(?Snd_Harp_Base, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) + (GetLinearInterpolatedSample(?Snd_Harp_Mod, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * LinearInterpolation(0.5 + (Sin3Phase / 2.0), 0.2, (i - #Snd_Harp_First) / 14.0)))* \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_1 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_2 / 2.0)) * (1.0 - (i - #Snd_Harp_First) * 0.025) * Bool(CurrentNote <> #Note_None And CurrentChord <> #Chord_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore)
+          Result + GetLinearInterpolatedSample(?Snd_Harp, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_2 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_1 / 2.0)) * 0.75 * (1.0 - (i - #Snd_Harp_First) * 0.025) * Bool(CurrentNote <> #Note_None And CurrentChord <> #Chord_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore)
           
           \Status_Position(i) + \Status_Frequency(i)*(44100.0/WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
@@ -538,6 +543,54 @@ Procedure.i SynthHandler(*Void)
             \Status_Position(i) - 100.0
           Wend
         Next
+        
+        For i = #Snd_Beep_First To #Snd_Beep_Last
+          Select \Status_Sound(i)
+            Case #Curve_None
+              \Status_Volume(i) = 0.0
+              \Status_Position(i) = 0.0
+              Continue
+            Case #Curve_Trigger
+              \Status_Volume(i) = 1.0
+              \Status_Sound(i) = #Curve_Decay
+              i-1
+              Continue
+            Case #Curve_Oneshot
+              \Status_Volume(i) = 1.0
+              \Status_Sound(i) = #Curve_Release
+              i-1
+              Continue
+            Case #Curve_Attack
+              \Status_Sound(i) = #Curve_Release
+              i-1
+              Continue
+            Case #Curve_Decay
+              \Status_Volume(i)-(1.001-\Status_Volume(i))*((1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.05)
+              If \Status_Volume(i) < 0.9
+                \Status_Sound(i) = #Curve_Release
+                i-1
+                Continue
+              EndIf
+            Case #Curve_Sustain
+              \Status_Sound(i) = #Curve_Release
+              i-1
+              Continue
+            Case #Curve_Release
+              \Status_Volume(i)-(1.001-\Status_Volume(i))*((1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.01)
+              If \Status_Volume(i) < 0.0
+                \Status_Sound(i) = #Curve_None
+                i-1
+                Continue
+              EndIf
+          EndSelect
+          Result + GetLinearInterpolatedSample(?Snd_Beep, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Master_Knob_Volume
+          
+          \Status_Position(i) + \Status_Frequency(i)*(44100.0/WaveFormatExDescriptor\nSamplesPerSec)
+          While \Status_Position(i) > 100.0
+            \Status_Position(i) - 100.0
+          Wend
+        Next
+        
         
         PokeF(*Block + (a * WaveFormatExDescriptor\nBlockAlign), Result * DSGainMult)
       Next

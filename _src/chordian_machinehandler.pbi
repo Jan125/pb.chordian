@@ -54,7 +54,7 @@ Procedure.i AutofillChords()
         
         
         For s = #Dat_Chord_First To #Dat_Chord_Last
-          Select \Data_Chords1(n) * Bool(s = #Dat_Chord_1) + \Data_Chords2(n) * Bool(s = #Dat_Chord_2) + \Data_Chords3(n) * Bool(s = #Dat_Chord_3)
+          Select \Data_Chords(n, s-#Dat_Chord_First)
             Case #Transpose_0
               \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1)
               Select i
@@ -201,57 +201,70 @@ Procedure.i ResetMachine()
   Protected r.i
   
   With Chordian\Machine_State
+    
+    ;-Reset Data
+    \Value_Internal_Memory_Position_Current = 0
+    \Value_Internal_Memory_Position_Skip = 0
+    
+    For i = 0 To ArraySize(\Internal_Memory_Chord_Note(), 1)
+      \Internal_Memory_Chord_Note(i, 0) = #Chord_None
+      \Internal_Memory_Chord_Note(i, 1) = #Note_None
+    Next
+    
     ;-Chord Data
-    \Data_Chords2(#Chord_Maj) = #Transpose_4
-    \Data_Chords3(#Chord_Maj) = #Transpose_7
+    For i = #Chord_First To #Chord_Last
+      For n = 0 To 2
+        \Data_Chords(i, n) = 0
+      Next
+    Next
     
-    \Data_Chords2(#Chord_Min) = #Transpose_3
-    \Data_Chords3(#Chord_Min) = #Transpose_7
+    \Data_Chords(#Chord_Maj, 1) = #Transpose_4
+    \Data_Chords(#Chord_Maj, 2) = #Transpose_7
     
-    \Data_Chords2(#Chord_7th) = #Transpose_4
-    \Data_Chords3(#Chord_7th) = #Transpose_10
+    \Data_Chords(#Chord_Min, 1) = #Transpose_3
+    \Data_Chords(#Chord_Min, 2) = #Transpose_7
     
-    \Data_Chords2(#Chord_Dim) = #Transpose_3
-    \Data_Chords3(#Chord_Dim) = #Transpose_9
+    \Data_Chords(#Chord_7th, 1) = #Transpose_4
+    \Data_Chords(#Chord_7th, 2) = #Transpose_10
     
-    \Data_Chords2(#Chord_Ma7) = #Transpose_4
-    \Data_Chords3(#Chord_Ma7) = #Transpose_11
+    \Data_Chords(#Chord_Dim, 1) = #Transpose_3
+    \Data_Chords(#Chord_Dim, 2) = #Transpose_9
     
-    \Data_Chords2(#Chord_Mi7) = #Transpose_3
-    \Data_Chords3(#Chord_Mi7) = #Transpose_10
+    \Data_Chords(#Chord_Ma7, 1) = #Transpose_4
+    \Data_Chords(#Chord_Ma7, 2) = #Transpose_11
     
-    \Data_Chords2(#Chord_Aug) = #Transpose_4
-    \Data_Chords3(#Chord_Aug) = #Transpose_8
+    \Data_Chords(#Chord_Mi7, 1) = #Transpose_3
+    \Data_Chords(#Chord_Mi7, 2) = #Transpose_10
     
-    \Data_Chords2(#Chord_Ad9) = #Transpose_2
-    \Data_Chords3(#Chord_Ad9) = #Transpose_7
+    \Data_Chords(#Chord_Aug, 1) = #Transpose_4
+    \Data_Chords(#Chord_Aug, 2) = #Transpose_8
     
-    \Data_Chords2(#Chord_Su4) = #Transpose_5
-    \Data_Chords3(#Chord_Su4) = #Transpose_7
+    \Data_Chords(#Chord_Ad9, 1) = #Transpose_2
+    \Data_Chords(#Chord_Ad9, 2) = #Transpose_7
     
-    \Data_Chords2(#Chord_Ad2) = #Transpose_2
-    \Data_Chords3(#Chord_Ad2) = #Transpose_4
+    \Data_Chords(#Chord_Su4, 1) = #Transpose_5
+    \Data_Chords(#Chord_Su4, 2) = #Transpose_7
     
-    \Data_Chords2(#Chord_As2) = #Transpose_2
-    \Data_Chords3(#Chord_As2) = #Transpose_8
+    \Data_Chords(#Chord_Ad2, 1) = #Transpose_2
+    \Data_Chords(#Chord_Ad2, 2) = #Transpose_4
     
-    \Data_Chords2(#Chord_Ac4) = #Transpose_3
-    \Data_Chords3(#Chord_Ac4) = #Transpose_6
+    \Data_Chords(#Chord_As2, 1) = #Transpose_2
+    \Data_Chords(#Chord_As2, 2) = #Transpose_8
     
-    \Data_Chords2(#Chord_Mc4) = #Transpose_3
-    \Data_Chords3(#Chord_Mc4) = #Transpose_5
+    \Data_Chords(#Chord_Ac4, 1) = #Transpose_3
+    \Data_Chords(#Chord_Ac4, 2) = #Transpose_6
     
-    \Data_Chords2(#Chord_Chr) = #Transpose_1
-    \Data_Chords3(#Chord_Chr) = #Transpose_2
+    \Data_Chords(#Chord_Mc4, 1) = #Transpose_3
+    \Data_Chords(#Chord_Mc4, 2) = #Transpose_5
+    
+    \Data_Chords(#Chord_Chr, 1) = #Transpose_1
+    \Data_Chords(#Chord_Chr, 2) = #Transpose_2
     
     AutofillChords()
     AutofillDerivedNotes()
     
-    
     ;--Pattern Data
     ; This is used for pattern data.
-    
-    Global Dim Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
     
     For s = 0 To 1
       For r = #Rhythm_First To #Rhythm_Last
@@ -1142,13 +1155,6 @@ Procedure MachineHandler(*Void)
         SendNewTick = 0
         ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
       EndIf
-      
-      
-      
-      
-      
-      
-      
       
     ForEver
     

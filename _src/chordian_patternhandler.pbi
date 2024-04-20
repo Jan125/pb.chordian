@@ -26,7 +26,7 @@
       Select CurrentRhythm
         Case #Rhythm_None
           ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-          If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+          If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Note_Ignore
             \Status_Sound(#Snd_Bass) = #Curve_Trigger
             For i = #Snd_Chord_First To #Snd_Chord_Last
               \Status_Sound(i) = #Curve_Trigger
@@ -34,16 +34,18 @@
           EndIf
         Default
           If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
-            If \Value_Rhythm_Button_AutoBassSync_OnOff
-              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-              If \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Bass) <> #Curve_Ignore
-                \Status_Sound(#Snd_Bass) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Bass)
-              EndIf
-              For i = #Snd_Chord_First To #Snd_Chord_Last
-                If \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords) <> #Curve_Ignore
-                  \Status_Sound(i) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
+            If  CurrentChord <> #Chord_Ignore And CurrentNote <> #Note_Ignore
+              If \Value_Rhythm_Button_AutoBassSync_OnOff
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                If \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Bass) <> #Curve_Ignore
+                  \Status_Sound(#Snd_Bass) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Bass)
                 EndIf
-              Next
+                For i = #Snd_Chord_First To #Snd_Chord_Last
+                  If \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords) <> #Curve_Ignore
+                    \Status_Sound(i) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Chords)
+                  EndIf
+                Next
+              EndIf
             EndIf
             
             For i = 0 To #Snd_Drum_Last-#Snd_Drum_First

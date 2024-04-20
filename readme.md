@@ -110,7 +110,8 @@ The Blues and Waltz patterns have 24 steps, all other patterns use 32 steps.
 
 You can edit the pattern for specific notes for more variety.\
 The Scaled mode aliases 1 and 2 to their respective Omnichord-like frequencies for specific patterns.\
-The All mode applies notes as entered directly, as do the note edit modes.
+The All mode applies notes as entered directly, as do the note edit modes.\
+Ignore is a special internal note that will not play any notes, just drums. 
 
 Overview of the symbols:
 - 1: Normal frequency for the bass.

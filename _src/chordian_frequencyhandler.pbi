@@ -38,7 +38,7 @@
       CurrentAlternate = \Value_Rhythm_Button_Alternate_OnOff_Current
       CurrentPattern = \Value_Rhythm_Button_Pattern_Current
       
-      If CurrentChord <> #Chord_None And CurrentNote <> #Note_None
+      If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Note_Ignore
         Select CurrentPattern
           Case #Rhythm_None
             \Status_Frequency(#Snd_Bass) = Frequencies(\Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1))
@@ -84,6 +84,8 @@
       If CurrentKeyboard >= 0 And CurrentKeyboard <= 127
         \Status_Frequency(#Snd_Keyboard) = Frequencies(CurrentKeyboard)
       EndIf
+      
+      \Status_Frequency(#Snd_Beep) = Frequencies(69)
       
     ForEver
   EndWith

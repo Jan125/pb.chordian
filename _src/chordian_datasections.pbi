@@ -149,6 +149,9 @@ DataSection
   Snd_Bass_Mod:
   IncludeBinary "snd\chordian_bass_mod.raw"
   
+  Snd_Beep:
+  IncludeBinary "snd\chordian_beep.raw"
+  
   Snd_Chord:
   IncludeBinary "snd\chordian_chord.raw"
   

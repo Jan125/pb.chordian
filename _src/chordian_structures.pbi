@@ -101,11 +101,9 @@ Structure Machine_State_Save
   
   Value_Internal_Memory_Position_Current.i
   Value_Internal_Memory_Position_Skip.i
-  Array Internal_Memory_Chord.i(50)
+  Array Internal_Memory_Chord_Note.i(50, 1)
   
-  Array Data_Chords1.a(#Chord_Last)
-  Array Data_Chords2.a(#Chord_Last)
-  Array Data_Chords3.a(#Chord_Last)
+  Array Data_Chords.a(#Chord_Last, 2)
   
   Array Data_Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
 EndStructure

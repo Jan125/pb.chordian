@@ -23,7 +23,8 @@ Enumeration -1
   #Chord_Mc4
   #Chord_Chr
   
-  #Chord_Last = #Chord_Chr
+  #Chord_Ignore
+  #Chord_Last = #Chord_Ignore
 EndEnumeration
 
 Enumeration -1
@@ -62,7 +63,8 @@ Enumeration -1
   #Note_B
   #Note_Fc
   #Note_Gb = #Note_Fc
-  #Note_Last = #Note_Gb
+  #Note_Ignore
+  #Note_Last = #Note_Ignore
 EndEnumeration
 
 Enumeration -1
@@ -155,7 +157,12 @@ Enumeration 1
   #Snd_Keyboard_First
   #Snd_Keyboard = #Snd_Keyboard_First
   #Snd_Keyboard_Last = #Snd_Keyboard
-  #Snd_Last = #Snd_Keyboard_Last
+  
+  #Snd_Beep_First
+  #Snd_Beep = #Snd_Beep_First
+  #Snd_Beep_Last = #Snd_Beep
+  
+  #Snd_Last = #Snd_Beep_Last
 EndEnumeration
 
 Enumeration 1
@@ -273,7 +280,10 @@ Enumeration 0
   #Dat_Drum_Last = #Dat_Drum_Snare
   
   #Dat_Keyboard
-  #Dat_Last = #Dat_Keyboard
+  
+  #Dat_Beep
+  
+  #Dat_Last = #Dat_Beep
 EndEnumeration
 
 Enumeration -1
