@@ -353,27 +353,27 @@ Procedure.i Init()
   LocalCatchImage(#Img_LED_Off, ?Img_LED_Off, ".data\img\led_off.png")
   LocalCatchImage(#Img_LED_On, ?Img_LED_On, ".data\img\led_on.png")
   
-  LocalCatchImage(#Img_UI_Curve_None, ?Img_UI_Curve_None, ".data\img\patedit_curve_none.png")
-  LocalCatchImage(#Img_UI_Curve_Trigger, ?Img_UI_Curve_Trigger, ".data\img\patedit_curve_trigger.png")
-  LocalCatchImage(#Img_UI_Curve_Attack, ?Img_UI_Curve_Attack, ".data\img\patedit_curve_attack.png")
-  LocalCatchImage(#Img_UI_Curve_Decay, ?Img_UI_Curve_Decay, ".data\img\patedit_curve_decay.png")
-  LocalCatchImage(#Img_UI_Curve_Sustain, ?Img_UI_Curve_Sustain, ".data\img\patedit_curve_sustain.png")
-  LocalCatchImage(#Img_UI_Curve_Release, ?Img_UI_Curve_Release, ".data\img\patedit_curve_release.png")
-  LocalCatchImage(#Img_UI_Curve_Oneshot, ?Img_UI_Curve_Oneshot, ".data\img\patedit_curve_oneshot.png")
-  LocalCatchImage(#Img_UI_Curve_Ignore, ?Img_UI_Curve_Ignore, ".data\img\patedit_curve_ignore.png")
+  LocalCatchImage(#Img_UI_Curve_None, ?Img_UI_Curve_None, ".data\img\ui_curve_none.png")
+  LocalCatchImage(#Img_UI_Curve_Trigger, ?Img_UI_Curve_Trigger, ".data\img\ui_curve_trigger.png")
+  LocalCatchImage(#Img_UI_Curve_Attack, ?Img_UI_Curve_Attack, ".data\img\ui_curve_attack.png")
+  LocalCatchImage(#Img_UI_Curve_Decay, ?Img_UI_Curve_Decay, ".data\img\ui_curve_decay.png")
+  LocalCatchImage(#Img_UI_Curve_Sustain, ?Img_UI_Curve_Sustain, ".data\img\ui_curve_sustain.png")
+  LocalCatchImage(#Img_UI_Curve_Release, ?Img_UI_Curve_Release, ".data\img\ui_curve_release.png")
+  LocalCatchImage(#Img_UI_Curve_Oneshot, ?Img_UI_Curve_Oneshot, ".data\img\ui_curve_oneshot.png")
+  LocalCatchImage(#Img_UI_Curve_Ignore, ?Img_UI_Curve_Ignore, ".data\img\ui_curve_ignore.png")
   
-  LocalCatchImage(#Img_UI_Note_0, ?Img_UI_Note_0, ".data\img\patedit_note_0.png")
-  LocalCatchImage(#Img_UI_Note_1, ?Img_UI_Note_1, ".data\img\patedit_note_1.png")
-  LocalCatchImage(#Img_UI_Note_2, ?Img_UI_Note_2, ".data\img\patedit_note_2.png")
-  LocalCatchImage(#Img_UI_Note_3, ?Img_UI_Note_3, ".data\img\patedit_note_3.png")
-  LocalCatchImage(#Img_UI_Note_4, ?Img_UI_Note_4, ".data\img\patedit_note_4.png")
-  LocalCatchImage(#Img_UI_Note_5, ?Img_UI_Note_5, ".data\img\patedit_note_5.png")
-  LocalCatchImage(#Img_UI_Note_6, ?Img_UI_Note_6, ".data\img\patedit_note_6.png")
-  LocalCatchImage(#Img_UI_Note_7, ?Img_UI_Note_7, ".data\img\patedit_note_7.png")
-  LocalCatchImage(#Img_UI_Note_8, ?Img_UI_Note_8, ".data\img\patedit_note_8.png")
-  LocalCatchImage(#Img_UI_Note_9, ?Img_UI_Note_9, ".data\img\patedit_note_9.png")
-  LocalCatchImage(#Img_UI_Note_10, ?Img_UI_Note_10, ".data\img\patedit_note_10.png")
-  LocalCatchImage(#Img_UI_Note_11, ?Img_UI_Note_11, ".data\img\patedit_note_11.png")
+  LocalCatchImage(#Img_UI_Note_0, ?Img_UI_Note_0, ".data\img\ui_note_0.png")
+  LocalCatchImage(#Img_UI_Note_1, ?Img_UI_Note_1, ".data\img\ui_note_1.png")
+  LocalCatchImage(#Img_UI_Note_2, ?Img_UI_Note_2, ".data\img\ui_note_2.png")
+  LocalCatchImage(#Img_UI_Note_3, ?Img_UI_Note_3, ".data\img\ui_note_3.png")
+  LocalCatchImage(#Img_UI_Note_4, ?Img_UI_Note_4, ".data\img\ui_note_4.png")
+  LocalCatchImage(#Img_UI_Note_5, ?Img_UI_Note_5, ".data\img\ui_note_5.png")
+  LocalCatchImage(#Img_UI_Note_6, ?Img_UI_Note_6, ".data\img\ui_note_6.png")
+  LocalCatchImage(#Img_UI_Note_7, ?Img_UI_Note_7, ".data\img\ui_note_7.png")
+  LocalCatchImage(#Img_UI_Note_8, ?Img_UI_Note_8, ".data\img\ui_note_8.png")
+  LocalCatchImage(#Img_UI_Note_9, ?Img_UI_Note_9, ".data\img\ui_note_9.png")
+  LocalCatchImage(#Img_UI_Note_10, ?Img_UI_Note_10, ".data\img\ui_note_10.png")
+  LocalCatchImage(#Img_UI_Note_11, ?Img_UI_Note_11, ".data\img\ui_note_11.png")
   
   Chordian\RepaintHandler_Thread = CreateThread(@RepaintHandler(), 0)
   Chordian\PatternHandler_Thread = CreateThread(@PatternHandler(), 0)
@@ -410,1662 +410,1676 @@ Procedure Main()
   
   Repeat
     Event = WaitWindowEvent()
-    Select Event
-        
-      Case #PB_Event_Menu
-        ;--Menu Actions
-        Select EventMenu()
-          Case #Itm_Load
-            TempString = OpenFileRequester("Chordian>Load machine state...", "", "JSON (*.json)|*.json|All Files (*.*)|*.*", 0)
-            If TempString
-              If LoadJSON(#JSON_Main, TempString)
-                ResetMachine()
-                ResetInput()
-                
-                ExtractJSONStructure(JSONValue(#JSON_Main), @TempState, Machine_State_Save)
-                FreeJSON(#JSON_Main)
-                
-                Chordian\Machine_State\Value_Master_Button_Power_OnOff = TempState\Value_Master_Button_Power_OnOff
-                Chordian\Machine_State\Value_Master_Knob_Volume = TempState\Value_Master_Knob_Volume
-                
-                Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1 = TempState\Value_Level_Knob_Volume_Harp_1
-                Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2 = TempState\Value_Level_Knob_Volume_Harp_2
-                Chordian\Machine_State\Value_Level_Knob_Sustain = TempState\Value_Level_Knob_Sustain
-                Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard = TempState\Value_Level_Knob_Volume_Keyboard
-                Chordian\Machine_State\Value_Level_Knob_Volume_Chords = TempState\Value_Level_Knob_Volume_Chords
-                
-                Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff = TempState\Value_Rhythm_Button_Alternate_OnOff
-                Chordian\Machine_State\Value_Rhythm_Button_Pattern = TempState\Value_Rhythm_Button_Pattern
-                Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff = TempState\Value_Rhythm_Button_AutoBassSync_OnOff
-                Chordian\Machine_State\Value_Rhythm_Knob_Tempo = TempState\Value_Rhythm_Knob_Tempo
-                Chordian\Machine_State\Value_Rhythm_Knob_Volume = TempState\Value_Rhythm_Knob_Volume
-                
-                Chordian\Machine_State\Value_Memory_Button_Memory_OnOff = TempState\Value_Memory_Button_Memory_OnOff
-                Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff = TempState\Value_Memory_Button_Playback_Record_OnOff
-                Chordian\Machine_State\Value_Memory_Button_Repeat_Delete = TempState\Value_Memory_Button_Repeat_Delete
-                Chordian\Machine_State\Value_Memory_Button_Playback_Enter = TempState\Value_Memory_Button_Playback_Enter
-                
-                Chordian\Machine_State\Value_Circuit_Knob_Tuning = TempState\Value_Circuit_Knob_Tuning
-                
-                Chordian\Machine_State\Value_External_ChordiateMode = TempState\Value_External_ChordiateMode
-                
-                CopyArray(TempState\Internal_Memory_Chord_Note(), Chordian\Machine_State\Internal_Memory_Chord_Note())
-                
-                CopyArray(TempState\Data_Chords(), Chordian\Machine_State\Data_Chords())
-                
-                CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
-                
-                AutofillChords()
-                AutofillDerivedNotes()
-                
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Chordian\Machine_State\Value_External_ChordiateMode)
-                
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_None, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_None))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Single, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Single))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Double, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Double))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Chord, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Chord))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Spread, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Spread))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Octave, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Octave))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Full, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Full))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Reverse, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Reverse))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Mirror, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Mirror))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Segment, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Segment))
-                
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_None, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_None))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Single, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Single))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Double, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Double))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Chord, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Chord))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Spread, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Spread))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Octave, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Octave))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Full, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Full))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Reverse, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Reverse))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Mirror, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Mirror))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Segment, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Segment))
-                
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_None, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_None))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Single, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Single))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Double, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Double))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Chord, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Chord))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Spread, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Spread))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Octave, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Octave))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Full, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Full))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Reverse, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Reverse))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Mirror, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Mirror))
-                SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Segment, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Segment))
-                
-                PauseThread(Chordian\RepaintHandler_Thread)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                ResumeThread(Chordian\RepaintHandler_Thread)
-              EndIf
-              
-            EndIf
-            
-          Case #Itm_Save
-            TempString = SaveFileRequester("Chordian>Save machine state...", "", "JSON (*.json)|*.json|All Files (*.*)|*.*", 0)
-            If TempString
-              Select FileSize(TempString)
-                Case -2
-                  MessageRequester("Chordian>Error", "Cannot save file "+TempString+", entry occupied by folder.")
-                Case -1
-                  CreateJSON(#JSON_Main)
-                  InsertJSONStructure(JSONValue(#JSON_Main), @Chordian\Machine_State, Machine_State_Save)
-                  SaveJSON(#JSON_Main, TempString)
+    If EventWindow() = #Win_Main
+      Select Event
+          
+        Case #PB_Event_Menu
+          ;--Menu Actions
+          Select EventMenu()
+            Case #Itm_Load
+              TempString = OpenFileRequester("Chordian>Load machine state...", "", "JSON (*.json)|*.json|All Files (*.*)|*.*", 0)
+              If TempString
+                If LoadJSON(#JSON_Main, TempString)
+                  ResetMachine()
+                  ResetInput()
+                  
+                  ExtractJSONStructure(JSONValue(#JSON_Main), @TempState, Machine_State_Save)
                   FreeJSON(#JSON_Main)
-                Default
-                  Select MessageRequester("Chordian>Warning", "File "+TempString+" already exists."+#CRLF$+"Do you want to overwrite it?", #PB_MessageRequester_YesNoCancel)
-                    Case #PB_MessageRequester_Yes
-                      CreateJSON(#JSON_Main)
-                      InsertJSONStructure(JSONValue(#JSON_Main), @Chordian\Machine_State, Machine_State_Save)
-                      SaveJSON(#JSON_Main, TempString)
-                      FreeJSON(#JSON_Main)
-                    Case #PB_MessageRequester_Cancel
-                      PostEvent(#PB_Event_Menu, #Win_Main, #Itm_Save)
-                  EndSelect
-              EndSelect
-            EndIf
-            
-          Case #Itm_Reset
-            ResetMachine()
-            ResetInput()
-            
-            SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Chordian\Machine_State\Value_External_ChordiateMode)
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          Case #Itm_Exit
-            PostEvent(#PB_Event_CloseWindow)
-            
-          Case #Itm_Tuning
-            TempString = InputRequester("Chordian>Master>Tuning", "Insert new Tuning. (0.5)", StrF(Chordian\Machine_State\Value_Circuit_Knob_Tuning))
-            If Len(TempString) > 0
-              Chordian\Machine_State\Value_Circuit_Knob_Tuning = ValF(TempString)
-            EndIf
-            
-            Select Chordian\Machine_State\Value_External_ChordiateMode
-              Case 1
-                KeepInRange(Chordian\Machine_State\Value_Circuit_Knob_Tuning, -2.0, 2.0)
-              Default
-                KeepInRange(Chordian\Machine_State\Value_Circuit_Knob_Tuning, 0.0, 1.0)
-            EndSelect
-            
-            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
-            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-            
-          Case #Itm_StrumMode_Primary_First To #Itm_StrumMode_Primary_Last
-            Select EventMenu()
-              Case #Itm_StrumMode_Primary_None
-                Chordian\Input_State\PrimaryStrumMode = #Str_None
-              Case #Itm_StrumMode_Primary_Single
-                Chordian\Input_State\PrimaryStrumMode = #Str_Single
-              Case #Itm_StrumMode_Primary_Double
-                Chordian\Input_State\PrimaryStrumMode = #Str_Double
-              Case #Itm_StrumMode_Primary_Chord
-                Chordian\Input_State\PrimaryStrumMode = #Str_Chord
-              Case #Itm_StrumMode_Primary_Spread
-                Chordian\Input_State\PrimaryStrumMode = #Str_Spread
-              Case #Itm_StrumMode_Primary_Octave
-                Chordian\Input_State\PrimaryStrumMode = #Str_Octave
-              Case #Itm_StrumMode_Primary_Full
-                Chordian\Input_State\PrimaryStrumMode = #Str_Full
-              Case #Itm_StrumMode_Primary_Reverse
-                Chordian\Input_State\PrimaryStrumMode = #Str_Reverse
-              Case #Itm_StrumMode_Primary_Mirror
-                Chordian\Input_State\PrimaryStrumMode = #Str_Mirror
-              Case #Itm_StrumMode_Primary_Segment
-                Chordian\Input_State\PrimaryStrumMode = #Str_Segment
-            EndSelect
-            
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_None, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_None))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Single, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Single))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Double, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Double))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Chord, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Chord))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Spread, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Spread))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Octave, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Octave))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Full, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Full))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Reverse, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Reverse))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Mirror, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Mirror))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Segment, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Segment))
-            
-          Case #Itm_StrumMode_Secondary_First To #Itm_StrumMode_Secondary_Last
-            Select EventMenu()
-              Case #Itm_StrumMode_Secondary_None
-                Chordian\Input_State\SecondaryStrumMode = #Str_None
-              Case #Itm_StrumMode_Secondary_Single
-                Chordian\Input_State\SecondaryStrumMode = #Str_Single
-              Case #Itm_StrumMode_Secondary_Double
-                Chordian\Input_State\SecondaryStrumMode = #Str_Double
-              Case #Itm_StrumMode_Secondary_Chord
-                Chordian\Input_State\SecondaryStrumMode = #Str_Chord
-              Case #Itm_StrumMode_Secondary_Spread
-                Chordian\Input_State\SecondaryStrumMode = #Str_Spread
-              Case #Itm_StrumMode_Secondary_Octave
-                Chordian\Input_State\SecondaryStrumMode = #Str_Octave
-              Case #Itm_StrumMode_Secondary_Full
-                Chordian\Input_State\SecondaryStrumMode = #Str_Full
-              Case #Itm_StrumMode_Secondary_Reverse
-                Chordian\Input_State\SecondaryStrumMode = #Str_Reverse
-              Case #Itm_StrumMode_Secondary_Mirror
-                Chordian\Input_State\SecondaryStrumMode = #Str_Mirror
-              Case #Itm_StrumMode_Secondary_Segment
-                Chordian\Input_State\SecondaryStrumMode = #Str_Segment
-            EndSelect
-            
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_None, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_None))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Single, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Single))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Double, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Double))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Chord, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Chord))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Spread, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Spread))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Octave, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Octave))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Full, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Full))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Reverse, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Reverse))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Mirror, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Mirror))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Segment, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Segment))
-            
-          Case #Itm_StrumMode_Tertiary_First To #Itm_StrumMode_Tertiary_Last
-            Select EventMenu()
-              Case #Itm_StrumMode_Tertiary_None
-                Chordian\Input_State\TertiaryStrumMode = #Str_None
-              Case #Itm_StrumMode_Tertiary_Single
-                Chordian\Input_State\TertiaryStrumMode = #Str_Single
-              Case #Itm_StrumMode_Tertiary_Double
-                Chordian\Input_State\TertiaryStrumMode = #Str_Double
-              Case #Itm_StrumMode_Tertiary_Chord
-                Chordian\Input_State\TertiaryStrumMode = #Str_Chord
-              Case #Itm_StrumMode_Tertiary_Spread
-                Chordian\Input_State\TertiaryStrumMode = #Str_Spread
-              Case #Itm_StrumMode_Tertiary_Octave
-                Chordian\Input_State\TertiaryStrumMode = #Str_Octave
-              Case #Itm_StrumMode_Tertiary_Full
-                Chordian\Input_State\TertiaryStrumMode = #Str_Full
-              Case #Itm_StrumMode_Tertiary_Reverse
-                Chordian\Input_State\TertiaryStrumMode = #Str_Reverse
-              Case #Itm_StrumMode_Tertiary_Mirror
-                Chordian\Input_State\TertiaryStrumMode = #Str_Mirror
-              Case #Itm_StrumMode_Tertiary_Segment
-                Chordian\Input_State\TertiaryStrumMode = #Str_Segment
-            EndSelect
-            
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_None, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_None))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Single, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Single))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Double, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Double))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Chord, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Chord))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Spread, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Spread))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Octave, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Octave))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Full, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Full))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Reverse, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Reverse))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Mirror, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Mirror))
-            SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Segment, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Segment))
-            
-            
-          Case #Itm_ChordiateMode
-            SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Bool(Not GetMenuItemState(#Men_Main, #Itm_ChordiateMode)))
-            Chordian\Machine_State\Value_External_ChordiateMode = GetMenuItemState(#Men_Main, #Itm_ChordiateMode)
-            
-          Case #Itm_ChordEdit
-            ;---ChordEdit
-            If MessageRequester("Chordian>Warning", "You are about to enter the Chord Editor."+#CRLF$+"Any changes are applied immediately."+#CRLF$+"Do you wish to continue?", #PB_MessageRequester_YesNo) = #PB_MessageRequester_Yes
-              DisableWindow(#Win_Main, 1)
-              If IsWindow(#Win_ChordEdit)
-                HideWindow(#Win_ChordEdit, 0, #PB_Window_WindowCentered)
-              Else
-                If Not OpenWindow(#Win_ChordEdit, 0, 0, 628, 300, "Chordian>Chord Editor", #PB_Window_SystemMenu | #PB_Window_WindowCentered, WindowID(#Win_Main))
-                  MessageRequester("Chordian>Error", "Chord Editor could not be initialized.")
-                  DisableWindow(#Win_Main, 0)
-                  SetActiveGadget(#Gad_Canvas)
-                  Continue
+                  
+                  Chordian\Machine_State\Value_Master_Button_Power_OnOff = TempState\Value_Master_Button_Power_OnOff
+                  Chordian\Machine_State\Value_Master_Knob_Volume = TempState\Value_Master_Knob_Volume
+                  
+                  Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1 = TempState\Value_Level_Knob_Volume_Harp_1
+                  Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2 = TempState\Value_Level_Knob_Volume_Harp_2
+                  Chordian\Machine_State\Value_Level_Knob_Sustain = TempState\Value_Level_Knob_Sustain
+                  Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard = TempState\Value_Level_Knob_Volume_Keyboard
+                  Chordian\Machine_State\Value_Level_Knob_Volume_Chords = TempState\Value_Level_Knob_Volume_Chords
+                  
+                  Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff = TempState\Value_Rhythm_Button_Alternate_OnOff
+                  Chordian\Machine_State\Value_Rhythm_Button_Pattern = TempState\Value_Rhythm_Button_Pattern
+                  Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff = TempState\Value_Rhythm_Button_AutoBassSync_OnOff
+                  Chordian\Machine_State\Value_Rhythm_Knob_Tempo = TempState\Value_Rhythm_Knob_Tempo
+                  Chordian\Machine_State\Value_Rhythm_Knob_Volume = TempState\Value_Rhythm_Knob_Volume
+                  
+                  Chordian\Machine_State\Value_Memory_Button_Memory_OnOff = TempState\Value_Memory_Button_Memory_OnOff
+                  Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff = TempState\Value_Memory_Button_Playback_Record_OnOff
+                  Chordian\Machine_State\Value_Memory_Button_Repeat_Delete = TempState\Value_Memory_Button_Repeat_Delete
+                  Chordian\Machine_State\Value_Memory_Button_Playback_Enter = TempState\Value_Memory_Button_Playback_Enter
+                  
+                  Chordian\Machine_State\Value_Circuit_Knob_Tuning = TempState\Value_Circuit_Knob_Tuning
+                  
+                  Chordian\Machine_State\Value_External_ChordiateMode = TempState\Value_External_ChordiateMode
+                  
+                  CopyArray(TempState\Internal_Memory_Chord_Note(), Chordian\Machine_State\Internal_Memory_Chord_Note())
+                  
+                  CopyArray(TempState\Data_Chords(), Chordian\Machine_State\Data_Chords())
+                  
+                  CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
+                  
+                  AutofillChords()
+                  AutofillDerivedNotes()
+                  
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                  SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Chordian\Machine_State\Value_External_ChordiateMode)
+                  
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_None, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_None))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Single, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Single))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Double, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Double))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Chord, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Chord))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Spread, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Spread))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Octave, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Octave))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Full, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Full))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Reverse, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Reverse))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Mirror, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Mirror))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Segment, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Segment))
+                  
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_None, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_None))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Single, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Single))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Double, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Double))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Chord, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Chord))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Spread, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Spread))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Octave, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Octave))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Full, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Full))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Reverse, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Reverse))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Mirror, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Mirror))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Segment, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Segment))
+                  
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_None, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_None))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Single, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Single))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Double, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Double))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Chord, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Chord))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Spread, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Spread))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Octave, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Octave))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Full, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Full))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Reverse, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Reverse))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Mirror, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Mirror))
+                  SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Segment, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Segment))
+                  
+                  PauseThread(Chordian\RepaintHandler_Thread)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                  ResumeThread(Chordian\RepaintHandler_Thread)
                 EndIf
                 
-                ButtonGadget(#Gad_ChordEdit_Button_Refresh, 5, 10, 50, 20, "Refresh")
-                ButtonGadget(#Gad_ChordEdit_Button_Import, 464, 10, 70, 20, "Import...")
-                ButtonGadget(#Gad_ChordEdit_Button_Export, 539, 10, 70, 20, "Export...")
-                
-                TextGadget(#Gad_ChordEdit_Text_Maj, 40, 35, 55, 20, "Maj")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Maj+i, 30+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Min, 40, 95, 55, 20, "Min")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Min+i, 30+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_7th, 40, 155, 55, 20, "7th")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_7th+i, 30+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Dim, 170, 35, 55, 20, "Dim")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Dim+i, 160+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Ma7, 170, 95, 55, 20, "Ma7")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Ma7+i, 160+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Mi7, 170, 155, 55, 20, "Mi7")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Mi7+i, 160+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Aug, 105, 215, 55, 20, "Aug")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Aug+i, 95+36*i, 240-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                ;next
-                TextGadget(#Gad_ChordEdit_Text_Chordiate, 280, 140, 75, 20, ">Chordiate>")
-                
-                TextGadget(#Gad_ChordEdit_Text_Ad9, 370, 35, 55, 20, "Ad9")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Ad9+i, 360+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Su4, 370, 95, 55, 20, "Su4")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Su4+i, 360+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Ad2, 370, 155, 55, 20, "Ad2")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Ad2+i, 360+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_As2, 500, 35, 55, 20, "As2")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_As2+i, 490+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Ac4, 500, 95, 55, 20, "Ac4")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Ac4+i, 490+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Mc4, 500, 155, 55, 20, "Mc4")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Mc4+i, 490+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
-                
-                TextGadget(#Gad_ChordEdit_Text_Chr, 435, 215, 55, 20, "Chr")
-                For i = 0 To 2
-                  ComboBoxGadget(#Gad_ChordEdit_Row_Chr+i, 425+36*i, 240-i*4, 36, 25, #PB_ComboBox_Image)
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "0", ImageID(#Img_UI_Note_0))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "4", ImageID(#Img_UI_Note_4))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "5", ImageID(#Img_UI_Note_5))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "6", ImageID(#Img_UI_Note_6))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "7", ImageID(#Img_UI_Note_7))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "8", ImageID(#Img_UI_Note_8))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "9", ImageID(#Img_UI_Note_9))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "10", ImageID(#Img_UI_Note_10))
-                  AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "11", ImageID(#Img_UI_Note_11))
-                Next
+              EndIf
+              
+            Case #Itm_Save
+              TempString = SaveFileRequester("Chordian>Save machine state...", "", "JSON (*.json)|*.json|All Files (*.*)|*.*", 0)
+              If TempString
+                Select FileSize(TempString)
+                  Case -2
+                    MessageRequester("Chordian>Error", "Cannot save file "+TempString+", entry occupied by folder.")
+                  Case -1
+                    CreateJSON(#JSON_Main)
+                    InsertJSONStructure(JSONValue(#JSON_Main), @Chordian\Machine_State, Machine_State_Save)
+                    SaveJSON(#JSON_Main, TempString)
+                    FreeJSON(#JSON_Main)
+                  Default
+                    Select MessageRequester("Chordian>Warning", "File "+TempString+" already exists."+#CRLF$+"Do you want to overwrite it?", #PB_MessageRequester_YesNoCancel)
+                      Case #PB_MessageRequester_Yes
+                        CreateJSON(#JSON_Main)
+                        InsertJSONStructure(JSONValue(#JSON_Main), @Chordian\Machine_State, Machine_State_Save)
+                        SaveJSON(#JSON_Main, TempString)
+                        FreeJSON(#JSON_Main)
+                      Case #PB_MessageRequester_Cancel
+                        PostEvent(#PB_Event_Menu, #Win_Main, #Itm_Save)
+                    EndSelect
+                EndSelect
+              EndIf
+              
+            Case #Itm_Reset
+              ResetMachine()
+              ResetInput()
+              
+              SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Chordian\Machine_State\Value_External_ChordiateMode)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            Case #Itm_Exit
+              PostEvent(#PB_Event_CloseWindow)
+              
+            Case #Itm_Tuning
+              TempString = InputRequester("Chordian>Master>Tuning", "Insert new Tuning. (0.5)", StrF(Chordian\Machine_State\Value_Circuit_Knob_Tuning))
+              If Len(TempString) > 0
+                Chordian\Machine_State\Value_Circuit_Knob_Tuning = ValF(TempString)
+              EndIf
+              
+              Select Chordian\Machine_State\Value_External_ChordiateMode
+                Case 1
+                  KeepInRange(Chordian\Machine_State\Value_Circuit_Knob_Tuning, -2.0, 2.0)
+                Default
+                  KeepInRange(Chordian\Machine_State\Value_Circuit_Knob_Tuning, 0.0, 1.0)
+              EndSelect
+              
+              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTuning, 1, 0)
+              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+              
+            Case #Itm_StrumMode_Primary_First To #Itm_StrumMode_Primary_Last
+              Select EventMenu()
+                Case #Itm_StrumMode_Primary_None
+                  Chordian\Input_State\PrimaryStrumMode = #Str_None
+                Case #Itm_StrumMode_Primary_Single
+                  Chordian\Input_State\PrimaryStrumMode = #Str_Single
+                Case #Itm_StrumMode_Primary_Double
+                  Chordian\Input_State\PrimaryStrumMode = #Str_Double
+                Case #Itm_StrumMode_Primary_Chord
+                  Chordian\Input_State\PrimaryStrumMode = #Str_Chord
+                Case #Itm_StrumMode_Primary_Spread
+                  Chordian\Input_State\PrimaryStrumMode = #Str_Spread
+                Case #Itm_StrumMode_Primary_Octave
+                  Chordian\Input_State\PrimaryStrumMode = #Str_Octave
+                Case #Itm_StrumMode_Primary_Full
+                  Chordian\Input_State\PrimaryStrumMode = #Str_Full
+                Case #Itm_StrumMode_Primary_Reverse
+                  Chordian\Input_State\PrimaryStrumMode = #Str_Reverse
+                Case #Itm_StrumMode_Primary_Mirror
+                  Chordian\Input_State\PrimaryStrumMode = #Str_Mirror
+                Case #Itm_StrumMode_Primary_Segment
+                  Chordian\Input_State\PrimaryStrumMode = #Str_Segment
+              EndSelect
+              
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_None, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_None))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Single, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Single))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Double, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Double))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Chord, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Chord))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Spread, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Spread))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Octave, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Octave))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Full, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Full))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Reverse, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Reverse))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Mirror, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Mirror))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Primary_Segment, Bool(Chordian\Input_State\PrimaryStrumMode = #Str_Segment))
+              
+            Case #Itm_StrumMode_Secondary_First To #Itm_StrumMode_Secondary_Last
+              Select EventMenu()
+                Case #Itm_StrumMode_Secondary_None
+                  Chordian\Input_State\SecondaryStrumMode = #Str_None
+                Case #Itm_StrumMode_Secondary_Single
+                  Chordian\Input_State\SecondaryStrumMode = #Str_Single
+                Case #Itm_StrumMode_Secondary_Double
+                  Chordian\Input_State\SecondaryStrumMode = #Str_Double
+                Case #Itm_StrumMode_Secondary_Chord
+                  Chordian\Input_State\SecondaryStrumMode = #Str_Chord
+                Case #Itm_StrumMode_Secondary_Spread
+                  Chordian\Input_State\SecondaryStrumMode = #Str_Spread
+                Case #Itm_StrumMode_Secondary_Octave
+                  Chordian\Input_State\SecondaryStrumMode = #Str_Octave
+                Case #Itm_StrumMode_Secondary_Full
+                  Chordian\Input_State\SecondaryStrumMode = #Str_Full
+                Case #Itm_StrumMode_Secondary_Reverse
+                  Chordian\Input_State\SecondaryStrumMode = #Str_Reverse
+                Case #Itm_StrumMode_Secondary_Mirror
+                  Chordian\Input_State\SecondaryStrumMode = #Str_Mirror
+                Case #Itm_StrumMode_Secondary_Segment
+                  Chordian\Input_State\SecondaryStrumMode = #Str_Segment
+              EndSelect
+              
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_None, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_None))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Single, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Single))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Double, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Double))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Chord, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Chord))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Spread, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Spread))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Octave, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Octave))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Full, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Full))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Reverse, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Reverse))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Mirror, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Mirror))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Secondary_Segment, Bool(Chordian\Input_State\SecondaryStrumMode = #Str_Segment))
+              
+            Case #Itm_StrumMode_Tertiary_First To #Itm_StrumMode_Tertiary_Last
+              Select EventMenu()
+                Case #Itm_StrumMode_Tertiary_None
+                  Chordian\Input_State\TertiaryStrumMode = #Str_None
+                Case #Itm_StrumMode_Tertiary_Single
+                  Chordian\Input_State\TertiaryStrumMode = #Str_Single
+                Case #Itm_StrumMode_Tertiary_Double
+                  Chordian\Input_State\TertiaryStrumMode = #Str_Double
+                Case #Itm_StrumMode_Tertiary_Chord
+                  Chordian\Input_State\TertiaryStrumMode = #Str_Chord
+                Case #Itm_StrumMode_Tertiary_Spread
+                  Chordian\Input_State\TertiaryStrumMode = #Str_Spread
+                Case #Itm_StrumMode_Tertiary_Octave
+                  Chordian\Input_State\TertiaryStrumMode = #Str_Octave
+                Case #Itm_StrumMode_Tertiary_Full
+                  Chordian\Input_State\TertiaryStrumMode = #Str_Full
+                Case #Itm_StrumMode_Tertiary_Reverse
+                  Chordian\Input_State\TertiaryStrumMode = #Str_Reverse
+                Case #Itm_StrumMode_Tertiary_Mirror
+                  Chordian\Input_State\TertiaryStrumMode = #Str_Mirror
+                Case #Itm_StrumMode_Tertiary_Segment
+                  Chordian\Input_State\TertiaryStrumMode = #Str_Segment
+              EndSelect
+              
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_None, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_None))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Single, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Single))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Double, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Double))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Chord, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Chord))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Spread, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Spread))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Octave, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Octave))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Full, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Full))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Reverse, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Reverse))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Mirror, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Mirror))
+              SetMenuItemState(#Men_Main, #Itm_StrumMode_Tertiary_Segment, Bool(Chordian\Input_State\TertiaryStrumMode = #Str_Segment))
+              
+              
+            Case #Itm_ChordiateMode
+              SetMenuItemState(#Men_Main, #Itm_ChordiateMode, Bool(Not GetMenuItemState(#Men_Main, #Itm_ChordiateMode)))
+              Chordian\Machine_State\Value_External_ChordiateMode = GetMenuItemState(#Men_Main, #Itm_ChordiateMode)
+              
+            Case #Itm_ChordEdit
+              ;---ChordEdit
+              If MessageRequester("Chordian>Warning", "You are about to enter the Chord Editor."+#CRLF$+"Any changes are applied immediately."+#CRLF$+"Do you wish to continue?", #PB_MessageRequester_YesNo) = #PB_MessageRequester_Yes
+                DisableWindow(#Win_Main, 1)
+                If IsWindow(#Win_ChordEdit)
+                  HideWindow(#Win_ChordEdit, 0, #PB_Window_WindowCentered)
+                Else
+                  If Not OpenWindow(#Win_ChordEdit, 0, 0, 628, 300, "Chordian>Chord Editor", #PB_Window_SystemMenu | #PB_Window_WindowCentered, WindowID(#Win_Main))
+                    MessageRequester("Chordian>Error", "Chord Editor could not be initialized.")
+                    DisableWindow(#Win_Main, 0)
+                    SetActiveGadget(#Gad_Canvas)
+                    Continue
+                  EndIf
+                  
+                  ButtonGadget(#Gad_ChordEdit_Button_Refresh, 5, 10, 50, 20, "Refresh")
+                  ButtonGadget(#Gad_ChordEdit_Button_Import, 464, 10, 70, 20, "Import...")
+                  ButtonGadget(#Gad_ChordEdit_Button_Export, 539, 10, 70, 20, "Export...")
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Maj, 40, 35, 55, 20, "Maj")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Maj+i, 30+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Min, 40, 95, 55, 20, "Min")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Min+i, 30+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_7th, 40, 155, 55, 20, "7th")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_7th+i, 30+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Dim, 170, 35, 55, 20, "Dim")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Dim+i, 160+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Ma7, 170, 95, 55, 20, "Ma7")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Ma7+i, 160+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Mi7, 170, 155, 55, 20, "Mi7")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Mi7+i, 160+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Aug, 105, 215, 55, 20, "Aug")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Aug+i, 95+36*i, 240-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  ;next
+                  TextGadget(#Gad_ChordEdit_Text_Chordiate, 280, 140, 75, 20, ">Chordiate>")
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Ad9, 370, 35, 55, 20, "Ad9")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Ad9+i, 360+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Su4, 370, 95, 55, 20, "Su4")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Su4+i, 360+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Ad2, 370, 155, 55, 20, "Ad2")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Ad2+i, 360+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_As2, 500, 35, 55, 20, "As2")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_As2+i, 490+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Ac4, 500, 95, 55, 20, "Ac4")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Ac4+i, 490+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Mc4, 500, 155, 55, 20, "Mc4")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Mc4+i, 490+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                  
+                  TextGadget(#Gad_ChordEdit_Text_Chr, 435, 215, 55, 20, "Chr")
+                  For i = 0 To 2
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Chr+i, 425+36*i, 240-i*4, 36, 25, #PB_ComboBox_Image)
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "0", ImageID(#Img_UI_Note_0))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "4", ImageID(#Img_UI_Note_4))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "5", ImageID(#Img_UI_Note_5))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "6", ImageID(#Img_UI_Note_6))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "7", ImageID(#Img_UI_Note_7))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "8", ImageID(#Img_UI_Note_8))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "9", ImageID(#Img_UI_Note_9))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "10", ImageID(#Img_UI_Note_10))
+                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "11", ImageID(#Img_UI_Note_11))
+                  Next
+                EndIf
                 
                 PostEvent(#PB_Event_Gadget, #Win_ChordEdit, #Gad_ChordEdit_Button_Refresh)
                 
                 ;----ChordEdit Events
                 Repeat
                   Event = WaitWindowEvent()
-                  Select Event
-                    Case #PB_Event_Gadget
-                      Select EventGadget()
-                        Case #Gad_ChordEdit_Button_Refresh
-                          For i = 0 To 2
+                  If EventWindow() = #Win_ChordEdit
+                    Select Event
+                      Case #PB_Event_Gadget
+                        Select EventGadget()
+                          Case #Gad_ChordEdit_Button_Refresh
+                            For i = 0 To 2
+                              
+                              SetGadgetState(#Gad_ChordEdit_Row_Maj+i, Chordian\Machine_State\Data_Chords(#Chord_Maj, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Min+i, Chordian\Machine_State\Data_Chords(#Chord_Min, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_7th+i, Chordian\Machine_State\Data_Chords(#Chord_7th, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Dim+i, Chordian\Machine_State\Data_Chords(#Chord_Dim, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Ma7+i, Chordian\Machine_State\Data_Chords(#Chord_Ma7, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Mi7+i, Chordian\Machine_State\Data_Chords(#Chord_Mi7, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Aug+i, Chordian\Machine_State\Data_Chords(#Chord_Aug, i))
+                              
+                              SetGadgetState(#Gad_ChordEdit_Row_Ad9+i, Chordian\Machine_State\Data_Chords(#Chord_Ad9, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Su4+i, Chordian\Machine_State\Data_Chords(#Chord_Su4, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Ad2+i, Chordian\Machine_State\Data_Chords(#Chord_Ad2, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_As2+i, Chordian\Machine_State\Data_Chords(#Chord_As2, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Ac4+i, Chordian\Machine_State\Data_Chords(#Chord_Ac4, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Mc4+i, Chordian\Machine_State\Data_Chords(#Chord_Mc4, i))
+                              SetGadgetState(#Gad_ChordEdit_Row_Chr+i, Chordian\Machine_State\Data_Chords(#Chord_Chr, i))
+                              
+                            Next
                             
-                            SetGadgetState(#Gad_ChordEdit_Row_Maj+i, Chordian\Machine_State\Data_Chords(#Chord_Maj, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Min+i, Chordian\Machine_State\Data_Chords(#Chord_Min, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_7th+i, Chordian\Machine_State\Data_Chords(#Chord_7th, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Dim+i, Chordian\Machine_State\Data_Chords(#Chord_Dim, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Ma7+i, Chordian\Machine_State\Data_Chords(#Chord_Ma7, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Mi7+i, Chordian\Machine_State\Data_Chords(#Chord_Mi7, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Aug+i, Chordian\Machine_State\Data_Chords(#Chord_Aug, i))
+                          Case #Gad_ChordEdit_Button_Import
+                          Case #Gad_ChordEdit_Button_Export
                             
-                            SetGadgetState(#Gad_ChordEdit_Row_Ad9+i, Chordian\Machine_State\Data_Chords(#Chord_Ad9, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Su4+i, Chordian\Machine_State\Data_Chords(#Chord_Su4, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Ad2+i, Chordian\Machine_State\Data_Chords(#Chord_Ad2, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_As2+i, Chordian\Machine_State\Data_Chords(#Chord_As2, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Ac4+i, Chordian\Machine_State\Data_Chords(#Chord_Ac4, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Mc4+i, Chordian\Machine_State\Data_Chords(#Chord_Mc4, i))
-                            SetGadgetState(#Gad_ChordEdit_Row_Chr+i, Chordian\Machine_State\Data_Chords(#Chord_Chr, i))
+                          Case #Gad_ChordEdit_Row_Maj To #Gad_ChordEdit_Row_Maj+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Maj, i) = GetGadgetState(#Gad_ChordEdit_Row_Maj+i)
+                            Next
                             
-                          Next
-                          
-                        Case #Gad_ChordEdit_Button_Import
-                        Case #Gad_ChordEdit_Button_Export
-                          
-                        Case #Gad_ChordEdit_Row_Maj To #Gad_ChordEdit_Row_Maj+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Maj, i) = GetGadgetState(#Gad_ChordEdit_Row_Maj+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Min To #Gad_ChordEdit_Row_Min+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Min, i) = GetGadgetState(#Gad_ChordEdit_Row_Min+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_7th To #Gad_ChordEdit_Row_7th+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_7th, i) = GetGadgetState(#Gad_ChordEdit_Row_7th+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Dim To #Gad_ChordEdit_Row_Dim+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Dim, i) = GetGadgetState(#Gad_ChordEdit_Row_Dim+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Ma7 To #Gad_ChordEdit_Row_Ma7+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Ma7, i) = GetGadgetState(#Gad_ChordEdit_Row_Ma7+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Mi7 To #Gad_ChordEdit_Row_Mi7+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Mi7, i) = GetGadgetState(#Gad_ChordEdit_Row_Mi7+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Aug To #Gad_ChordEdit_Row_Aug+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Aug, i) = GetGadgetState(#Gad_ChordEdit_Row_Aug+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Ad9 To #Gad_ChordEdit_Row_Ad9+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Ad9, i) = GetGadgetState(#Gad_ChordEdit_Row_Ad9+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Su4 To #Gad_ChordEdit_Row_Su4+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Su4, i) = GetGadgetState(#Gad_ChordEdit_Row_Su4+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Ad2 To #Gad_ChordEdit_Row_Ad2+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Ad2, i) = GetGadgetState(#Gad_ChordEdit_Row_Ad2+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_As2 To #Gad_ChordEdit_Row_As2+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_As2, i) = GetGadgetState(#Gad_ChordEdit_Row_As2+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Ac4 To #Gad_ChordEdit_Row_Ac4+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Ac4, i) = GetGadgetState(#Gad_ChordEdit_Row_Ac4+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Mc4 To #Gad_ChordEdit_Row_Mc4+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Mc4, i) = GetGadgetState(#Gad_ChordEdit_Row_Mc4+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                        Case #Gad_ChordEdit_Row_Chr To #Gad_ChordEdit_Row_Chr+2
-                          For i = 0 To 2
-                            Chordian\Machine_State\Data_Chords(#Chord_Chr, i) = GetGadgetState(#Gad_ChordEdit_Row_Chr+i)
-                          Next
-                          
-                          AutofillChords()
-                          AutofillDerivedNotes()
-                          
-                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                          
-                      EndSelect
-                      
-                    Case #PB_Event_CloseWindow
-                      HideWindow(#Win_ChordEdit, 1)
-                      Break
-                      
-                  EndSelect
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Min To #Gad_ChordEdit_Row_Min+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Min, i) = GetGadgetState(#Gad_ChordEdit_Row_Min+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_7th To #Gad_ChordEdit_Row_7th+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_7th, i) = GetGadgetState(#Gad_ChordEdit_Row_7th+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Dim To #Gad_ChordEdit_Row_Dim+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Dim, i) = GetGadgetState(#Gad_ChordEdit_Row_Dim+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Ma7 To #Gad_ChordEdit_Row_Ma7+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Ma7, i) = GetGadgetState(#Gad_ChordEdit_Row_Ma7+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Mi7 To #Gad_ChordEdit_Row_Mi7+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Mi7, i) = GetGadgetState(#Gad_ChordEdit_Row_Mi7+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Aug To #Gad_ChordEdit_Row_Aug+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Aug, i) = GetGadgetState(#Gad_ChordEdit_Row_Aug+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Ad9 To #Gad_ChordEdit_Row_Ad9+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Ad9, i) = GetGadgetState(#Gad_ChordEdit_Row_Ad9+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Su4 To #Gad_ChordEdit_Row_Su4+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Su4, i) = GetGadgetState(#Gad_ChordEdit_Row_Su4+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Ad2 To #Gad_ChordEdit_Row_Ad2+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Ad2, i) = GetGadgetState(#Gad_ChordEdit_Row_Ad2+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_As2 To #Gad_ChordEdit_Row_As2+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_As2, i) = GetGadgetState(#Gad_ChordEdit_Row_As2+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Ac4 To #Gad_ChordEdit_Row_Ac4+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Ac4, i) = GetGadgetState(#Gad_ChordEdit_Row_Ac4+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Mc4 To #Gad_ChordEdit_Row_Mc4+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Mc4, i) = GetGadgetState(#Gad_ChordEdit_Row_Mc4+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                          Case #Gad_ChordEdit_Row_Chr To #Gad_ChordEdit_Row_Chr+2
+                            For i = 0 To 2
+                              Chordian\Machine_State\Data_Chords(#Chord_Chr, i) = GetGadgetState(#Gad_ChordEdit_Row_Chr+i)
+                            Next
+                            
+                            AutofillChords()
+                            AutofillDerivedNotes()
+                            
+                            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                            
+                        EndSelect
+                        
+                      Case #PB_Event_CloseWindow
+                        HideWindow(#Win_ChordEdit, 1)
+                        Break
+                        
+                    EndSelect
+                  EndIf
+                ForEver
+                
+              EndIf
+              
+              DisableWindow(#Win_Main, 0)
+              SetActiveGadget(#Gad_Canvas)
+              
+            Case #Itm_PatEdit
+              ;---PatEdit
+              If MessageRequester("Chordian>Warning", "You are about to enter the Pattern Editor."+#CRLF$+"Any changes are applied immediately."+#CRLF$+"Do you wish to continue?", #PB_MessageRequester_YesNo) = #PB_MessageRequester_Yes
+                DisableWindow(#Win_Main, 1)
+                If IsWindow(#Win_PatEdit)
+                  HideWindow(#Win_PatEdit, 0, #PB_Window_WindowCentered)
+                Else
+                  If Not OpenWindow(#Win_PatEdit, 0, 0, 680, 580, "Chordian>Pattern Editor", #PB_Window_SystemMenu | #PB_Window_WindowCentered, WindowID(#Win_Main))
+                    MessageRequester("Chordian>Error", "Pattern Editor could not be initialized.")
+                    DisableWindow(#Win_Main, 0)
+                    SetActiveGadget(#Gad_Canvas)
+                    Continue
+                  EndIf
+                  
+                  ComboBoxGadget(#Gad_PatEdit_Select_Alternate, 60, 10, 150, 20)
+                  AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 1")
+                  AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 2")
+                  
+                  SetGadgetState(#Gad_PatEdit_Select_Alternate, 0)
+                  
+                  ComboBoxGadget(#Gad_PatEdit_Select_Pattern, 212, 10, 150, 20)
+                  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 1 | March")
+                  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 2 | Tango")
+                  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Disco | Blues")
+                  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Latin | Swing")
+                  AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Country | Waltz")
+                  
+                  SetGadgetState(#Gad_PatEdit_Select_Pattern, 0)
+                  
+                  ComboBoxGadget(#Gad_PatEdit_Select_Note, 364, 10, 150, 20)
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "All")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "Scaled")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "C#/Db")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "G#/Ab")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "D#/Eb")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "A#/Bb")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "F")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "C")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "G")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "D")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "A")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "E")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "B")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "F#/Gb")
+                  AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "Ignore")
+                  
+                  SetGadgetState(#Gad_PatEdit_Select_Note, 1)
+                  
+                  ButtonGadget(#Gad_PatEdit_Button_Refresh, 5, 10, 50, 20, "Refresh")
+                  
+                  ButtonGadget(#Gad_PatEdit_Button_Import, 516, 10, 70, 20, "Import...")
+                  ButtonGadget(#Gad_PatEdit_Button_Export, 591, 10, 70, 20, "Export...")
+                  
+                  TextGadget(#Gad_PatEdit_Text_0, 60, 35, 55, 20, "|  0")
+                  TextGadget(#Gad_PatEdit_Text_4, 212, 35, 55, 20, "|  4")
+                  TextGadget(#Gad_PatEdit_Text_8, 364, 35, 55, 20, "|  8")
+                  TextGadget(#Gad_PatEdit_Text_12, 516, 35, 55, 20, "| 12")
+                  
+                  
+                  TextGadget(#Gad_PatEdit_Text_Frequency, 10, 70, 50, 25, "Frequen.")
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i, 60+36*i+(i/4)*8, 55, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i+16, 60+36*i+(i/4)*8, 80, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  
+                  For i = 0 To 31
+                    AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "1", ImageID(#Img_UI_Note_1))
+                    AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "2", ImageID(#Img_UI_Note_2))
+                    AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "3", ImageID(#Img_UI_Note_3))
+                    AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "4", ImageID(#Img_UI_Note_4))
+                  Next
+                  
+                  
+                  TextGadget(#Gad_PatEdit_Text_Bass, 10, 135, 50, 25, "Bass")
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Bass+i, 60+36*i+(i/4)*8, 120, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Bass+i+16, 60+36*i+(i/4)*8, 145, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  
+                  For i = 0 To 31
+                    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "None", ImageID(#Img_UI_Curve_None))
+                    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
+                    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
+                    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
+                    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
+                    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
+                    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
+                    AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
+                  Next
+                  
+                  
+                  TextGadget(#Gad_PatEdit_Text_Chords, 10, 200, 50, 25, "Chords")
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Chords+i, 60+36*i+(i/4)*8, 185, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Chords+i+16, 60+36*i+(i/4)*8, 210, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  
+                  For i = 0 To 31
+                    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "None", ImageID(#Img_UI_Curve_None))
+                    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
+                    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
+                    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
+                    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
+                    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
+                    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
+                    AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
+                  Next
+                  
+                  
+                  TextGadget(#Gad_PatEdit_Text_Drum_BD, 10, 265, 50, 25, "BD")
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i, 60+36*i+(i/4)*8, 250, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i+16, 60+36*i+(i/4)*8, 275, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  
+                  For i = 0 To 31
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "None", ImageID(#Img_UI_Curve_None))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
+                  Next
+                  
+                  
+                  TextGadget(#Gad_PatEdit_Text_Drum_Click, 10, 330, 50, 25, "Click")
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i, 60+36*i+(i/4)*8, 315, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i+16, 60+36*i+(i/4)*8, 340, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  
+                  For i = 0 To 31
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "None", ImageID(#Img_UI_Curve_None))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
+                  Next
+                  
+                  
+                  TextGadget(#Gad_PatEdit_Text_Drum_HiHat, 10, 395, 50, 25, "HiHat")
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i, 60+36*i+(i/4)*8, 380, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i+16, 60+36*i+(i/4)*8, 405, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  
+                  For i = 0 To 31
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "None", ImageID(#Img_UI_Curve_None))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
+                  Next
+                  
+                  
+                  TextGadget(#Gad_PatEdit_Text_Drum_Ride, 10, 460, 50, 25, "Ride")
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i, 60+36*i+(i/4)*8, 445, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i+16, 60+36*i+(i/4)*8, 470, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  
+                  For i = 0 To 31
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "None", ImageID(#Img_UI_Curve_None))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
+                  Next
+                  
+                  
+                  TextGadget(#Gad_PatEdit_Text_Drum_Snare, 10, 525, 50, 25, "Snare")
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i, 60+36*i+(i/4)*8, 510, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  For i = 0 To 15
+                    ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i+16, 60+36*i+(i/4)*8, 535, 36, 25, #PB_ComboBox_Image)
+                  Next
+                  
+                  For i = 0 To 31
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "None", ImageID(#Img_UI_Curve_None))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
+                    AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
+                  Next
+                EndIf
+                
+                PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Button_Refresh)
+                
+                ;----PatEdit Events
+                Repeat
+                  Event = WaitWindowEvent()
+                  If EventWindow() = #Win_PatEdit
+                    Select Event
+                      Case #PB_Event_Gadget
+                        Select EventGadget()
+                          Case #Gad_PatEdit_Button_Refresh
+                            Select GetGadgetState(#Gad_PatEdit_Select_Note)
+                              Case 0, 1
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Frequency+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Frequency))
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Bass+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Bass)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Chords+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Chords)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_BD+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_BD)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_Click+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Click)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_HiHat)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Ride)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Snare)+1)
+                                Next
+                                
+                              Default
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Frequency+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Frequency))
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Bass+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Bass)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Chords+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Chords)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_BD+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_BD)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_Click+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Click)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_HiHat)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Ride)+1)
+                                Next
+                                For i = 0 To 31
+                                  SetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Snare)+1)
+                                Next
+                            EndSelect
+                            
+                          Case #Gad_PatEdit_Select_Alternate, #Gad_PatEdit_Select_Pattern, #Gad_PatEdit_Select_Note
+                            PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Button_Refresh)
+                            
+                          Case #Gad_PatEdit_Button_Import
+                            TempString = InputRequester("Chordian>Pattern Editor>Import", "Input the BASE64 to apply to the current pattern.", "")
+                            If TempString
+                              *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, Len(TempString)+1)
+                              PokeS(*TempPointer, TempString, Len(TempString), #PB_Ascii)
+                              CompilerIf #PB_Compiler_Version >= 600
+                                Base64DecoderBuffer(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
+                              CompilerElse
+                                Base64Decoder(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
+                              CompilerEndIf
+                              LocalFree_(*TempPointer)
+                            EndIf
+                            
+                            PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Button_Refresh)
+                            
+                          Case #Gad_PatEdit_Button_Export
+                            *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
+                            CompilerIf #PB_Compiler_Version >= 600
+                              Base64EncoderBuffer(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
+                            CompilerElse
+                              Base64Encoder(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
+                            CompilerEndIf
+                            InputRequester("Chordian>Pattern Editor>Export", "This is the BASE64 string for the current pattern:", PeekS(*TempPointer, -1, #PB_Ascii))
+                            LocalFree_(*TempPointer)
+                            
+                          Case #Gad_PatEdit_Row_Frequency To #Gad_PatEdit_Row_Frequency+31
+                            Select GetGadgetState(#Gad_PatEdit_Select_Note)
+                              Case 0
+                                For n = #Note_First To #Note_Last
+                                  For i = 0 To 31
+                                    Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Frequency) = GetGadgetState(#Gad_PatEdit_Row_Frequency+i)
+                                  Next
+                                Next
+                              Case 1
+                                For n = #Note_First To #Note_Last
+                                  For i = 0 To 31
+                                    Select GetGadgetState(#Gad_PatEdit_Row_Frequency+i)
+                                      Case 0, 1
+                                        Select n
+                                          Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
+                                            Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Frequency) = 1
+                                          Default
+                                            Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Frequency) = 0
+                                        EndSelect
+                                      Default
+                                        Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Frequency) = GetGadgetState(#Gad_PatEdit_Row_Frequency+i)
+                                    EndSelect
+                                  Next
+                                Next
+                              Default
+                                For i = 0 To 31
+                                  Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Frequency) = GetGadgetState(#Gad_PatEdit_Row_Frequency+i)
+                                Next
+                            EndSelect
+                            
+                          Case #Gad_PatEdit_Row_Bass To #Gad_PatEdit_Row_Bass+31
+                            Select GetGadgetState(#Gad_PatEdit_Select_Note)
+                              Case 0, 1
+                                For n = #Note_First To #Note_Last
+                                  For i = 0 To 31
+                                    Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Bass) = GetGadgetState(#Gad_PatEdit_Row_Bass+i)-1
+                                  Next
+                                Next
+                              Default
+                                For i = 0 To 31
+                                  Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Bass) = GetGadgetState(#Gad_PatEdit_Row_Bass+i)-1
+                                Next
+                            EndSelect
+                            
+                          Case #Gad_PatEdit_Row_Chords To #Gad_PatEdit_Row_Chords+31
+                            Select GetGadgetState(#Gad_PatEdit_Select_Note)
+                              Case 0, 1
+                                For n = #Note_First To #Note_Last
+                                  For i = 0 To 31
+                                    Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Chords) = GetGadgetState(#Gad_PatEdit_Row_Chords+i)-1
+                                  Next
+                                Next
+                              Default
+                                For i = 0 To 31
+                                  Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Chords) = GetGadgetState(#Gad_PatEdit_Row_Chords+i)-1
+                                Next
+                            EndSelect
+                            
+                            
+                          Case #Gad_PatEdit_Row_Drum_BD To #Gad_PatEdit_Row_Drum_BD+31
+                            Select GetGadgetState(#Gad_PatEdit_Select_Note)
+                              Case 0, 1
+                                For n = #Note_First To #Note_Last
+                                  For i = 0 To 31
+                                    Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_BD) = GetGadgetState(#Gad_PatEdit_Row_Drum_BD+i)-1
+                                  Next
+                                Next
+                              Default
+                                For i = 0 To 31
+                                  Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_BD) = GetGadgetState(#Gad_PatEdit_Row_Drum_BD+i)-1
+                                Next
+                            EndSelect
+                            
+                            
+                          Case #Gad_PatEdit_Row_Drum_Click To #Gad_PatEdit_Row_Drum_Click+31
+                            Select GetGadgetState(#Gad_PatEdit_Select_Note)
+                              Case 0, 1
+                                For n = #Note_First To #Note_Last
+                                  For i = 0 To 31
+                                    Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Click) = GetGadgetState(#Gad_PatEdit_Row_Drum_Click+i)-1
+                                  Next
+                                Next
+                              Default
+                                For i = 0 To 31
+                                  Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Click) = GetGadgetState(#Gad_PatEdit_Row_Drum_Click+i)-1
+                                Next
+                            EndSelect
+                            
+                            
+                          Case #Gad_PatEdit_Row_Drum_HiHat To #Gad_PatEdit_Row_Drum_HiHat+31
+                            Select GetGadgetState(#Gad_PatEdit_Select_Note)
+                              Case 0, 1
+                                For n = #Note_First To #Note_Last
+                                  For i = 0 To 31
+                                    Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_HiHat) = GetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i)-1
+                                  Next
+                                Next
+                              Default
+                                For i = 0 To 31
+                                  Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_HiHat) = GetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i)-1
+                                Next
+                            EndSelect
+                            
+                            
+                          Case #Gad_PatEdit_Row_Drum_Ride To #Gad_PatEdit_Row_Drum_Ride+31
+                            Select GetGadgetState(#Gad_PatEdit_Select_Note)
+                              Case 0, 1
+                                For n = #Note_First To #Note_Last
+                                  For i = 0 To 31
+                                    Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Ride) = GetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i)-1
+                                  Next
+                                Next
+                              Default
+                                For i = 0 To 31
+                                  Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Ride) = GetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i)-1
+                                Next
+                            EndSelect
+                            
+                            
+                          Case #Gad_PatEdit_Row_Drum_Snare To #Gad_PatEdit_Row_Drum_Snare+31
+                            Select GetGadgetState(#Gad_PatEdit_Select_Note)
+                              Case 0, 1
+                                For n = #Note_First To #Note_Last
+                                  For i = 0 To 31
+                                    Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Snare) = GetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i)-1
+                                  Next
+                                Next
+                              Default
+                                For i = 0 To 31
+                                  Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Snare) = GetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i)-1
+                                Next
+                            EndSelect
+                            
+                            
+                        EndSelect
+                        
+                      Case #PB_Event_CloseWindow
+                        HideWindow(#Win_PatEdit, 1)
+                        Break
+                        
+                    EndSelect
+                  EndIf
                 ForEver
               EndIf
               
               DisableWindow(#Win_Main, 0)
               SetActiveGadget(#Gad_Canvas)
-            EndIf
-            
-          Case #Itm_PatEdit
-            ;---PatEdit
-            If MessageRequester("Chordian>Warning", "You are about to enter the Pattern Editor."+#CRLF$+"Any changes are applied immediately."+#CRLF$+"Do you wish to continue?", #PB_MessageRequester_YesNo) = #PB_MessageRequester_Yes
-              DisableWindow(#Win_Main, 1)
-              If IsWindow(#Win_PatEdit)
-                HideWindow(#Win_PatEdit, 0, #PB_Window_WindowCentered)
-              Else
-                If Not OpenWindow(#Win_PatEdit, 0, 0, 680, 580, "Chordian>Pattern Editor", #PB_Window_SystemMenu | #PB_Window_WindowCentered, WindowID(#Win_Main))
-                  MessageRequester("Chordian>Error", "Pattern Editor could not be initialized.")
-                  DisableWindow(#Win_Main, 0)
-                  SetActiveGadget(#Gad_Canvas)
-                  Continue
-                EndIf
-                
-                ComboBoxGadget(#Gad_PatEdit_Select_Alternate, 60, 10, 150, 20)
-                AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 1")
-                AddGadgetItem(#Gad_PatEdit_Select_Alternate, -1, "Bank 2")
-                
-                SetGadgetState(#Gad_PatEdit_Select_Alternate, 0)
-                
-                ComboBoxGadget(#Gad_PatEdit_Select_Pattern, 212, 10, 150, 20)
-                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 1 | March")
-                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Rock 2 | Tango")
-                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Disco | Blues")
-                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Latin | Swing")
-                AddGadgetItem(#Gad_PatEdit_Select_Pattern, -1, "Country | Waltz")
-                
-                SetGadgetState(#Gad_PatEdit_Select_Pattern, 0)
-                
-                ComboBoxGadget(#Gad_PatEdit_Select_Note, 364, 10, 150, 20)
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "All")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "Scaled")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "C#/Db")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "G#/Ab")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "D#/Eb")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "A#/Bb")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "F")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "C")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "G")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "D")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "A")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "E")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "B")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "F#/Gb")
-                AddGadgetItem(#Gad_PatEdit_Select_Note, -1, "Ignore")
-                
-                SetGadgetState(#Gad_PatEdit_Select_Note, 1)
-                
-                ButtonGadget(#Gad_PatEdit_Button_Refresh, 5, 10, 50, 20, "Refresh")
-                
-                ButtonGadget(#Gad_PatEdit_Button_Import, 516, 10, 70, 20, "Import...")
-                ButtonGadget(#Gad_PatEdit_Button_Export, 591, 10, 70, 20, "Export...")
-                
-                TextGadget(#Gad_PatEdit_Text_0, 60, 35, 55, 20, "|  0")
-                TextGadget(#Gad_PatEdit_Text_4, 212, 35, 55, 20, "|  4")
-                TextGadget(#Gad_PatEdit_Text_8, 364, 35, 55, 20, "|  8")
-                TextGadget(#Gad_PatEdit_Text_12, 516, 35, 55, 20, "| 12")
-                
-                
-                TextGadget(#Gad_PatEdit_Text_Frequency, 10, 70, 50, 25, "Frequen.")
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i, 60+36*i+(i/4)*8, 55, 36, 25, #PB_ComboBox_Image)
-                Next
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Frequency+i+16, 60+36*i+(i/4)*8, 80, 36, 25, #PB_ComboBox_Image)
-                Next
-                
-                For i = 0 To 31
-                  AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "1", ImageID(#Img_UI_Note_1))
-                  AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "2", ImageID(#Img_UI_Note_2))
-                  AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "3", ImageID(#Img_UI_Note_3))
-                  AddGadgetItem(#Gad_PatEdit_Row_Frequency+i, -1, "4", ImageID(#Img_UI_Note_4))
-                Next
-                
-                
-                TextGadget(#Gad_PatEdit_Text_Bass, 10, 135, 50, 25, "Bass")
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Bass+i, 60+36*i+(i/4)*8, 120, 36, 25, #PB_ComboBox_Image)
-                Next
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Bass+i+16, 60+36*i+(i/4)*8, 145, 36, 25, #PB_ComboBox_Image)
-                Next
-                
-                For i = 0 To 31
-                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "None", ImageID(#Img_UI_Curve_None))
-                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
-                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
-                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
-                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
-                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
-                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
-                  AddGadgetItem(#Gad_PatEdit_Row_Bass+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
-                Next
-                
-                
-                TextGadget(#Gad_PatEdit_Text_Chords, 10, 200, 50, 25, "Chords")
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Chords+i, 60+36*i+(i/4)*8, 185, 36, 25, #PB_ComboBox_Image)
-                Next
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Chords+i+16, 60+36*i+(i/4)*8, 210, 36, 25, #PB_ComboBox_Image)
-                Next
-                
-                For i = 0 To 31
-                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "None", ImageID(#Img_UI_Curve_None))
-                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
-                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
-                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
-                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
-                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
-                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
-                  AddGadgetItem(#Gad_PatEdit_Row_Chords+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
-                Next
-                
-                
-                TextGadget(#Gad_PatEdit_Text_Drum_BD, 10, 265, 50, 25, "BD")
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i, 60+36*i+(i/4)*8, 250, 36, 25, #PB_ComboBox_Image)
-                Next
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_BD+i+16, 60+36*i+(i/4)*8, 275, 36, 25, #PB_ComboBox_Image)
-                Next
-                
-                For i = 0 To 31
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "None", ImageID(#Img_UI_Curve_None))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_BD+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
-                Next
-                
-                
-                TextGadget(#Gad_PatEdit_Text_Drum_Click, 10, 330, 50, 25, "Click")
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i, 60+36*i+(i/4)*8, 315, 36, 25, #PB_ComboBox_Image)
-                Next
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Click+i+16, 60+36*i+(i/4)*8, 340, 36, 25, #PB_ComboBox_Image)
-                Next
-                
-                For i = 0 To 31
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "None", ImageID(#Img_UI_Curve_None))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Click+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
-                Next
-                
-                
-                TextGadget(#Gad_PatEdit_Text_Drum_HiHat, 10, 395, 50, 25, "HiHat")
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i, 60+36*i+(i/4)*8, 380, 36, 25, #PB_ComboBox_Image)
-                Next
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_HiHat+i+16, 60+36*i+(i/4)*8, 405, 36, 25, #PB_ComboBox_Image)
-                Next
-                
-                For i = 0 To 31
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "None", ImageID(#Img_UI_Curve_None))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_HiHat+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
-                Next
-                
-                
-                TextGadget(#Gad_PatEdit_Text_Drum_Ride, 10, 460, 50, 25, "Ride")
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i, 60+36*i+(i/4)*8, 445, 36, 25, #PB_ComboBox_Image)
-                Next
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Ride+i+16, 60+36*i+(i/4)*8, 470, 36, 25, #PB_ComboBox_Image)
-                Next
-                
-                For i = 0 To 31
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "None", ImageID(#Img_UI_Curve_None))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Ride+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
-                Next
-                
-                
-                TextGadget(#Gad_PatEdit_Text_Drum_Snare, 10, 525, 50, 25, "Snare")
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i, 60+36*i+(i/4)*8, 510, 36, 25, #PB_ComboBox_Image)
-                Next
-                For i = 0 To 15
-                  ComboBoxGadget(#Gad_PatEdit_Row_Drum_Snare+i+16, 60+36*i+(i/4)*8, 535, 36, 25, #PB_ComboBox_Image)
-                Next
-                
-                For i = 0 To 31
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "None", ImageID(#Img_UI_Curve_None))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Trigger", ImageID(#Img_UI_Curve_Trigger))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Attack", ImageID(#Img_UI_Curve_Attack))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Decay", ImageID(#Img_UI_Curve_Decay))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Sustain", ImageID(#Img_UI_Curve_Sustain))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Release", ImageID(#Img_UI_Curve_Release))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Oneshot", ImageID(#Img_UI_Curve_Oneshot))
-                  AddGadgetItem(#Gad_PatEdit_Row_Drum_Snare+i, -1, "Ignore", ImageID(#Img_UI_Curve_Ignore))
-                Next
-              EndIf
-              PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Button_Refresh)
               
-              ;----PatEdit Events
-              Repeat
-                Event = WaitWindowEvent()
-                Select Event
-                  Case #PB_Event_Gadget
-                    Select EventGadget()
-                      Case #Gad_PatEdit_Button_Refresh
-                        Select GetGadgetState(#Gad_PatEdit_Select_Note)
-                          Case 0, 1
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Frequency+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Frequency))
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Bass+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Bass)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Chords+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Chords)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_BD+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_BD)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Click+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Click)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_HiHat)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Ride)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), #Note_First, i, #Pattern_Drum_Snare)+1)
-                            Next
-                            
-                          Default
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Frequency+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Frequency))
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Bass+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Bass)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Chords+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Chords)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_BD+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_BD)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Click+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Click)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_HiHat)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Ride)+1)
-                            Next
-                            For i = 0 To 31
-                              SetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i, Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note)-2, i, #Pattern_Drum_Snare)+1)
-                            Next
-                        EndSelect
-                        
-                      Case #Gad_PatEdit_Select_Alternate, #Gad_PatEdit_Select_Pattern, #Gad_PatEdit_Select_Note
-                        PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Button_Refresh)
-                        
-                      Case #Gad_PatEdit_Button_Import
-                        TempString = InputRequester("Chordian>Pattern Editor>Import", "Input the BASE64 to apply to the current pattern.", "")
-                        If TempString
-                          *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, Len(TempString)+1)
-                          PokeS(*TempPointer, TempString, Len(TempString), #PB_Ascii)
-                          CompilerIf #PB_Compiler_Version >= 600
-                            Base64DecoderBuffer(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
-                          CompilerElse
-                            Base64Decoder(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
-                          CompilerEndIf
-                          LocalFree_(*TempPointer)
-                        EndIf
-                        
-                        PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Button_Refresh)
-                        
-                      Case #Gad_PatEdit_Button_Export
-                        *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
-                        CompilerIf #PB_Compiler_Version >= 600
-                          Base64EncoderBuffer(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
-                        CompilerElse
-                          Base64Encoder(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
-                        CompilerEndIf
-                        InputRequester("Chordian>Pattern Editor>Export", "This is the BASE64 string for the current pattern:", PeekS(*TempPointer, -1, #PB_Ascii))
-                        LocalFree_(*TempPointer)
-                        
-                      Case #Gad_PatEdit_Row_Frequency To #Gad_PatEdit_Row_Frequency+31
-                        Select GetGadgetState(#Gad_PatEdit_Select_Note)
-                          Case 0
-                            For n = #Note_First To #Note_Last
-                              For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Frequency) = GetGadgetState(#Gad_PatEdit_Row_Frequency+i)
-                              Next
-                            Next
-                          Case 1
-                            For n = #Note_First To #Note_Last
-                              For i = 0 To 31
-                                Select GetGadgetState(#Gad_PatEdit_Row_Frequency+i)
-                                  Case 0, 1
-                                    Select n
-                                      Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
-                                        Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Frequency) = 1
-                                      Default
-                                        Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Frequency) = 0
-                                    EndSelect
-                                  Default
-                                    Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Frequency) = GetGadgetState(#Gad_PatEdit_Row_Frequency+i)
-                                EndSelect
-                              Next
-                            Next
-                          Default
-                            For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Frequency) = GetGadgetState(#Gad_PatEdit_Row_Frequency+i)
-                            Next
-                        EndSelect
-                        
-                      Case #Gad_PatEdit_Row_Bass To #Gad_PatEdit_Row_Bass+31
-                        Select GetGadgetState(#Gad_PatEdit_Select_Note)
-                          Case 0, 1
-                            For n = #Note_First To #Note_Last
-                              For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Bass) = GetGadgetState(#Gad_PatEdit_Row_Bass+i)-1
-                              Next
-                            Next
-                          Default
-                            For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Bass) = GetGadgetState(#Gad_PatEdit_Row_Bass+i)-1
-                            Next
-                        EndSelect
-                        
-                      Case #Gad_PatEdit_Row_Chords To #Gad_PatEdit_Row_Chords+31
-                        Select GetGadgetState(#Gad_PatEdit_Select_Note)
-                          Case 0, 1
-                            For n = #Note_First To #Note_Last
-                              For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Chords) = GetGadgetState(#Gad_PatEdit_Row_Chords+i)-1
-                              Next
-                            Next
-                          Default
-                            For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Chords) = GetGadgetState(#Gad_PatEdit_Row_Chords+i)-1
-                            Next
-                        EndSelect
-                        
-                        
-                      Case #Gad_PatEdit_Row_Drum_BD To #Gad_PatEdit_Row_Drum_BD+31
-                        Select GetGadgetState(#Gad_PatEdit_Select_Note)
-                          Case 0, 1
-                            For n = #Note_First To #Note_Last
-                              For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_BD) = GetGadgetState(#Gad_PatEdit_Row_Drum_BD+i)-1
-                              Next
-                            Next
-                          Default
-                            For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_BD) = GetGadgetState(#Gad_PatEdit_Row_Drum_BD+i)-1
-                            Next
-                        EndSelect
-                        
-                        
-                      Case #Gad_PatEdit_Row_Drum_Click To #Gad_PatEdit_Row_Drum_Click+31
-                        Select GetGadgetState(#Gad_PatEdit_Select_Note)
-                          Case 0, 1
-                            For n = #Note_First To #Note_Last
-                              For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Click) = GetGadgetState(#Gad_PatEdit_Row_Drum_Click+i)-1
-                              Next
-                            Next
-                          Default
-                            For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Click) = GetGadgetState(#Gad_PatEdit_Row_Drum_Click+i)-1
-                            Next
-                        EndSelect
-                        
-                        
-                      Case #Gad_PatEdit_Row_Drum_HiHat To #Gad_PatEdit_Row_Drum_HiHat+31
-                        Select GetGadgetState(#Gad_PatEdit_Select_Note)
-                          Case 0, 1
-                            For n = #Note_First To #Note_Last
-                              For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_HiHat) = GetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i)-1
-                              Next
-                            Next
-                          Default
-                            For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_HiHat) = GetGadgetState(#Gad_PatEdit_Row_Drum_HiHat+i)-1
-                            Next
-                        EndSelect
-                        
-                        
-                      Case #Gad_PatEdit_Row_Drum_Ride To #Gad_PatEdit_Row_Drum_Ride+31
-                        Select GetGadgetState(#Gad_PatEdit_Select_Note)
-                          Case 0, 1
-                            For n = #Note_First To #Note_Last
-                              For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Ride) = GetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i)-1
-                              Next
-                            Next
-                          Default
-                            For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Ride) = GetGadgetState(#Gad_PatEdit_Row_Drum_Ride+i)-1
-                            Next
-                        EndSelect
-                        
-                        
-                      Case #Gad_PatEdit_Row_Drum_Snare To #Gad_PatEdit_Row_Drum_Snare+31
-                        Select GetGadgetState(#Gad_PatEdit_Select_Note)
-                          Case 0, 1
-                            For n = #Note_First To #Note_Last
-                              For i = 0 To 31
-                                Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), n, i, #Pattern_Drum_Snare) = GetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i)-1
-                              Next
-                            Next
-                          Default
-                            For i = 0 To 31
-                              Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), GetGadgetState(#Gad_PatEdit_Select_Note), i, #Pattern_Drum_Snare) = GetGadgetState(#Gad_PatEdit_Row_Drum_Snare+i)-1
-                            Next
-                        EndSelect
-                        
-                        
-                    EndSelect
+              
+            Case #Itm_Manual
+              ;RunProgram can be used as a form of ShellExecute_()
+              RunProgram("readme.md")
+              
+            Case #Itm_About
+              DisableWindow(#Win_Main, 1)
+              CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant)
+                TempString = "An Omnichord Emulator"+#CRLF$+
+                             "Build "+Str(#PB_Editor_BuildCount)+#CRLF$+
+                             #CRLF$+
+                             "Please see the GitHub page for more information."+#CRLF$+
+                             "https://github.com/Jan125/pb.chordian"
+              CompilerElseIf Defined(PB_Editor_CompileCount, #PB_Constant)
+                TempString = "An Omnichord Emulator"+#CRLF$+
+                             "Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+
+                             #CRLF$+
+                             "Please see the GitHub page for more information."+#CRLF$+
+                             "https://github.com/Jan125/pb.chordian"
+              CompilerElse
+                TempString = "An Omnichord Emulator"+#CRLF$+
+                             #CRLF$+
+                             #CRLF$+
+                             "Please see the GitHub page for more information."+#CRLF$+
+                             "https://github.com/Jan125/pb.chordian"
+              CompilerEndIf
+              MessageRequester("Chordian>About", TempString, #PB_MessageRequester_Ok)
+              DisableWindow(#Win_Main, 0)
+              
+          EndSelect
+        Case #PB_Event_Gadget
+          
+          ;--Gadget Actions
+          Select EventGadget()
+            Case #Gad_Canvas
+              ;---Canvas Actions
+              With Chordian\Input_State
+                Select EventType()
+                  Case #PB_EventType_KeyDown
+                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key))
                     
-                  Case #PB_Event_CloseWindow
-                    HideWindow(#Win_PatEdit, 1)
-                    Break
+                  Case #PB_EventType_KeyUp
+                    PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key))
+                    
+                  Case #PB_EventType_LeftButtonDown
+                    \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                    \Mouse_Button_Left_Current = 1
+                    PostEvent(#Event_GetTriggers)
+                    
+                  Case #PB_EventType_LeftButtonUp
+                    \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                    \Mouse_Button_Left_Current = 0
+                    PostEvent(#Event_GetTriggers)
+                    
+                  Case #PB_EventType_RightButtonDown
+                    \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
+                    \Mouse_Button_Right_Current = 1
+                    PostEvent(#Event_GetTriggers)
+                    
+                  Case #PB_EventType_RightButtonUp
+                    \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
+                    \Mouse_Button_Right_Current = 0
+                    PostEvent(#Event_GetTriggers)
+                    
+                  Case #PB_EventType_MiddleButtonDown
+                    \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                    \Mouse_Button_Middle_Current = 1
+                    PostEvent(#Event_GetTriggers)
+                    
+                  Case #PB_EventType_MiddleButtonUp
+                    \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                    \Mouse_Button_Middle_Current = 0
+                    PostEvent(#Event_GetTriggers)
+                    
+                  Case #PB_EventType_MouseMove
+                    \Mouse_Position_X_Previous = \Mouse_Position_X_Current
+                    \Mouse_Position_Y_Previous = \Mouse_Position_Y_Current
+                    \Mouse_Position_X_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseX)
+                    \Mouse_Position_Y_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseY)
+                    PostEvent(#Event_HandleTriggers)
                     
                 EndSelect
-              ForEver
+              EndWith
+          EndSelect
+          
+          
+        Case #Event_GeneralKeyDown
+          ;--GeneralKeyDown
+          With Chordian\Input_State
+            If Not \Keymap(EventData())
+              PostEvent(#Event_HandleChordKeys)
+              PostEvent(#Event_HandleHarpKeys)
+              PostEvent(#Event_HandleFunctionKeys)
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
             EndIf
-            
-            DisableWindow(#Win_Main, 0)
-            SetActiveGadget(#Gad_Canvas)
-            
-            
-          Case #Itm_Manual
-            ;RunProgram can be used as a form of ShellExecute_()
-            RunProgram("readme.md")
-            
-          Case #Itm_About
-            DisableWindow(#Win_Main, 1)
-            CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant)
-              TempString = "An Omnichord Emulator"+#CRLF$+
-                           "Build "+Str(#PB_Editor_BuildCount)+#CRLF$+
-                           #CRLF$+
-                           "Please see the GitHub page for more information."+#CRLF$+
-                           "https://github.com/Jan125/pb.chordian"
-            CompilerElseIf Defined(PB_Editor_CompileCount, #PB_Constant)
-              TempString = "An Omnichord Emulator"+#CRLF$+
-                           "Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+
-                           #CRLF$+
-                           "Please see the GitHub page for more information."+#CRLF$+
-                           "https://github.com/Jan125/pb.chordian"
-            CompilerElse
-              TempString = "An Omnichord Emulator"+#CRLF$+
-                           #CRLF$+
-                           #CRLF$+
-                           "Please see the GitHub page for more information."+#CRLF$+
-                           "https://github.com/Jan125/pb.chordian"
-            CompilerEndIf
-            MessageRequester("Chordian>About", TempString, #PB_MessageRequester_Ok)
-            DisableWindow(#Win_Main, 0)
-            
-        EndSelect
-      Case #PB_Event_Gadget
-        
-        ;--Gadget Actions
-        Select EventGadget()
-          Case #Gad_Canvas
-            ;---Canvas Actions
-            With Chordian\Input_State
-              Select EventType()
-                Case #PB_EventType_KeyDown
-                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key))
-                  
-                Case #PB_EventType_KeyUp
-                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key))
-                  
-                Case #PB_EventType_LeftButtonDown
-                  \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                  \Mouse_Button_Left_Current = 1
-                  PostEvent(#Event_GetTriggers)
-                  
-                Case #PB_EventType_LeftButtonUp
-                  \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                  \Mouse_Button_Left_Current = 0
-                  PostEvent(#Event_GetTriggers)
-                  
-                Case #PB_EventType_RightButtonDown
-                  \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                  \Mouse_Button_Right_Current = 1
-                  PostEvent(#Event_GetTriggers)
-                  
-                Case #PB_EventType_RightButtonUp
-                  \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                  \Mouse_Button_Right_Current = 0
-                  PostEvent(#Event_GetTriggers)
-                  
-                Case #PB_EventType_MiddleButtonDown
-                  \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                  \Mouse_Button_Middle_Current = 1
-                  PostEvent(#Event_GetTriggers)
-                  
-                Case #PB_EventType_MiddleButtonUp
-                  \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                  \Mouse_Button_Middle_Current = 0
-                  PostEvent(#Event_GetTriggers)
-                  
-                Case #PB_EventType_MouseMove
-                  \Mouse_Position_X_Previous = \Mouse_Position_X_Current
-                  \Mouse_Position_Y_Previous = \Mouse_Position_Y_Current
-                  \Mouse_Position_X_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseX)
-                  \Mouse_Position_Y_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseY)
-                  PostEvent(#Event_HandleTriggers)
-                  
-              EndSelect
-            EndWith
-        EndSelect
-        
-        
-      Case #Event_GeneralKeyDown
-        ;--GeneralKeyDown
-        With Chordian\Input_State
-          If Not \Keymap(EventData())
-            PostEvent(#Event_HandleChordKeys)
-            PostEvent(#Event_HandleHarpKeys)
-            PostEvent(#Event_HandleFunctionKeys)
+            \Keymap(EventData()) = 1
+            \LastKey = EventData()
+            \LastKeyEventWasDown = 1
+          EndWith
+          
+        Case #Event_GeneralKeyUp
+          ;--GeneralKeyUp
+          With Chordian\Input_State
+            \Keymap(EventData()) = 0
             PauseThread(Chordian\RepaintHandler_Thread)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
             ResumeThread(Chordian\RepaintHandler_Thread)
-          EndIf
-          \Keymap(EventData()) = 1
-          \LastKey = EventData()
-          \LastKeyEventWasDown = 1
-        EndWith
-        
-      Case #Event_GeneralKeyUp
-        ;--GeneralKeyUp
-        With Chordian\Input_State
-          \Keymap(EventData()) = 0
-          PauseThread(Chordian\RepaintHandler_Thread)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-          ResumeThread(Chordian\RepaintHandler_Thread)
-          If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
-            PostEvent(#Event_HandleChordKeys)
-          EndIf
-          PostEvent(#Event_HandleHarpKeys)
-          PostEvent(#Event_HandleFunctionKeys)
-          \LastKeyEventWasDown = 0
-        EndWith
-        
-        ;--GetTriggers
-      Case #Event_GetTriggers
-        With Chordian\Input_State
-          
-          If Not (\Mouse_Button_Left_Current | \Mouse_Button_Middle_Current | \Mouse_Button_Right_Current)
-            \Trigger_Master_Button_Power_OnOff = 0
-            \Trigger_Master_Knob_Volume = 0
-            
-            \Trigger_Level_Knob_Volume_Harp_1 = 0
-            \Trigger_Level_Knob_Volume_Harp_2 = 0
-            \Trigger_Level_Knob_Sustain = 0
-            \Trigger_Level_Knob_Volume_Keyboard = 0
-            \Trigger_Level_Knob_Volume_Chords = 0
-            
-            \Trigger_Rhythm_Button_Alternate_OnOff = 0
-            \Trigger_Rhythm_Button_Pattern = 0
-            \Trigger_Rhythm_Button_AutoBassSync_OnOff = 0
-            \Trigger_Rhythm_Knob_Tempo = 0
-            \Trigger_Rhythm_Knob_Volume = 0
-            
-            \Trigger_Memory_Button_Memory_OnOff = 0
-            \Trigger_Memory_Button_Playback_Record_OnOff = 0
-            \Trigger_Memory_Button_Repeat_Delete = 0
-            \Trigger_Memory_Button_Playback_Enter = 0
-            
-            \Trigger_Chord_Button_Major = 0
-            \Trigger_Chord_Button_Minor = 0
-            \Trigger_Chord_Button_Minor = 0
-            
-            \Trigger_Chordiate = 0
-            
-            \Trigger_Harp = 0
-            
-            For i = #Harp_First To #Harp_Last
-              Chordian\Machine_State\Status_Harp(i) = 0
-            Next
-          EndIf
-          
-          
-          ;Power Button
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 126, 113, 145, 137) And Not \Mouse_Button_Left_Previous
-            \Trigger_Master_Button_Power_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Master Volume Knob
-          If Sqr(Pow(\Mouse_Position_X_Current-190, 2)+Pow(\Mouse_Position_Y_Current-116, 2)) <= 21
-            \Trigger_Master_Knob_Volume = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          
-          ;Harp Voice Volume Knobs
-          If Sqr(Pow(\Mouse_Position_X_Current-94, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 21
-            If Sqr(Pow(\Mouse_Position_X_Current-94, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 13
-              \Trigger_Level_Knob_Volume_Harp_2 = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-            Else
-              \Trigger_Level_Knob_Volume_Harp_1 = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
+              PostEvent(#Event_HandleChordKeys)
             EndIf
-          EndIf
+            PostEvent(#Event_HandleHarpKeys)
+            PostEvent(#Event_HandleFunctionKeys)
+            \LastKeyEventWasDown = 0
+          EndWith
           
-          ;Harp Sustain Knob
-          If Sqr(Pow(\Mouse_Position_X_Current-142, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 21
-            \Trigger_Level_Knob_Sustain = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Keyboard&Chord Volume Knobs
-          If Sqr(Pow(\Mouse_Position_X_Current-190, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 21
-            If Sqr(Pow(\Mouse_Position_X_Current-190, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 13
-              \Trigger_Level_Knob_Volume_Chords = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-            Else
-              \Trigger_Level_Knob_Volume_Keyboard = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+          ;--GetTriggers
+        Case #Event_GetTriggers
+          With Chordian\Input_State
+            
+            If Not (\Mouse_Button_Left_Current | \Mouse_Button_Middle_Current | \Mouse_Button_Right_Current)
+              \Trigger_Master_Button_Power_OnOff = 0
+              \Trigger_Master_Knob_Volume = 0
+              
+              \Trigger_Level_Knob_Volume_Harp_1 = 0
+              \Trigger_Level_Knob_Volume_Harp_2 = 0
+              \Trigger_Level_Knob_Sustain = 0
+              \Trigger_Level_Knob_Volume_Keyboard = 0
+              \Trigger_Level_Knob_Volume_Chords = 0
+              
+              \Trigger_Rhythm_Button_Alternate_OnOff = 0
+              \Trigger_Rhythm_Button_Pattern = 0
+              \Trigger_Rhythm_Button_AutoBassSync_OnOff = 0
+              \Trigger_Rhythm_Knob_Tempo = 0
+              \Trigger_Rhythm_Knob_Volume = 0
+              
+              \Trigger_Memory_Button_Memory_OnOff = 0
+              \Trigger_Memory_Button_Playback_Record_OnOff = 0
+              \Trigger_Memory_Button_Repeat_Delete = 0
+              \Trigger_Memory_Button_Playback_Enter = 0
+              
+              \Trigger_Chord_Button_Major = 0
+              \Trigger_Chord_Button_Minor = 0
+              \Trigger_Chord_Button_Minor = 0
+              
+              \Trigger_Chordiate = 0
+              
+              \Trigger_Harp = 0
+              
+              For i = #Harp_First To #Harp_Last
+                Chordian\Machine_State\Status_Harp(i) = 0
+              Next
             EndIf
-          EndIf
-          
-          
-          ;Rhythm Alternate Button
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 36, 274, 55, 298) And Not \Mouse_Button_Left_Previous
-            \Trigger_Rhythm_Button_Alternate_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Rhythm Selector Buttons
-          
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 68, 274, 215, 298)
-            \Trigger_Rhythm_Button_Pattern = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Rhythm Auto Bass Sync Button
-          
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 84, 329, 103, 353) And Not \Mouse_Button_Left_Previous
-            \Trigger_Rhythm_Button_AutoBassSync_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Rhythm Tempo Knob
-          If Sqr(Pow(\Mouse_Position_X_Current-142, 2)+Pow(\Mouse_Position_Y_Current-339, 2)) <= 21
-            \Trigger_Rhythm_Knob_Tempo = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Rhythm Volume Knob
-          If Sqr(Pow(\Mouse_Position_X_Current-190, 2)+Pow(\Mouse_Position_Y_Current-339, 2)) <= 21
-            \Trigger_Rhythm_Knob_Volume = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Memory On Off Button
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 126, 424, 145, 448) And Not \Mouse_Button_Left_Previous
-            \Trigger_Memory_Button_Memory_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Memory Playback Record Button
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 159, 424, 178, 448) And Not \Mouse_Button_Left_Previous
-            \Trigger_Memory_Button_Playback_Record_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Memory Repeat Delete Button
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 192, 424, 211, 448) And Not \Mouse_Button_Left_Previous
-            \Trigger_Memory_Button_Repeat_Delete = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Memory Playback Enter Button
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 162, 480, 206, 505) And Not \Mouse_Button_Left_Previous
-            \Trigger_Memory_Button_Playback_Enter = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Chord buttons
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 271, 240, 631, 264)
-            \Trigger_Chord_Button_Major = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 286, 283, 646, 307)
-            \Trigger_Chord_Button_Minor = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 301, 326, 661, 350)
-            \Trigger_Chord_Button_7th = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Chordiate bar
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 361, 368, 597, 393)
-            \Trigger_Chordiate = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-          ;Strumplate
-          If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 674, 0, 800, 600)
-            \Trigger_Harp = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
-          EndIf
-          
-        EndWith
-        
-        PostEvent(#Event_HandleTriggers)
-        
-      Case #Event_HandleTriggers
-        ;--HandleTriggers
-        With Chordian\Input_State
-          If \Trigger_Master_Button_Power_OnOff
-            Select \Trigger_Master_Button_Power_OnOff
-              Case 1
-                \Trigger_Master_Button_Power_OnOff = 0
-                Chordian\Machine_State\Value_Master_Button_Power_OnOff = Bool(Not Chordian\Machine_State\Value_Master_Button_Power_OnOff)
-                Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
-                Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                
-                For i = #Note_First To #Note_Last
-                  For n = #Chord_First To #Chord_Last
-                    \Keymap(\Keymap_Chord(n, i)) = 0
-                  Next
-                Next
-                
-                PauseThread(Chordian\RepaintHandler_Thread)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                ResumeThread(Chordian\RepaintHandler_Thread)
-                
-              Default
-                \Trigger_Master_Button_Power_OnOff = 0
-            EndSelect
-          EndIf
-          
-          If \Trigger_Master_Knob_Volume
-            Select \Trigger_Master_Knob_Volume
-              Case 1
-                Chordian\Machine_State\Value_Master_Knob_Volume+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
-              Case 2
-                \Trigger_Master_Knob_Volume = 0
-                TempString = InputRequester("Chordian>Master>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Master_Knob_Volume))
-                If Len(TempString) > 0
-                  Chordian\Machine_State\Value_Master_Knob_Volume = ValF(TempString)
-                EndIf
-            EndSelect
             
-            KeepInRange(Chordian\Machine_State\Value_Master_Knob_Volume, 0.0, 1.0)
             
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
+            ;Power Button
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 126, 113, 145, 137) And Not \Mouse_Button_Left_Previous
+              \Trigger_Master_Button_Power_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
             
-          EndIf
-          
-          
-          If \Trigger_Level_Knob_Volume_Harp_1
-            Select \Trigger_Level_Knob_Volume_Harp_1
-              Case 1
-                Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
-              Case 2
-                \Trigger_Level_Knob_Volume_Harp_1 = 0
-                TempString = InputRequester("Chordian>Harp>1>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1))
-                If Len(TempString) > 0
-                  Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1 = ValF(TempString)
-                EndIf
-            EndSelect
+            ;Master Volume Knob
+            If Sqr(Pow(\Mouse_Position_X_Current-190, 2)+Pow(\Mouse_Position_Y_Current-116, 2)) <= 21
+              \Trigger_Master_Knob_Volume = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
             
-            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1, 0.0, 1.0)
             
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          If \Trigger_Level_Knob_Volume_Harp_2
-            Select \Trigger_Level_Knob_Volume_Harp_2
-              Case 1
-                Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
-              Case 2
-                \Trigger_Level_Knob_Volume_Harp_2 = 0
-                TempString = InputRequester("Chordian>Harp>2>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2))
-                If Len(TempString) > 0
-                  Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2 = ValF(TempString)
-                EndIf
-            EndSelect
-            
-            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2, 0.0, 1.0)
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          If \Trigger_Level_Knob_Sustain
-            Select \Trigger_Level_Knob_Sustain
-              Case 1
-                Chordian\Machine_State\Value_Level_Knob_Sustain+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
-              Case 2
-                \Trigger_Level_Knob_Sustain = 0
-                
-                Select Chordian\Machine_State\Value_External_ChordiateMode
-                  Case 1
-                    TempString = InputRequester("Chordian>Harp>Sustain", "Insert new Volume. (-0.12-5.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Sustain))
-                  Default
-                    TempString = InputRequester("Chordian>Harp>Sustain", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Sustain))
-                EndSelect
-                
-                If Len(TempString) > 0
-                  Chordian\Machine_State\Value_Level_Knob_Sustain = ValF(TempString)
-                EndIf
-            EndSelect
-            
-            Select Chordian\Machine_State\Value_External_ChordiateMode
-              Case 1
-                KeepInRange(Chordian\Machine_State\Value_Level_Knob_Sustain, -0.12, 5.0)
-              Default
-                KeepInRange(Chordian\Machine_State\Value_Level_Knob_Sustain, 0.0, 1.0)
-            EndSelect
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          If \Trigger_Level_Knob_Volume_Keyboard
-            Select \Trigger_Level_Knob_Volume_Keyboard
-              Case 1
-                Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
-              Case 2
-                \Trigger_Level_Knob_Volume_Keyboard = 0
-                TempString = InputRequester("Chordian>Keyboard>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard))
-                If Len(TempString) > 0
-                  Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard = ValF(TempString)
-                EndIf
-            EndSelect
-            
-            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard, 0.0, 1.0)
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          
-          If \Trigger_Level_Knob_Volume_Chords
-            Select \Trigger_Level_Knob_Volume_Chords
-              Case 1
-                Chordian\Machine_State\Value_Level_Knob_Volume_Chords+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
-              Case 2
-                \Trigger_Level_Knob_Volume_Chords = 0
-                TempString = InputRequester("Chordian>Chords>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Volume_Chords))
-                If Len(TempString) > 0
-                  Chordian\Machine_State\Value_Level_Knob_Volume_Chords = ValF(TempString)
-                EndIf
-            EndSelect
-            
-            KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Chords, 0.0, 1.0)
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          
-          If \Trigger_Rhythm_Button_Alternate_OnOff
-            \Trigger_Rhythm_Button_Alternate_OnOff = 0
-            Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff)
-            
-            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          
-          If \Trigger_Rhythm_Button_Pattern ;FroggiFifi - Rhythm buttons do not pop out when pressed again, only by lightly pressing another rhythm button - Unemulatable, will stay as it is currently.
-            \Trigger_Rhythm_Button_Pattern = 0
-            If (\Mouse_Position_X_Current-68)%32 <= 20
-              If (\Mouse_Position_X_Current-68)/32 = Chordian\Machine_State\Value_Rhythm_Button_Pattern
-                Chordian\Machine_State\Value_Rhythm_Button_Pattern = #Rhythm_None
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+            ;Harp Voice Volume Knobs
+            If Sqr(Pow(\Mouse_Position_X_Current-94, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 21
+              If Sqr(Pow(\Mouse_Position_X_Current-94, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 13
+                \Trigger_Level_Knob_Volume_Harp_2 = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
               Else
-                If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                  If Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
-                    Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
-                    Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
-                    Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
-                    Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
-                  Else
-                    Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
-                    Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
-                    Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
-                    Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
-                  EndIf
-                EndIf
-                Chordian\Machine_State\Value_Rhythm_Button_Pattern = (\Mouse_Position_X_Current-68)/32
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                \Trigger_Level_Knob_Volume_Harp_1 = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
               EndIf
             EndIf
             
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
+            ;Harp Sustain Knob
+            If Sqr(Pow(\Mouse_Position_X_Current-142, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 21
+              \Trigger_Level_Knob_Sustain = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
             
-          EndIf
+            ;Keyboard&Chord Volume Knobs
+            If Sqr(Pow(\Mouse_Position_X_Current-190, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 21
+              If Sqr(Pow(\Mouse_Position_X_Current-190, 2)+Pow(\Mouse_Position_Y_Current-191, 2)) <= 13
+                \Trigger_Level_Knob_Volume_Chords = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+              Else
+                \Trigger_Level_Knob_Volume_Keyboard = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+              EndIf
+            EndIf
+            
+            
+            ;Rhythm Alternate Button
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 36, 274, 55, 298) And Not \Mouse_Button_Left_Previous
+              \Trigger_Rhythm_Button_Alternate_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Rhythm Selector Buttons
+            
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 68, 274, 215, 298)
+              \Trigger_Rhythm_Button_Pattern = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Rhythm Auto Bass Sync Button
+            
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 84, 329, 103, 353) And Not \Mouse_Button_Left_Previous
+              \Trigger_Rhythm_Button_AutoBassSync_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Rhythm Tempo Knob
+            If Sqr(Pow(\Mouse_Position_X_Current-142, 2)+Pow(\Mouse_Position_Y_Current-339, 2)) <= 21
+              \Trigger_Rhythm_Knob_Tempo = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Rhythm Volume Knob
+            If Sqr(Pow(\Mouse_Position_X_Current-190, 2)+Pow(\Mouse_Position_Y_Current-339, 2)) <= 21
+              \Trigger_Rhythm_Knob_Volume = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Memory On Off Button
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 126, 424, 145, 448) And Not \Mouse_Button_Left_Previous
+              \Trigger_Memory_Button_Memory_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Memory Playback Record Button
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 159, 424, 178, 448) And Not \Mouse_Button_Left_Previous
+              \Trigger_Memory_Button_Playback_Record_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Memory Repeat Delete Button
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 192, 424, 211, 448) And Not \Mouse_Button_Left_Previous
+              \Trigger_Memory_Button_Repeat_Delete = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Memory Playback Enter Button
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 162, 480, 206, 505) And Not \Mouse_Button_Left_Previous
+              \Trigger_Memory_Button_Playback_Enter = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Chord buttons
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 271, 240, 631, 264)
+              \Trigger_Chord_Button_Major = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 286, 283, 646, 307)
+              \Trigger_Chord_Button_Minor = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 301, 326, 661, 350)
+              \Trigger_Chord_Button_7th = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Chordiate bar
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 361, 368, 597, 393)
+              \Trigger_Chordiate = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+            ;Strumplate
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 674, 0, 800, 600)
+              \Trigger_Harp = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
+            EndIf
+            
+          EndWith
           
+          PostEvent(#Event_HandleTriggers)
           
-          If \Trigger_Rhythm_Button_AutoBassSync_OnOff
-            \Trigger_Rhythm_Button_AutoBassSync_OnOff = 0
-            If Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
-              If Chordian\Machine_State\Value_Internal_Chord_Chord <> #Chord_None And Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None
-                Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
-                Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
-                Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
-                Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+        Case #Event_HandleTriggers
+          ;--HandleTriggers
+          With Chordian\Input_State
+            If \Trigger_Master_Button_Power_OnOff
+              Select \Trigger_Master_Button_Power_OnOff
+                Case 1
+                  \Trigger_Master_Button_Power_OnOff = 0
+                  Chordian\Machine_State\Value_Master_Button_Power_OnOff = Bool(Not Chordian\Machine_State\Value_Master_Button_Power_OnOff)
+                  Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
+                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                  
+                  For i = #Note_First To #Note_Last
+                    For n = #Chord_First To #Chord_Last
+                      \Keymap(\Keymap_Chord(n, i)) = 0
+                    Next
+                  Next
+                  
+                  PauseThread(Chordian\RepaintHandler_Thread)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                  ResumeThread(Chordian\RepaintHandler_Thread)
+                  
+                Default
+                  \Trigger_Master_Button_Power_OnOff = 0
+              EndSelect
+            EndIf
+            
+            If \Trigger_Master_Knob_Volume
+              Select \Trigger_Master_Knob_Volume
+                Case 1
+                  Chordian\Machine_State\Value_Master_Knob_Volume+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
+                Case 2
+                  \Trigger_Master_Knob_Volume = 0
+                  TempString = InputRequester("Chordian>Master>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Master_Knob_Volume))
+                  If Len(TempString) > 0
+                    Chordian\Machine_State\Value_Master_Knob_Volume = ValF(TempString)
+                  EndIf
+              EndSelect
+              
+              KeepInRange(Chordian\Machine_State\Value_Master_Knob_Volume, 0.0, 1.0)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            
+            If \Trigger_Level_Knob_Volume_Harp_1
+              Select \Trigger_Level_Knob_Volume_Harp_1
+                Case 1
+                  Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
+                Case 2
+                  \Trigger_Level_Knob_Volume_Harp_1 = 0
+                  TempString = InputRequester("Chordian>Harp>1>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1))
+                  If Len(TempString) > 0
+                    Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1 = ValF(TempString)
+                  EndIf
+              EndSelect
+              
+              KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_1, 0.0, 1.0)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            If \Trigger_Level_Knob_Volume_Harp_2
+              Select \Trigger_Level_Knob_Volume_Harp_2
+                Case 1
+                  Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
+                Case 2
+                  \Trigger_Level_Knob_Volume_Harp_2 = 0
+                  TempString = InputRequester("Chordian>Harp>2>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2))
+                  If Len(TempString) > 0
+                    Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2 = ValF(TempString)
+                  EndIf
+              EndSelect
+              
+              KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Harp_2, 0.0, 1.0)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            If \Trigger_Level_Knob_Sustain
+              Select \Trigger_Level_Knob_Sustain
+                Case 1
+                  Chordian\Machine_State\Value_Level_Knob_Sustain+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
+                Case 2
+                  \Trigger_Level_Knob_Sustain = 0
+                  
+                  Select Chordian\Machine_State\Value_External_ChordiateMode
+                    Case 1
+                      TempString = InputRequester("Chordian>Harp>Sustain", "Insert new Volume. (-0.12-5.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Sustain))
+                    Default
+                      TempString = InputRequester("Chordian>Harp>Sustain", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Sustain))
+                  EndSelect
+                  
+                  If Len(TempString) > 0
+                    Chordian\Machine_State\Value_Level_Knob_Sustain = ValF(TempString)
+                  EndIf
+              EndSelect
+              
+              Select Chordian\Machine_State\Value_External_ChordiateMode
+                Case 1
+                  KeepInRange(Chordian\Machine_State\Value_Level_Knob_Sustain, -0.12, 5.0)
+                Default
+                  KeepInRange(Chordian\Machine_State\Value_Level_Knob_Sustain, 0.0, 1.0)
+              EndSelect
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            If \Trigger_Level_Knob_Volume_Keyboard
+              Select \Trigger_Level_Knob_Volume_Keyboard
+                Case 1
+                  Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
+                Case 2
+                  \Trigger_Level_Knob_Volume_Keyboard = 0
+                  TempString = InputRequester("Chordian>Keyboard>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard))
+                  If Len(TempString) > 0
+                    Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard = ValF(TempString)
+                  EndIf
+              EndSelect
+              
+              KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Keyboard, 0.0, 1.0)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            
+            If \Trigger_Level_Knob_Volume_Chords
+              Select \Trigger_Level_Knob_Volume_Chords
+                Case 1
+                  Chordian\Machine_State\Value_Level_Knob_Volume_Chords+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
+                Case 2
+                  \Trigger_Level_Knob_Volume_Chords = 0
+                  TempString = InputRequester("Chordian>Chords>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Level_Knob_Volume_Chords))
+                  If Len(TempString) > 0
+                    Chordian\Machine_State\Value_Level_Knob_Volume_Chords = ValF(TempString)
+                  EndIf
+              EndSelect
+              
+              KeepInRange(Chordian\Machine_State\Value_Level_Knob_Volume_Chords, 0.0, 1.0)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            
+            If \Trigger_Rhythm_Button_Alternate_OnOff
+              \Trigger_Rhythm_Button_Alternate_OnOff = 0
+              Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff)
+              
+              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            
+            If \Trigger_Rhythm_Button_Pattern ;FroggiFifi - Rhythm buttons do not pop out when pressed again, only by lightly pressing another rhythm button - Unemulatable, will stay as it is currently.
+              \Trigger_Rhythm_Button_Pattern = 0
+              If (\Mouse_Position_X_Current-68)%32 <= 20
+                If (\Mouse_Position_X_Current-68)/32 = Chordian\Machine_State\Value_Rhythm_Button_Pattern
+                  Chordian\Machine_State\Value_Rhythm_Button_Pattern = #Rhythm_None
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                Else
+                  If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                    If Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                      Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
+                    Else
+                      Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
+                    EndIf
+                  EndIf
+                  Chordian\Machine_State\Value_Rhythm_Button_Pattern = (\Mouse_Position_X_Current-68)/32
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                EndIf
+              EndIf
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            
+            If \Trigger_Rhythm_Button_AutoBassSync_OnOff
+              \Trigger_Rhythm_Button_AutoBassSync_OnOff = 0
+              If Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                If Chordian\Machine_State\Value_Internal_Chord_Chord <> #Chord_None And Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None
+                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                Else
+                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                EndIf
               Else
                 Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
@@ -2073,169 +2087,972 @@ Procedure Main()
                 Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
               EndIf
-            Else
-              Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
-              Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
-              Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
-              Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
-              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+              
+              Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
             EndIf
             
-            Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff)
             
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          
-          If \Trigger_Rhythm_Knob_Tempo
-            Select \Trigger_Rhythm_Knob_Tempo
-              Case 1
-                Chordian\Machine_State\Value_Rhythm_Knob_Tempo+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
-              Case 2
-                \Trigger_Rhythm_Knob_Tempo = 0
-                
-                Select Chordian\Machine_State\Value_External_ChordiateMode
-                  Case 1
-                    TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-5.0; 70.5BPM-7986.70BPM)", StrF(Chordian\Machine_State\Value_Rhythm_Knob_Tempo)+Chr(9)+StrF((((60.0/(1.0/(4.7+Pow(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 2.2)*15.3))))/4), 2)+"BPM"))
-                  Default
-                    TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-1.0; 70.5BPM-300BPM)", StrF(Chordian\Machine_State\Value_Rhythm_Knob_Tempo)+Chr(9)+StrF((((60.0/(1.0/(4.7+Pow(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 2.2)*15.3))))/4), 2)+"BPM"))
-                EndSelect
-                
-                If Len(TempString) > 0
-                  If CountString(TempString, Chr(9))
-                    TempString = StringField(TempString, 1, Chr(9))
-                  EndIf
-                  If Len(TempString) >= 3
-                    If Right(TempString, 3) = "BPM"
-                      TempFloat = ValF(Left(TempString, Len(TempString)-3))
-                      TempString = ""
-                      Chordian\Machine_State\Value_Rhythm_Knob_Tempo = Pow(((((TempFloat/60)*4)-4.7)/15.3), 1/2.2)
-                      TempFloat = 0
+            If \Trigger_Rhythm_Knob_Tempo
+              Select \Trigger_Rhythm_Knob_Tempo
+                Case 1
+                  Chordian\Machine_State\Value_Rhythm_Knob_Tempo+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
+                Case 2
+                  \Trigger_Rhythm_Knob_Tempo = 0
+                  
+                  Select Chordian\Machine_State\Value_External_ChordiateMode
+                    Case 1
+                      TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-5.0; 70.5BPM-7986.70BPM)", StrF(Chordian\Machine_State\Value_Rhythm_Knob_Tempo)+Chr(9)+StrF((((60.0/(1.0/(4.7+Pow(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 2.2)*15.3))))/4), 2)+"BPM"))
+                    Default
+                      TempString = UCase(InputRequester("Chordian>Rhythm>Tempo", "Insert new Tempo. (0.0-1.0; 70.5BPM-300BPM)", StrF(Chordian\Machine_State\Value_Rhythm_Knob_Tempo)+Chr(9)+StrF((((60.0/(1.0/(4.7+Pow(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 2.2)*15.3))))/4), 2)+"BPM"))
+                  EndSelect
+                  
+                  If Len(TempString) > 0
+                    If CountString(TempString, Chr(9))
+                      TempString = StringField(TempString, 1, Chr(9))
+                    EndIf
+                    If Len(TempString) >= 3
+                      If Right(TempString, 3) = "BPM"
+                        TempFloat = ValF(Left(TempString, Len(TempString)-3))
+                        TempString = ""
+                        Chordian\Machine_State\Value_Rhythm_Knob_Tempo = Pow(((((TempFloat/60)*4)-4.7)/15.3), 1/2.2)
+                        TempFloat = 0
+                      Else
+                        Chordian\Machine_State\Value_Rhythm_Knob_Tempo = ValF(TempString)
+                      EndIf
                     Else
                       Chordian\Machine_State\Value_Rhythm_Knob_Tempo = ValF(TempString)
                     EndIf
-                  Else
-                    Chordian\Machine_State\Value_Rhythm_Knob_Tempo = ValF(TempString)
                   EndIf
-                EndIf
-            EndSelect
-            
-            Select Chordian\Machine_State\Value_External_ChordiateMode
-              Case 1
-                KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 0.0, 5.0)
-              Default
-                KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 0.0, 1.0)
-            EndSelect
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          
-          If \Trigger_Rhythm_Knob_Volume
-            Select \Trigger_Rhythm_Knob_Volume
-              Case 1
-                Chordian\Machine_State\Value_Rhythm_Knob_Volume+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
-              Case 2
-                \Trigger_Rhythm_Knob_Volume = 0
-                TempString = InputRequester("Chordian>Rhythm>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Rhythm_Knob_Volume))
-                If Len(TempString) > 0
-                  Chordian\Machine_State\Value_Rhythm_Knob_Volume = ValF(TempString)
-                EndIf
-            EndSelect
-            
-            KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Volume, 0.0, 1.0)
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          
-          If \Trigger_Memory_Button_Memory_OnOff
-            \Trigger_Memory_Button_Memory_OnOff = 0
-            Chordian\Machine_State\Value_Memory_Button_Memory_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff)
-            
-            If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
-              Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+              EndSelect
+              
+              Select Chordian\Machine_State\Value_External_ChordiateMode
+                Case 1
+                  KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 0.0, 5.0)
+                Default
+                  KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Tempo, 0.0, 1.0)
+              EndSelect
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
             EndIf
             
-            Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
             
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
+            If \Trigger_Rhythm_Knob_Volume
+              Select \Trigger_Rhythm_Knob_Volume
+                Case 1
+                  Chordian\Machine_State\Value_Rhythm_Knob_Volume+(\Mouse_Position_Y_Previous-\Mouse_Position_Y_Current)/400.0-(\Mouse_Position_X_Previous-\Mouse_Position_X_Current)/2000.0
+                Case 2
+                  \Trigger_Rhythm_Knob_Volume = 0
+                  TempString = InputRequester("Chordian>Rhythm>Volume", "Insert new Volume. (0.0-1.0)", StrF(Chordian\Machine_State\Value_Rhythm_Knob_Volume))
+                  If Len(TempString) > 0
+                    Chordian\Machine_State\Value_Rhythm_Knob_Volume = ValF(TempString)
+                  EndIf
+              EndSelect
+              
+              KeepInRange(Chordian\Machine_State\Value_Rhythm_Knob_Volume, 0.0, 1.0)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
             
-          EndIf
-          
-          
-          If \Trigger_Memory_Button_Playback_Record_OnOff
-            \Trigger_Memory_Button_Playback_Record_OnOff = 0
-            Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
             
-            Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
+            If \Trigger_Memory_Button_Memory_OnOff
+              \Trigger_Memory_Button_Memory_OnOff = 0
+              Chordian\Machine_State\Value_Memory_Button_Memory_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff)
+              
+              If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
+                Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+              EndIf
+              
+              Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
             
-            PostEvent(#Event_HandleChordKeys)
-            PostEvent(#Event_HandleHarpKeys)
             
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
+            If \Trigger_Memory_Button_Playback_Record_OnOff
+              \Trigger_Memory_Button_Playback_Record_OnOff = 0
+              Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
+              
+              Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
+              
+              PostEvent(#Event_HandleChordKeys)
+              PostEvent(#Event_HandleHarpKeys)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
             
-          EndIf
-          
-          
-          If \Trigger_Memory_Button_Repeat_Delete
-            \Trigger_Memory_Button_Repeat_Delete = 0
-            Chordian\Machine_State\Value_Memory_Button_Repeat_Delete = Bool(Not Chordian\Machine_State\Value_Memory_Button_Repeat_Delete)
-            If Chordian\Machine_State\Value_Memory_Button_Repeat_Delete
-              If Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
-                Chordian\Machine_State\Value_Internal_Memory_Position_Current-1
-                If Chordian\Machine_State\Value_Internal_Memory_Position_Current < 0
+            
+            If \Trigger_Memory_Button_Repeat_Delete
+              \Trigger_Memory_Button_Repeat_Delete = 0
+              Chordian\Machine_State\Value_Memory_Button_Repeat_Delete = Bool(Not Chordian\Machine_State\Value_Memory_Button_Repeat_Delete)
+              If Chordian\Machine_State\Value_Memory_Button_Repeat_Delete
+                If Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
+                  Chordian\Machine_State\Value_Internal_Memory_Position_Current-1
+                  If Chordian\Machine_State\Value_Internal_Memory_Position_Current < 0
+                    Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+                  EndIf
+                  If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                    Chordian\Machine_State\Value_Internal_Tick = 0
+                    SendNewTick = 1
+                  EndIf
+                  
+                  Chordian\Machine_State\Value_Internal_Chord_Chord = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0)
+                  Chordian\Machine_State\Value_Internal_Chord_Note = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1)
+                  
+                  If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                    For i = #Snd_Bass_First To #Snd_Bass_Last
+                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                    Next
+                    For i = #Snd_Chord_First To #Snd_Chord_Last
+                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                    Next
+                    For i = #Snd_Harp_First To #Snd_Harp_Last
+                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                    Next
+                    
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
+                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
+                  EndIf
+                  
+                  SendNewChord = 1
+                  If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                    SendNewTick = 1
+                  EndIf
+                  
+                  If SendNewChord
+                    SendNewChord = 0
+                    If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                      Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                      For i = #Snd_Chord_First To #Snd_Chord_Last
+                        Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
+                      Next
+                    EndIf
+                    If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+                    EndIf
+                    
+                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                  EndIf
+                  If SendNewTick
+                    SendNewTick = 0
+                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                  EndIf
+                  
+                  
+                Else
                   Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+                  
+                  Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
+                  
                 EndIf
+              EndIf
+              
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            
+            If \Trigger_Memory_Button_Playback_Enter
+              \Trigger_Memory_Button_Playback_Enter = 0
+              If \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
+                PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Memory_Playback_Enter))
+              Else
+                PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Memory_Playback_Enter))
+              EndIf
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+            EndIf
+            
+            
+            If \Trigger_Chord_Button_Major = 1
+              \Trigger_Chord_Button_Major = 0
+              If (\Mouse_Position_X_Current-271)%31 <= 20
+                If Not \Keymap(\Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
+                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
+                Else
+                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
+                EndIf
+              EndIf
+            ElseIf \Trigger_Chord_Button_Major = 2
+              \Trigger_Chord_Button_Major = 0
+              If (\Mouse_Position_X_Current-271)%31 <= 20
+                PauseThread(Chordian\RepaintHandler_Thread)
+                StartDrawing(CanvasOutput(#Gad_Canvas))
+                DrawAlphaImage(ImageID(#Img_Button_Red_On), 271+((\Mouse_Position_X_Current-271)/31)*31, 240)
+                StopDrawing()
+                ResumeThread(Chordian\RepaintHandler_Thread)
+                Repeat
+                  Event = WaitWindowEvent()
+                  Select Event
+                    Case #PB_Event_Gadget
+                      Select EventGadget()
+                        Case #Gad_Canvas
+                          Select EventType()
+                            Case #PB_EventType_KeyUp
+                              Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                Case #VK_ESCAPE
+                                  PauseThread(Chordian\RepaintHandler_Thread)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                  ResumeThread(Chordian\RepaintHandler_Thread)
+                                  Break
+                                Default
+                                  \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                  PauseThread(Chordian\RepaintHandler_Thread)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                  ResumeThread(Chordian\RepaintHandler_Thread)
+                                  Break
+                              EndSelect
+                              
+                            Case #PB_EventType_LeftButtonDown
+                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                              \Mouse_Button_Left_Current = 1
+                              PauseThread(Chordian\RepaintHandler_Thread)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                              ResumeThread(Chordian\RepaintHandler_Thread)
+                              Break
+                              
+                            Case #PB_EventType_LeftButtonUp
+                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                              \Mouse_Button_Left_Current = 0
+                              
+                            Case #PB_EventType_RightButtonDown
+                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
+                              \Mouse_Button_Right_Current = 1
+                              PauseThread(Chordian\RepaintHandler_Thread)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                              ResumeThread(Chordian\RepaintHandler_Thread)
+                              Break
+                              
+                            Case #PB_EventType_RightButtonUp
+                              \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                              \Mouse_Button_Right_Current = 0
+                              
+                            Case #PB_EventType_MiddleButtonDown
+                              \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                              \Mouse_Button_Middle_Current = 1
+                              PauseThread(Chordian\RepaintHandler_Thread)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                              ResumeThread(Chordian\RepaintHandler_Thread)
+                              Break
+                              
+                            Case #PB_EventType_MiddleButtonUp
+                              \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
+                              \Mouse_Button_Middle_Current = 0
+                              
+                          EndSelect
+                      EndSelect
+                    Case #PB_Event_CloseWindow
+                      PostEvent(#PB_Event_CloseWindow)
+                      Break
+                    Default
+                  EndSelect
+                ForEver
+              EndIf
+            EndIf
+            
+            If \Trigger_Chord_Button_Minor = 1
+              \Trigger_Chord_Button_Minor = 0
+              If (\Mouse_Position_X_Current-286)%31 <= 20
+                If Not \Keymap(\Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
+                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
+                Else
+                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
+                EndIf
+              EndIf
+            ElseIf \Trigger_Chord_Button_Minor = 2
+              \Trigger_Chord_Button_Minor = 0
+              If (\Mouse_Position_X_Current-286)%31 <= 20
+                PauseThread(Chordian\RepaintHandler_Thread)
+                StartDrawing(CanvasOutput(#Gad_Canvas))
+                DrawAlphaImage(ImageID(#Img_Button_Red_On), 286+((\Mouse_Position_X_Current-286)/31)*31, 283)
+                StopDrawing()
+                ResumeThread(Chordian\RepaintHandler_Thread)
+                Repeat
+                  Event = WaitWindowEvent()
+                  Select Event
+                    Case #PB_Event_Gadget
+                      Select EventGadget()
+                        Case #Gad_Canvas
+                          Select EventType()
+                            Case #PB_EventType_KeyUp
+                              Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                Case #VK_ESCAPE
+                                  PauseThread(Chordian\RepaintHandler_Thread)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                  ResumeThread(Chordian\RepaintHandler_Thread)
+                                  Break
+                                Default
+                                  \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                  PauseThread(Chordian\RepaintHandler_Thread)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                  ResumeThread(Chordian\RepaintHandler_Thread)
+                                  Break
+                              EndSelect
+                              
+                            Case #PB_EventType_LeftButtonDown
+                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                              \Mouse_Button_Left_Current = 1
+                              PauseThread(Chordian\RepaintHandler_Thread)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                              ResumeThread(Chordian\RepaintHandler_Thread)
+                              Break
+                              
+                            Case #PB_EventType_LeftButtonUp
+                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                              \Mouse_Button_Left_Current = 0
+                              
+                            Case #PB_EventType_RightButtonDown
+                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
+                              \Mouse_Button_Right_Current = 1
+                              PauseThread(Chordian\RepaintHandler_Thread)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                              ResumeThread(Chordian\RepaintHandler_Thread)
+                              Break
+                              
+                            Case #PB_EventType_RightButtonUp
+                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
+                              \Mouse_Button_Right_Current = 0
+                              
+                            Case #PB_EventType_MiddleButtonDown
+                              \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                              \Mouse_Button_Middle_Current = 1
+                              PauseThread(Chordian\RepaintHandler_Thread)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                              ResumeThread(Chordian\RepaintHandler_Thread)
+                              Break
+                              
+                            Case #PB_EventType_MiddleButtonUp
+                              \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
+                              \Mouse_Button_Middle_Current = 0
+                              
+                          EndSelect
+                      EndSelect
+                    Case #PB_Event_CloseWindow
+                      PostEvent(#PB_Event_CloseWindow)
+                      Break
+                    Default
+                  EndSelect
+                ForEver
+              EndIf
+            EndIf
+            
+            If \Trigger_Chord_Button_7th = 1
+              \Trigger_Chord_Button_7th = 0
+              If (\Mouse_Position_X_Current-301)%31 <= 20
+                If Not \Keymap(\Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
+                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
+                Else
+                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
+                EndIf
+              EndIf
+            ElseIf \Trigger_Chord_Button_7th = 2
+              \Trigger_Chord_Button_7th = 0
+              If (\Mouse_Position_X_Current-301)%31 <= 20
+                PauseThread(Chordian\RepaintHandler_Thread)
+                StartDrawing(CanvasOutput(#Gad_Canvas))
+                DrawAlphaImage(ImageID(#Img_Button_Red_On), 301+((\Mouse_Position_X_Current-301)/31)*31, 326)
+                StopDrawing()
+                ResumeThread(Chordian\RepaintHandler_Thread)
+                Repeat
+                  Event = WaitWindowEvent()
+                  Select Event
+                    Case #PB_Event_Gadget
+                      Select EventGadget()
+                        Case #Gad_Canvas
+                          Select EventType()
+                            Case #PB_EventType_KeyUp
+                              Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                Case #VK_ESCAPE
+                                  PauseThread(Chordian\RepaintHandler_Thread)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                  ResumeThread(Chordian\RepaintHandler_Thread)
+                                  Break
+                                Default
+                                  \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                                  PauseThread(Chordian\RepaintHandler_Thread)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                                  ResumeThread(Chordian\RepaintHandler_Thread)
+                                  Break
+                              EndSelect
+                              
+                            Case #PB_EventType_LeftButtonDown
+                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                              \Mouse_Button_Left_Current = 1
+                              PauseThread(Chordian\RepaintHandler_Thread)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                              ResumeThread(Chordian\RepaintHandler_Thread)
+                              Break
+                              
+                            Case #PB_EventType_LeftButtonUp
+                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                              \Mouse_Button_Left_Current = 0
+                              
+                            Case #PB_EventType_RightButtonDown
+                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
+                              \Mouse_Button_Right_Current = 1
+                              PauseThread(Chordian\RepaintHandler_Thread)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                              ResumeThread(Chordian\RepaintHandler_Thread)
+                              Break
+                              
+                            Case #PB_EventType_RightButtonUp
+                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
+                              \Mouse_Button_Right_Current = 0
+                              
+                            Case #PB_EventType_MiddleButtonDown
+                              \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                              \Mouse_Button_Middle_Current = 1
+                              PauseThread(Chordian\RepaintHandler_Thread)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                              ResumeThread(Chordian\RepaintHandler_Thread)
+                              Break
+                              
+                            Case #PB_EventType_MiddleButtonUp
+                              \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
+                              \Mouse_Button_Middle_Current = 0
+                              
+                          EndSelect
+                      EndSelect
+                    Case #PB_Event_CloseWindow
+                      PostEvent(#PB_Event_CloseWindow)
+                      Break
+                    Default
+                  EndSelect
+                ForEver
+              EndIf
+            EndIf
+            
+            If \Trigger_Chordiate
+              \Trigger_Chordiate = 0
+              If \Keymap(\Keymap_Function(#Btn_Chordiate))
+                PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Chordiate))
+              Else
+                PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Chordiate))
+              EndIf
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+            EndIf
+            
+            If \Trigger_Harp
+              If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 752, 131, 800, 150)
+                Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
+                Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                For i = #Note_First To #Note_Last
+                  For n = #Chord_First To #Chord_Last
+                    \Keymap(\Keymap_Chord(n, i)) = 0
+                  Next
+                Next
+                Chordian\Machine_State\Value_Internal_Tick = 0
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+                PauseThread(Chordian\RepaintHandler_Thread)
+                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                ResumeThread(Chordian\RepaintHandler_Thread)
+              Else
+                If \Trigger_Harp
+                  Select \Mouse_Position_Y_Current
+                    Case 92 To 388
+                      If Not Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-388)/24)
+                        For i = #Harp_First To #Harp_Last
+                          Chordian\Machine_State\Status_Harp(i) = 0
+                        Next
+                        
+                        Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-388)/24) = 1
+                        
+                        If \Trigger_Harp & 1
+                          Select \PrimaryStrumMode
+                            Case #Str_None
+                            Case #Str_Single
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            Case #Str_Double
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Chord
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Spread
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+4-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Octave
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+3-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+6-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+9-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Full
+                              For i = #Snd_Harp_First To #Snd_Harp_Last
+                                Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
+                              Next
+                            Case #Str_Reverse
+                              If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Mirror
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Segment
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              Select (-(\Mouse_Position_Y_Current-388)/24)%3
+                                Case 0
+                                  If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                    Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                                  EndIf
+                                Case 2
+                                  If #Harp_First-2-(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                    Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                                  EndIf
+                              EndSelect
+                          EndSelect
+                        EndIf
+                        
+                        If \Trigger_Harp & 2
+                          Select \SecondaryStrumMode
+                            Case #Str_None
+                            Case #Str_Single
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            Case #Str_Double
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Chord
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Spread
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+4-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Octave
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+3-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+6-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+9-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Full
+                              For i = #Snd_Harp_First To #Snd_Harp_Last
+                                Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
+                              Next
+                            Case #Str_Reverse
+                              If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Mirror
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Segment
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              Select (-(\Mouse_Position_Y_Current-388)/24)%3
+                                Case 0
+                                  If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                    Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                                  EndIf
+                                Case 2
+                                  If #Harp_First-2-(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                    Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                                  EndIf
+                              EndSelect
+                          EndSelect
+                        EndIf
+                        
+                        If \Trigger_Harp & 4
+                          Select \TertiaryStrumMode
+                            Case #Str_None
+                            Case #Str_Single
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                            Case #Str_Double
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Chord
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Spread
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+4-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Octave
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_First+3-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+6-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                              If #Harp_First+9-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Full
+                              For i = #Snd_Harp_First To #Snd_Harp_Last
+                                Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
+                              Next
+                            Case #Str_Reverse
+                              If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Mirror
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              EndIf
+                            Case #Str_Segment
+                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                              Select (-(\Mouse_Position_Y_Current-388)/24)%3
+                                Case 0
+                                  If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
+                                    Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                                  EndIf
+                                Case 2
+                                  If #Harp_First-2-(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
+                                    Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
+                                  EndIf
+                              EndSelect
+                          EndSelect
+                        EndIf
+                        
+                      EndIf
+                      
+                    Default
+                      For i = #Harp_First To #Harp_Last
+                        Chordian\Machine_State\Status_Harp(i) = 0
+                      Next
+                      
+                  EndSelect
+                EndIf
+                
+              EndIf
+            EndIf
+          EndWith
+          
+          
+        Case #Event_HandleChordKeys
+          ;--HandleChordKeys
+          With Chordian\Input_State
+            If Chordian\Machine_State\Value_Master_Button_Power_OnOff
+              If Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff Or (Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
                 If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
                   Chordian\Machine_State\Value_Internal_Tick = 0
                   SendNewTick = 1
                 EndIf
                 
-                Chordian\Machine_State\Value_Internal_Chord_Chord = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0)
-                Chordian\Machine_State\Value_Internal_Chord_Note = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1)
+                Select \LastKey
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Db), \Keymap_Chord(#Chord_Min, #Note_Db), \Keymap_Chord(#Chord_7th, #Note_Db)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Db
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Ab), \Keymap_Chord(#Chord_Min, #Note_Ab), \Keymap_Chord(#Chord_7th, #Note_Ab)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ab
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Eb), \Keymap_Chord(#Chord_Min, #Note_Eb), \Keymap_Chord(#Chord_7th, #Note_Eb)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Eb
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Bb), \Keymap_Chord(#Chord_Min, #Note_Bb), \Keymap_Chord(#Chord_7th, #Note_Bb)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Bb
+                  Case \Keymap_Chord(#Chord_Maj, #Note_F), \Keymap_Chord(#Chord_Min, #Note_F), \Keymap_Chord(#Chord_7th, #Note_F)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_F
+                  Case \Keymap_Chord(#Chord_Maj, #Note_C), \Keymap_Chord(#Chord_Min, #Note_C), \Keymap_Chord(#Chord_7th, #Note_C)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_C
+                  Case \Keymap_Chord(#Chord_Maj, #Note_G), \Keymap_Chord(#Chord_Min, #Note_G), \Keymap_Chord(#Chord_7th, #Note_G)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_G
+                  Case \Keymap_Chord(#Chord_Maj, #Note_D), \Keymap_Chord(#Chord_Min, #Note_D), \Keymap_Chord(#Chord_7th, #Note_D)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_D
+                  Case \Keymap_Chord(#Chord_Maj, #Note_A), \Keymap_Chord(#Chord_Min, #Note_A), \Keymap_Chord(#Chord_7th, #Note_A)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_A
+                  Case \Keymap_Chord(#Chord_Maj, #Note_E), \Keymap_Chord(#Chord_Min, #Note_E), \Keymap_Chord(#Chord_7th, #Note_E)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_E
+                  Case \Keymap_Chord(#Chord_Maj, #Note_B), \Keymap_Chord(#Chord_Min, #Note_B), \Keymap_Chord(#Chord_7th, #Note_B)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_B
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Fc), \Keymap_Chord(#Chord_Min, #Note_Fc), \Keymap_Chord(#Chord_7th, #Note_Fc)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Fc
+                EndSelect
                 
-                If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                  For i = #Snd_Bass_First To #Snd_Bass_Last
-                    Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                  Next
-                  For i = #Snd_Chord_First To #Snd_Chord_Last
-                    Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                  Next
-                  For i = #Snd_Harp_First To #Snd_Harp_Last
-                    Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                  Next
-                  
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
-                  Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
-                EndIf
-                
-                SendNewChord = 1
-                If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                  SendNewTick = 1
+                If Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None
+                  If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And
+                     \Keymap(\Keymap_Chord(#Chord_Maj, #Note_A)) And
+                     \Keymap(\Keymap_Chord(#Chord_Maj, #Note_E)) And
+                     \Keymap(\Keymap_Chord(#Chord_Maj, #Note_B))
+                    
+                    Chordian\Machine_State\Value_Internal_Memory_Position_Current - 1
+                    If Chordian\Machine_State\Value_Internal_Memory_Position_Current < 0
+                      Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+                    EndIf
+                    
+                    For i = #Snd_Bass_First To #Snd_Bass_Last
+                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                    Next
+                    For i = #Snd_Chord_First To #Snd_Chord_Last
+                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                    Next
+                    For i = #Snd_Harp_First To #Snd_Harp_Last
+                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                    Next
+                    
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
+                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
+                    
+                    SendNewChord = 1
+                    
+                  ElseIf Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And
+                         \Keymap(\Keymap_Chord(#Chord_Min, #Note_A)) And
+                         \Keymap(\Keymap_Chord(#Chord_Min, #Note_E)) And
+                         \Keymap(\Keymap_Chord(#Chord_Min, #Note_B))
+                    
+                    Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+                    Chordian\Machine_State\Value_Internal_Memory_Position_Skip = 0
+                    
+                    For i = 0 To ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 1)
+                      Chordian\Machine_State\Internal_Memory_Chord_Note(i, 0) = #Chord_None
+                      Chordian\Machine_State\Internal_Memory_Chord_Note(i, 1) = #Note_None
+                    Next
+                    
+                    For i = #Snd_Bass_First To #Snd_Bass_Last
+                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                    Next
+                    For i = #Snd_Chord_First To #Snd_Chord_Last
+                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                    Next
+                    For i = #Snd_Harp_First To #Snd_Harp_Last
+                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                    Next
+                    
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
+                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
+                    
+                    SendNewChord = 1
+                    
+                  ElseIf Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And
+                         \Keymap(\Keymap_Chord(#Chord_7th, #Note_A)) And
+                         \Keymap(\Keymap_Chord(#Chord_7th, #Note_E)) And
+                         \Keymap(\Keymap_Chord(#Chord_7th, #Note_B))
+                    
+                    Chordian\Machine_State\Value_Internal_Memory_Position_Skip = Chordian\Machine_State\Value_Internal_Memory_Position_Current
+                    
+                    Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
+                    
+                  Else
+                    
+                    If \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And
+                       \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And
+                       \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
+                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Chr
+                      Else
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
+                      EndIf
+                      SendNewChord = 1
+                      If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                        SendNewTick = 1
+                      EndIf
+                    ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And
+                           \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note))
+                      If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
+                        If \LastKeyEventWasDown
+                          \LastKeyEventWasDown = 0
+                          If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                            Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_As2
+                          Else
+                            Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
+                          EndIf
+                          SendNewChord = 1
+                        EndIf
+                      Else
+                        If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_As2
+                        Else
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
+                        EndIf
+                        SendNewChord = 1
+                      EndIf
+                      If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                        SendNewTick = 1
+                      EndIf
+                    ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And
+                           \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
+                      If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
+                        If \LastKeyEventWasDown
+                          \LastKeyEventWasDown = 0
+                          If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                            Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ac4
+                          Else
+                            Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
+                          EndIf
+                          SendNewChord = 1
+                        EndIf
+                      Else
+                        If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ac4
+                        Else
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
+                        EndIf
+                        SendNewChord = 1
+                      EndIf
+                      If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
+                        SendNewTick = 1
+                      EndIf
+                    ElseIf \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And
+                           \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
+                      If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
+                        If \LastKeyEventWasDown
+                          \LastKeyEventWasDown = 0
+                          If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                            Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mc4
+                          Else
+                            Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
+                          EndIf
+                          SendNewChord = 1
+                        EndIf
+                      Else
+                        If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mc4
+                        Else
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
+                        EndIf
+                        SendNewChord = 1
+                      EndIf
+                      If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
+                        SendNewTick = 1
+                      EndIf
+                    ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note))
+                      If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
+                      Else
+                        If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ad9
+                        Else
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Maj
+                        EndIf
+                        SendNewChord = 1
+                      EndIf
+                      If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
+                        SendNewTick = 1
+                      EndIf
+                    ElseIf \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note))
+                      If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
+                      Else
+                        If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Su4
+                        Else
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Min
+                        EndIf
+                        SendNewChord = 1
+                      EndIf
+                      If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
+                        SendNewTick = 1
+                      EndIf
+                    ElseIf \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
+                      If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
+                      Else
+                        If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ad2
+                        Else
+                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_7th
+                        EndIf
+                        SendNewChord = 1
+                      EndIf
+                      If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
+                        SendNewTick = 1
+                      EndIf
+                    ElseIf Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
+                      Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
+                      Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+                    EndIf
+                  EndIf
+                ElseIf Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                  SendNewChord = 1
                 EndIf
                 
                 If SendNewChord
@@ -2246,10 +3063,6 @@ Procedure Main()
                       Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
                     Next
                   EndIf
-                  If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
-                  EndIf
-                  
                   ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
                   ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                 EndIf
@@ -2258,1144 +3071,367 @@ Procedure Main()
                   ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
                   ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                 EndIf
-                
-                
               Else
-                Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
-                
-                Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
-                
-              EndIf
-            EndIf
-            
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-            
-          EndIf
-          
-          
-          If \Trigger_Memory_Button_Playback_Enter
-            \Trigger_Memory_Button_Playback_Enter = 0
-            If \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
-              PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Memory_Playback_Enter))
-            Else
-              PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Memory_Playback_Enter))
-            EndIf
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-          EndIf
-          
-          
-          If \Trigger_Chord_Button_Major = 1
-            \Trigger_Chord_Button_Major = 0
-            If (\Mouse_Position_X_Current-271)%31 <= 20
-              If Not \Keymap(\Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
-                PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
-              Else
-                PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
-              EndIf
-            EndIf
-          ElseIf \Trigger_Chord_Button_Major = 2
-            \Trigger_Chord_Button_Major = 0
-            If (\Mouse_Position_X_Current-271)%31 <= 20
-              PauseThread(Chordian\RepaintHandler_Thread)
-              StartDrawing(CanvasOutput(#Gad_Canvas))
-              DrawAlphaImage(ImageID(#Img_Button_Red_On), 271+((\Mouse_Position_X_Current-271)/31)*31, 240)
-              StopDrawing()
-              ResumeThread(Chordian\RepaintHandler_Thread)
-              Repeat
-                Event = WaitWindowEvent()
-                Select Event
-                  Case #PB_Event_Gadget
-                    Select EventGadget()
-                      Case #Gad_Canvas
-                        Select EventType()
-                          Case #PB_EventType_KeyUp
-                            Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                              Case #VK_ESCAPE
-                                PauseThread(Chordian\RepaintHandler_Thread)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                ResumeThread(Chordian\RepaintHandler_Thread)
-                                Break
-                              Default
-                                \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                PauseThread(Chordian\RepaintHandler_Thread)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                ResumeThread(Chordian\RepaintHandler_Thread)
-                                Break
-                            EndSelect
-                            
-                          Case #PB_EventType_LeftButtonDown
-                            \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                            \Mouse_Button_Left_Current = 1
-                            PauseThread(Chordian\RepaintHandler_Thread)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                            ResumeThread(Chordian\RepaintHandler_Thread)
-                            Break
-                            
-                          Case #PB_EventType_LeftButtonUp
-                            \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                            \Mouse_Button_Left_Current = 0
-                            
-                          Case #PB_EventType_RightButtonDown
-                            \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                            \Mouse_Button_Right_Current = 1
-                            PauseThread(Chordian\RepaintHandler_Thread)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                            ResumeThread(Chordian\RepaintHandler_Thread)
-                            Break
-                            
-                          Case #PB_EventType_RightButtonUp
-                            \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                            \Mouse_Button_Right_Current = 0
-                            
-                          Case #PB_EventType_MiddleButtonDown
-                            \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                            \Mouse_Button_Middle_Current = 1
-                            PauseThread(Chordian\RepaintHandler_Thread)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                            ResumeThread(Chordian\RepaintHandler_Thread)
-                            Break
-                            
-                          Case #PB_EventType_MiddleButtonUp
-                            \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
-                            \Mouse_Button_Middle_Current = 0
-                            
-                        EndSelect
-                    EndSelect
-                  Case #PB_Event_CloseWindow
-                    PostEvent(#PB_Event_CloseWindow)
-                    Break
-                  Default
-                EndSelect
-              ForEver
-            EndIf
-          EndIf
-          
-          If \Trigger_Chord_Button_Minor = 1
-            \Trigger_Chord_Button_Minor = 0
-            If (\Mouse_Position_X_Current-286)%31 <= 20
-              If Not \Keymap(\Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
-                PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
-              Else
-                PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
-              EndIf
-            EndIf
-          ElseIf \Trigger_Chord_Button_Minor = 2
-            \Trigger_Chord_Button_Minor = 0
-            If (\Mouse_Position_X_Current-286)%31 <= 20
-              PauseThread(Chordian\RepaintHandler_Thread)
-              StartDrawing(CanvasOutput(#Gad_Canvas))
-              DrawAlphaImage(ImageID(#Img_Button_Red_On), 286+((\Mouse_Position_X_Current-286)/31)*31, 283)
-              StopDrawing()
-              ResumeThread(Chordian\RepaintHandler_Thread)
-              Repeat
-                Event = WaitWindowEvent()
-                Select Event
-                  Case #PB_Event_Gadget
-                    Select EventGadget()
-                      Case #Gad_Canvas
-                        Select EventType()
-                          Case #PB_EventType_KeyUp
-                            Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                              Case #VK_ESCAPE
-                                PauseThread(Chordian\RepaintHandler_Thread)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                ResumeThread(Chordian\RepaintHandler_Thread)
-                                Break
-                              Default
-                                \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                PauseThread(Chordian\RepaintHandler_Thread)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                ResumeThread(Chordian\RepaintHandler_Thread)
-                                Break
-                            EndSelect
-                            
-                          Case #PB_EventType_LeftButtonDown
-                            \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                            \Mouse_Button_Left_Current = 1
-                            PauseThread(Chordian\RepaintHandler_Thread)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                            ResumeThread(Chordian\RepaintHandler_Thread)
-                            Break
-                            
-                          Case #PB_EventType_LeftButtonUp
-                            \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                            \Mouse_Button_Left_Current = 0
-                            
-                          Case #PB_EventType_RightButtonDown
-                            \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                            \Mouse_Button_Right_Current = 1
-                            PauseThread(Chordian\RepaintHandler_Thread)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                            ResumeThread(Chordian\RepaintHandler_Thread)
-                            Break
-                            
-                          Case #PB_EventType_RightButtonUp
-                            \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                            \Mouse_Button_Right_Current = 0
-                            
-                          Case #PB_EventType_MiddleButtonDown
-                            \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                            \Mouse_Button_Middle_Current = 1
-                            PauseThread(Chordian\RepaintHandler_Thread)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                            ResumeThread(Chordian\RepaintHandler_Thread)
-                            Break
-                            
-                          Case #PB_EventType_MiddleButtonUp
-                            \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
-                            \Mouse_Button_Middle_Current = 0
-                            
-                        EndSelect
-                    EndSelect
-                  Case #PB_Event_CloseWindow
-                    PostEvent(#PB_Event_CloseWindow)
-                    Break
-                  Default
-                EndSelect
-              ForEver
-            EndIf
-          EndIf
-          
-          If \Trigger_Chord_Button_7th = 1
-            \Trigger_Chord_Button_7th = 0
-            If (\Mouse_Position_X_Current-301)%31 <= 20
-              If Not \Keymap(\Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
-                PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
-              Else
-                PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
-              EndIf
-            EndIf
-          ElseIf \Trigger_Chord_Button_7th = 2
-            \Trigger_Chord_Button_7th = 0
-            If (\Mouse_Position_X_Current-301)%31 <= 20
-              PauseThread(Chordian\RepaintHandler_Thread)
-              StartDrawing(CanvasOutput(#Gad_Canvas))
-              DrawAlphaImage(ImageID(#Img_Button_Red_On), 301+((\Mouse_Position_X_Current-301)/31)*31, 326)
-              StopDrawing()
-              ResumeThread(Chordian\RepaintHandler_Thread)
-              Repeat
-                Event = WaitWindowEvent()
-                Select Event
-                  Case #PB_Event_Gadget
-                    Select EventGadget()
-                      Case #Gad_Canvas
-                        Select EventType()
-                          Case #PB_EventType_KeyUp
-                            Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                              Case #VK_ESCAPE
-                                PauseThread(Chordian\RepaintHandler_Thread)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                ResumeThread(Chordian\RepaintHandler_Thread)
-                                Break
-                              Default
-                                \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                PauseThread(Chordian\RepaintHandler_Thread)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                ResumeThread(Chordian\RepaintHandler_Thread)
-                                Break
-                            EndSelect
-                            
-                          Case #PB_EventType_LeftButtonDown
-                            \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                            \Mouse_Button_Left_Current = 1
-                            PauseThread(Chordian\RepaintHandler_Thread)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                            ResumeThread(Chordian\RepaintHandler_Thread)
-                            Break
-                            
-                          Case #PB_EventType_LeftButtonUp
-                            \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                            \Mouse_Button_Left_Current = 0
-                            
-                          Case #PB_EventType_RightButtonDown
-                            \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                            \Mouse_Button_Right_Current = 1
-                            PauseThread(Chordian\RepaintHandler_Thread)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                            ResumeThread(Chordian\RepaintHandler_Thread)
-                            Break
-                            
-                          Case #PB_EventType_RightButtonUp
-                            \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                            \Mouse_Button_Right_Current = 0
-                            
-                          Case #PB_EventType_MiddleButtonDown
-                            \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                            \Mouse_Button_Middle_Current = 1
-                            PauseThread(Chordian\RepaintHandler_Thread)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                            ResumeThread(Chordian\RepaintHandler_Thread)
-                            Break
-                            
-                          Case #PB_EventType_MiddleButtonUp
-                            \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
-                            \Mouse_Button_Middle_Current = 0
-                            
-                        EndSelect
-                    EndSelect
-                  Case #PB_Event_CloseWindow
-                    PostEvent(#PB_Event_CloseWindow)
-                    Break
-                  Default
-                EndSelect
-              ForEver
-            EndIf
-          EndIf
-          
-          If \Trigger_Chordiate
-            \Trigger_Chordiate = 0
-            If \Keymap(\Keymap_Function(#Btn_Chordiate))
-              PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Chordiate))
-            Else
-              PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Chordiate))
-            EndIf
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-          EndIf
-          
-          If \Trigger_Harp
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 752, 131, 800, 150)
-              Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
-              Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-              For i = #Note_First To #Note_Last
-                For n = #Chord_First To #Chord_Last
-                  \Keymap(\Keymap_Chord(n, i)) = 0
-                Next
-              Next
-              Chordian\Machine_State\Value_Internal_Tick = 0
-              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
-              PauseThread(Chordian\RepaintHandler_Thread)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-              ResumeThread(Chordian\RepaintHandler_Thread)
-            Else
-              If \Trigger_Harp
-                Select \Mouse_Position_Y_Current
-                  Case 92 To 388
-                    If Not Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-388)/24)
-                      For i = #Harp_First To #Harp_Last
-                        Chordian\Machine_State\Status_Harp(i) = 0
-                      Next
-                      
-                      Chordian\Machine_State\Status_Harp(#Harp_First-(\Mouse_Position_Y_Current-388)/24) = 1
-                      
-                      If \Trigger_Harp & 1
-                        Select \PrimaryStrumMode
-                          Case #Str_None
-                          Case #Str_Single
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                          Case #Str_Double
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Chord
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Spread
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+4-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Octave
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+3-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+6-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+9-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Full
-                            For i = #Snd_Harp_First To #Snd_Harp_Last
-                              Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
-                            Next
-                          Case #Str_Reverse
-                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Mirror
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Segment
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            Select (-(\Mouse_Position_Y_Current-388)/24)%3
-                              Case 0
-                                If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                                EndIf
-                              Case 2
-                                If #Harp_First-2-(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                                EndIf
-                            EndSelect
-                        EndSelect
-                      EndIf
-                      
-                      If \Trigger_Harp & 2
-                        Select \SecondaryStrumMode
-                          Case #Str_None
-                          Case #Str_Single
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                          Case #Str_Double
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Chord
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Spread
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+4-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Octave
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+3-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+6-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+9-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Full
-                            For i = #Snd_Harp_First To #Snd_Harp_Last
-                              Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
-                            Next
-                          Case #Str_Reverse
-                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Mirror
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Segment
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            Select (-(\Mouse_Position_Y_Current-388)/24)%3
-                              Case 0
-                                If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                                EndIf
-                              Case 2
-                                If #Harp_First-2-(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                                EndIf
-                            EndSelect
-                        EndSelect
-                      EndIf
-                      
-                      If \Trigger_Harp & 4
-                        Select \TertiaryStrumMode
-                          Case #Str_None
-                          Case #Str_Single
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                          Case #Str_Double
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Chord
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+1-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+1-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Spread
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+4-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+4-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Octave
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_First+3-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+3-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+6-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+6-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                            If #Harp_First+9-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_First+9-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Full
-                            For i = #Snd_Harp_First To #Snd_Harp_Last
-                              Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
-                            Next
-                          Case #Str_Reverse
-                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Mirror
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            If #Harp_Last+(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last And #Harp_Last+(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
-                              Chordian\Machine_State\Status_Sound(#Snd_Harp_Last+(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            EndIf
-                          Case #Str_Segment
-                            Chordian\Machine_State\Status_Sound(#Snd_Harp_First-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                            Select (-(\Mouse_Position_Y_Current-388)/24)%3
-                              Case 0
-                                If #Harp_First+2-(\Mouse_Position_Y_Current-388)/24 <= #Harp_Last
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                                EndIf
-                              Case 2
-                                If #Harp_First-2-(\Mouse_Position_Y_Current-388)/24 >= #Harp_First
-                                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First-2-(\Mouse_Position_Y_Current-388)/24) = #Curve_Trigger
-                                EndIf
-                            EndSelect
-                        EndSelect
-                      EndIf
-                      
-                    EndIf
-                    
-                  Default
-                    For i = #Harp_First To #Harp_Last
-                      Chordian\Machine_State\Status_Harp(i) = 0
-                    Next
-                    
-                EndSelect
-              EndIf
-              
-            EndIf
-          EndIf
-        EndWith
-        
-        
-      Case #Event_HandleChordKeys
-        ;--HandleChordKeys
-        With Chordian\Input_State
-          If Chordian\Machine_State\Value_Master_Button_Power_OnOff
-            If Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff Or (Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
-              If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                Chordian\Machine_State\Value_Internal_Tick = 0
-                SendNewTick = 1
-              EndIf
-              
-              Select \LastKey
-                Case \Keymap_Chord(#Chord_Maj, #Note_Db), \Keymap_Chord(#Chord_Min, #Note_Db), \Keymap_Chord(#Chord_7th, #Note_Db)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Db
-                Case \Keymap_Chord(#Chord_Maj, #Note_Ab), \Keymap_Chord(#Chord_Min, #Note_Ab), \Keymap_Chord(#Chord_7th, #Note_Ab)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ab
-                Case \Keymap_Chord(#Chord_Maj, #Note_Eb), \Keymap_Chord(#Chord_Min, #Note_Eb), \Keymap_Chord(#Chord_7th, #Note_Eb)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Eb
-                Case \Keymap_Chord(#Chord_Maj, #Note_Bb), \Keymap_Chord(#Chord_Min, #Note_Bb), \Keymap_Chord(#Chord_7th, #Note_Bb)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Bb
-                Case \Keymap_Chord(#Chord_Maj, #Note_F), \Keymap_Chord(#Chord_Min, #Note_F), \Keymap_Chord(#Chord_7th, #Note_F)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_F
-                Case \Keymap_Chord(#Chord_Maj, #Note_C), \Keymap_Chord(#Chord_Min, #Note_C), \Keymap_Chord(#Chord_7th, #Note_C)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_C
-                Case \Keymap_Chord(#Chord_Maj, #Note_G), \Keymap_Chord(#Chord_Min, #Note_G), \Keymap_Chord(#Chord_7th, #Note_G)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_G
-                Case \Keymap_Chord(#Chord_Maj, #Note_D), \Keymap_Chord(#Chord_Min, #Note_D), \Keymap_Chord(#Chord_7th, #Note_D)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_D
-                Case \Keymap_Chord(#Chord_Maj, #Note_A), \Keymap_Chord(#Chord_Min, #Note_A), \Keymap_Chord(#Chord_7th, #Note_A)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_A
-                Case \Keymap_Chord(#Chord_Maj, #Note_E), \Keymap_Chord(#Chord_Min, #Note_E), \Keymap_Chord(#Chord_7th, #Note_E)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_E
-                Case \Keymap_Chord(#Chord_Maj, #Note_B), \Keymap_Chord(#Chord_Min, #Note_B), \Keymap_Chord(#Chord_7th, #Note_B)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_B
-                Case \Keymap_Chord(#Chord_Maj, #Note_Fc), \Keymap_Chord(#Chord_Min, #Note_Fc), \Keymap_Chord(#Chord_7th, #Note_Fc)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Fc
-              EndSelect
-              
-              If Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None
-                If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And
-                   \Keymap(\Keymap_Chord(#Chord_Maj, #Note_A)) And
-                   \Keymap(\Keymap_Chord(#Chord_Maj, #Note_E)) And
-                   \Keymap(\Keymap_Chord(#Chord_Maj, #Note_B))
-                  
-                  Chordian\Machine_State\Value_Internal_Memory_Position_Current - 1
-                  If Chordian\Machine_State\Value_Internal_Memory_Position_Current < 0
-                    Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+                If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
+                  ;--Keyboard
+                  If \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Eb)) And Not Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown
+                    Chordian\Machine_State\Value_Internal_Keyboard_Transpose - 1
+                    Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown = 1
+                  ElseIf Not \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Eb))
+                    Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown = 0
                   EndIf
-                  
-                  For i = #Snd_Bass_First To #Snd_Bass_Last
-                    Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                  Next
-                  For i = #Snd_Chord_First To #Snd_Chord_Last
-                    Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                  Next
-                  For i = #Snd_Harp_First To #Snd_Harp_Last
-                    Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                  Next
-                  
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
-                  Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
-                  
-                  SendNewChord = 1
-                  
-                ElseIf Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And
-                       \Keymap(\Keymap_Chord(#Chord_7th, #Note_A)) And
+                  If \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Bb)) And Not Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp
+                    Chordian\Machine_State\Value_Internal_Keyboard_Transpose + 1
+                    Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 1
+                  ElseIf Not \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Bb))
+                    Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 0
+                  EndIf
+                  If \LastKey = \Keymap_Chord(#Chord_7th, #Note_A) Or \LastKey = \Keymap_Chord(#Chord_7th, #Note_E) Or \LastKey = \Keymap_Chord(#Chord_7th, #Note_B)
+                    If \Keymap(\Keymap_Chord(#Chord_7th, #Note_A)) And
                        \Keymap(\Keymap_Chord(#Chord_7th, #Note_E)) And
                        \Keymap(\Keymap_Chord(#Chord_7th, #Note_B))
-                  
-                  Chordian\Machine_State\Value_Internal_Memory_Position_Skip = Chordian\Machine_State\Value_Internal_Memory_Position_Current
-                  
-                  Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
-                  
-                Else
-                  
-                  If \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And
-                     \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And
-                     \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
-                    If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Chr
-                    Else
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
-                    EndIf
-                    SendNewChord = 1
-                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                      SendNewTick = 1
-                    EndIf
-                  ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And
-                         \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note))
-                    If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
-                      If \LastKeyEventWasDown
-                        \LastKeyEventWasDown = 0
-                        If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_As2
-                        Else
-                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
+                      
+                      Chordian\Machine_State\Value_Internal_Memory_Position_Current = Chordian\Machine_State\Value_Internal_Memory_Position_Skip
+                      
+                      If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                        Chordian\Machine_State\Value_Internal_Tick = 0
+                        SendNewTick = 1
+                      EndIf
+                      
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0)
+                      Chordian\Machine_State\Value_Internal_Chord_Note = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1)
+                      
+                      If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                        For i = #Snd_Bass_First To #Snd_Bass_Last
+                          Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                        Next
+                        For i = #Snd_Chord_First To #Snd_Chord_Last
+                          Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                        Next
+                        For i = #Snd_Harp_First To #Snd_Harp_Last
+                          Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                        Next
+                        
+                        Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
+                      EndIf
+                      
+                      SendNewChord = 1
+                      If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                        SendNewTick = 1
+                      EndIf
+                      
+                      If SendNewChord
+                        SendNewChord = 0
+                        If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                          Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                          For i = #Snd_Chord_First To #Snd_Chord_Last
+                            Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
+                          Next
                         EndIf
-                        SendNewChord = 1
-                      EndIf
-                    Else
-                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_As2
-                      Else
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim
-                      EndIf
-                      SendNewChord = 1
-                    EndIf
-                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                      SendNewTick = 1
-                    EndIf
-                  ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And
-                         \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
-                    If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
-                      If \LastKeyEventWasDown
-                        \LastKeyEventWasDown = 0
-                        If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ac4
-                        Else
-                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
+                        If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
                         EndIf
-                        SendNewChord = 1
+                        
+                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                       EndIf
-                    Else
-                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ac4
-                      Else
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7
+                      If SendNewTick
+                        SendNewTick = 0
+                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                       EndIf
-                      SendNewChord = 1
+                      
+                      Chordian\Machine_State\Value_Internal_Memory_Position_Current + 1
                     EndIf
-                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                      SendNewTick = 1
+                  EndIf
+                  
+                  Select Chordian\Machine_State\Value_External_ChordiateMode
+                    Case 1
+                      KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, -2, 2)
+                    Default
+                      KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, 0, 1)
+                  EndSelect
+                  
+                  If \Keymap(\Keymap_Chord(#Chord_7th, #Note_Db))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 48 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 48 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                     EndIf
-                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And
-                         \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
-                    If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug
-                      If \LastKeyEventWasDown
-                        \LastKeyEventWasDown = 0
-                        If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mc4
-                        Else
-                          Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
-                        EndIf
-                        SendNewChord = 1
-                      EndIf
-                    Else
-                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mc4
-                      Else
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7
-                      EndIf
-                      SendNewChord = 1
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Ab))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 49 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 49 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                     EndIf
-                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                      SendNewTick = 1
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Ab))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 50 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 50 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                     EndIf
-                  ElseIf \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note))
-                    If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
-                    Else
-                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ad9
-                      Else
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Maj
-                      EndIf
-                      SendNewChord = 1
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Eb))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 51 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 51 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                     EndIf
-                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                      SendNewTick = 1
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Eb))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 52 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 52 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                     EndIf
-                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note))
-                    If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
-                    Else
-                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Su4
-                      Else
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Min
-                      EndIf
-                      SendNewChord = 1
+                    
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Bb))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 53 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 53 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                     EndIf
-                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                      SendNewTick = 1
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_F))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 54 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 54 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                     EndIf
-                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
-                    If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And (Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Aug Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Dim Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ma7 Or Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Mi7)
-                    Else
-                      If Chordian\Machine_State\Value_External_ChordiateMode And \Keymap(\Keymap_Function(#Btn_Chordiate))
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ad2
-                      Else
-                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_7th
-                      EndIf
-                      SendNewChord = 1
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_F))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 55 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 55 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                     EndIf
-                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current  = #Rhythm_None
-                      SendNewTick = 1
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_C))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 56 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 56 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
                     EndIf
-                  ElseIf Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
-                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
-                    Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_C))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 57 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 57 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_G))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 58 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 58 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_G))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 59 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 59 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                    
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_D))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 60 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 60 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_A))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 61 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 61 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_A))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 62 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 62 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_E))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 63 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 63 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_E))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 64 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 64 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                    
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_B))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 65 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 65 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Fc))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 66 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 66 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                  ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Fc))
+                    If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 67 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = 67 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
+                    EndIf
+                  Else
+                    If Chordian\Machine_State\Status_Sound(#Snd_Keyboard) <> #Curve_None Or
+                       Chordian\Machine_State\Status_Sound(#Snd_Keyboard) <> #Curve_Release
+                      Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Release
+                      Chordian\Machine_State\Value_Internal_Keyboard_Note = -1
+                    EndIf
+                    
                   EndIf
                 EndIf
-              ElseIf Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
-                SendNewChord = 1
+              EndIf
+            EndIf
+          EndWith
+          
+        Case #Event_HandleHarpKeys
+          ;--HandleHarpKeys
+          With Chordian\Input_State
+            If Chordian\Machine_State\Value_Master_Button_Power_OnOff
+              For i = #Harp_First-#Harp_First To #Harp_Last-#Harp_First
+                If \Keymap(\Keymap_Harp(i))
+                  If Not Chordian\Machine_State\Status_Harp(i)
+                    Chordian\Machine_State\Status_Harp(i) = 1
+                    Chordian\Machine_State\Status_Sound(#Snd_Harp_First+i) = #Curve_Trigger
+                  EndIf
+                Else
+                  Chordian\Machine_State\Status_Harp(i) = 0
+                EndIf
+              Next
+            EndIf
+          EndWith
+          
+          ;--HandleFunctionKeys
+        Case #Event_HandleFunctionKeys
+          With Chordian\Input_State
+            If Chordian\Machine_State\Value_Memory_Button_Playback_Enter <> \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
+              Chordian\Machine_State\Value_Memory_Button_Playback_Enter = \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
+              If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
+                If Chordian\Machine_State\Value_Memory_Button_Playback_Enter
+                  If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
+                    If Chordian\Machine_State\Value_Internal_Memory_Position_Current <= ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note())
+                      If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                        Chordian\Machine_State\Value_Internal_Tick = 0
+                        SendNewTick = 1
+                      EndIf
+                      
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0)
+                      Chordian\Machine_State\Value_Internal_Chord_Note = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1)
+                      
+                      If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                        For i = #Snd_Bass_First To #Snd_Bass_Last
+                          Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                        Next
+                        For i = #Snd_Chord_First To #Snd_Chord_Last
+                          Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                        Next
+                        For i = #Snd_Harp_First To #Snd_Harp_Last
+                          Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                        Next
+                        
+                        Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
+                      EndIf
+                      
+                      SendNewChord = 1
+                      If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                        SendNewTick = 1
+                      EndIf
+                      
+                      If SendNewChord
+                        SendNewChord = 0
+                        If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                          Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                          For i = #Snd_Chord_First To #Snd_Chord_Last
+                            Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
+                          Next
+                        EndIf
+                        If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                          ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+                        EndIf
+                        
+                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      EndIf
+                      If SendNewTick
+                        SendNewTick = 0
+                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                      EndIf
+                      
+                      Chordian\Machine_State\Value_Internal_Memory_Position_Current + 1
+                      
+                    Else
+                      Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
+                      
+                    EndIf
+                    
+                  Else
+                    If Chordian\Machine_State\Value_Internal_Memory_Position_Current <= ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note())
+                      
+                      If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                        Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
+                        Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
+                      EndIf
+                      
+                      Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0) = Chordian\Machine_State\Value_Internal_Chord_Chord
+                      Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1) = Chordian\Machine_State\Value_Internal_Chord_Note
+                      
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
+                      Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                      
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+                      
+                      Chordian\Machine_State\Value_Internal_Memory_Position_Current + 1
+                      
+                      Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
+                      
+                    Else
+                      Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Trigger
+                      
+                    EndIf
+                    
+                  EndIf
+                EndIf
               EndIf
               
-              If SendNewChord
-                SendNewChord = 0
-                If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
-                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
-                  For i = #Snd_Chord_First To #Snd_Chord_Last
-                    Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
-                  Next
-                EndIf
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-              EndIf
-              If SendNewTick
-                SendNewTick = 0
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-              EndIf
-            Else
-              If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
-                ;--Keyboard
-                If \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Eb)) And Not Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown
-                  Chordian\Machine_State\Value_Internal_Keyboard_Transpose - 1
-                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown = 1
-                ElseIf Not \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Eb))
-                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonDown = 0
-                EndIf
-                If \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Bb)) And Not Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp
-                  Chordian\Machine_State\Value_Internal_Keyboard_Transpose + 1
-                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 1
-                ElseIf Not \Keymap(\Keymap_Chord(#Chord_Maj, #Note_Bb))
-                  Chordian\Machine_State\Value_Internal_Keyboard_ButtonUp = 0
-                EndIf
-                If \LastKey = \Keymap_Chord(#Chord_7th, #Note_A) Or \LastKey = \Keymap_Chord(#Chord_7th, #Note_E) Or \LastKey = \Keymap_Chord(#Chord_7th, #Note_B)
-                  If \Keymap(\Keymap_Chord(#Chord_7th, #Note_A)) And
-                     \Keymap(\Keymap_Chord(#Chord_7th, #Note_E)) And
-                     \Keymap(\Keymap_Chord(#Chord_7th, #Note_B))
-                    
-                    Chordian\Machine_State\Value_Internal_Memory_Position_Current = Chordian\Machine_State\Value_Internal_Memory_Position_Skip
-                    
-                    If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                      Chordian\Machine_State\Value_Internal_Tick = 0
-                      SendNewTick = 1
-                    EndIf
-                    
-                    Chordian\Machine_State\Value_Internal_Chord_Chord = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0)
-                    Chordian\Machine_State\Value_Internal_Chord_Note = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1)
-                    
-                    If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                      For i = #Snd_Bass_First To #Snd_Bass_Last
-                        Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                      Next
-                      For i = #Snd_Chord_First To #Snd_Chord_Last
-                        Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                      Next
-                      For i = #Snd_Harp_First To #Snd_Harp_Last
-                        Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                      Next
-                      
-                      Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
-                    EndIf
-                    
-                    SendNewChord = 1
-                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                      SendNewTick = 1
-                    EndIf
-                    
-                    If SendNewChord
-                      SendNewChord = 0
-                      If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
-                        Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
-                        For i = #Snd_Chord_First To #Snd_Chord_Last
-                          Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
-                        Next
-                      EndIf
-                      If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
-                      EndIf
-                      
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    EndIf
-                    If SendNewTick
-                      SendNewTick = 0
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    EndIf
-                    
-                    Chordian\Machine_State\Value_Internal_Memory_Position_Current + 1
-                  EndIf
-                EndIf
-                
-                Select Chordian\Machine_State\Value_External_ChordiateMode
-                  Case 1
-                    KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, -2, 2)
-                  Default
-                    KeepInRange(Chordian\Machine_State\Value_Internal_Keyboard_Transpose, 0, 1)
-                EndSelect
-                
-                If \Keymap(\Keymap_Chord(#Chord_7th, #Note_Db))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 48 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 48 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Ab))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 49 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 49 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Ab))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 50 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 50 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Eb))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 51 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 51 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Eb))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 52 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 52 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                  
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Bb))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 53 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 53 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_F))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 54 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 54 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_F))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 55 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 55 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_C))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 56 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 56 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_C))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 57 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 57 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_G))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 58 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 58 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_G))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 59 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 59 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                  
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_D))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 60 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 60 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_A))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 61 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 61 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_A))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 62 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 62 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_E))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 63 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 63 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_E))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 64 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 64 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                  
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_B))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 65 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 65 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_Min, #Note_Fc))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 66 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 66 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                ElseIf \Keymap(\Keymap_Chord(#Chord_7th, #Note_Fc))
-                  If Chordian\Machine_State\Value_Internal_Keyboard_Note <> 67 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = 67 + (12 * Chordian\Machine_State\Value_Internal_Keyboard_Transpose)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Trigger
-                  EndIf
-                Else
-                  If Chordian\Machine_State\Status_Sound(#Snd_Keyboard) <> #Curve_None Or
-                     Chordian\Machine_State\Status_Sound(#Snd_Keyboard) <> #Curve_Release
-                    Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_Release
-                    Chordian\Machine_State\Value_Internal_Keyboard_Note = -1
-                  EndIf
-                  
-                EndIf
-              EndIf
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
             EndIf
+          EndWith
+          
+        Case #PB_Event_Repaint
+          PauseThread(Chordian\RepaintHandler_Thread)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+          ResumeThread(Chordian\RepaintHandler_Thread)
+          
+        Case #PB_Event_CloseWindow
+          KillThread(Chordian\SynthHandler_Thread)
+          KillThread(Chordian\FrequencyHandler_Thread)
+          KillThread(Chordian\MachineHandler_Thread)
+          KillThread(Chordian\PatternHandler_Thread)
+          KillThread(Chordian\RepaintHandler_Thread)
+          DirectSound\Release()
+          If MIDIHandle
+            midiOutClose_(MIDIHandle)
           EndIf
-        EndWith
-        
-      Case #Event_HandleHarpKeys
-        ;--HandleHarpKeys
-        With Chordian\Input_State
-          If Chordian\Machine_State\Value_Master_Button_Power_OnOff
-            For i = #Harp_First-#Harp_First To #Harp_Last-#Harp_First
-              If \Keymap(\Keymap_Harp(i))
-                If Not Chordian\Machine_State\Status_Harp(i)
-                  Chordian\Machine_State\Status_Harp(i) = 1
-                  Chordian\Machine_State\Status_Sound(#Snd_Harp_First+i) = #Curve_Trigger
-                EndIf
-              Else
-                Chordian\Machine_State\Status_Harp(i) = 0
-              EndIf
-            Next
-          EndIf
-        EndWith
-        
-        ;--HandleFunctionKeys
-      Case #Event_HandleFunctionKeys
-        With Chordian\Input_State
-          If Chordian\Machine_State\Value_Memory_Button_Playback_Enter <> \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
-            Chordian\Machine_State\Value_Memory_Button_Playback_Enter = \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
-            If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
-              If Chordian\Machine_State\Value_Memory_Button_Playback_Enter
-                If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
-                  If Chordian\Machine_State\Value_Internal_Memory_Position_Current <= ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note())
-                    If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                      Chordian\Machine_State\Value_Internal_Tick = 0
-                      SendNewTick = 1
-                    EndIf
-                    
-                    Chordian\Machine_State\Value_Internal_Chord_Chord = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0)
-                    Chordian\Machine_State\Value_Internal_Chord_Note = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1)
-                    
-                    If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                      For i = #Snd_Bass_First To #Snd_Bass_Last
-                        Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                      Next
-                      For i = #Snd_Chord_First To #Snd_Chord_Last
-                        Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                      Next
-                      For i = #Snd_Harp_First To #Snd_Harp_Last
-                        Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                      Next
-                      
-                      Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
-                    EndIf
-                    
-                    SendNewChord = 1
-                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                      SendNewTick = 1
-                    EndIf
-                    
-                    If SendNewChord
-                      SendNewChord = 0
-                      If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
-                        Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
-                        For i = #Snd_Chord_First To #Snd_Chord_Last
-                          Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
-                        Next
-                      EndIf
-                      If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
-                      EndIf
-                      
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    EndIf
-                    If SendNewTick
-                      SendNewTick = 0
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                    EndIf
-                    
-                    Chordian\Machine_State\Value_Internal_Memory_Position_Current + 1
-                    
-                  Else
-                    Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
-                    
-                  EndIf
-                  
-                Else
-                  If Chordian\Machine_State\Value_Internal_Memory_Position_Current <= ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note())
-                    
-                    If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                      Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
-                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
-                    EndIf
-                    
-                    Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0) = Chordian\Machine_State\Value_Internal_Chord_Chord
-                    Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1) = Chordian\Machine_State\Value_Internal_Chord_Note
-                    
-                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
-                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                    
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
-                    
-                    Chordian\Machine_State\Value_Internal_Memory_Position_Current + 1
-                    
-                    Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
-                    
-                  Else
-                    Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Trigger
-                    
-                  EndIf
-                  
-                EndIf
-              EndIf
-            EndIf
-            
-            PauseThread(Chordian\RepaintHandler_Thread)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-            ResumeThread(Chordian\RepaintHandler_Thread)
-          EndIf
-        EndWith
-        
-      Case #PB_Event_Repaint
-        PauseThread(Chordian\RepaintHandler_Thread)
-        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
-        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-        ResumeThread(Chordian\RepaintHandler_Thread)
-        
-      Case #PB_Event_CloseWindow
-        KillThread(Chordian\SynthHandler_Thread)
-        KillThread(Chordian\FrequencyHandler_Thread)
-        KillThread(Chordian\MachineHandler_Thread)
-        KillThread(Chordian\PatternHandler_Thread)
-        KillThread(Chordian\RepaintHandler_Thread)
-        DirectSound\Release()
-        If MIDIHandle
-          midiOutClose_(MIDIHandle)
-        EndIf
-        End
-        
-    EndSelect
+          End
+          
+      EndSelect
+    EndIf
   ForEver
   
 EndProcedure

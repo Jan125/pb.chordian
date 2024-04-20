@@ -565,7 +565,7 @@ Procedure.i SynthHandler(*Void)
               i-1
               Continue
             Case #Curve_Decay
-              \Status_Volume(i)-(1.001-\Status_Volume(i))*((1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.05)
+              \Status_Volume(i)-(1.001-\Status_Volume(i))*((1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.10)
               If \Status_Volume(i) < 0.9
                 \Status_Sound(i) = #Curve_Release
                 i-1
