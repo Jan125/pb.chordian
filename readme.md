@@ -127,6 +127,16 @@ Overview of the symbols:
 - I: Ignore: Does not stand for any command and will be ignored.
 
 
+## **Chord Editor:**
+
+![Screenshot of Chordian's Chord Editor on Windows 10](_media/chordedit.png)
+
+The Pattern Editor is a custom feature of Chordian that allows you to define your own chords.
+
+The shown values are the offset from the root note in semitones, from 0 to 11.\
+Notes are automatically transposed to a value appropriate to the Omnichord, where applicable.
+
+
 ## **Troubleshooting:**
 
 Please make sure you have the recommended system requirements if you encounter stuttering or other weird behaviour:
@@ -189,6 +199,7 @@ These things are currently implemented:
 These things are currently partially implemented:
 
 - Midi output
+- Chord editor
 
 
 These things are currently not implemented:

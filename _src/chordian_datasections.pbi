@@ -99,31 +99,47 @@ DataSection
   Img_LED_On:
   IncludeBinary "img\led_on.png"
   
-  Img_PatEdit_Curve_None:
-  IncludeBinary "img\patedit_curve_none.png"
-  Img_PatEdit_Curve_Trigger:
-  IncludeBinary "img\patedit_curve_trigger.png"
-  Img_PatEdit_Curve_Attack:
-  IncludeBinary "img\patedit_curve_attack.png"
-  Img_PatEdit_Curve_Decay:
-  IncludeBinary "img\patedit_curve_decay.png"
-  Img_PatEdit_Curve_Sustain:
-  IncludeBinary "img\patedit_curve_sustain.png"
-  Img_PatEdit_Curve_Release:
-  IncludeBinary "img\patedit_curve_release.png"
-  Img_PatEdit_Curve_Oneshot:
-  IncludeBinary "img\patedit_curve_oneshot.png"
-  Img_PatEdit_Curve_Ignore:
-  IncludeBinary "img\patedit_curve_ignore.png"
+  Img_UI_Curve_None:
+  IncludeBinary "img\ui_curve_none.png"
+  Img_UI_Curve_Trigger:
+  IncludeBinary "img\ui_curve_trigger.png"
+  Img_UI_Curve_Attack:
+  IncludeBinary "img\ui_curve_attack.png"
+  Img_UI_Curve_Decay:
+  IncludeBinary "img\ui_curve_decay.png"
+  Img_UI_Curve_Sustain:
+  IncludeBinary "img\ui_curve_sustain.png"
+  Img_UI_Curve_Release:
+  IncludeBinary "img\ui_curve_release.png"
+  Img_UI_Curve_Oneshot:
+  IncludeBinary "img\ui_curve_oneshot.png"
+  Img_UI_Curve_Ignore:
+  IncludeBinary "img\ui_curve_ignore.png"
   
-  Img_PatEdit_Note_1:
-  IncludeBinary "img\patedit_note_1.png"
-  Img_PatEdit_Note_2:
-  IncludeBinary "img\patedit_note_2.png"
-  Img_PatEdit_Note_3:
-  IncludeBinary "img\patedit_note_3.png"
-  Img_PatEdit_Note_4:
-  IncludeBinary "img\patedit_note_4.png"
+  Img_UI_Note_0:
+  IncludeBinary "img\ui_note_0.png"
+  Img_UI_Note_1:
+  IncludeBinary "img\ui_note_1.png"
+  Img_UI_Note_2:
+  IncludeBinary "img\ui_note_2.png"
+  Img_UI_Note_3:
+  IncludeBinary "img\ui_note_3.png"
+  Img_UI_Note_4:
+  IncludeBinary "img\ui_note_4.png"
+  Img_UI_Note_5:
+  IncludeBinary "img\ui_note_5.png"
+  Img_UI_Note_6:
+  IncludeBinary "img\ui_note_6.png"
+  Img_UI_Note_7:
+  IncludeBinary "img\ui_note_7.png"
+  Img_UI_Note_8:
+  IncludeBinary "img\ui_note_8.png"
+  Img_UI_Note_9:
+  IncludeBinary "img\ui_note_9.png"
+  Img_UI_Note_10:
+  IncludeBinary "img\ui_note_10.png"
+  Img_UI_Note_11:
+  IncludeBinary "img\ui_note_11.png"
 EndDataSection
 
 ;--Sound Data

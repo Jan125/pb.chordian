@@ -207,21 +207,29 @@ Enumeration 1
   #Img_LED_Off
   #Img_LED_On
   
-  #Img_PatEdit_Curve_None
-  #Img_PatEdit_Curve_Trigger
-  #Img_PatEdit_Curve_Attack
-  #Img_PatEdit_Curve_Decay
-  #Img_PatEdit_Curve_Sustain
-  #Img_PatEdit_Curve_Release
-  #Img_PatEdit_Curve_Oneshot
-  #Img_PatEdit_Curve_Ignore
+  #Img_UI_Curve_None
+  #Img_UI_Curve_Trigger
+  #Img_UI_Curve_Attack
+  #Img_UI_Curve_Decay
+  #Img_UI_Curve_Sustain
+  #Img_UI_Curve_Release
+  #Img_UI_Curve_Oneshot
+  #Img_UI_Curve_Ignore
   
-  #Img_PatEdit_Note_1
-  #Img_PatEdit_Note_2
-  #Img_PatEdit_Note_3
-  #Img_PatEdit_Note_4
+  #Img_UI_Note_0
+  #Img_UI_Note_1
+  #Img_UI_Note_2
+  #Img_UI_Note_3
+  #Img_UI_Note_4
+  #Img_UI_Note_5
+  #Img_UI_Note_6
+  #Img_UI_Note_7
+  #Img_UI_Note_8
+  #Img_UI_Note_9
+  #Img_UI_Note_10
+  #Img_UI_Note_11
   
-  #Img_Last = #Img_PatEdit_Curve_Oneshot
+  #Img_Last = #Img_UI_Note_11
 EndEnumeration
 
 Enumeration 0
@@ -283,11 +291,32 @@ EndEnumeration
 
 Enumeration 1
   #Win_Main
+  #Win_ChordEdit
   #Win_PatEdit
 EndEnumeration
 
 Enumeration 1
   #Gad_Canvas
+  
+  #Gad_ChordEdit_Button_Refresh
+  #Gad_ChordEdit_Button_Import
+  #Gad_ChordEdit_Button_Export
+  
+  #Gad_ChordEdit_Text_Maj
+  #Gad_ChordEdit_Text_Min
+  #Gad_ChordEdit_Text_7th
+  #Gad_ChordEdit_Text_Dim
+  #Gad_ChordEdit_Text_Ma7
+  #Gad_ChordEdit_Text_Mi7
+  #Gad_ChordEdit_Text_Aug
+  #Gad_ChordEdit_Text_Chordiate
+  #Gad_ChordEdit_Text_Ad9
+  #Gad_ChordEdit_Text_Su4
+  #Gad_ChordEdit_Text_Ad2
+  #Gad_ChordEdit_Text_As2
+  #Gad_ChordEdit_Text_Ac4
+  #Gad_ChordEdit_Text_Mc4
+  #Gad_ChordEdit_Text_Chr
   
   #Gad_ChordEdit_Row_Maj
   #Gad_ChordEdit_Row_Min = #Gad_ChordEdit_Row_Maj + 3
@@ -309,6 +338,7 @@ Enumeration 1
   #Gad_PatEdit_Select_Pattern
   #Gad_PatEdit_Select_Note
   
+  #Gad_PatEdit_Button_Refresh
   #Gad_PatEdit_Button_Import
   #Gad_PatEdit_Button_Export
   
