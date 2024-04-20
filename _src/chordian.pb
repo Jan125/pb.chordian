@@ -449,6 +449,8 @@ Procedure Main()
                 
                 Chordian\Machine_State\Value_External_ChordiateMode = TempState\Value_External_ChordiateMode
                 
+                CopyArray(TempState\Internal_Memory_Chord_Note(), Chordian\Machine_State\Internal_Memory_Chord_Note())
+                
                 CopyArray(TempState\Data_Chords(), Chordian\Machine_State\Data_Chords())
                 
                 CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
