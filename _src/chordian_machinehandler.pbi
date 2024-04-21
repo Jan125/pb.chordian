@@ -114,7 +114,7 @@ Procedure.i AutofillChords()
             Case #Transpose_7
               \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 7
               Select i
-                Case #Note_Db, #Note_Eb, #Note_F, #Note_C, #Note_D, #Note_E
+                Case #Note_Db, #Note_Eb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
                 Default
                   \Data_MIDI(i, n, s) + 12
               EndSelect
@@ -122,7 +122,7 @@ Procedure.i AutofillChords()
             Case #Transpose_8
               \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 8
               Select i
-                Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_E
+                Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_E, #Note_B
                 Default
                   \Data_MIDI(i, n, s) + 12
               EndSelect
@@ -130,7 +130,7 @@ Procedure.i AutofillChords()
             Case #Transpose_9
               \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 9
               Select i
-                Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E
+                Case #Note_Db, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E, #Note_B
                 Default
                   \Data_MIDI(i, n, s) + 12
               EndSelect
@@ -138,7 +138,7 @@ Procedure.i AutofillChords()
             Case #Transpose_10
               \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 10
               Select i
-                Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E
+                Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_D, #Note_A, #Note_E, #Note_B
                 Default
                   \Data_MIDI(i, n, s) + 12
               EndSelect
@@ -146,7 +146,7 @@ Procedure.i AutofillChords()
             Case #Transpose_11
               \Data_MIDI(i, n, s) = \Data_MIDI(i, n, #Dat_Bass_1) + 11
               Select i
-                Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_G, #Note_D, #Note_A, #Note_E
+                Case #Note_Db, #Note_Ab, #Note_Eb, #Note_Bb, #Note_F, #Note_C, #Note_G, #Note_D, #Note_A, #Note_E, #Note_B
                 Default
                   \Data_MIDI(i, n, s) + 12
               EndSelect
