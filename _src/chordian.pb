@@ -448,13 +448,49 @@ Procedure Main()
                   
                   Chordian\Machine_State\Value_Circuit_Knob_Tuning = TempState\Value_Circuit_Knob_Tuning
                   
+                  Chordian\Machine_State\Value_Internal_Keyboard_Transpose = TempState\Value_Internal_Keyboard_Transpose
+                  Chordian\Machine_State\Value_Internal_Memory_Position_Current = TempState\Value_Internal_Memory_Position_Current
+                  Chordian\Machine_State\Value_Internal_Memory_Position_Skip = TempState\Value_Internal_Memory_Position_Skip
+                  Chordian\Machine_State\Value_Internal_Transpose = TempState\Value_Internal_Transpose
+                  
                   Chordian\Machine_State\Value_External_ChordiateMode = TempState\Value_External_ChordiateMode
                   
-                  CopyArray(TempState\Internal_Memory_Chord_Note(), Chordian\Machine_State\Internal_Memory_Chord_Note())
+                  If ArraySize(TempState\Internal_Memory_Chord_Note(), 1) = ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 1) And
+                     ArraySize(TempState\Internal_Memory_Chord_Note(), 2) = ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 2)
+                    CopyArray(TempState\Internal_Memory_Chord_Note(), Chordian\Machine_State\Internal_Memory_Chord_Note())
+                  Else
+                    If (ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 2)+1) <= (ArraySize(TempState\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(TempState\Internal_Memory_Chord_Note(), 2)+1)
+                      CopyMemory(@TempState\Internal_Memory_Chord_Note(), @Chordian\Machine_State\Internal_Memory_Chord_Note(), SizeOf(Integer)*(ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 2)+1))
+                    Else
+                      CopyMemory(@TempState\Internal_Memory_Chord_Note(), @Chordian\Machine_State\Internal_Memory_Chord_Note(), SizeOf(Integer)*(ArraySize(TempState\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(TempState\Internal_Memory_Chord_Note(), 2)+1))
+                    EndIf
+                  EndIf
                   
-                  CopyArray(TempState\Data_Chords(), Chordian\Machine_State\Data_Chords())
                   
-                  CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
+                  If ArraySize(TempState\Data_Chords(), 1) = ArraySize(Chordian\Machine_State\Data_Chords(), 1) And
+                     ArraySize(TempState\Data_Chords(), 2) = ArraySize(Chordian\Machine_State\Data_Chords(), 2)
+                    CopyArray(TempState\Data_Chords(), Chordian\Machine_State\Data_Chords())
+                  Else
+                    If (ArraySize(Chordian\Machine_State\Data_Chords(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Chords(), 2)+1) <= (ArraySize(TempState\Data_Chords(), 1)+1)*(ArraySize(TempState\Data_Chords(), 2)+1)
+                      CopyMemory(@TempState\Data_Chords(), @Chordian\Machine_State\Data_Chords(), SizeOf(Integer)*(ArraySize(Chordian\Machine_State\Data_Chords(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Chords(), 2)+1))
+                    Else
+                      CopyMemory(@TempState\Data_Chords(), @Chordian\Machine_State\Data_Chords(), SizeOf(Integer)*(ArraySize(TempState\Data_Chords(), 1)+1)*(ArraySize(TempState\Data_Chords(), 2)+1))
+                    EndIf
+                  EndIf
+                  
+                  If ArraySize(TempState\Data_Patterns(), 1) = ArraySize(Chordian\Machine_State\Data_Patterns(), 1) And
+                     ArraySize(TempState\Data_Patterns(), 2) = ArraySize(Chordian\Machine_State\Data_Patterns(), 2) And
+                     ArraySize(TempState\Data_Patterns(), 3) = ArraySize(Chordian\Machine_State\Data_Patterns(), 3) And
+                     ArraySize(TempState\Data_Patterns(), 4) = ArraySize(Chordian\Machine_State\Data_Patterns(), 4) And
+                     ArraySize(TempState\Data_Patterns(), 5) = ArraySize(Chordian\Machine_State\Data_Patterns(), 5)
+                    CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
+                  Else
+                    If (ArraySize(Chordian\Machine_State\Data_Patterns(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 2)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 3)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 4)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 5)+1) <= (ArraySize(TempState\Data_Patterns(), 1)+1)*(ArraySize(TempState\Data_Patterns(), 2)+1)*(ArraySize(TempState\Data_Patterns(), 3)+1)*(ArraySize(TempState\Data_Patterns(), 4)+1)*(ArraySize(TempState\Data_Patterns(), 5)+1)
+                      CopyMemory(@TempState\Data_Patterns(), @Chordian\Machine_State\Data_Patterns(), SizeOf(Integer)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 2)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 3)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 4)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 5)+1))
+                    Else
+                      CopyMemory(@TempState\Data_Patterns(), @Chordian\Machine_State\Data_Patterns(), SizeOf(Integer)*(ArraySize(TempState\Data_Patterns(), 1)+1)*(ArraySize(TempState\Data_Patterns(), 2)+1)*(ArraySize(TempState\Data_Patterns(), 3)+1)*(ArraySize(TempState\Data_Patterns(), 4)+1)*(ArraySize(TempState\Data_Patterns(), 5)+1))
+                    EndIf
+                  EndIf
                   
                   AutofillChords()
                   AutofillDerivedNotes()
@@ -2826,7 +2862,42 @@ Procedure Main()
           ;--HandleChordKeys
           With Chordian\Input_State
             If Chordian\Machine_State\Value_Master_Button_Power_OnOff
-              If Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff Or (Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
+              If Chordian\Machine_State\Value_Internal_TransposeMode
+                Chordian\Machine_State\Value_Internal_TransposeMode = 0
+                Select \LastKey
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Db)
+                    Chordian\Machine_State\Value_Internal_Transpose = 1
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Ab)
+                    Chordian\Machine_State\Value_Internal_Transpose = 8
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Eb)
+                    Chordian\Machine_State\Value_Internal_Transpose = 3
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Bb)
+                    Chordian\Machine_State\Value_Internal_Transpose = 10
+                  Case \Keymap_Chord(#Chord_Maj, #Note_F)
+                    Chordian\Machine_State\Value_Internal_Transpose = 5
+                  Case \Keymap_Chord(#Chord_Maj, #Note_C)
+                    Chordian\Machine_State\Value_Internal_Transpose = 0
+                  Case \Keymap_Chord(#Chord_Maj, #Note_G)
+                    Chordian\Machine_State\Value_Internal_Transpose = 7
+                  Case \Keymap_Chord(#Chord_Maj, #Note_D)
+                    Chordian\Machine_State\Value_Internal_Transpose = 2
+                  Case \Keymap_Chord(#Chord_Maj, #Note_A)
+                    Chordian\Machine_State\Value_Internal_Transpose = 9
+                  Case \Keymap_Chord(#Chord_Maj, #Note_E)
+                    Chordian\Machine_State\Value_Internal_Transpose = 4
+                  Case \Keymap_Chord(#Chord_Maj, #Note_B)
+                    Chordian\Machine_State\Value_Internal_Transpose = 11
+                  Case \Keymap_Chord(#Chord_Maj, #Note_Fc)
+                    Chordian\Machine_State\Value_Internal_Transpose = 6
+                EndSelect
+                
+                Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None 
+                Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                  
+              ElseIf Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff Or (Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
                 If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
                   Chordian\Machine_State\Value_Internal_Tick = 0
                   SendNewTick = 1
@@ -2860,7 +2931,18 @@ Procedure Main()
                 EndSelect
                 
                 If Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None
-                  If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And
+                  If \Keymap(\Keymap_Chord(#Chord_7th, #Note_F)) And
+                     \Keymap(\Keymap_Chord(#Chord_7th, #Note_C)) And
+                     \Keymap(\Keymap_Chord(#Chord_7th, #Note_G))
+                    Chordian\Machine_State\Value_Internal_TransposeMode = 1
+                    
+                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_C
+                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Maj
+                    
+                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                    
+                  ElseIf Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And
                      \Keymap(\Keymap_Chord(#Chord_Maj, #Note_A)) And
                      \Keymap(\Keymap_Chord(#Chord_Maj, #Note_E)) And
                      \Keymap(\Keymap_Chord(#Chord_Maj, #Note_B))
@@ -3056,6 +3138,9 @@ Procedure Main()
                 EndIf
                 
                 If SendNewChord
+                  Chordian\Machine_State\Value_Internal_Chord_Note + Chordian\Machine_State\Value_Internal_Transpose
+                  RollInRange(Chordian\Machine_State\Value_Internal_Chord_Note, #Note_First_Melodic, #Note_Last_Melodic)
+                  
                   SendNewChord = 0
                   If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
                     Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
@@ -3322,6 +3407,11 @@ Procedure Main()
                       
                       Chordian\Machine_State\Value_Internal_Chord_Chord = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0)
                       Chordian\Machine_State\Value_Internal_Chord_Note = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1)
+                      Select Chordian\Machine_State\Value_Internal_Chord_Note
+                        Case #Note_First_Melodic To #Note_Last_Melodic
+                          Chordian\Machine_State\Value_Internal_Chord_Note + Chordian\Machine_State\Value_Internal_Transpose
+                          RollInRange(Chordian\Machine_State\Value_Internal_Chord_Note, #Note_First_Melodic, #Note_Last_Melodic)
+                      EndSelect
                       
                       If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
                         For i = #Snd_Bass_First To #Snd_Bass_Last
@@ -3380,6 +3470,11 @@ Procedure Main()
                       EndIf
                       
                       Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0) = Chordian\Machine_State\Value_Internal_Chord_Chord
+                      Select Chordian\Machine_State\Value_Internal_Chord_Note
+                        Case #Note_First_Melodic To #Note_Last_Melodic
+                          Chordian\Machine_State\Value_Internal_Chord_Note - Chordian\Machine_State\Value_Internal_Transpose
+                          RollInRange(Chordian\Machine_State\Value_Internal_Chord_Note, #Note_First_Melodic, #Note_Last_Melodic)
+                      EndSelect
                       Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1) = Chordian\Machine_State\Value_Internal_Chord_Note
                       
                       Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None

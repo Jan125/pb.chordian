@@ -201,8 +201,11 @@ Procedure.i ResetMachine()
   Protected r.i
   
   With Chordian\Machine_State
-    
     ;-Reset Data
+    \Value_Internal_TransposeMode = 0
+    
+    \Value_Internal_Transpose = 0
+    
     \Value_Internal_Memory_Position_Current = 0
     \Value_Internal_Memory_Position_Skip = 0
     
@@ -442,17 +445,26 @@ Procedure.i ResetMachine()
     
     ;---Disco
     For i = #Note_First To #Note_Last
-      \Data_Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Bass) = #Curve_Oneshot
-      \Data_Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Bass) = #Curve_Oneshot
-      \Data_Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Bass) = #Curve_Oneshot
+      \Data_Patterns(0, #Rhythm_Disco, i, 0, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(0, #Rhythm_Disco, i, 1, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(0, #Rhythm_Disco, i, 4, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(0, #Rhythm_Disco, i, 5, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(0, #Rhythm_Disco, i, 8, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(0, #Rhythm_Disco, i, 9, #Pattern_Bass) = #Curve_Release
       \Data_Patterns(0, #Rhythm_Disco, i, 12, #Pattern_Bass) = #Curve_Oneshot
       \Data_Patterns(0, #Rhythm_Disco, i, 13, #Pattern_Bass) = #Curve_Oneshot
-      \Data_Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Bass) = #Curve_Oneshot
-      \Data_Patterns(0, #Rhythm_Disco, i, 0+16, #Pattern_Bass) = #Curve_Oneshot
-      \Data_Patterns(0, #Rhythm_Disco, i, 4+16, #Pattern_Bass) = #Curve_Oneshot
-      \Data_Patterns(0, #Rhythm_Disco, i, 8+16, #Pattern_Bass) = #Curve_Oneshot
-      \Data_Patterns(0, #Rhythm_Disco, i, 12+16, #Pattern_Bass) = #Curve_Oneshot
-      \Data_Patterns(0, #Rhythm_Disco, i, 14+16, #Pattern_Bass) = #Curve_Oneshot
+      \Data_Patterns(0, #Rhythm_Disco, i, 14, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(0, #Rhythm_Disco, i, 15, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(0, #Rhythm_Disco, i, 0+16, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(0, #Rhythm_Disco, i, 1+16, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(0, #Rhythm_Disco, i, 4+16, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(0, #Rhythm_Disco, i, 5+16, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(0, #Rhythm_Disco, i, 8+16, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(0, #Rhythm_Disco, i, 9+16, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(0, #Rhythm_Disco, i, 12+16, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(0, #Rhythm_Disco, i, 13+16, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(0, #Rhythm_Disco, i, 14+16, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(0, #Rhythm_Disco, i, 15+16, #Pattern_Bass) = #Curve_Release
       
       \Data_Patterns(0, #Rhythm_Disco, i, 2, #Pattern_Chords) = #Curve_Oneshot
       \Data_Patterns(0, #Rhythm_Disco, i, 5, #Pattern_Chords) = #Curve_Oneshot

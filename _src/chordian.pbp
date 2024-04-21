@@ -18,12 +18,12 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-04-21 13:24" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2024-04-21 21:46" user="dino" host="DESKTOP-C5DN0BR"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
-      <fingerprint md5="a87d72910550e7c066a92bead76037df"/>
+      <fingerprint md5="2b6a4561190f8f6460a9f2dd6c33845b"/>
     </file>
     <file name="chordian_datasections.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate="+"/>
@@ -31,7 +31,7 @@
     </file>
     <file name="chordian_enumerations.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="3" panelstate="+"/>
-      <fingerprint md5="8aa9522558e8d7409a89c3fee00d8b34"/>
+      <fingerprint md5="9d403b8b72d7717a176586e66ce5c79b"/>
     </file>
     <file name="chordian_frequencyhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="4" panelstate="+"/>
@@ -43,7 +43,7 @@
     </file>
     <file name="chordian_machinehandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="6" panelstate="+"/>
-      <fingerprint md5="fa9c4a4f2a87f3e352eccb397d168208"/>
+      <fingerprint md5="c9cf6990f7cf60eeb978552f0f064e8f"/>
     </file>
     <file name="chordian_patternhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="7" panelstate="+"/>
@@ -55,7 +55,7 @@
     </file>
     <file name="chordian_structures.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="9" panelstate="+"/>
-      <fingerprint md5="7ca261f224101e6e8ec3583b0fcbd6f7"/>
+      <fingerprint md5="e07282d2b3419a6163f15fa430273a13"/>
     </file>
     <file name="chordian_synthhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="10" panelstate="+"/>
@@ -79,7 +79,7 @@
       <options unicode="1" thread="1" xpskin="1" optimizer="0"/>
       <icon enable="0">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <compilecount enable="1" value="1993"/>
+      <compilecount enable="1" value="2011"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -106,7 +106,7 @@
       <options unicode="1" thread="1" xpskin="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="425"/>
+      <buildcount enable="1" value="426"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -134,7 +134,7 @@
       <options unicode="1" thread="1" xpskin="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="425"/>
+      <buildcount enable="1" value="426"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -161,7 +161,7 @@
       <executable value="..\chordian_legacy.exe"/>
       <options thread="1" optimizer="0"/>
       <icon enable="1">chordian.ico</icon>
-      <buildcount enable="1" value="425"/>
+      <buildcount enable="1" value="426"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>

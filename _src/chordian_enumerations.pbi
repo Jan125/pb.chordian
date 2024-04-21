@@ -46,7 +46,8 @@ EndEnumeration
 Enumeration -1
   #Note_None
   #Note_First
-  #Note_Cc = #Note_First
+  #Note_First_Melodic = #Note_First
+  #Note_Cc = #Note_First_Melodic
   #Note_Db = #Note_Cc
   #Note_Gc
   #Note_Ab = #Note_Gc
@@ -63,6 +64,7 @@ Enumeration -1
   #Note_B
   #Note_Fc
   #Note_Gb = #Note_Fc
+  #Note_Last_Melodic = #Note_Gb
   #Note_Ignore
   #Note_Last = #Note_Ignore
 EndEnumeration

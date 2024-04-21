@@ -63,10 +63,10 @@ Structure Input_State
   SecondaryStrumMode.i
   TertiaryStrumMode.i
   
-  Array Keymap.u(262143)
-  Array Keymap_Chord.u(#Chord_Last, #Note_Last)
-  Array Keymap_Harp.u(#Harp_Last)
-  Array Keymap_Function.u(#Btn_Last)
+  Array Keymap.i(262143)
+  Array Keymap_Chord.i(#Chord_Last, #Note_Last)
+  Array Keymap_Harp.i(#Harp_Last)
+  Array Keymap_Function.i(#Btn_Last)
 EndStructure
 
 
@@ -99,13 +99,16 @@ Structure Machine_State_Save
   
   Value_External_ChordiateMode.i
   
+  Value_Internal_Transpose.i
+  Value_Internal_Keyboard_Transpose.i
+  
   Value_Internal_Memory_Position_Current.i
   Value_Internal_Memory_Position_Skip.i
   Array Internal_Memory_Chord_Note.i(50, 1)
   
-  Array Data_Chords.a(#Chord_Last, 2)
+  Array Data_Chords.i(#Chord_Last, 2)
   
-  Array Data_Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
+  Array Data_Patterns.i(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
 EndStructure
 
 Structure Machine_State Extends Machine_State_Save
@@ -118,11 +121,12 @@ Structure Machine_State Extends Machine_State_Save
   Value_Internal_Phase.f
   
   Value_Internal_Keyboard_Note.i
-  Value_Internal_Keyboard_Transpose.i
   Value_Internal_Keyboard_ButtonUp.i
   Value_Internal_Keyboard_ButtonDown.i
   
-  Array Data_MIDI.a(#Note_Last, #Chord_Last, #Dat_Last)
+  Value_Internal_TransposeMode.i
+  
+  Array Data_MIDI.i(#Note_Last, #Chord_Last, #Dat_Last)
   
   Array Status_Sound.i(#Snd_Last)
   Array Status_Volume.f(#Snd_Last)
