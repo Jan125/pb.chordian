@@ -2928,6 +2928,12 @@ Procedure Main()
                     Chordian\Machine_State\Value_Internal_Chord_Note = #Note_B
                   Case \Keymap_Chord(#Chord_Maj, #Note_Fc), \Keymap_Chord(#Chord_Min, #Note_Fc), \Keymap_Chord(#Chord_7th, #Note_Fc)
                     Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Fc
+                  Default
+                    Select Chordian\Machine_State\Value_Internal_Chord_Note
+                      Case #Note_First_Melodic To #Note_Last_Melodic
+                        Chordian\Machine_State\Value_Internal_Chord_Note - Chordian\Machine_State\Value_Internal_Transpose
+                        RollInRange(Chordian\Machine_State\Value_Internal_Chord_Note, #Note_First_Melodic, #Note_Last_Melodic)
+                    EndSelect
                 EndSelect
                 
                 If Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None
@@ -2941,6 +2947,8 @@ Procedure Main()
                     
                     ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
                     ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                    
+                    SendNewChord = 1
                     
                   ElseIf Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And
                      \Keymap(\Keymap_Chord(#Chord_Maj, #Note_A)) And
@@ -3005,7 +3013,7 @@ Procedure Main()
                     Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
                     
                   Else
-                    
+                  
                     If \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And
                        \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And
                        \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
