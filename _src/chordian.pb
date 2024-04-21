@@ -548,7 +548,7 @@ Procedure Main()
               ResumeThread(Chordian\RepaintHandler_Thread)
               
             Case #Itm_Exit
-              PostEvent(#PB_Event_CloseWindow)
+              PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
               
             Case #Itm_Tuning
               TempString = InputRequester("Chordian>Master>Tuning", "Insert new Tuning. (0.5)", StrF(Chordian\Machine_State\Value_Circuit_Knob_Tuning))
@@ -1626,39 +1626,39 @@ Procedure Main()
                   Case #PB_EventType_LeftButtonDown
                     \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
                     \Mouse_Button_Left_Current = 1
-                    PostEvent(#Event_GetTriggers)
+                    PostEvent(#Event_GetTriggers, #Win_Main, 0)
                     
                   Case #PB_EventType_LeftButtonUp
                     \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
                     \Mouse_Button_Left_Current = 0
-                    PostEvent(#Event_GetTriggers)
+                    PostEvent(#Event_GetTriggers, #Win_Main, 0)
                     
                   Case #PB_EventType_RightButtonDown
                     \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
                     \Mouse_Button_Right_Current = 1
-                    PostEvent(#Event_GetTriggers)
+                    PostEvent(#Event_GetTriggers, #Win_Main, 0)
                     
                   Case #PB_EventType_RightButtonUp
                     \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
                     \Mouse_Button_Right_Current = 0
-                    PostEvent(#Event_GetTriggers)
+                    PostEvent(#Event_GetTriggers, #Win_Main, 0)
                     
                   Case #PB_EventType_MiddleButtonDown
                     \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
                     \Mouse_Button_Middle_Current = 1
-                    PostEvent(#Event_GetTriggers)
+                    PostEvent(#Event_GetTriggers, #Win_Main, 0)
                     
                   Case #PB_EventType_MiddleButtonUp
                     \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
                     \Mouse_Button_Middle_Current = 0
-                    PostEvent(#Event_GetTriggers)
+                    PostEvent(#Event_GetTriggers, #Win_Main, 0)
                     
                   Case #PB_EventType_MouseMove
                     \Mouse_Position_X_Previous = \Mouse_Position_X_Current
                     \Mouse_Position_Y_Previous = \Mouse_Position_Y_Current
                     \Mouse_Position_X_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseX)
                     \Mouse_Position_Y_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseY)
-                    PostEvent(#Event_HandleTriggers)
+                    PostEvent(#Event_HandleTriggers, #Win_Main, 0)
                     
                 EndSelect
               EndWith
@@ -1669,9 +1669,9 @@ Procedure Main()
           ;--GeneralKeyDown
           With Chordian\Input_State
             If Not \Keymap(EventData())
-              PostEvent(#Event_HandleChordKeys)
-              PostEvent(#Event_HandleHarpKeys)
-              PostEvent(#Event_HandleFunctionKeys)
+              PostEvent(#Event_HandleChordKeys, #Win_Main, 0)
+              PostEvent(#Event_HandleHarpKeys, #Win_Main, 0)
+              PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
               PauseThread(Chordian\RepaintHandler_Thread)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
@@ -1691,10 +1691,10 @@ Procedure Main()
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
             ResumeThread(Chordian\RepaintHandler_Thread)
             If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
-              PostEvent(#Event_HandleChordKeys)
+              PostEvent(#Event_HandleChordKeys, #Win_Main, 0)
             EndIf
-            PostEvent(#Event_HandleHarpKeys)
-            PostEvent(#Event_HandleFunctionKeys)
+            PostEvent(#Event_HandleHarpKeys, #Win_Main, 0)
+            PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
             \LastKeyEventWasDown = 0
           EndWith
           
@@ -1844,7 +1844,7 @@ Procedure Main()
             
           EndWith
           
-          PostEvent(#Event_HandleTriggers)
+          PostEvent(#Event_HandleTriggers, #Win_Main, 0)
           
         Case #Event_HandleTriggers
           ;--HandleTriggers
@@ -2193,8 +2193,8 @@ Procedure Main()
               
               Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
               
-              PostEvent(#Event_HandleChordKeys)
-              PostEvent(#Event_HandleHarpKeys)
+              PostEvent(#Event_HandleChordKeys, #Win_Main, 0)
+              PostEvent(#Event_HandleHarpKeys, #Win_Main, 0)
               
               PauseThread(Chordian\RepaintHandler_Thread)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
@@ -2382,7 +2382,7 @@ Procedure Main()
                           EndSelect
                       EndSelect
                     Case #PB_Event_CloseWindow
-                      PostEvent(#PB_Event_CloseWindow)
+                      PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
                       Break
                     Default
                   EndSelect
@@ -2473,7 +2473,7 @@ Procedure Main()
                           EndSelect
                       EndSelect
                     Case #PB_Event_CloseWindow
-                      PostEvent(#PB_Event_CloseWindow)
+                      PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
                       Break
                     Default
                   EndSelect
@@ -2564,7 +2564,7 @@ Procedure Main()
                           EndSelect
                       EndSelect
                     Case #PB_Event_CloseWindow
-                      PostEvent(#PB_Event_CloseWindow)
+                      PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
                       Break
                     Default
                   EndSelect

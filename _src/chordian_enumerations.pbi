@@ -344,7 +344,7 @@ Enumeration 1
   #Gad_ChordEdit_Row_Mc4 = #Gad_ChordEdit_Row_Ac4 + 3
   #Gad_ChordEdit_Row_Chr = #Gad_ChordEdit_Row_Mc4 + 3
   
-  #Gad_PatEdit_Select_Alternate
+  #Gad_PatEdit_Select_Alternate = #Gad_ChordEdit_Row_Chr + 3
   #Gad_PatEdit_Select_Pattern
   #Gad_PatEdit_Select_Note
   

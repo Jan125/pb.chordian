@@ -201,12 +201,12 @@ These things are currently partially implemented:
 
 - Midi output
 - Chord editor
+- Song creation mode
 
 
 These things are currently not implemented:
 
-- Song creation mode
-
+-This list is currently empty
 
 These things may be implemented:
 
