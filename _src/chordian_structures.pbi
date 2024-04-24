@@ -75,7 +75,7 @@ EndStructure
 
 
 Structure Machine_State_Save
-  Value_Master_Button_Power_OnOff.i
+  Value_Master_Button_Power_OnOff.l
   Value_Master_Knob_Volume.f
   
   Value_Level_Knob_Volume_Harp_1.f
@@ -84,55 +84,55 @@ Structure Machine_State_Save
   Value_Level_Knob_Volume_Keyboard.f
   Value_Level_Knob_Volume_Chords.f
   
-  Value_Rhythm_Button_Alternate_OnOff.i
-  Value_Rhythm_Button_Pattern.i
-  Value_Rhythm_Button_AutoBassSync_OnOff.i
+  Value_Rhythm_Button_Alternate_OnOff.l
+  Value_Rhythm_Button_Pattern.l
+  Value_Rhythm_Button_AutoBassSync_OnOff.l
   Value_Rhythm_Knob_Tempo.f
   Value_Rhythm_Knob_Volume.f
   
-  Value_Memory_Button_Memory_OnOff.i
-  Value_Memory_Button_Playback_Record_OnOff.i
-  Value_Memory_Button_Repeat_Delete.i
-  Value_Memory_Button_Playback_Enter.i
+  Value_Memory_Button_Memory_OnOff.l
+  Value_Memory_Button_Playback_Record_OnOff.l
+  Value_Memory_Button_Repeat_Delete.l
+  Value_Memory_Button_Playback_Enter.l
   
   Value_Circuit_Knob_Tuning.f
   
-  Value_External_ChordiateMode.i
+  Value_External_ChordiateMode.l
   
-  Value_Internal_Transpose.i
-  Value_Internal_Keyboard_Transpose.i
+  Value_Internal_Transpose.l
+  Value_Internal_Keyboard_Transpose.l
   
-  Value_Internal_Memory_Position_Current.i
-  Value_Internal_Memory_Position_Skip.i
-  Array Internal_Memory_Chord_Note.i(50, 1)
+  Value_Internal_Memory_Position_Current.l
+  Value_Internal_Memory_Position_Skip.l
+  Array Internal_Memory_Chord_Note.b(50, 1)
   
-  Array Data_Chords.i(#Chord_Last, 2)
+  Array Data_Chords.b(#Chord_Last, 2)
   
-  Array Data_Patterns.i(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
+  Array Data_Patterns.b(1, #Rhythm_Last, #Note_Last, 31, #Pattern_Last)
 EndStructure
 
 Structure Machine_State Extends Machine_State_Save
-  Value_Rhythm_Button_Alternate_OnOff_Current.i
-  Value_Rhythm_Button_Pattern_Current.i
+  Value_Rhythm_Button_Alternate_OnOff_Current.l
+  Value_Rhythm_Button_Pattern_Current.l
   
-  Value_Internal_Chord_Note.i
-  Value_Internal_Chord_Chord.i
+  Value_Internal_Chord_Note.l
+  Value_Internal_Chord_Chord.l
   Value_Internal_Tick.f
   Value_Internal_Phase.f
   
-  Value_Internal_Keyboard_Note.i
-  Value_Internal_Keyboard_ButtonUp.i
-  Value_Internal_Keyboard_ButtonDown.i
+  Value_Internal_Keyboard_Note.l
+  Value_Internal_Keyboard_ButtonUp.l
+  Value_Internal_Keyboard_ButtonDown.l
   
-  Value_Internal_TransposeMode.i
+  Value_Internal_TransposeMode.l
   
-  Array Data_MIDI.i(#Note_Last, #Chord_Last, #Dat_Last)
+  Array Data_MIDI.l(#Note_Last, #Chord_Last, #Dat_Last)
   
-  Array Status_Sound.i(#Snd_Last)
+  Array Status_Sound.l(#Snd_Last)
   Array Status_Volume.f(#Snd_Last)
   Array Status_Position.f(#Snd_Last)
   Array Status_Frequency.f(#Snd_Last)
-  Array Status_Harp.i(#Harp_Last)
+  Array Status_Harp.l(#Harp_Last)
 EndStructure
 
 

@@ -77,10 +77,11 @@ Procedure.i SynthHandler(*Void)
     
     Protected CurrentBlock.i = ArraySize(DirectSoundNotifyArray())-1
     Protected *Block
+    Protected BlockSize.i = DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray())+1)
     
     Protected Result.f
     
-    *Block = AllocateMemory(DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray())+1))
+    *Block = LocalAlloc_(#LMEM_ZEROINIT, BlockSize)
     
     Repeat
       WaitForMultipleObjects_(ArraySize(DirectSoundNotifyArray())+1, DirectSoundEventArray(), #False, -1)
@@ -91,6 +92,7 @@ Procedure.i SynthHandler(*Void)
       
       ;-Check for Interrupt
       If WaitForSingleObject_(Chordian\Semaphore_EndSynthHandler, 0) = #WAIT_OBJECT_0
+        LocalFree_(*Block)
         ProcedureReturn
       EndIf
       
@@ -112,7 +114,7 @@ Procedure.i SynthHandler(*Void)
       EndSelect
       
       ;-Write memory
-      For a = 0 To MemorySize(*Block) / WaveFormatExDescriptor\nBlockAlign
+      For a = 0 To BlockSize / WaveFormatExDescriptor\nBlockAlign
         
         If MIDIHandle
           If CurrentChord <> CurrentChord Or CurrentNote <> CurrentNote

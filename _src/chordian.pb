@@ -460,9 +460,9 @@ Procedure Main()
                     CopyArray(TempState\Internal_Memory_Chord_Note(), Chordian\Machine_State\Internal_Memory_Chord_Note())
                   Else
                     If (ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 2)+1) <= (ArraySize(TempState\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(TempState\Internal_Memory_Chord_Note(), 2)+1)
-                      CopyMemory(@TempState\Internal_Memory_Chord_Note(), @Chordian\Machine_State\Internal_Memory_Chord_Note(), SizeOf(Integer)*(ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 2)+1))
+                      CopyMemory(@TempState\Internal_Memory_Chord_Note(), @Chordian\Machine_State\Internal_Memory_Chord_Note(), SizeOf(Byte)*(ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note(), 2)+1))
                     Else
-                      CopyMemory(@TempState\Internal_Memory_Chord_Note(), @Chordian\Machine_State\Internal_Memory_Chord_Note(), SizeOf(Integer)*(ArraySize(TempState\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(TempState\Internal_Memory_Chord_Note(), 2)+1))
+                      CopyMemory(@TempState\Internal_Memory_Chord_Note(), @Chordian\Machine_State\Internal_Memory_Chord_Note(), SizeOf(Byte)*(ArraySize(TempState\Internal_Memory_Chord_Note(), 1)+1)*(ArraySize(TempState\Internal_Memory_Chord_Note(), 2)+1))
                     EndIf
                   EndIf
                   
@@ -472,9 +472,9 @@ Procedure Main()
                     CopyArray(TempState\Data_Chords(), Chordian\Machine_State\Data_Chords())
                   Else
                     If (ArraySize(Chordian\Machine_State\Data_Chords(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Chords(), 2)+1) <= (ArraySize(TempState\Data_Chords(), 1)+1)*(ArraySize(TempState\Data_Chords(), 2)+1)
-                      CopyMemory(@TempState\Data_Chords(), @Chordian\Machine_State\Data_Chords(), SizeOf(Integer)*(ArraySize(Chordian\Machine_State\Data_Chords(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Chords(), 2)+1))
+                      CopyMemory(@TempState\Data_Chords(), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(ArraySize(Chordian\Machine_State\Data_Chords(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Chords(), 2)+1))
                     Else
-                      CopyMemory(@TempState\Data_Chords(), @Chordian\Machine_State\Data_Chords(), SizeOf(Integer)*(ArraySize(TempState\Data_Chords(), 1)+1)*(ArraySize(TempState\Data_Chords(), 2)+1))
+                      CopyMemory(@TempState\Data_Chords(), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(ArraySize(TempState\Data_Chords(), 1)+1)*(ArraySize(TempState\Data_Chords(), 2)+1))
                     EndIf
                   EndIf
                   
@@ -486,9 +486,9 @@ Procedure Main()
                     CopyArray(TempState\Data_Patterns(), Chordian\Machine_State\Data_Patterns())
                   Else
                     If (ArraySize(Chordian\Machine_State\Data_Patterns(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 2)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 3)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 4)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 5)+1) <= (ArraySize(TempState\Data_Patterns(), 1)+1)*(ArraySize(TempState\Data_Patterns(), 2)+1)*(ArraySize(TempState\Data_Patterns(), 3)+1)*(ArraySize(TempState\Data_Patterns(), 4)+1)*(ArraySize(TempState\Data_Patterns(), 5)+1)
-                      CopyMemory(@TempState\Data_Patterns(), @Chordian\Machine_State\Data_Patterns(), SizeOf(Integer)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 2)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 3)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 4)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 5)+1))
+                      CopyMemory(@TempState\Data_Patterns(), @Chordian\Machine_State\Data_Patterns(), SizeOf(Byte)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 1)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 2)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 3)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 4)+1)*(ArraySize(Chordian\Machine_State\Data_Patterns(), 5)+1))
                     Else
-                      CopyMemory(@TempState\Data_Patterns(), @Chordian\Machine_State\Data_Patterns(), SizeOf(Integer)*(ArraySize(TempState\Data_Patterns(), 1)+1)*(ArraySize(TempState\Data_Patterns(), 2)+1)*(ArraySize(TempState\Data_Patterns(), 3)+1)*(ArraySize(TempState\Data_Patterns(), 4)+1)*(ArraySize(TempState\Data_Patterns(), 5)+1))
+                      CopyMemory(@TempState\Data_Patterns(), @Chordian\Machine_State\Data_Patterns(), SizeOf(Byte)*(ArraySize(TempState\Data_Patterns(), 1)+1)*(ArraySize(TempState\Data_Patterns(), 2)+1)*(ArraySize(TempState\Data_Patterns(), 3)+1)*(ArraySize(TempState\Data_Patterns(), 4)+1)*(ArraySize(TempState\Data_Patterns(), 5)+1))
                     EndIf
                   EndIf
                   
@@ -1003,7 +1003,29 @@ Procedure Main()
                             Next
                             
                           Case #Gad_ChordEdit_Button_Import
+                            TempString = InputRequester("Chordian>Chord Editor>Import", "Input the BASE64 to apply to the current chord selection.", "")
+                            If TempString
+                              *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, Len(TempString)+1)
+                              PokeS(*TempPointer, TempString, Len(TempString), #PB_Ascii)
+                              CompilerIf #PB_Compiler_Version >= 600
+                                Base64DecoderBuffer(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*3)
+                              CompilerElse
+                                Base64Decoder(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*3)
+                              CompilerEndIf
+                              LocalFree_(*TempPointer)
+                            EndIf
+                            
+                            PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_ChordEdit_Button_Refresh)
+                            
                           Case #Gad_ChordEdit_Button_Export
+                            *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, SizeOf(Byte)*(#Chord_Last+1)*3*2)
+                            CompilerIf #PB_Compiler_Version >= 600
+                              Base64EncoderBuffer(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*3, *TempPointer, SizeOf(Byte)*(#Chord_Last+1)*3*2)
+                            CompilerElse
+                              Base64Encoder(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*3, *TempPointer, SizeOf(Byte)*(#Chord_Last+1)*3*2)
+                            CompilerEndIf
+                            InputRequester("Chordian>Chord Editor>Export", "This is the BASE64 string for the current chord selection:", PeekS(*TempPointer, -1, #PB_Ascii))
+                            LocalFree_(*TempPointer)
                             
                           Case #Gad_ChordEdit_Row_Maj To #Gad_ChordEdit_Row_Maj+2
                             For i = 0 To 2
@@ -2632,6 +2654,9 @@ Procedure Main()
                   Next
                 Next
                 Chordian\Machine_State\Value_Internal_Tick = 0
+                Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
+                Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
                 PauseThread(Chordian\RepaintHandler_Thread)
                 ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
@@ -2896,7 +2921,7 @@ Procedure Main()
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
                 ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                  
+                
               ElseIf Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff Or (Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
                 If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
                   Chordian\Machine_State\Value_Internal_Tick = 0
@@ -2951,9 +2976,9 @@ Procedure Main()
                     SendNewChord = 1
                     
                   ElseIf Chordian\Machine_State\Value_Memory_Button_Memory_OnOff And Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff And
-                     \Keymap(\Keymap_Chord(#Chord_Maj, #Note_A)) And
-                     \Keymap(\Keymap_Chord(#Chord_Maj, #Note_E)) And
-                     \Keymap(\Keymap_Chord(#Chord_Maj, #Note_B))
+                         \Keymap(\Keymap_Chord(#Chord_Maj, #Note_A)) And
+                         \Keymap(\Keymap_Chord(#Chord_Maj, #Note_E)) And
+                         \Keymap(\Keymap_Chord(#Chord_Maj, #Note_B))
                     
                     Chordian\Machine_State\Value_Internal_Memory_Position_Current - 1
                     If Chordian\Machine_State\Value_Internal_Memory_Position_Current < 0
@@ -3013,7 +3038,7 @@ Procedure Main()
                     Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
                     
                   Else
-                  
+                    
                     If \Keymap(\Keymap_Chord(#Chord_Maj, Chordian\Machine_State\Value_Internal_Chord_Note)) And
                        \Keymap(\Keymap_Chord(#Chord_Min, Chordian\Machine_State\Value_Internal_Chord_Note)) And
                        \Keymap(\Keymap_Chord(#Chord_7th, Chordian\Machine_State\Value_Internal_Chord_Note))
