@@ -12,7 +12,7 @@
     
     Protected Dim Frequencies.f(127)
     For i = 0 To ArraySize(Frequencies())
-      Frequencies(i) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (i-69)/12.0)
+      Frequencies(i) = ((1.5 + \Value_Circuit_Knob_Tuning) / 2.0) * Pow(2.0, (i - 69) / 12.0)
     Next
     
     Repeat
@@ -24,7 +24,7 @@
       
       If WaitForSingleObject_(Chordian\Machine_Event\Semaphore_IsNewTuning, 0) = #WAIT_OBJECT_0
         For i = 0 To ArraySize(Frequencies())
-          Frequencies(i) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)*Pow(2.0, (i-69)/12.0)
+          Frequencies(i) = ((1.5 + \Value_Circuit_Knob_Tuning) / 2.0) * Pow(2.0, (i - 69) / 12.0)
         Next
       EndIf
       
@@ -33,7 +33,7 @@
         CurrentNote = \Value_Internal_Chord_Note
       EndIf
       
-      CurrentKeyboard.i = \Value_Internal_Keyboard_Note
+      CurrentKeyboard = \Value_Internal_Keyboard_Note
       
       CurrentAlternate = \Value_Rhythm_Button_Alternate_OnOff_Current
       CurrentPattern = \Value_Rhythm_Button_Pattern_Current
@@ -68,17 +68,17 @@
         EndSelect
         
         For i = #Snd_Chord_First-#Snd_Chord_First To #Snd_Chord_Last-#Snd_Chord_First
-          \Status_Frequency(#Snd_Chord_First+i) = Frequencies(\Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First+i))
+          \Status_Frequency(#Snd_Chord_First + i) = Frequencies(\Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First + i))
         Next
         
         For i = #Snd_Harp_First-#Snd_Harp_First To #Snd_Harp_Last-#Snd_Harp_First
-          \Status_Frequency(#Snd_Harp_First+i) = Frequencies(\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First+i))
+          \Status_Frequency(#Snd_Harp_First + i) = Frequencies(\Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First + i))
         Next
         
       EndIf
       
       For i = #Snd_Drum_First To #Snd_Drum_Last
-        \Status_Frequency(i) = ((1.5+\Value_Circuit_Knob_Tuning)/2.0)
+        \Status_Frequency(i) = ((1.5 + \Value_Circuit_Knob_Tuning) / 2.0)
       Next
       
       If CurrentKeyboard >= 0 And CurrentKeyboard <= 127

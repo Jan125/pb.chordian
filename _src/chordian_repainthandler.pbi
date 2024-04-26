@@ -31,7 +31,7 @@
           
           ;Master Volume Knob
           DrawAlphaImage(ImageID(#Img_Knob_Big), 169, 95)
-          Line(190, 116, Sin(Radian(-\Machine_State\Value_Master_Knob_Volume*270-45))*21+Sign(Sin(Radian(-\Machine_State\Value_Master_Knob_Volume*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Master_Knob_Volume*270-45))*21) <= 0.5), Cos(Radian(-\Machine_State\Value_Master_Knob_Volume*270-45))*21+Sign(Cos(Radian(-\Machine_State\Value_Master_Knob_Volume*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Master_Knob_Volume*270-45))*21) <= 0.5))
+          KnobLine(190, 116, 21, \Machine_State\Value_Master_Knob_Volume)
         EndIf
         
         
@@ -42,21 +42,21 @@
           DrawAlphaImage(ImageID(#Img_Base), 0, 0)
           ;Harp Voice 2 Volume Knob
           DrawAlphaImage(ImageID(#Img_Knob_Ring), 73, 170)
-          Line(94, 191, Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21+Sign(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21) <= 0.5), Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21+Sign(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_1*270-45))*21) <= 0.5))
+          KnobLine(94, 191, 21, \Machine_State\Value_Level_Knob_Volume_Harp_1)
           ;Harp Voice 1 Volume Knob
           DrawAlphaImage(ImageID(#Img_Knob_Small), 81, 178)
-          Line(94, 191, Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_2*270-45))*13+Sign(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_2*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_2*270-45))*13) <= 0.5), Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_2*270-45))*13+Sign(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_2*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Harp_2*270-45))*13) <= 0.5))
+          KnobLine(94, 191, 13, \Machine_State\Value_Level_Knob_Volume_Harp_2)
           
           ;Harp Sustain Knob
           DrawAlphaImage(ImageID(#Img_Knob_Big), 121, 170)
-          Line(142, 191, Sin(Radian(-\Machine_State\Value_Level_Knob_Sustain*270-45))*21+Sign(Sin(Radian(-\Machine_State\Value_Level_Knob_Sustain*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Level_Knob_Sustain*270-45))*21) <= 0.5), Cos(Radian(-\Machine_State\Value_Level_Knob_Sustain*270-45))*21+Sign(Cos(Radian(-\Machine_State\Value_Level_Knob_Sustain*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Level_Knob_Sustain*270-45))*21) <= 0.5))
+          KnobLine(142, 191, 21, \Machine_State\Value_Level_Knob_Sustain)
           
           ;Keyboard Volume Knob
           DrawAlphaImage(ImageID(#Img_Knob_Ring), 169, 170)
-          Line(190, 191, Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Keyboard*270-45))*21+Sign(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Keyboard*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Keyboard*270-45))*21) <= 0.5), Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Keyboard*270-45))*21+Sign(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Keyboard*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Keyboard*270-45))*21) <= 0.5))
+          KnobLine(190, 191, 21, \Machine_State\Value_Level_Knob_Volume_Keyboard)
           ;Chords Volume Knob
           DrawAlphaImage(ImageID(#Img_Knob_Small), 177, 178)
-          Line(190, 191, Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Chords*270-45))*13+Sign(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Chords*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Level_Knob_Volume_Chords*270-45))*13) <= 0.5), Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Chords*270-45))*13+Sign(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Chords*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Level_Knob_Volume_Chords*270-45))*13) <= 0.5))
+          KnobLine(190, 191, 13, \Machine_State\Value_Level_Knob_Volume_Chords)
         EndIf
         
         
@@ -76,9 +76,9 @@
           ;Rhythm Button
           For i = #Rhythm_First To #Rhythm_Last
             If i = \Machine_State\Value_Rhythm_Button_Pattern
-              DrawAlphaImage(ImageID(#Img_Button_Dark_On), 68+i*32, 274)
+              DrawAlphaImage(ImageID(#Img_Button_Dark_On), 68 + i * 32, 274)
             Else
-              DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 68+i*32, 274)
+              DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 68 + i * 32, 274)
             EndIf
           Next
           
@@ -90,10 +90,10 @@
           EndIf
           
           DrawAlphaImage(ImageID(#Img_Knob_Big), 121, 318)
-          Line(142, 339, Sin(Radian(-\Machine_State\Value_Rhythm_Knob_Tempo*270-45))*21+Sign(Sin(Radian(-\Machine_State\Value_Rhythm_Knob_Tempo*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Rhythm_Knob_Tempo*270-45))*21) <= 0.5), Cos(Radian(-\Machine_State\Value_Rhythm_Knob_Tempo*270-45))*21+Sign(Cos(Radian(-\Machine_State\Value_Rhythm_Knob_Tempo*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Rhythm_Knob_Tempo*270-45))*21) <= 0.5))
+          KnobLine(142, 339, 21, \Machine_State\Value_Rhythm_Knob_Tempo)
           
           DrawAlphaImage(ImageID(#Img_Knob_Big), 169, 318)
-          Line(190, 339, Sin(Radian(-\Machine_State\Value_Rhythm_Knob_Volume*270-45))*21+Sign(Sin(Radian(-\Machine_State\Value_Rhythm_Knob_Volume*270-45)))*Bool(Abs(Sin(Radian(-\Machine_State\Value_Rhythm_Knob_Volume*270-45))*21) <= 0.5), Cos(Radian(-\Machine_State\Value_Rhythm_Knob_Volume*270-45))*21+Sign(Cos(Radian(-\Machine_State\Value_Rhythm_Knob_Volume*270-45)))*Bool(Abs(Cos(Radian(-\Machine_State\Value_Rhythm_Knob_Volume*270-45))*21) <= 0.5))
+          KnobLine(190, 339, 21, \Machine_State\Value_Rhythm_Knob_Volume)
         EndIf
         
         
@@ -149,75 +149,75 @@
             Select i
               Case #Note_Eb
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Maj, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Light_Down_On), 271+i*31, 240)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_Down_On), 271 + i * 31, 240)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Light_Down_Off), 271+i*31, 240)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_Down_Off), 271 + i * 31, 240)
                 EndIf
               Case #Note_Bb
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Maj, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Light_Up_On), 271+i*31, 240)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_Up_On), 271 + i * 31, 240)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Light_Up_Off), 271+i*31, 240)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_Up_Off), 271 + i * 31, 240)
                 EndIf
               Case #Note_A, #Note_E, #Note_B
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Maj, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Light_O_On), 271+i*31, 240)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_O_On), 271 + i * 31, 240)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Light_O_Off), 271+i*31, 240)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_O_Off), 271 + i * 31, 240)
                 EndIf
               Default
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Maj, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Light_On), 271+i*31, 240)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_On), 271 + i * 31, 240)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271+i*31, 240)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_Off), 271 + i * 31, 240)
                 EndIf
             EndSelect
             
             Select i
               Case #Note_Db, #Note_Bb, #Note_D
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Min, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Light_On), 286+i*31, 283)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_On), 286 + i * 31, 283)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286+i*31, 283)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_Off), 286 + i * 31, 283)
                 EndIf
               Case #Note_A, #Note_E
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Min, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_C_On), 286+i*31, 283)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_C_On), 286 + i * 31, 283)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_C_Off), 286+i*31, 283)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_C_Off), 286 + i * 31, 283)
                 EndIf
               Case #Note_B
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Min, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Light_C_On), 286+i*31, 283)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_C_On), 286 + i * 31, 283)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Light_C_Off), 286+i*31, 283)
+                  DrawAlphaImage(ImageID(#Img_Button_Light_C_Off), 286 + i * 31, 283)
                 EndIf
               Default
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Min, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286+i*31, 283)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_On), 286 + i * 31, 283)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 286+i*31, 283)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 286 + i * 31, 283)
                 EndIf
             EndSelect
             
             Select i
               Case #Note_F, #Note_C, #Note_G
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_7th, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_On), 301+i*31, 326)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_On), 301 + i * 31, 326)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_Off), 301+i*31, 326)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_Tri_Off), 301 + i * 31, 326)
                 EndIf
               Case #Note_A, #Note_E, #Note_B
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_7th, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_X_On), 301+i*31, 326)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_X_On), 301 + i * 31, 326)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_X_Off), 301+i*31, 326)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_X_Off), 301 + i * 31, 326)
                 EndIf
               Default
                 If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_7th, i))
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301+i*31, 326)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_On), 301 + i * 31, 326)
                 Else
-                  DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301+i*31, 326)
+                  DrawAlphaImage(ImageID(#Img_Button_Dark_Off), 301 + i * 31, 326)
                 EndIf
             EndSelect
           Next

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 6.10 LTS (Windows - x86)">
+<project xmlns="http://www.purebasic.com/namespace" version="1.0" creator="PureBasic 6.11 LTS Beta 2 (Windows - x86)">
   <section name="config">
     <options closefiles="1" openmode="1" name="Chordian"/>
     <comment>
@@ -18,12 +18,12 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
-    <lastopen date="2024-04-24 21:38" user="dino" host="DESKTOP-C5DN0BR"/>
+    <lastopen date="2024-04-26 12:53" user="Dino" host="HUSKLET"/>
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
-      <fingerprint md5="c7fe35ee4d27d3524378661c6b027711"/>
+      <fingerprint md5="e060a66de37a47312a64bd96d5a478a2"/>
     </file>
     <file name="chordian_datasections.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate="+"/>
@@ -35,15 +35,15 @@
     </file>
     <file name="chordian_frequencyhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="4" panelstate="+"/>
-      <fingerprint md5="773e0a2e49a9832f8e288b6a702acb07"/>
+      <fingerprint md5="20852e1e835eab5f762a814bfe216ad9"/>
     </file>
     <file name="chordian_helpers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="5" panelstate="+"/>
-      <fingerprint md5="80694d692a4232d30dfc39e0185d251a"/>
+      <fingerprint md5="addde051c5919cbfa9ea9745fbced9c3"/>
     </file>
     <file name="chordian_machinehandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="6" panelstate="+"/>
-      <fingerprint md5="c9cf6990f7cf60eeb978552f0f064e8f"/>
+      <fingerprint md5="a2c66cee4557c24d9666943860f377f7"/>
     </file>
     <file name="chordian_patternhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="7" panelstate="+"/>
@@ -51,7 +51,7 @@
     </file>
     <file name="chordian_repainthandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="8" panelstate="+"/>
-      <fingerprint md5="7eecf12aeb6d2cc59e1d9efd66f7f1ac"/>
+      <fingerprint md5="dc9ab111d655bbc2623805dcb4a1ea14"/>
     </file>
     <file name="chordian_structures.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="9" panelstate="+"/>
@@ -59,7 +59,7 @@
     </file>
     <file name="chordian_synthhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="10" panelstate="+"/>
-      <fingerprint md5="68f20f6d443e617cee7f3da9465484f3"/>
+      <fingerprint md5="01620fdda8776e93ce5c83d76f66684b"/>
     </file>
     <file name="dsound.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="11" panelstate="+"/>
@@ -67,19 +67,19 @@
     </file>
     <file name="midi.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="12" panelstate="+"/>
-      <fingerprint md5="94b0c72d16d100e5e124b39885db9373"/>
+      <fingerprint md5="9f1f2642b1e97af968248aa19026ea2d"/>
     </file>
   </section>
   <section name="targets">
     <target name="Test" enabled="0" default="1">
       <inputfile value="chordian.pb"/>
       <outputfile value=""/>
-      <compiler version="PureBasic 6.10 LTS (Windows - x86)"/>
+      <compiler version="PureBasic 6.11 LTS Beta 2 (Windows - x86)"/>
       <executable value="..\chordian610b6c.exe"/>
       <options unicode="1" thread="1" xpskin="1" optimizer="0"/>
       <icon enable="0">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <compilecount enable="1" value="2030"/>
+      <compilecount enable="1" value="2041"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -101,12 +101,12 @@
     <target name="Stable" enabled="1" default="0">
       <inputfile value="chordian.pb"/>
       <outputfile value="..\chordian.exe"/>
-      <compiler version="PureBasic 6.10 LTS - C Backend (Windows - x86)"/>
+      <compiler version="PureBasic 6.11 LTS Beta 2 - C Backend (Windows - x86)"/>
       <executable value="..\chordian.exe"/>
       <options unicode="1" thread="1" xpskin="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="430"/>
+      <buildcount enable="1" value="433"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -129,12 +129,12 @@
     <target name="Stable_x64" enabled="1" default="0">
       <inputfile value="chordian.pb"/>
       <outputfile value="..\chordian_x64.exe"/>
-      <compiler version="PureBasic 6.10 LTS - C Backend (Windows - x64)"/>
+      <compiler version="PureBasic 6.11 LTS Beta 2 - C Backend (Windows - x64)"/>
       <executable value="..\chordian_x64.exe"/>
       <options unicode="1" thread="1" xpskin="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
-      <buildcount enable="1" value="430"/>
+      <buildcount enable="1" value="433"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -161,7 +161,7 @@
       <executable value="..\chordian_legacy.exe"/>
       <options thread="1" optimizer="0"/>
       <icon enable="1">chordian.ico</icon>
-      <buildcount enable="1" value="430"/>
+      <buildcount enable="1" value="433"/>
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>

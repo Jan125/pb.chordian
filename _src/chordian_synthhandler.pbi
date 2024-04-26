@@ -28,7 +28,7 @@ Global DirectSoundBufferDescription.DSBUFFERDESC
 With DirectSoundBufferDescription
   \dwSize = SizeOf(DSBUFFERDESC)
   \dwFlags = #DSBCAPS_CTRLPOSITIONNOTIFY|#DSBCAPS_GLOBALFOCUS
-  \dwBufferBytes = Int(ReadPreferenceLong("BufferSize", 768) * (WaveFormatExDescriptor\nSamplesPerSec/44100.0)) * (ArraySize(DirectSoundNotifyArray())+1) * WaveFormatExDescriptor\nBlockAlign
+  \dwBufferBytes = Int(ReadPreferenceLong("BufferSize", 768) * (WaveFormatExDescriptor\nSamplesPerSec / 44100.0)) * (ArraySize(DirectSoundNotifyArray()) + 1) * WaveFormatExDescriptor\nBlockAlign
   \dwReserved = 0
   \lpwfxFormat = @WaveFormatExDescriptor
 EndWith
@@ -67,7 +67,6 @@ Procedure.i SynthHandler(*Void)
     Protected Harp1Volume.f
     Protected Harp2Volume.f
     
-    Protected Phase.f
     Protected Sin3Phase.f
     
     Protected *AudioPointer1
@@ -75,9 +74,9 @@ Procedure.i SynthHandler(*Void)
     Protected *AudioPointer2
     Protected AudioBytes2.i
     
-    Protected CurrentBlock.i = ArraySize(DirectSoundNotifyArray())-1
+    Protected CurrentBlock.i = ArraySize(DirectSoundNotifyArray()) - 1
     Protected *Block
-    Protected BlockSize.i = DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray())+1)
+    Protected BlockSize.i = DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray()) + 1)
     
     Protected Result.f
     
@@ -135,7 +134,7 @@ Procedure.i SynthHandler(*Void)
         CurrentKeyboard = \Value_Internal_Keyboard_Note
         CurrentAlternate = \Value_Rhythm_Button_Alternate_OnOff_Current
         CurrentPattern = \Value_Rhythm_Button_Pattern_Current
-        CurrentTick.i = Int(\Value_Internal_Tick)
+        CurrentTick = Int(\Value_Internal_Tick)
         If CurrentTick >= 32
           CurrentTick = 0
         EndIf
@@ -144,31 +143,31 @@ Procedure.i SynthHandler(*Void)
         
         Select CurrentNote
           Case #Note_G
-            Phase + ((3.125 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((3.125 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_F
-            Phase + ((6.333 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((6.333 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_Fc
-            Phase + ((2.843 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((2.843 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_E
-            Phase + ((5.050 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((5.050 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_Eb
-            Phase + ((4.565 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((4.565 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_D
-            Phase + ((4.275 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((4.275 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_Db
-            Phase + ((2.910 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((2.910 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_C
-            Phase + ((3.761 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((3.761 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_B
-            Phase + ((3.953 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((3.953 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_Bb
-            Phase + ((3.667 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((3.667 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_A
-            Phase + ((3.419 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((3.419 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Case #Note_Ab
-            Phase + ((3.162 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
+            \Value_Internal_Phase + ((3.162 * 360.0) / WaveFormatExDescriptor\nSamplesPerSec)
           Default
-            Phase + 0.0
+            \Value_Internal_Phase + 0.0
         EndSelect
         
         MSCounter + (1000.0 / WaveFormatExDescriptor\nSamplesPerSec)
@@ -177,8 +176,8 @@ Procedure.i SynthHandler(*Void)
           ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallMachineHandler, 1, 0)
         Wend
         
-        Sin3Phase = Sin(Radian(Phase+125.0))
-        Sin3Phase = Pow(Abs(Sin3Phase), 0.33)*Sign(Sin3Phase)
+        Sin3Phase = Sin(Radian(\Value_Internal_Phase + 125.0))
+        Sin3Phase = Pow(Abs(Sin3Phase), 0.33) * Sign(Sin3Phase)
         
         ;-Calc curves
         For i = #Snd_Bass_First To #Snd_Bass_Last
@@ -205,7 +204,7 @@ Procedure.i SynthHandler(*Void)
               EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Sustain
-              i-1
+              i - 1
               Continue
             Case #Curve_Oneshot
               If MIDIHandle
@@ -225,37 +224,38 @@ Procedure.i SynthHandler(*Void)
               EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Decay
-              i-1
+              i - 1
               Continue
             Case #Curve_Attack
               \Status_Sound(i) = #Curve_Sustain
-              i-1
+              i - 1
               Continue
             Case #Curve_Decay
               If \Status_Volume(i) > 0.95
-                \Status_Volume(i)-(1.0/WaveFormatExDescriptor\nSamplesPerSec)/1.222
+                \Status_Volume(i) - (1.0 / WaveFormatExDescriptor\nSamplesPerSec) / 1.222
                 If \Status_Volume(i) < 0.95
                   \Status_Volume(i) = 0.95
                   \Status_Sound(i) = #Curve_Release
-                  i-1
+                  i - 1
                   Continue
                 EndIf
               EndIf
             Case #Curve_Sustain
             Case #Curve_Release
-              \Status_Volume(i)-((1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.333)*(0.5+\Status_Volume(i))
+              \Status_Volume(i) - ((1.0 / WaveFormatExDescriptor\nSamplesPerSec) / 0.333) * (0.5 + \Status_Volume(i))
               If \Status_Volume(i) < 0.0
                 If MIDIHandle
                   SendMIDIStop(MIDIHandle, 0)
                 EndIf
                 \Status_Sound(i) = #Curve_None
-                i-1
+                i - 1
                 Continue
               EndIf
           EndSelect
+          
           Result + (GetLinearInterpolatedSample(?Snd_Bass_Base, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) + (GetLinearInterpolatedSample(?Snd_Bass_Mod, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * (1.0 - (\Status_Volume(i) * \Status_Volume(i))))) * \Status_Volume(i) * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume
           
-          \Status_Position(i) + \Status_Frequency(i)*(44100.0/WaveFormatExDescriptor\nSamplesPerSec)
+          \Status_Position(i) + \Status_Frequency(i) * (44100.0 / WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
             \Status_Position(i) - 100.0
           Wend
@@ -273,12 +273,12 @@ Procedure.i SynthHandler(*Void)
                   SendMIDIStop(MIDIHandle, 1)
                 EndIf
                 If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
-                  SendMIDINote(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First+i-#Snd_Chord_First), Int(127.0 * 0.8 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                  SendMIDINote(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First + i - #Snd_Chord_First), Int(127.0 * 0.8 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Decay
-              i-1
+              i - 1
               Continue
             Case #Curve_Oneshot
               If MIDIHandle
@@ -291,37 +291,38 @@ Procedure.i SynthHandler(*Void)
               EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Attack
               \Status_Sound(i) = #Curve_Decay
-              i-1
+              i - 1
               Continue
             Case #Curve_Decay
               If \Status_Volume(i) > 0.95
-                \Status_Volume(i)-(1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.333
+                \Status_Volume(i) - (1.0 / WaveFormatExDescriptor\nSamplesPerSec) / 0.333
                 If \Status_Volume(i) < 0.95
                   \Status_Volume(i) = 0.95
                   \Status_Sound(i) = #Curve_Sustain
-                  i-1
+                  i - 1
                   Continue
                 EndIf
               EndIf
             Case #Curve_Sustain
             Case #Curve_Release 
-              \Status_Volume(i)-(1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.18
+              \Status_Volume(i) - (1.0 / WaveFormatExDescriptor\nSamplesPerSec) / 0.18
               If \Status_Volume(i) < 0.0
                 If MIDIHandle And i = #Snd_Chord_Last
                   SendMIDIStop(MIDIHandle, 1)
                 EndIf
                 \Status_Sound(i) = #Curve_None
-                i-1
+                i - 1
                 Continue
               EndIf
           EndSelect
+          
           Result + GetLinearInterpolatedSample(?Snd_Chord, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * 0.4 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume
           
-          \Status_Position(i) + \Status_Frequency(i)*(44100.0/WaveFormatExDescriptor\nSamplesPerSec)
+          \Status_Position(i) + \Status_Frequency(i) * (44100.0 / WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
             \Status_Position(i) - 100.0
           Wend
@@ -341,7 +342,7 @@ Procedure.i SynthHandler(*Void)
               EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Oneshot
               If MIDIHandle
@@ -351,25 +352,25 @@ Procedure.i SynthHandler(*Void)
               EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Attack
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Decay
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Sustain
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Release
-              \Status_Volume(i)-((1.0/WaveFormatExDescriptor\nSamplesPerSec)/(0.366+2.734*\Value_Level_Knob_Sustain))*(0.20+\Status_Volume(i)*1.8)
+              \Status_Volume(i)-((1.0 / WaveFormatExDescriptor\nSamplesPerSec) / (0.366 + 2.734 * \Value_Level_Knob_Sustain)) * (0.20 + \Status_Volume(i) * 1.8)
               If \Status_Volume(i) < 0.0
                 \Status_Sound(i) = #Curve_None
-                i-1
+                i - 1
                 Continue
               EndIf
           EndSelect
@@ -377,7 +378,7 @@ Procedure.i SynthHandler(*Void)
           Result + (GetLinearInterpolatedSample(?Snd_Harp_Base, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) + (GetLinearInterpolatedSample(?Snd_Harp_Mod, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * LinearInterpolation(0.5 + (Sin3Phase / 2.0), 0.2, (i - #Snd_Harp_First) / 14.0)))* \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_1 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_2 / 2.0)) * (1.0 - (i - #Snd_Harp_First) * 0.025) * Bool(CurrentNote <> #Note_None And CurrentChord <> #Chord_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore)
           Result + GetLinearInterpolatedSample(?Snd_Harp, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_2 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_1 / 2.0)) * 0.75 * (1.0 - (i - #Snd_Harp_First) * 0.025) * Bool(CurrentNote <> #Note_None And CurrentChord <> #Chord_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore)
           
-          \Status_Position(i) + \Status_Frequency(i)*(44100.0/WaveFormatExDescriptor\nSamplesPerSec)
+          \Status_Position(i) + \Status_Frequency(i) * (44100.0 / WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
             \Status_Position(i) - 100
           Wend
@@ -406,7 +407,7 @@ Procedure.i SynthHandler(*Void)
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
               \Status_Position(i) = 0.0
-              i-1
+              i - 1
               Continue
             Case #Curve_Oneshot
               If MIDIHandle
@@ -426,19 +427,19 @@ Procedure.i SynthHandler(*Void)
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
               \Status_Position(i) = 0.0
-              i-1
+              i - 1
               Continue
             Case #Curve_Attack
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Decay
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Sustain
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Release
               Select i
@@ -454,37 +455,37 @@ Procedure.i SynthHandler(*Void)
                   Result + PeekF(?Snd_Drum_Snare+Int(\Status_Position(i))*WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume
               EndSelect
               
-              \Status_Position(i) + \Status_Frequency(i)*(44100.0/WaveFormatExDescriptor\nSamplesPerSec)
+              \Status_Position(i) + \Status_Frequency(i) * (44100.0 / WaveFormatExDescriptor\nSamplesPerSec)
               
               Select i
                 Case #Snd_Drum_BD
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_BD_End-?Snd_Drum_BD)/WaveFormatExDescriptor\nBlockAlign
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_BD_End - ?Snd_Drum_BD) / WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
-                    i-1
+                    i - 1
                     Continue
                   EndIf
                 Case #Snd_Drum_Click
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_Click_End-?Snd_Drum_Click)/WaveFormatExDescriptor\nBlockAlign
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_Click_End - ?Snd_Drum_Click) / WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
-                    i-1
+                    i - 1
                     Continue
                   EndIf
                 Case #Snd_Drum_HiHat
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_HiHat_End-?Snd_Drum_HiHat)/WaveFormatExDescriptor\nBlockAlign
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_HiHat_End - ?Snd_Drum_HiHat) / WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
-                    i-1
+                    i - 1
                     Continue
                   EndIf
                 Case #Snd_Drum_Ride
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_Ride_End-?Snd_Drum_Ride)/WaveFormatExDescriptor\nBlockAlign
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_Ride_End - ?Snd_Drum_Ride) / WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
-                    i-1
+                    i - 1
                     Continue
                   EndIf
                 Case #Snd_Drum_Snare
-                  If Int(\Status_Position(i)) >= (?Snd_Drum_Snare_End-?Snd_Drum_Snare)/WaveFormatExDescriptor\nBlockAlign
+                  If Int(\Status_Position(i)) >= (?Snd_Drum_Snare_End - ?Snd_Drum_Snare) / WaveFormatExDescriptor\nBlockAlign
                     \Status_Sound(i) = #Curve_None
-                    i-1
+                    i - 1
                     Continue
                   EndIf
               EndSelect
@@ -508,7 +509,7 @@ Procedure.i SynthHandler(*Void)
               EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Sustain
-              i-1
+              i - 1
               Continue
             Case #Curve_Oneshot
               If MIDIHandle
@@ -519,15 +520,15 @@ Procedure.i SynthHandler(*Void)
               EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Attack
               \Status_Sound(i) = #Curve_Sustain
-              i-1
+              i - 1
               Continue
             Case #Curve_Decay
               \Status_Sound(i) = #Curve_Sustain
-              i-1
+              i - 1
               Continue
             Case #Curve_Sustain
             Case #Curve_Release
@@ -535,12 +536,13 @@ Procedure.i SynthHandler(*Void)
                 SendMIDIStop(MIDIHandle, 3)
               EndIf
               \Status_Sound(i) = #Curve_None
-              i-1
+              i - 1
               Continue
           EndSelect
+          
           Result + GetLinearInterpolatedSample(?Snd_Keyboard, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Level_Knob_Volume_Keyboard * \Value_Master_Knob_Volume
           
-          \Status_Position(i) + \Status_Frequency(i)*(44100.0/WaveFormatExDescriptor\nSamplesPerSec)
+          \Status_Position(i) + \Status_Frequency(i) * (44100.0 / WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
             \Status_Position(i) - 100.0
           Wend
@@ -555,60 +557,61 @@ Procedure.i SynthHandler(*Void)
             Case #Curve_Trigger
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Decay
-              i-1
+              i - 1
               Continue
             Case #Curve_Oneshot
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Attack
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Decay
-              \Status_Volume(i)-(1.001-\Status_Volume(i))*((1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.10)
+              \Status_Volume(i) - (1.001 - \Status_Volume(i)) * ((1.0 / WaveFormatExDescriptor\nSamplesPerSec) / 0.10)
               If \Status_Volume(i) < 0.9
                 \Status_Sound(i) = #Curve_Release
-                i-1
+                i - 1
                 Continue
               EndIf
             Case #Curve_Sustain
               \Status_Sound(i) = #Curve_Release
-              i-1
+              i - 1
               Continue
             Case #Curve_Release
               \Status_Volume(i)-(1.001-\Status_Volume(i))*((1.0/WaveFormatExDescriptor\nSamplesPerSec)/0.01)
               If \Status_Volume(i) < 0.0
                 \Status_Sound(i) = #Curve_None
-                i-1
+                i - 1
                 Continue
               EndIf
           EndSelect
+          
           Result + GetLinearInterpolatedSample(?Snd_Beep, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Master_Knob_Volume
           
-          \Status_Position(i) + \Status_Frequency(i)*(44100.0/WaveFormatExDescriptor\nSamplesPerSec)
+          \Status_Position(i) + \Status_Frequency(i) * (44100.0 / WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
             \Status_Position(i) - 100.0
           Wend
         Next
         
-        
         PokeF(*Block + (a * WaveFormatExDescriptor\nBlockAlign), Result * DSGainMult)
+        
       Next
       
-      While Phase > 360.0
-        Phase-360.0
+      While \Value_Internal_Phase > 360.0
+        \Value_Internal_Phase - 360.0
       Wend
       
-      If DirectSoundBuffer\Lock(CurrentBlock*(DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray())+1)), DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray())+1), @*AudioPointer1, @AudioBytes1, @*AudioPointer2, @AudioBytes2, 0) = #DS_OK
+      If DirectSoundBuffer\Lock(CurrentBlock * (DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray()) + 1)), DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray()) + 1), @*AudioPointer1, @AudioBytes1, @*AudioPointer2, @AudioBytes2, 0) = #DS_OK
         
         If *AudioPointer1
           CopyMemory(*Block, *AudioPointer1, AudioBytes1)
         EndIf
         
         If *AudioPointer2
-          CopyMemory(*Block+AudioBytes1, *AudioPointer2, AudioBytes2)
+          CopyMemory(*Block + AudioBytes1, *AudioPointer2, AudioBytes2)
         EndIf
         
         DirectSoundBuffer\Unlock(*AudioPointer1, AudioBytes1, *AudioPointer2, AudioBytes2)

@@ -1644,7 +1644,13 @@ Procedure Main()
               
             Case #Itm_About
               DisableWindow(#Win_Main, 1)
-              CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant)
+              CompilerIf Defined(PB_Editor_BuildCount, #PB_Constant) And Defined(PB_Editor_CompileCount, #PB_Constant)
+                TempString = "An Omnichord Emulator"+#CRLF$+
+                             "Fragment "+Str(#PB_Editor_CompileCount)+#CRLF$+
+                             "Build "+Str(#PB_Editor_BuildCount)+#CRLF$+
+                             "Please see the GitHub page for more information."+#CRLF$+
+                             "https://github.com/Jan125/pb.chordian"
+              CompilerElseIf Defined(PB_Editor_BuildCount, #PB_Constant)
                 TempString = "An Omnichord Emulator"+#CRLF$+
                              "Build "+Str(#PB_Editor_BuildCount)+#CRLF$+
                              #CRLF$+
@@ -1664,7 +1670,9 @@ Procedure Main()
                              "https://github.com/Jan125/pb.chordian"
               CompilerEndIf
               MessageRequester("Chordian>About", TempString, #PB_MessageRequester_Ok)
+              
               DisableWindow(#Win_Main, 0)
+              SetActiveGadget(#Gad_Canvas)
               
           EndSelect
         Case #PB_Event_Gadget
