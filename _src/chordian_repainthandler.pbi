@@ -5,9 +5,23 @@
   
   With Chordian
     Repeat
-      ReleaseSemaphore_(\Repaint_Event\Semaphore_Repaint_Done, 1, 0)
       WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Commit, -1)
-      WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Done, 0)
+      
+      If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Stop, 0) = #WAIT_OBJECT_0
+        
+        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Base, 0)
+        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Master, 0)
+        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Level, 0)
+        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Rhythm, 0)
+        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Memory, 0)
+        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Chord, 0)
+        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Commit, 0)
+        
+        ReleaseSemaphore_(\Repaint_Event\Semaphore_Repaint_Done, 1, 0)
+        
+        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Commit, -1)
+      EndIf
+      
       
       If StartDrawing(CanvasOutput(#Gad_Canvas))
         

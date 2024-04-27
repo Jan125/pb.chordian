@@ -177,7 +177,9 @@ EndStructure
 
 
 Structure Repaint_Event
+  Semaphore_Repaint_Stop.i
   Semaphore_Repaint_Done.i
+  
   Semaphore_Repaint_Commit.i
   Semaphore_Repaint_Base.i
   Semaphore_Repaint_Master.i
@@ -231,6 +233,7 @@ EndWith
 
 
 With Chordian\Repaint_Event
+  \Semaphore_Repaint_Stop = CreateSemaphore_(0, 0, 1, 0)
   \Semaphore_Repaint_Done = CreateSemaphore_(0, 0, 1, 0)
   
   \Semaphore_Repaint_Commit = CreateSemaphore_(0, 0, 1, 0)

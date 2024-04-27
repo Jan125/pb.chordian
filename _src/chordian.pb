@@ -3564,21 +3564,18 @@ Procedure Main()
           ResumeThread(Chordian\RepaintHandler_Thread)
           
         Case #PB_Event_SizeWindow
+          PauseThread(Chordian\RepaintHandler_Thread)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+          ResumeThread(Chordian\RepaintHandler_Thread)
           
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 0)
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 0)
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 0)
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 0)
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 0)
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 0)
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 0)
-          
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 1000)
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, -1)
           
           PauseThread(Chordian\RepaintHandler_Thread)
+          
           GetGraphics()
-          CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main)-20, #PB_Canvas_Keyboard)
-          SetActiveGadget(#Gad_Canvas)
+          ResizeGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main)-20)
+          
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
