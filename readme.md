@@ -144,8 +144,8 @@ Notes are automatically transposed to a value appropriate to the Omnichord, wher
 Please make sure you have the recommended system requirements if you encounter stuttering or other weird behaviour:
 - Windows 7+ or compatible OS/subsystem required
 - 2313 CPU Mark with 1350 Single Thread Rating recommended, 32-bit-support required
-- 32MiB of RAM
-- Keyboard with 3 key vertical anti-ghosting required, 3 key horizontal anti-ghosting recommended
+- 64MiB of RAM
+- Keyboard with 3 key vertical anti-ghosting required, 3 key horizontal anti-ghosting and space bar recommended
 - Screen resolution of 1024x768 or higher recommended
 - Tri-button, or two-button+one-wheel mouse recommended
 - Sound chipset from '97 or upward required

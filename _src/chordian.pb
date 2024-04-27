@@ -226,11 +226,6 @@ Procedure.i GetGraphics()
   
   For i = #Img_GUI_First To #Img_GUI_Last
     ResizeImage(i, ImageWidth(i) * (WindowWidth(#Win_Main) / 800.0) * 0.5, ImageHeight(i) * ((WindowHeight(#Win_Main) - 20) / 600.0) * 0.5)
-    If i = #Img_Base
-      Debug ImageWidth(i)
-      Debug ImageHeight(i)
-    EndIf
-    
   Next  
 EndProcedure
 
@@ -3578,7 +3573,7 @@ Procedure Main()
           WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 0)
           WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 0)
           
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, -1)
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 1000)
           
           PauseThread(Chordian\RepaintHandler_Thread)
           GetGraphics()
