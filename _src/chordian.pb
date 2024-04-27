@@ -244,7 +244,7 @@ Procedure.i Init()
     MessageRequester("Chordian>Error", "Window could not be initialized.")
     End
   EndIf
-  
+  WindowBounds(#Win_Main, 400, 300+20, #PB_Ignore, #PB_Ignore)
   
   If Not (DirectSoundCreate_(0, @DirectSound, 0) = #DS_OK And
           DirectSound\SetCooperativeLevel(GetDesktopWindow_(), #DSSCL_PRIORITY) = #DS_OK And

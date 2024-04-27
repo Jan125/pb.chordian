@@ -48,7 +48,8 @@ The following combinations are only available in Chordiate Mode:
 - Minor + 7th + Chordiate = Addm4
 - Major + Minor + 7th + Chordiate = Chromatic
 
-
+The Playback|Enter button is bound to LCTRL.
+This can currently not be changed.
 
 
 ##
