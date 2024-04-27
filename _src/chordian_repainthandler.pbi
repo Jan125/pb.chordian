@@ -249,7 +249,7 @@
           
         EndIf
         
-        ClipOutput(0, 0, OutputWidth(), OutputHeight())
+        UnclipOutput()
         
         StopDrawing()
       EndIf

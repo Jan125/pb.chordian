@@ -270,12 +270,17 @@ Procedure.i Init()
   
   ;-Menu Entries
   MenuTitle("File")
+  MenuItem(#Itm_ResetSize, "Reset window size")
+  MenuItem(#Itm_Aspect, "Keep aspect ratio")
+  MenuBar()
   MenuItem(#Itm_Load, "Load state...")
   MenuItem(#Itm_Save, "Save state...")
   MenuBar()
-  MenuItem(#Itm_Reset, "Reset state")
+  MenuItem(#Itm_ResetState, "Reset state")
   MenuBar()
   MenuItem(#Itm_Exit, "Exit")
+  
+  SetMenuItemState(#Men_Main, #Itm_Aspect, 1)
   
   MenuTitle("Edit")
   MenuItem(#Itm_Tuning, "Set Tuning...")
@@ -415,7 +420,14 @@ Procedure Main()
   Protected i.i
   Protected n.i
   
+  Protected PreviousSizeX.i
+  Protected PreviousSizeY.i
+  Protected WindowsMaximized.i
+  
   Init()
+  
+  PreviousSizeX = WindowWidth(#Win_Main)
+  PreviousSizeY = WindowHeight(#Win_Main)
   
   Repeat
     Event = WaitWindowEvent()
@@ -425,6 +437,19 @@ Procedure Main()
         Case #PB_Event_Menu
           ;--Menu Actions
           Select EventMenu()
+            Case #Itm_ResetSize
+              ResizeWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 600 + 20)
+              
+            Case #Itm_Aspect
+              SetMenuItemState(#Men_Main, #Itm_Aspect, Bool(Not GetMenuItemState(#Men_Main, #Itm_Aspect)))
+              If GetWindowState(#Win_Main) = #PB_Window_Normal
+                If GetMenuItemState(#Men_Main, #Itm_Aspect)
+                  ResizeWindow(#Win_Main, #PB_Ignore, #PB_Ignore, #PB_Ignore, (600 * (WindowWidth(#Win_Main) / 800.0) + 20))
+                EndIf
+                PreviousSizeX = WindowWidth(#Win_Main)
+                PreviousSizeY = WindowHeight(#Win_Main)
+              EndIf
+              
             Case #Itm_Load
               TempString = OpenFileRequester("Chordian>Load machine state...", "", "JSON (*.json)|*.json|All Files (*.*)|*.*", 0)
               If TempString
@@ -577,7 +602,7 @@ Procedure Main()
                 EndSelect
               EndIf
               
-            Case #Itm_Reset
+            Case #Itm_ResetState
               ResetMachine()
               ResetInput()
               
@@ -3564,6 +3589,17 @@ Procedure Main()
           ResumeThread(Chordian\RepaintHandler_Thread)
           
         Case #PB_Event_SizeWindow
+          ;--Resize window
+          If GetWindowState(#Win_Main) = #PB_Window_Normal And GetMenuItemState(#Men_Main, #Itm_Aspect)
+            If WindowWidth(#Win_Main) <> PreviousSizeX And Abs(WindowHeight(#Win_Main) - PreviousSizeY) <= Abs(WindowWidth(#Win_Main) - PreviousSizeX)
+              ResizeWindow(#Win_Main, #PB_Ignore, #PB_Ignore, #PB_Ignore, (600 * (WindowWidth(#Win_Main) / 800.0) + 20))
+            ElseIf WindowHeight(#Win_Main) <> PreviousSizeY And Abs(WindowWidth(#Win_Main) - PreviousSizeX) <= Abs(WindowHeight(#Win_Main) - PreviousSizeY)
+              ResizeWindow(#Win_Main, #PB_Ignore, #PB_Ignore, (800 * ((WindowHeight(#Win_Main) - 20) / 600.0)), #PB_Ignore)
+            EndIf
+            PreviousSizeX = WindowWidth(#Win_Main)
+            PreviousSizeY = WindowHeight(#Win_Main)
+          EndIf
+          
           PauseThread(Chordian\RepaintHandler_Thread)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)

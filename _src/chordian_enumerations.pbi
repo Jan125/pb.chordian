@@ -386,9 +386,11 @@ Enumeration 1
 EndEnumeration
 
 Enumeration 1
+  #Itm_ResetSize
+  #Itm_Aspect
   #Itm_Load
   #Itm_Save
-  #Itm_Reset
+  #Itm_ResetState
   #Itm_Exit
   #Itm_Tuning
   #Itm_StrumMode_Primary_First
