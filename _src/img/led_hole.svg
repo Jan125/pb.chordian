@@ -2,5 +2,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="6px" height="6px" viewBox="0 0 6 6">
 <defs>
 </defs>
-<path stroke="none" fill-rule="evenodd" fill="#333333" d="M 6 3 C 6 4.65685 4.65685 6 3 6 C 1.34315 6 4.76837e-07 4.65686 -2.38419e-07 3 C -1.43051e-06 1.34315 1.34314 9.53674e-07 3 -2.38419e-07 C 4.65685 -1.19209e-06 6 1.34314 6 3 Z "/>
+<path stroke="none" fill-rule="evenodd" fill="#333333" d="M 6 3 C 6 4.65685 4.65685 6 3 6 C 1.34315 6 1.71276e-07 4.65685 -2.37549e-08 3 C -8.35286e-07 1.34315 1.34314 2.82013e-07 3 1.83917e-08 C 4.65685 -9.39134e-07 6 1.34314 6 3 Z "/>
 </svg>

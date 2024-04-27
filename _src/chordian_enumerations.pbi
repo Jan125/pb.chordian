@@ -170,7 +170,8 @@ EndEnumeration
 Enumeration 1
   #Img_First
   
-  #Img_Background = #Img_First
+  #Img_GUI_First = #Img_First
+  #Img_Background = #Img_GUI_First
   
   #Img_Base
   
@@ -215,6 +216,8 @@ Enumeration 1
   
   #Img_LED_Off
   #Img_LED_On
+  
+  #Img_GUI_Last = #Img_LED_On
   
   #Img_UI_Curve_None
   #Img_UI_Curve_Trigger

@@ -150,13 +150,97 @@ Procedure.i ResetInput()
 EndProcedure
 
 ;-Procedures
+Procedure.i GetGraphics()
+  Protected i.i
+  
+  LocalCatchImage(#Img_Background, ?Img_Background, ".data\img\background.png")
+  LocalCatchImage(#Img_Base, ?Img_Base, ".data\img\base.png")
+  
+  LocalCatchImage(#Img_Button_Black_Off, ?Img_Button_Black_Off, ".data\img\button_black_off.png")
+  LocalCatchImage(#Img_Button_Black_On, ?Img_Button_Black_On, ".data\img\button_black_on.png")
+  
+  LocalCatchImage(#Img_Button_Blue_Off, ?Img_Button_Blue_Off, ".data\img\button_blue_off.png")
+  LocalCatchImage(#Img_Button_Blue_On, ?Img_Button_Blue_On, ".data\img\button_blue_on.png")
+  
+  LocalCatchImage(#Img_Button_Dark_Off, ?Img_Button_Dark_Off, ".data\img\button_dark_off.png")
+  LocalCatchImage(#Img_Button_Dark_On, ?Img_Button_Dark_On, ".data\img\button_dark_on.png")
+  LocalCatchImage(#Img_Button_Dark_C_Off, ?Img_Button_Dark_C_Off, ".data\img\button_dark_c_off.png")
+  LocalCatchImage(#Img_Button_Dark_C_On, ?Img_Button_Dark_C_On, ".data\img\button_dark_c_on.png")
+  LocalCatchImage(#Img_Button_Dark_X_Off, ?Img_Button_Dark_X_Off, ".data\img\button_dark_x_off.png")
+  LocalCatchImage(#Img_Button_Dark_X_On, ?Img_Button_Dark_X_On, ".data\img\button_dark_x_on.png")
+  LocalCatchImage(#Img_Button_Dark_Tri_Off, ?Img_Button_Dark_Tri_Off, ".data\img\button_dark_tri_off.png")
+  LocalCatchImage(#Img_Button_Dark_Tri_On, ?Img_Button_Dark_Tri_On, ".data\img\button_dark_tri_on.png")
+  
+  LocalCatchImage(#Img_Button_Red_Off, ?Img_Button_Red_Off, ".data\img\button_red_off.png")
+  LocalCatchImage(#Img_Button_Red_On, ?Img_Button_Red_On, ".data\img\button_red_on.png")
+  
+  LocalCatchImage(#Img_Button_Light_Off, ?Img_Button_Light_Off, ".data\img\button_light_off.png")
+  LocalCatchImage(#Img_Button_Light_On, ?Img_Button_Light_On, ".data\img\button_light_on.png")
+  LocalCatchImage(#Img_Button_Light_Up_Off, ?Img_Button_Light_Up_Off, ".data\img\button_light_up_off.png")
+  LocalCatchImage(#Img_Button_Light_Up_On, ?Img_Button_Light_Up_On, ".data\img\button_light_up_on.png")
+  LocalCatchImage(#Img_Button_Light_Down_Off, ?Img_Button_Light_Down_Off, ".data\img\button_light_down_off.png")
+  LocalCatchImage(#Img_Button_Light_Down_On, ?Img_Button_Light_Down_On, ".data\img\button_light_down_on.png")
+  LocalCatchImage(#Img_Button_Light_O_Off, ?Img_Button_Light_O_Off, ".data\img\button_light_o_off.png")
+  LocalCatchImage(#Img_Button_Light_O_On, ?Img_Button_Light_O_On, ".data\img\button_light_o_on.png")
+  LocalCatchImage(#Img_Button_Light_C_Off, ?Img_Button_Light_C_Off, ".data\img\button_light_c_off.png")
+  LocalCatchImage(#Img_Button_Light_C_On, ?Img_Button_Light_C_On, ".data\img\button_light_c_on.png")
+  
+  LocalCatchImage(#Img_Button_Bar_Light_Off, ?Img_Button_Bar_Light_Off, ".data\img\button_bar_light_off.png")
+  LocalCatchImage(#Img_Button_Bar_Light_On, ?Img_Button_Bar_Light_On, ".data\img\button_bar_light_on.png")
+  LocalCatchImage(#Img_Button_Bar_Red_Off, ?Img_Button_Bar_Red_Off, ".data\img\button_bar_red_off.png")
+  LocalCatchImage(#Img_Button_Bar_Red_On, ?Img_Button_Bar_Red_On, ".data\img\button_bar_red_on.png")
+  
+  LocalCatchImage(#Img_Button_Wide_Black_Off, ?Img_Button_Wide_Black_Off, ".data\img\button_wide_black_off.png")
+  LocalCatchImage(#Img_Button_Wide_Black_On, ?Img_Button_Wide_Black_On, ".data\img\button_wide_black_on.png")
+  LocalCatchImage(#Img_Button_Wide_Red_Off, ?Img_Button_Wide_Red_Off, ".data\img\button_wide_red_off.png")
+  LocalCatchImage(#Img_Button_Wide_Red_On, ?Img_Button_Wide_Red_On, ".data\img\button_wide_red_on.png")
+  
+  LocalCatchImage(#Img_Knob_Big, ?Img_Knob_Big, ".data\img\knob_big.png")
+  LocalCatchImage(#Img_Knob_Ring, ?Img_Knob_Ring, ".data\img\knob_ring.png")
+  LocalCatchImage(#Img_Knob_Small, ?Img_Knob_Small, ".data\img\knob_small.png")
+  
+  LocalCatchImage(#Img_LED_Off, ?Img_LED_Off, ".data\img\led_off.png")
+  LocalCatchImage(#Img_LED_On, ?Img_LED_On, ".data\img\led_on.png")
+  
+  LocalCatchImage(#Img_UI_Curve_None, ?Img_UI_Curve_None, ".data\img\ui_curve_none.png")
+  LocalCatchImage(#Img_UI_Curve_Trigger, ?Img_UI_Curve_Trigger, ".data\img\ui_curve_trigger.png")
+  LocalCatchImage(#Img_UI_Curve_Attack, ?Img_UI_Curve_Attack, ".data\img\ui_curve_attack.png")
+  LocalCatchImage(#Img_UI_Curve_Decay, ?Img_UI_Curve_Decay, ".data\img\ui_curve_decay.png")
+  LocalCatchImage(#Img_UI_Curve_Sustain, ?Img_UI_Curve_Sustain, ".data\img\ui_curve_sustain.png")
+  LocalCatchImage(#Img_UI_Curve_Release, ?Img_UI_Curve_Release, ".data\img\ui_curve_release.png")
+  LocalCatchImage(#Img_UI_Curve_Oneshot, ?Img_UI_Curve_Oneshot, ".data\img\ui_curve_oneshot.png")
+  LocalCatchImage(#Img_UI_Curve_Ignore, ?Img_UI_Curve_Ignore, ".data\img\ui_curve_ignore.png")
+  
+  LocalCatchImage(#Img_UI_Note_0, ?Img_UI_Note_0, ".data\img\ui_note_0.png")
+  LocalCatchImage(#Img_UI_Note_1, ?Img_UI_Note_1, ".data\img\ui_note_1.png")
+  LocalCatchImage(#Img_UI_Note_2, ?Img_UI_Note_2, ".data\img\ui_note_2.png")
+  LocalCatchImage(#Img_UI_Note_3, ?Img_UI_Note_3, ".data\img\ui_note_3.png")
+  LocalCatchImage(#Img_UI_Note_4, ?Img_UI_Note_4, ".data\img\ui_note_4.png")
+  LocalCatchImage(#Img_UI_Note_5, ?Img_UI_Note_5, ".data\img\ui_note_5.png")
+  LocalCatchImage(#Img_UI_Note_6, ?Img_UI_Note_6, ".data\img\ui_note_6.png")
+  LocalCatchImage(#Img_UI_Note_7, ?Img_UI_Note_7, ".data\img\ui_note_7.png")
+  LocalCatchImage(#Img_UI_Note_8, ?Img_UI_Note_8, ".data\img\ui_note_8.png")
+  LocalCatchImage(#Img_UI_Note_9, ?Img_UI_Note_9, ".data\img\ui_note_9.png")
+  LocalCatchImage(#Img_UI_Note_10, ?Img_UI_Note_10, ".data\img\ui_note_10.png")
+  LocalCatchImage(#Img_UI_Note_11, ?Img_UI_Note_11, ".data\img\ui_note_11.png")
+  
+  For i = #Img_GUI_First To #Img_GUI_Last
+    ResizeImage(i, ImageWidth(i) * (WindowWidth(#Win_Main) / 800.0) * 0.5, ImageHeight(i) * ((WindowHeight(#Win_Main) - 20) / 600.0) * 0.5)
+    If i = #Img_Base
+      Debug ImageWidth(i)
+      Debug ImageHeight(i)
+    EndIf
+    
+  Next  
+EndProcedure
+
 Procedure.i Init()
   Protected i.i
   
   ;-Initialization
   SetPriorityClass_(GetCurrentProcess_(), #HIGH_PRIORITY_CLASS)
   
-  If Not OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 620, "Chordian", #PB_Window_SystemMenu|#PB_Window_MinimizeGadget)
+  If Not OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 600+20, "Chordian", #PB_Window_SystemMenu|#PB_Window_MinimizeGadget|#PB_Window_MaximizeGadget|#PB_Window_SizeGadget)
     MessageRequester("Chordian>Error", "Window could not be initialized.")
     End
   EndIf
@@ -286,7 +370,7 @@ Procedure.i Init()
   MenuItem(#Itm_About, "About...")
   
   ;-Create Canvas
-  CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main), #PB_Canvas_Keyboard)
+  CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main)-20, #PB_Canvas_Keyboard)
   
   StartDrawing(CanvasOutput(#Gad_Canvas))
   DrawingMode(#PB_2DDrawing_AlphaBlend)
@@ -303,77 +387,7 @@ Procedure.i Init()
   
   UsePNGImageDecoder()
   
-  ;-Get Graphics
-  LocalCatchImage(#Img_Background, ?Img_Background, ".data\img\background.png")
-  LocalCatchImage(#Img_Base, ?Img_Base, ".data\img\base.png")
-  
-  LocalCatchImage(#Img_Button_Black_Off, ?Img_Button_Black_Off, ".data\img\button_black_off.png")
-  LocalCatchImage(#Img_Button_Black_On, ?Img_Button_Black_On, ".data\img\button_black_on.png")
-  
-  LocalCatchImage(#Img_Button_Blue_Off, ?Img_Button_Blue_Off, ".data\img\button_blue_off.png")
-  LocalCatchImage(#Img_Button_Blue_On, ?Img_Button_Blue_On, ".data\img\button_blue_on.png")
-  
-  LocalCatchImage(#Img_Button_Dark_Off, ?Img_Button_Dark_Off, ".data\img\button_dark_off.png")
-  LocalCatchImage(#Img_Button_Dark_On, ?Img_Button_Dark_On, ".data\img\button_dark_on.png")
-  LocalCatchImage(#Img_Button_Dark_C_Off, ?Img_Button_Dark_C_Off, ".data\img\button_dark_c_off.png")
-  LocalCatchImage(#Img_Button_Dark_C_On, ?Img_Button_Dark_C_On, ".data\img\button_dark_c_on.png")
-  LocalCatchImage(#Img_Button_Dark_X_Off, ?Img_Button_Dark_X_Off, ".data\img\button_dark_x_off.png")
-  LocalCatchImage(#Img_Button_Dark_X_On, ?Img_Button_Dark_X_On, ".data\img\button_dark_x_on.png")
-  LocalCatchImage(#Img_Button_Dark_Tri_Off, ?Img_Button_Dark_Tri_Off, ".data\img\button_dark_tri_off.png")
-  LocalCatchImage(#Img_Button_Dark_Tri_On, ?Img_Button_Dark_Tri_On, ".data\img\button_dark_tri_on.png")
-  
-  LocalCatchImage(#Img_Button_Red_Off, ?Img_Button_Red_Off, ".data\img\button_red_off.png")
-  LocalCatchImage(#Img_Button_Red_On, ?Img_Button_Red_On, ".data\img\button_red_on.png")
-  
-  LocalCatchImage(#Img_Button_Light_Off, ?Img_Button_Light_Off, ".data\img\button_light_off.png")
-  LocalCatchImage(#Img_Button_Light_On, ?Img_Button_Light_On, ".data\img\button_light_on.png")
-  LocalCatchImage(#Img_Button_Light_Up_Off, ?Img_Button_Light_Up_Off, ".data\img\button_light_up_off.png")
-  LocalCatchImage(#Img_Button_Light_Up_On, ?Img_Button_Light_Up_On, ".data\img\button_light_up_on.png")
-  LocalCatchImage(#Img_Button_Light_Down_Off, ?Img_Button_Light_Down_Off, ".data\img\button_light_down_off.png")
-  LocalCatchImage(#Img_Button_Light_Down_On, ?Img_Button_Light_Down_On, ".data\img\button_light_down_on.png")
-  LocalCatchImage(#Img_Button_Light_O_Off, ?Img_Button_Light_O_Off, ".data\img\button_light_o_off.png")
-  LocalCatchImage(#Img_Button_Light_O_On, ?Img_Button_Light_O_On, ".data\img\button_light_o_on.png")
-  LocalCatchImage(#Img_Button_Light_C_Off, ?Img_Button_Light_C_Off, ".data\img\button_light_c_off.png")
-  LocalCatchImage(#Img_Button_Light_C_On, ?Img_Button_Light_C_On, ".data\img\button_light_c_on.png")
-  
-  LocalCatchImage(#Img_Button_Bar_Light_Off, ?Img_Button_Bar_Light_Off, ".data\img\button_bar_light_off.png")
-  LocalCatchImage(#Img_Button_Bar_Light_On, ?Img_Button_Bar_Light_On, ".data\img\button_bar_light_on.png")
-  LocalCatchImage(#Img_Button_Bar_Red_Off, ?Img_Button_Bar_Red_Off, ".data\img\button_bar_red_off.png")
-  LocalCatchImage(#Img_Button_Bar_Red_On, ?Img_Button_Bar_Red_On, ".data\img\button_bar_red_on.png")
-  
-  LocalCatchImage(#Img_Button_Wide_Black_Off, ?Img_Button_Wide_Black_Off, ".data\img\button_wide_black_off.png")
-  LocalCatchImage(#Img_Button_Wide_Black_On, ?Img_Button_Wide_Black_On, ".data\img\button_wide_black_on.png")
-  LocalCatchImage(#Img_Button_Wide_Red_Off, ?Img_Button_Wide_Red_Off, ".data\img\button_wide_red_off.png")
-  LocalCatchImage(#Img_Button_Wide_Red_On, ?Img_Button_Wide_Red_On, ".data\img\button_wide_red_on.png")
-  
-  LocalCatchImage(#Img_Knob_Big, ?Img_Knob_Big, ".data\img\knob_big.png")
-  LocalCatchImage(#Img_Knob_Ring, ?Img_Knob_Ring, ".data\img\knob_ring.png")
-  LocalCatchImage(#Img_Knob_Small, ?Img_Knob_Small, ".data\img\knob_small.png")
-  
-  LocalCatchImage(#Img_LED_Off, ?Img_LED_Off, ".data\img\led_off.png")
-  LocalCatchImage(#Img_LED_On, ?Img_LED_On, ".data\img\led_on.png")
-  
-  LocalCatchImage(#Img_UI_Curve_None, ?Img_UI_Curve_None, ".data\img\ui_curve_none.png")
-  LocalCatchImage(#Img_UI_Curve_Trigger, ?Img_UI_Curve_Trigger, ".data\img\ui_curve_trigger.png")
-  LocalCatchImage(#Img_UI_Curve_Attack, ?Img_UI_Curve_Attack, ".data\img\ui_curve_attack.png")
-  LocalCatchImage(#Img_UI_Curve_Decay, ?Img_UI_Curve_Decay, ".data\img\ui_curve_decay.png")
-  LocalCatchImage(#Img_UI_Curve_Sustain, ?Img_UI_Curve_Sustain, ".data\img\ui_curve_sustain.png")
-  LocalCatchImage(#Img_UI_Curve_Release, ?Img_UI_Curve_Release, ".data\img\ui_curve_release.png")
-  LocalCatchImage(#Img_UI_Curve_Oneshot, ?Img_UI_Curve_Oneshot, ".data\img\ui_curve_oneshot.png")
-  LocalCatchImage(#Img_UI_Curve_Ignore, ?Img_UI_Curve_Ignore, ".data\img\ui_curve_ignore.png")
-  
-  LocalCatchImage(#Img_UI_Note_0, ?Img_UI_Note_0, ".data\img\ui_note_0.png")
-  LocalCatchImage(#Img_UI_Note_1, ?Img_UI_Note_1, ".data\img\ui_note_1.png")
-  LocalCatchImage(#Img_UI_Note_2, ?Img_UI_Note_2, ".data\img\ui_note_2.png")
-  LocalCatchImage(#Img_UI_Note_3, ?Img_UI_Note_3, ".data\img\ui_note_3.png")
-  LocalCatchImage(#Img_UI_Note_4, ?Img_UI_Note_4, ".data\img\ui_note_4.png")
-  LocalCatchImage(#Img_UI_Note_5, ?Img_UI_Note_5, ".data\img\ui_note_5.png")
-  LocalCatchImage(#Img_UI_Note_6, ?Img_UI_Note_6, ".data\img\ui_note_6.png")
-  LocalCatchImage(#Img_UI_Note_7, ?Img_UI_Note_7, ".data\img\ui_note_7.png")
-  LocalCatchImage(#Img_UI_Note_8, ?Img_UI_Note_8, ".data\img\ui_note_8.png")
-  LocalCatchImage(#Img_UI_Note_9, ?Img_UI_Note_9, ".data\img\ui_note_9.png")
-  LocalCatchImage(#Img_UI_Note_10, ?Img_UI_Note_10, ".data\img\ui_note_10.png")
-  LocalCatchImage(#Img_UI_Note_11, ?Img_UI_Note_11, ".data\img\ui_note_11.png")
+  GetGraphics()
   
   Chordian\RepaintHandler_Thread = CreateThread(@RepaintHandler(), 0)
   Chordian\PatternHandler_Thread = CreateThread(@PatternHandler(), 0)
@@ -1722,8 +1736,8 @@ Procedure Main()
                   Case #PB_EventType_MouseMove
                     \Mouse_Position_X_Previous = \Mouse_Position_X_Current
                     \Mouse_Position_Y_Previous = \Mouse_Position_Y_Current
-                    \Mouse_Position_X_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseX)
-                    \Mouse_Position_Y_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseY)
+                    \Mouse_Position_X_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseX) * (800.0 / WindowWidth(#Win_Main))
+                    \Mouse_Position_Y_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseY) * (600.0 / (WindowHeight(#Win_Main) - 20))
                     PostEvent(#Event_HandleTriggers, #Win_Main, 0)
                     
                 EndSelect
@@ -3545,6 +3559,31 @@ Procedure Main()
           
         Case #PB_Event_Repaint
           PauseThread(Chordian\RepaintHandler_Thread)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+          ResumeThread(Chordian\RepaintHandler_Thread)
+          
+        Case #PB_Event_SizeWindow
+          
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 0)
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 0)
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 0)
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 0)
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 0)
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 0)
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 0)
+          
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, -1)
+          
+          PauseThread(Chordian\RepaintHandler_Thread)
+          GetGraphics()
+          CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main)-20, #PB_Canvas_Keyboard)
+          SetActiveGadget(#Gad_Canvas)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)

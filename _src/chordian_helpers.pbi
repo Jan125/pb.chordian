@@ -37,6 +37,6 @@ Macro LocalCatchImage(ImgID, ImgAddress, ImgFile)
   EndIf
 EndMacro
 
-Macro KnobLine(X, Y, Size, Value)
-  LineXY(X, Y, X+Sin(Radian(-Value * 270 - 45)) * (Size - 1), Y+Cos(Radian(-Value * 270 - 45)) * (Size - 1))
+Macro KnobLine(X, Y, SizeX, SizeY, Value)
+  LineXY(X, Y, X+Sin(Radian(-Value * 270 - 45)) * (SizeX - 1), Y+Cos(Radian(-Value * 270 - 45)) * (SizeY - 1))
 EndMacro

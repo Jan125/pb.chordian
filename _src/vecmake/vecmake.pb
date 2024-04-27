@@ -1,5 +1,5 @@
 ﻿#INTERNALSCALE = 8.0
-#EXPORTSCALE = 1.0
+#EXPORTSCALE = 2.0
 TRANSPARENTCOLOR = RGBA(128, 128, 128, 0)
 
 Procedure Vec_DrawRoundedCornerButton(Width.d, Height.d, Corner.d, Offset.d)
