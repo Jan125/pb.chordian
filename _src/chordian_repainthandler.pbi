@@ -19,7 +19,8 @@
         
         ReleaseSemaphore_(\Repaint_Event\Semaphore_Repaint_Done, 1, 0)
         
-        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Commit, -1)
+        WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Resume, -1)
+        Continue
       EndIf
       
       

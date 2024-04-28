@@ -239,7 +239,7 @@ Procedure.i Init()
     MessageRequester("Chordian>Error", "Window could not be initialized.")
     End
   EndIf
-  WindowBounds(#Win_Main, 400, 300+20, #PB_Ignore, #PB_Ignore)
+  WindowBounds(#Win_Main, 400, 300+20, 4000, 3000+20)
   
   If Not (DirectSoundCreate_(0, @DirectSound, 0) = #DS_OK And
           DirectSound\SetCooperativeLevel(GetDesktopWindow_(), #DSSCL_PRIORITY) = #DS_OK And
@@ -3577,6 +3577,9 @@ Procedure Main()
             EndIf
           EndWith
           
+        Case #PB_Event_RestoreWindow
+          SetActiveGadget(#Gad_Canvas)
+          
         Case #PB_Event_Repaint
           PauseThread(Chordian\RepaintHandler_Thread)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
@@ -3600,23 +3603,15 @@ Procedure Main()
             PreviousSizeY = WindowHeight(#Win_Main)
           EndIf
           
-          PauseThread(Chordian\RepaintHandler_Thread)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-          ResumeThread(Chordian\RepaintHandler_Thread)
-          
-          Repeat
-            If WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 100) = #WAIT_OBJECT_0
-              Break
-            EndIf
+          While Not WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 0) = #WAIT_OBJECT_0
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-          ForEver
-          
-          PauseThread(Chordian\RepaintHandler_Thread)
+          Wend
           
           GetGraphics()
           ResizeGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main)-20)
+          
+          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 0)
           
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
@@ -3625,7 +3620,7 @@ Procedure Main()
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-          ResumeThread(Chordian\RepaintHandler_Thread)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Resume, 1, 0)
           
         Case #PB_Event_CloseWindow
           KillThread(Chordian\SynthHandler_Thread)
