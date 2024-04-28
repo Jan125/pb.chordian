@@ -102,6 +102,10 @@ Procedure.i SynthHandler(*Void)
             \Status_Sound(i) = #Curve_None
           EndIf
         Next
+        SendMIDIStop(MIDIHandle, 0)
+        SendMIDIStop(MIDIHandle, 1)
+        SendMIDIStop(MIDIHandle, 2)
+        SendMIDIStop(MIDIHandle, 9)
       EndIf
       
       Select \Value_Master_Button_Power_OnOff
@@ -116,7 +120,7 @@ Procedure.i SynthHandler(*Void)
       For a = 0 To BlockSize / WaveFormatExDescriptor\nBlockAlign
         
         If MIDIHandle
-          If CurrentChord <> CurrentChord Or CurrentNote <> CurrentNote
+          If CurrentChord <> \Value_Internal_Chord_Chord Or CurrentNote <>  \Value_Internal_Chord_Note
             SendMIDIStop(MIDIHandle, 2)
             If CurrentChord = #Chord_None Or CurrentNote = #Note_None
               SendMIDIStop(MIDIHandle, 0)
@@ -192,12 +196,12 @@ Procedure.i SynthHandler(*Void)
                 If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
                   Select CurrentPattern
                     Case #Rhythm_None
-                      SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                      SendMIDIOn(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                     Default
                       If \Value_Rhythm_Button_AutoBassSync_OnOff
-                        SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                        SendMIDIOn(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                       Else
-                        SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                        SendMIDIOn(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                       EndIf
                   EndSelect
                 EndIf
@@ -212,12 +216,12 @@ Procedure.i SynthHandler(*Void)
                 If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
                   Select CurrentPattern
                     Case #Rhythm_None
-                      SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                      SendMIDIOn(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                     Default
                       If \Value_Rhythm_Button_AutoBassSync_OnOff
-                        SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                        SendMIDIOn(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_First+\Data_Patterns(CurrentAlternate, CurrentPattern, CurrentNote, CurrentTick, #Pattern_Frequency)), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                       Else
-                        SendMIDINote(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                        SendMIDIOn(MIDIHandle, 0, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Bass_1), Int(127.0 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                       EndIf
                   EndSelect
                 EndIf
@@ -273,7 +277,7 @@ Procedure.i SynthHandler(*Void)
                   SendMIDIStop(MIDIHandle, 1)
                 EndIf
                 If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
-                  SendMIDINote(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First + i - #Snd_Chord_First), Int(127.0 * 0.8 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                  SendMIDIOn(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First + i - #Snd_Chord_First), Int(127.0 * 0.8 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
               \Status_Volume(i) = 1.0
@@ -286,7 +290,7 @@ Procedure.i SynthHandler(*Void)
                   SendMIDIStop(MIDIHandle, 1)
                 EndIf
                 If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
-                  SendMIDINote(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First+i-#Snd_Chord_First), Int(127.0 * 0.8 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
+                  SendMIDIOn(MIDIHandle, 1, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Chord_First+i-#Snd_Chord_First), Int(127.0 * 0.8 * \Value_Level_Knob_Volume_Chords * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
               \Status_Volume(i) = 1.0
@@ -337,7 +341,7 @@ Procedure.i SynthHandler(*Void)
             Case #Curve_Trigger
               If MIDIHandle
                 If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
-                  SendMIDINote(MIDIHandle, 2, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First+i-#Snd_Harp_First), Int(127.0 * ((\Value_Level_Knob_Volume_Harp_1 + \Value_Level_Knob_Volume_Harp_2) / 2.0) * \Value_Master_Knob_Volume))
+                  SendMIDIOn(MIDIHandle, 2, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First+i-#Snd_Harp_First), Int(127.0 * ((\Value_Level_Knob_Volume_Harp_1 + \Value_Level_Knob_Volume_Harp_2) / 2.0) * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
               \Status_Volume(i) = 1.0
@@ -347,7 +351,7 @@ Procedure.i SynthHandler(*Void)
             Case #Curve_Oneshot
               If MIDIHandle
                 If CurrentChord <> #Chord_None And CurrentNote <> #Note_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore
-                  SendMIDINote(MIDIHandle, 2, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First+i-#Snd_Harp_First), Int(127.0 * ((\Value_Level_Knob_Volume_Harp_1 + \Value_Level_Knob_Volume_Harp_2) / 2.0) * \Value_Master_Knob_Volume))
+                  SendMIDIOn(MIDIHandle, 2, \Data_MIDI(CurrentNote, CurrentChord, #Dat_Harp_First+i-#Snd_Harp_First), Int(127.0 * ((\Value_Level_Knob_Volume_Harp_1 + \Value_Level_Knob_Volume_Harp_2) / 2.0) * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
               \Status_Volume(i) = 1.0
@@ -393,15 +397,20 @@ Procedure.i SynthHandler(*Void)
               If MIDIHandle
                 Select i
                   Case #Snd_Drum_BD
-                    SendMIDINote(MIDIHandle, 9, 36, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 36, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 36)
                   Case #Snd_Drum_Click
-                    SendMIDINote(MIDIHandle, 9, 37, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 37, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 37)
                   Case #Snd_Drum_HiHat
-                    SendMIDINote(MIDIHandle, 9, 42, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 42, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 42)
                   Case #Snd_Drum_Ride
-                    SendMIDINote(MIDIHandle, 9, 46, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 46, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 46)
                   Case #Snd_Drum_Snare
-                    SendMIDINote(MIDIHandle, 9, 38, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 38, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 38)
                 EndSelect
               EndIf
               \Status_Volume(i) = 1.0
@@ -413,15 +422,20 @@ Procedure.i SynthHandler(*Void)
               If MIDIHandle
                 Select i
                   Case #Snd_Drum_BD
-                    SendMIDINote(MIDIHandle, 9, 36, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 36, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 36)
                   Case #Snd_Drum_Click
-                    SendMIDINote(MIDIHandle, 9, 37, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 37, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 37)
                   Case #Snd_Drum_HiHat
-                    SendMIDINote(MIDIHandle, 9, 42, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 42, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 42)
                   Case #Snd_Drum_Ride
-                    SendMIDINote(MIDIHandle, 9, 46, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 46, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 36)
                   Case #Snd_Drum_Snare
-                    SendMIDINote(MIDIHandle, 9, 38, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOn(MIDIHandle, 9, 38, Int(127.0 * \Value_Rhythm_Knob_Volume * \Value_Master_Knob_Volume))
+                    SendMIDIOff(MIDIHandle, 9, 38)
                 EndSelect
               EndIf
               \Status_Volume(i) = 1.0
@@ -504,7 +518,7 @@ Procedure.i SynthHandler(*Void)
               If MIDIHandle
                 SendMIDIStop(MIDIHandle, 3)
                 If CurrentKeyboard <> -1
-                  SendMIDINote(MIDIHandle, 3, CurrentKeyboard, Int(127.0 * \Value_Level_Knob_Volume_Keyboard * \Value_Master_Knob_Volume))
+                  SendMIDIOn(MIDIHandle, 3, CurrentKeyboard, Int(127.0 * \Value_Level_Knob_Volume_Keyboard * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
               \Status_Volume(i) = 1.0
@@ -515,7 +529,7 @@ Procedure.i SynthHandler(*Void)
               If MIDIHandle
                 SendMIDIStop(MIDIHandle, 3)
                 If CurrentKeyboard <> -1
-                  SendMIDINote(MIDIHandle, 3, CurrentKeyboard, Int(127.0 * \Value_Level_Knob_Volume_Keyboard * \Value_Master_Knob_Volume))
+                  SendMIDIOn(MIDIHandle, 3, CurrentKeyboard, Int(127.0 * \Value_Level_Knob_Volume_Keyboard * \Value_Master_Knob_Volume))
                 EndIf
               EndIf
               \Status_Volume(i) = 1.0
@@ -555,11 +569,19 @@ Procedure.i SynthHandler(*Void)
               \Status_Position(i) = 0.0
               Continue
             Case #Curve_Trigger
+              If MIDIHandle
+                SendMIDIOn(MIDIHandle, 9, 81, Int(127.0 * \Value_Master_Knob_Volume))
+                SendMIDIOff(MIDIHandle, 9, 81)
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Decay
               i - 1
               Continue
             Case #Curve_Oneshot
+              If MIDIHandle
+                SendMIDIOn(MIDIHandle, 9, 80, Int(127.0 * \Value_Master_Knob_Volume))
+                SendMIDIOff(MIDIHandle, 9, 80)
+              EndIf
               \Status_Volume(i) = 1.0
               \Status_Sound(i) = #Curve_Release
               i - 1
