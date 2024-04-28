@@ -3605,7 +3605,13 @@ Procedure Main()
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
           ResumeThread(Chordian\RepaintHandler_Thread)
           
-          WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, -1)
+          Repeat
+            If WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 100) = #WAIT_OBJECT_0
+              Break
+            EndIf
+            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
+            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+          ForEver
           
           PauseThread(Chordian\RepaintHandler_Thread)
           
