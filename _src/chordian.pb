@@ -202,6 +202,12 @@ Procedure.i GetGraphics()
   LocalCatchImage(#Img_LED_Off, ?Img_LED_Off, ".data\img\led_off.png")
   LocalCatchImage(#Img_LED_On, ?Img_LED_On, ".data\img\led_on.png")
   
+  For i = #Img_GUI_First To #Img_GUI_Last
+    ResizeImage(i, ImageWidth(i) * (WindowWidth(#Win_Main) / 800.0) * 0.5, ImageHeight(i) * ((WindowHeight(#Win_Main) - 20) / 600.0) * 0.5)
+  Next  
+EndProcedure
+
+Procedure.i GetUIGraphics()
   LocalCatchImage(#Img_UI_Curve_None, ?Img_UI_Curve_None, ".data\img\ui_curve_none.png")
   LocalCatchImage(#Img_UI_Curve_Trigger, ?Img_UI_Curve_Trigger, ".data\img\ui_curve_trigger.png")
   LocalCatchImage(#Img_UI_Curve_Attack, ?Img_UI_Curve_Attack, ".data\img\ui_curve_attack.png")
@@ -210,6 +216,22 @@ Procedure.i GetGraphics()
   LocalCatchImage(#Img_UI_Curve_Release, ?Img_UI_Curve_Release, ".data\img\ui_curve_release.png")
   LocalCatchImage(#Img_UI_Curve_Oneshot, ?Img_UI_Curve_Oneshot, ".data\img\ui_curve_oneshot.png")
   LocalCatchImage(#Img_UI_Curve_Ignore, ?Img_UI_Curve_Ignore, ".data\img\ui_curve_ignore.png")
+  
+  LocalCatchImage(#Img_UI_Chord_Maj, ?Img_UI_Chord_Maj, ".data\img\ui_chord_maj.png")
+  LocalCatchImage(#Img_UI_Chord_Min, ?Img_UI_Chord_Min, ".data\img\ui_chord_min.png")
+  LocalCatchImage(#Img_UI_Chord_7th, ?Img_UI_Chord_7th, ".data\img\ui_chord_7th.png")
+  LocalCatchImage(#Img_UI_Chord_Dim, ?Img_UI_Chord_Dim, ".data\img\ui_chord_dim.png")
+  LocalCatchImage(#Img_UI_Chord_Ma7, ?Img_UI_Chord_Ma7, ".data\img\ui_chord_ma7.png")
+  LocalCatchImage(#Img_UI_Chord_Mi7, ?Img_UI_Chord_Mi7, ".data\img\ui_chord_mi7.png")
+  LocalCatchImage(#Img_UI_Chord_Aug, ?Img_UI_Chord_Aug, ".data\img\ui_chord_aug.png")
+  
+  LocalCatchImage(#Img_UI_Chord_Ad9, ?Img_UI_Chord_Ad9, ".data\img\ui_chord_ad9.png")
+  LocalCatchImage(#Img_UI_Chord_Su4, ?Img_UI_Chord_Su4, ".data\img\ui_chord_su4.png")
+  LocalCatchImage(#Img_UI_Chord_Ad2, ?Img_UI_Chord_Ad2, ".data\img\ui_chord_ad2.png")
+  LocalCatchImage(#Img_UI_Chord_As2, ?Img_UI_Chord_As2, ".data\img\ui_chord_as2.png")
+  LocalCatchImage(#Img_UI_Chord_Ac4, ?Img_UI_Chord_Ac4, ".data\img\ui_chord_ac4.png")
+  LocalCatchImage(#Img_UI_Chord_Mc4, ?Img_UI_Chord_Mc4, ".data\img\ui_chord_mc4.png")
+  LocalCatchImage(#Img_UI_Chord_Chr, ?Img_UI_Chord_Chr, ".data\img\ui_chord_chr.png")
   
   LocalCatchImage(#Img_UI_Note_0, ?Img_UI_Note_0, ".data\img\ui_note_0.png")
   LocalCatchImage(#Img_UI_Note_1, ?Img_UI_Note_1, ".data\img\ui_note_1.png")
@@ -223,11 +245,43 @@ Procedure.i GetGraphics()
   LocalCatchImage(#Img_UI_Note_9, ?Img_UI_Note_9, ".data\img\ui_note_9.png")
   LocalCatchImage(#Img_UI_Note_10, ?Img_UI_Note_10, ".data\img\ui_note_10.png")
   LocalCatchImage(#Img_UI_Note_11, ?Img_UI_Note_11, ".data\img\ui_note_11.png")
-  
-  For i = #Img_GUI_First To #Img_GUI_Last
-    ResizeImage(i, ImageWidth(i) * (WindowWidth(#Win_Main) / 800.0) * 0.5, ImageHeight(i) * ((WindowHeight(#Win_Main) - 20) / 600.0) * 0.5)
-  Next  
+
 EndProcedure
+
+;-Macros
+Macro AddNoteItems(Gadget)
+  AddGadgetItem(Gadget, -1, "0", ImageID(#Img_UI_Note_0))
+  AddGadgetItem(Gadget, -1, "1", ImageID(#Img_UI_Note_1))
+  AddGadgetItem(Gadget, -1, "2", ImageID(#Img_UI_Note_2))
+  AddGadgetItem(Gadget, -1, "3", ImageID(#Img_UI_Note_3))
+  AddGadgetItem(Gadget, -1, "4", ImageID(#Img_UI_Note_4))
+  AddGadgetItem(Gadget, -1, "5", ImageID(#Img_UI_Note_5))
+  AddGadgetItem(Gadget, -1, "6", ImageID(#Img_UI_Note_6))
+  AddGadgetItem(Gadget, -1, "7", ImageID(#Img_UI_Note_7))
+  AddGadgetItem(Gadget, -1, "8", ImageID(#Img_UI_Note_8))
+  AddGadgetItem(Gadget, -1, "9", ImageID(#Img_UI_Note_9))
+  AddGadgetItem(Gadget, -1, "10", ImageID(#Img_UI_Note_10))
+  AddGadgetItem(Gadget, -1, "11", ImageID(#Img_UI_Note_11))
+  
+EndMacro
+
+Macro AddChordItems(Gadget)
+  AddGadgetItem(Gadget, -1, "Maj", ImageID(#Img_UI_Chord_Maj))
+  AddGadgetItem(Gadget, -1, "Min", ImageID(#Img_UI_Chord_Min))
+  AddGadgetItem(Gadget, -1, "7th", ImageID(#Img_UI_Chord_7th))
+  AddGadgetItem(Gadget, -1, "Dim", ImageID(#Img_UI_Chord_Dim))
+  AddGadgetItem(Gadget, -1, "Ma7", ImageID(#Img_UI_Chord_Ma7))
+  AddGadgetItem(Gadget, -1, "Mi7", ImageID(#Img_UI_Chord_Mi7))
+  AddGadgetItem(Gadget, -1, "Aug", ImageID(#Img_UI_Chord_Aug))
+  AddGadgetItem(Gadget, -1, "Ad9", ImageID(#Img_UI_Chord_Ad9))
+  AddGadgetItem(Gadget, -1, "Su4", ImageID(#Img_UI_Chord_Su4))
+  AddGadgetItem(Gadget, -1, "Ad2", ImageID(#Img_UI_Chord_Ad2))
+  AddGadgetItem(Gadget, -1, "As2", ImageID(#Img_UI_Chord_As2))
+  AddGadgetItem(Gadget, -1, "Ac4", ImageID(#Img_UI_Chord_Ac4))
+  AddGadgetItem(Gadget, -1, "Mc4", ImageID(#Img_UI_Chord_Mc4))
+  AddGadgetItem(Gadget, -1, "Chr", ImageID(#Img_UI_Chord_Chr))
+  
+EndMacro
 
 Procedure.i Init()
   Protected i.i
@@ -387,6 +441,7 @@ Procedure.i Init()
   
   UsePNGImageDecoder()
   
+  GetUIGraphics()
   GetGraphics()
   
   Chordian\RepaintHandler_Thread = CreateThread(@RepaintHandler(), 0)
@@ -764,246 +819,121 @@ Procedure Main()
                   ButtonGadget(#Gad_ChordEdit_Button_Import, 464, 10, 70, 20, "Import...")
                   ButtonGadget(#Gad_ChordEdit_Button_Export, 539, 10, 70, 20, "Export...")
                   
-                  TextGadget(#Gad_ChordEdit_Text_Maj, 40, 35, 55, 20, "Maj")
+                  TextGadget(#Gad_ChordEdit_Text_Maj, 40, 35, 25, 20, "Maj")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Maj+i, 30+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Maj+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Maj+i, 30+36*i, 60-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Maj+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Maj+3, 30+36*2, 60, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Maj+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Min, 40, 95, 55, 20, "Min")
+                  TextGadget(#Gad_ChordEdit_Text_Min, 40, 95, 25, 20, "Min")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Min+i, 30+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Min+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Min+i, 30+36*i, 120-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Min+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Min+3, 30+36*2, 120, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Min+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_7th, 40, 155, 55, 20, "7th")
+                  TextGadget(#Gad_ChordEdit_Text_7th, 40, 155, 25, 20, "7th")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_7th+i, 30+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_7th+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_7th+i, 30+36*i, 180-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_7th+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_7th+3, 30+36*2, 180, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_7th+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Dim, 170, 35, 55, 20, "Dim")
+                  TextGadget(#Gad_ChordEdit_Text_Dim, 170, 35, 25, 20, "Dim")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Dim+i, 160+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Dim+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Dim+i, 160+36*i, 60-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Dim+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Dim+3, 160+36*2, 60, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Dim+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Ma7, 170, 95, 55, 20, "Ma7")
+                  TextGadget(#Gad_ChordEdit_Text_Ma7, 170, 95, 25, 20, "Ma7")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Ma7+i, 160+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ma7+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Ma7+i, 160+36*i, 120-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Ma7+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Ma7+3, 160+36*2, 120, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Ma7+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Mi7, 170, 155, 55, 20, "Mi7")
+                  TextGadget(#Gad_ChordEdit_Text_Mi7, 170, 155, 25, 20, "Mi7")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Mi7+i, 160+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mi7+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Mi7+i, 160+36*i, 180-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Mi7+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Mi7+3, 160+36*2, 180, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Mi7+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Aug, 105, 215, 55, 20, "Aug")
+                  TextGadget(#Gad_ChordEdit_Text_Aug, 105, 215, 25, 20, "Aug")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Aug+i, 95+36*i, 240-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Aug+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Aug+i, 95+36*i, 240-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Aug+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Aug+3, 95+36*2, 240, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Aug+3)
                   
                   ;next
                   TextGadget(#Gad_ChordEdit_Text_Chordiate, 280, 140, 75, 20, ">Chordiate>")
                   
-                  TextGadget(#Gad_ChordEdit_Text_Ad9, 370, 35, 55, 20, "Ad9")
+                  TextGadget(#Gad_ChordEdit_Text_Ad9, 370, 35, 25, 20, "Ad9")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Ad9+i, 360+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad9+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Ad9+i, 360+36*i, 60-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Ad9+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Ad9+3, 360+36*2, 60, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Ad9+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Su4, 370, 95, 55, 20, "Su4")
+                  TextGadget(#Gad_ChordEdit_Text_Su4, 370, 95, 25, 20, "Su4")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Su4+i, 360+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Su4+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Su4+i, 360+36*i, 120-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Su4+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Su4+3, 360+36*2, 120, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Su4+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Ad2, 370, 155, 55, 20, "Ad2")
+                  TextGadget(#Gad_ChordEdit_Text_Ad2, 370, 155, 25, 20, "Ad2")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Ad2+i, 360+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ad2+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Ad2+i, 360+36*i, 180-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Ad2+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Ad2+3, 360+36*2, 180, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Ad2+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_As2, 500, 35, 55, 20, "As2")
+                  TextGadget(#Gad_ChordEdit_Text_As2, 500, 35, 25, 20, "As2")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_As2+i, 490+36*i, 60-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_As2+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_As2+i, 490+36*i, 60-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_As2+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_As2+3, 490+36*2, 60, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_As2+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Ac4, 500, 95, 55, 20, "Ac4")
+                  TextGadget(#Gad_ChordEdit_Text_Ac4, 500, 95, 25, 20, "Ac4")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Ac4+i, 490+36*i, 120-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Ac4+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Ac4+i, 490+36*i, 120-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Ac4+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Ac4+3, 490+36*2, 120, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Ac4+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Mc4, 500, 155, 55, 20, "Mc4")
+                  TextGadget(#Gad_ChordEdit_Text_Mc4, 500, 155, 25, 20, "Mc4")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Mc4+i, 490+36*i, 180-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Mc4+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Mc4+i, 490+36*i, 180-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Mc4+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Mc4+3, 490+36*2, 180, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Mc4+3)
                   
-                  TextGadget(#Gad_ChordEdit_Text_Chr, 435, 215, 55, 20, "Chr")
+                  TextGadget(#Gad_ChordEdit_Text_Chr, 435, 215, 25, 20, "Chr")
                   For i = 0 To 2
-                    ComboBoxGadget(#Gad_ChordEdit_Row_Chr+i, 425+36*i, 240-i*4, 36, 25, #PB_ComboBox_Image)
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "0", ImageID(#Img_UI_Note_0))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "1", ImageID(#Img_UI_Note_1))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "2", ImageID(#Img_UI_Note_2))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "3", ImageID(#Img_UI_Note_3))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "4", ImageID(#Img_UI_Note_4))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "5", ImageID(#Img_UI_Note_5))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "6", ImageID(#Img_UI_Note_6))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "7", ImageID(#Img_UI_Note_7))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "8", ImageID(#Img_UI_Note_8))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "9", ImageID(#Img_UI_Note_9))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "10", ImageID(#Img_UI_Note_10))
-                    AddGadgetItem(#Gad_ChordEdit_Row_Chr+i, -1, "11", ImageID(#Img_UI_Note_11))
+                    ComboBoxGadget(#Gad_ChordEdit_Row_Chr+i, 425+36*i, 240-12.5*i, 36, 25, #PB_ComboBox_Image)
+                    AddNoteItems(#Gad_ChordEdit_Row_Chr+i)
                   Next
+                  ComboBoxGadget(#Gad_ChordEdit_Row_Chr+3, 425+36*2, 240, 36, 25, #PB_ComboBox_Image)
+                  AddChordItems(#Gad_ChordEdit_Row_Chr+3)
+                  
                 EndIf
                 
                 PostEvent(#PB_Event_Gadget, #Win_ChordEdit, #Gad_ChordEdit_Button_Refresh)
@@ -1016,7 +946,7 @@ Procedure Main()
                       Case #PB_Event_Gadget
                         Select EventGadget()
                           Case #Gad_ChordEdit_Button_Refresh
-                            For i = 0 To 2
+                            For i = 0 To 3
                               
                               SetGadgetState(#Gad_ChordEdit_Row_Maj+i, Chordian\Machine_State\Data_Chords(#Chord_Maj, i))
                               SetGadgetState(#Gad_ChordEdit_Row_Min+i, Chordian\Machine_State\Data_Chords(#Chord_Min, i))
@@ -1042,27 +972,27 @@ Procedure Main()
                               *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, Len(TempString)+1)
                               PokeS(*TempPointer, TempString, Len(TempString), #PB_Ascii)
                               CompilerIf #PB_Compiler_Version >= 600
-                                Base64DecoderBuffer(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*3)
+                                Base64DecoderBuffer(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4)
                               CompilerElse
-                                Base64Decoder(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*3)
+                                Base64Decoder(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4)
                               CompilerEndIf
                               LocalFree_(*TempPointer)
                             EndIf
                             
-                            PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_ChordEdit_Button_Refresh)
+                            PostEvent(#PB_Event_Gadget, #Win_ChordEdit, #Gad_ChordEdit_Button_Refresh)
                             
                           Case #Gad_ChordEdit_Button_Export
                             *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, SizeOf(Byte)*(#Chord_Last+1)*3*2)
                             CompilerIf #PB_Compiler_Version >= 600
-                              Base64EncoderBuffer(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*3, *TempPointer, SizeOf(Byte)*(#Chord_Last+1)*3*2)
+                              Base64EncoderBuffer(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4, *TempPointer, SizeOf(Byte)*(#Chord_Last+1)*4*2)
                             CompilerElse
-                              Base64Encoder(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*3, *TempPointer, SizeOf(Byte)*(#Chord_Last+1)*3*2)
+                              Base64Encoder(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4, *TempPointer, SizeOf(Byte)*(#Chord_Last+1)*4*2)
                             CompilerEndIf
                             InputRequester("Chordian>Chord Editor>Export", "This is the BASE64 string for the current chord selection:", PeekS(*TempPointer, -1, #PB_Ascii))
                             LocalFree_(*TempPointer)
                             
-                          Case #Gad_ChordEdit_Row_Maj To #Gad_ChordEdit_Row_Maj+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Maj To #Gad_ChordEdit_Row_Maj+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Maj, i) = GetGadgetState(#Gad_ChordEdit_Row_Maj+i)
                             Next
                             
@@ -1071,8 +1001,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Min To #Gad_ChordEdit_Row_Min+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Min To #Gad_ChordEdit_Row_Min+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Min, i) = GetGadgetState(#Gad_ChordEdit_Row_Min+i)
                             Next
                             
@@ -1081,8 +1011,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_7th To #Gad_ChordEdit_Row_7th+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_7th To #Gad_ChordEdit_Row_7th+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_7th, i) = GetGadgetState(#Gad_ChordEdit_Row_7th+i)
                             Next
                             
@@ -1091,8 +1021,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Dim To #Gad_ChordEdit_Row_Dim+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Dim To #Gad_ChordEdit_Row_Dim+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Dim, i) = GetGadgetState(#Gad_ChordEdit_Row_Dim+i)
                             Next
                             
@@ -1101,8 +1031,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Ma7 To #Gad_ChordEdit_Row_Ma7+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Ma7 To #Gad_ChordEdit_Row_Ma7+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Ma7, i) = GetGadgetState(#Gad_ChordEdit_Row_Ma7+i)
                             Next
                             
@@ -1111,8 +1041,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Mi7 To #Gad_ChordEdit_Row_Mi7+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Mi7 To #Gad_ChordEdit_Row_Mi7+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Mi7, i) = GetGadgetState(#Gad_ChordEdit_Row_Mi7+i)
                             Next
                             
@@ -1121,8 +1051,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Aug To #Gad_ChordEdit_Row_Aug+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Aug To #Gad_ChordEdit_Row_Aug+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Aug, i) = GetGadgetState(#Gad_ChordEdit_Row_Aug+i)
                             Next
                             
@@ -1131,8 +1061,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Ad9 To #Gad_ChordEdit_Row_Ad9+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Ad9 To #Gad_ChordEdit_Row_Ad9+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Ad9, i) = GetGadgetState(#Gad_ChordEdit_Row_Ad9+i)
                             Next
                             
@@ -1141,8 +1071,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Su4 To #Gad_ChordEdit_Row_Su4+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Su4 To #Gad_ChordEdit_Row_Su4+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Su4, i) = GetGadgetState(#Gad_ChordEdit_Row_Su4+i)
                             Next
                             
@@ -1151,8 +1081,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Ad2 To #Gad_ChordEdit_Row_Ad2+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Ad2 To #Gad_ChordEdit_Row_Ad2+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Ad2, i) = GetGadgetState(#Gad_ChordEdit_Row_Ad2+i)
                             Next
                             
@@ -1161,8 +1091,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_As2 To #Gad_ChordEdit_Row_As2+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_As2 To #Gad_ChordEdit_Row_As2+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_As2, i) = GetGadgetState(#Gad_ChordEdit_Row_As2+i)
                             Next
                             
@@ -1171,8 +1101,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Ac4 To #Gad_ChordEdit_Row_Ac4+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Ac4 To #Gad_ChordEdit_Row_Ac4+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Ac4, i) = GetGadgetState(#Gad_ChordEdit_Row_Ac4+i)
                             Next
                             
@@ -1181,8 +1111,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Mc4 To #Gad_ChordEdit_Row_Mc4+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Mc4 To #Gad_ChordEdit_Row_Mc4+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Mc4, i) = GetGadgetState(#Gad_ChordEdit_Row_Mc4+i)
                             Next
                             
@@ -1191,8 +1121,8 @@ Procedure Main()
                             
                             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
                             
-                          Case #Gad_ChordEdit_Row_Chr To #Gad_ChordEdit_Row_Chr+2
-                            For i = 0 To 2
+                          Case #Gad_ChordEdit_Row_Chr To #Gad_ChordEdit_Row_Chr+3
+                            For i = 0 To 3
                               Chordian\Machine_State\Data_Chords(#Chord_Chr, i) = GetGadgetState(#Gad_ChordEdit_Row_Chr+i)
                             Next
                             
@@ -3474,7 +3404,7 @@ Procedure Main()
               If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
                 If Chordian\Machine_State\Value_Memory_Button_Playback_Enter
                   If Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
-                    If Chordian\Machine_State\Value_Internal_Memory_Position_Current <= ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note())
+                    If (Chordian\Machine_State\Value_Internal_Memory_Position_Current <= 51) Or (Chordian\Machine_State\Value_Internal_Memory_Position_Current <= ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note()) And Chordian\Machine_State\Value_External_ChordiateMode)
                       If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
                         Chordian\Machine_State\Value_Internal_Tick = 0
                         SendNewTick = 1
@@ -3537,7 +3467,7 @@ Procedure Main()
                     EndIf
                     
                   Else
-                    If Chordian\Machine_State\Value_Internal_Memory_Position_Current <= ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note())
+                    If (Chordian\Machine_State\Value_Internal_Memory_Position_Current <= 51) Or (Chordian\Machine_State\Value_Internal_Memory_Position_Current <= ArraySize(Chordian\Machine_State\Internal_Memory_Chord_Note()) And Chordian\Machine_State\Value_External_ChordiateMode)
                       
                       If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
                         Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore

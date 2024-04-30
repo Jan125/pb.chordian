@@ -116,6 +116,36 @@ DataSection
   Img_UI_Curve_Ignore:
   IncludeBinary "img\ui_curve_ignore.png"
   
+  Img_UI_Chord_Maj:
+  IncludeBinary "img\ui_chord_maj.png"
+  Img_UI_Chord_Min:
+  IncludeBinary "img\ui_chord_min.png"
+  Img_UI_Chord_7th:
+  IncludeBinary "img\ui_chord_7th.png"
+  Img_UI_Chord_Dim:
+  IncludeBinary "img\ui_chord_dim.png"
+  Img_UI_Chord_Ma7:
+  IncludeBinary "img\ui_chord_ma7.png"
+  Img_UI_Chord_Mi7:
+  IncludeBinary "img\ui_chord_mi7.png"
+  Img_UI_Chord_Aug:
+  IncludeBinary "img\ui_chord_aug.png"
+  
+  Img_UI_Chord_Ad9:
+  IncludeBinary "img\ui_chord_ad9.png"
+  Img_UI_Chord_Su4:
+  IncludeBinary "img\ui_chord_su4.png"
+  Img_UI_Chord_Ad2:
+  IncludeBinary "img\ui_chord_ad2.png"
+  Img_UI_Chord_As2:
+  IncludeBinary "img\ui_chord_as2.png"
+  Img_UI_Chord_Ac4:
+  IncludeBinary "img\ui_chord_ac4.png"
+  Img_UI_Chord_Mc4:
+  IncludeBinary "img\ui_chord_mc4.png"
+  Img_UI_Chord_Chr:
+  IncludeBinary "img\ui_chord_chr.png"
+  
   Img_UI_Note_0:
   IncludeBinary "img\ui_note_0.png"
   Img_UI_Note_1:

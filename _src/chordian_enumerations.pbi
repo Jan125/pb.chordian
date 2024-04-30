@@ -228,6 +228,22 @@ Enumeration 1
   #Img_UI_Curve_Oneshot
   #Img_UI_Curve_Ignore
   
+  #Img_UI_Chord_Maj
+  #Img_UI_Chord_Min
+  #Img_UI_Chord_7th
+  #Img_UI_Chord_Dim
+  #Img_UI_Chord_Ma7
+  #Img_UI_Chord_Mi7
+  #Img_UI_Chord_Aug
+  
+  #Img_UI_Chord_Ad9
+  #Img_UI_Chord_Su4
+  #Img_UI_Chord_Ad2
+  #Img_UI_Chord_As2
+  #Img_UI_Chord_Ac4
+  #Img_UI_Chord_Mc4
+  #Img_UI_Chord_Chr
+  
   #Img_UI_Note_0
   #Img_UI_Note_1
   #Img_UI_Note_2
@@ -334,22 +350,22 @@ Enumeration 1
   #Gad_ChordEdit_Text_Chr
   
   #Gad_ChordEdit_Row_Maj
-  #Gad_ChordEdit_Row_Min = #Gad_ChordEdit_Row_Maj + 3
-  #Gad_ChordEdit_Row_7th = #Gad_ChordEdit_Row_Min + 3
-  #Gad_ChordEdit_Row_Dim = #Gad_ChordEdit_Row_7th + 3
-  #Gad_ChordEdit_Row_Ma7 = #Gad_ChordEdit_Row_Dim + 3
-  #Gad_ChordEdit_Row_Mi7 = #Gad_ChordEdit_Row_Ma7 + 3
-  #Gad_ChordEdit_Row_Aug = #Gad_ChordEdit_Row_Mi7 + 3
+  #Gad_ChordEdit_Row_Min = #Gad_ChordEdit_Row_Maj + 4
+  #Gad_ChordEdit_Row_7th = #Gad_ChordEdit_Row_Min + 4
+  #Gad_ChordEdit_Row_Dim = #Gad_ChordEdit_Row_7th + 4
+  #Gad_ChordEdit_Row_Ma7 = #Gad_ChordEdit_Row_Dim + 4
+  #Gad_ChordEdit_Row_Mi7 = #Gad_ChordEdit_Row_Ma7 + 4
+  #Gad_ChordEdit_Row_Aug = #Gad_ChordEdit_Row_Mi7 + 4
   
-  #Gad_ChordEdit_Row_Ad9 = #Gad_ChordEdit_Row_Aug + 3
-  #Gad_ChordEdit_Row_Su4 = #Gad_ChordEdit_Row_Ad9 + 3
-  #Gad_ChordEdit_Row_Ad2 = #Gad_ChordEdit_Row_Su4 + 3
-  #Gad_ChordEdit_Row_As2 = #Gad_ChordEdit_Row_Ad2 + 3
-  #Gad_ChordEdit_Row_Ac4 = #Gad_ChordEdit_Row_As2 + 3
-  #Gad_ChordEdit_Row_Mc4 = #Gad_ChordEdit_Row_Ac4 + 3
-  #Gad_ChordEdit_Row_Chr = #Gad_ChordEdit_Row_Mc4 + 3
+  #Gad_ChordEdit_Row_Ad9 = #Gad_ChordEdit_Row_Aug + 4
+  #Gad_ChordEdit_Row_Su4 = #Gad_ChordEdit_Row_Ad9 + 4
+  #Gad_ChordEdit_Row_Ad2 = #Gad_ChordEdit_Row_Su4 + 4
+  #Gad_ChordEdit_Row_As2 = #Gad_ChordEdit_Row_Ad2 + 4
+  #Gad_ChordEdit_Row_Ac4 = #Gad_ChordEdit_Row_As2 + 4
+  #Gad_ChordEdit_Row_Mc4 = #Gad_ChordEdit_Row_Ac4 + 4
+  #Gad_ChordEdit_Row_Chr = #Gad_ChordEdit_Row_Mc4 + 4
   
-  #Gad_PatEdit_Select_Alternate = #Gad_ChordEdit_Row_Chr + 3
+  #Gad_PatEdit_Select_Alternate = #Gad_ChordEdit_Row_Chr + 4
   #Gad_PatEdit_Select_Pattern
   #Gad_PatEdit_Select_Note
   

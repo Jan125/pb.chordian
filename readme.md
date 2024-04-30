@@ -138,6 +138,29 @@ The Pattern Editor is a custom feature of Chordian that allows you to define you
 The shown values are the offset from the root note in semitones, from 0 to 11.\
 Notes are automatically transposed to a value appropriate to the Omnichord, where applicable.
 
+The last selector in each row, to the lower right corner, is the chord behaviour.\
+This currently only affects the middle-value bass note (frequency 4), and may be identical with some chords.
+
+
+## **Chordiate Mode:**
+
+![Chordiate Mode toggle location](_media/chordiatemode.png)
+
+Chordiate Mode is an extension of OM-84 capabilities that can be enabled at will.
+
+It currently does:
+- Increase the maximum and minimum ranges for the following parameters:
+- - Tuning (-2.0 to 2.0)
+- - Sustain (-0.12 to 5.0)
+- - Tempo (0.0 to 5.0)
+- Increases the keyboard transpose range (-2 to 2)
+- Enables the space bar chord button for the second set of chords
+- Increases song memory from 51 to 256 chords
+
+Chordiate Mode is saved in the save states.
+
+Disabling Chordiate Mode will not reset values and memory by itself back to regular values.
+
 
 ## **Troubleshooting:**
 

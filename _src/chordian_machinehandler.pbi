@@ -36,6 +36,7 @@ Procedure.i AutofillChords()
         EndSelect
         
         \Data_MIDI(i, n, #Dat_Bass_2) = \Data_MIDI(i, n, #Dat_Bass_1) - 12
+        
         \Data_MIDI(i, n, #Dat_Bass_3) = \Data_MIDI(i, n, #Dat_Bass_2) + 7
         Select i
           Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
@@ -43,13 +44,18 @@ Procedure.i AutofillChords()
             \Data_MIDI(i, n, #Dat_Bass_3) + 12
         EndSelect
         
-        Select n
+        Select \Data_Chords(n, 3)
           Case #Chord_Maj, #Chord_7th, #Chord_Ma7, #Chord_Aug, #Chord_Ad2
-            \Data_MIDI(i, n, #Dat_Bass_4) = \Data_MIDI(i, n, #Dat_Bass_3) - 3
+            \Data_MIDI(i, n, #Dat_Bass_4) = \Data_MIDI(i, n, #Dat_Bass_2) + 4
           Case #Chord_Ad9, #Chord_Su4, #Chord_As2
-            \Data_MIDI(i, n, #Dat_Bass_4) = \Data_MIDI(i, n, #Dat_Bass_3) - 2
+            \Data_MIDI(i, n, #Dat_Bass_4) = \Data_MIDI(i, n, #Dat_Bass_2) + 5
           Default
-            \Data_MIDI(i, n, #Dat_Bass_4) = \Data_MIDI(i, n, #Dat_Bass_3) - 4
+            \Data_MIDI(i, n, #Dat_Bass_4) = \Data_MIDI(i, n, #Dat_Bass_2) + 3
+        EndSelect
+        Select i
+          Case #Note_Db, #Note_Eb, #Note_C, #Note_F, #Note_D, #Note_E
+          Default
+            \Data_MIDI(i, n, #Dat_Bass_4) + 12
         EndSelect
         
         
@@ -223,45 +229,60 @@ Procedure.i ResetMachine()
     
     \Data_Chords(#Chord_Maj, 1) = #Transpose_4
     \Data_Chords(#Chord_Maj, 2) = #Transpose_7
+    \Data_Chords(#Chord_Maj, 3) = #Chord_Maj
     
     \Data_Chords(#Chord_Min, 1) = #Transpose_3
     \Data_Chords(#Chord_Min, 2) = #Transpose_7
+    \Data_Chords(#Chord_Min, 3) = #Chord_Min
     
     \Data_Chords(#Chord_7th, 1) = #Transpose_4
     \Data_Chords(#Chord_7th, 2) = #Transpose_10
+    \Data_Chords(#Chord_7th, 3) = #Chord_7th
     
     \Data_Chords(#Chord_Dim, 1) = #Transpose_3
     \Data_Chords(#Chord_Dim, 2) = #Transpose_9
+    \Data_Chords(#Chord_Dim, 3) = #Chord_Dim
     
     \Data_Chords(#Chord_Ma7, 1) = #Transpose_4
     \Data_Chords(#Chord_Ma7, 2) = #Transpose_11
+    \Data_Chords(#Chord_Ma7, 3) = #Chord_Ma7
     
     \Data_Chords(#Chord_Mi7, 1) = #Transpose_3
     \Data_Chords(#Chord_Mi7, 2) = #Transpose_10
+    \Data_Chords(#Chord_Mi7, 3) = #Chord_Mi7
     
     \Data_Chords(#Chord_Aug, 1) = #Transpose_4
     \Data_Chords(#Chord_Aug, 2) = #Transpose_8
+    \Data_Chords(#Chord_Aug, 3) = #Chord_Aug
+    
     
     \Data_Chords(#Chord_Ad9, 1) = #Transpose_2
     \Data_Chords(#Chord_Ad9, 2) = #Transpose_7
+    \Data_Chords(#Chord_Ad9, 3) = #Chord_Ad9
     
     \Data_Chords(#Chord_Su4, 1) = #Transpose_5
     \Data_Chords(#Chord_Su4, 2) = #Transpose_7
+    \Data_Chords(#Chord_Su4, 3) = #Chord_Su4
     
     \Data_Chords(#Chord_Ad2, 1) = #Transpose_2
     \Data_Chords(#Chord_Ad2, 2) = #Transpose_4
+    \Data_Chords(#Chord_Ad2, 3) = #Chord_Ad2
     
     \Data_Chords(#Chord_As2, 1) = #Transpose_2
     \Data_Chords(#Chord_As2, 2) = #Transpose_8
+    \Data_Chords(#Chord_As2, 3) = #Chord_As2
     
     \Data_Chords(#Chord_Ac4, 1) = #Transpose_3
     \Data_Chords(#Chord_Ac4, 2) = #Transpose_6
+    \Data_Chords(#Chord_Ac4, 3) = #Chord_Ac4
     
     \Data_Chords(#Chord_Mc4, 1) = #Transpose_3
     \Data_Chords(#Chord_Mc4, 2) = #Transpose_5
+    \Data_Chords(#Chord_Mc4, 3) = #Chord_Mc4
     
     \Data_Chords(#Chord_Chr, 1) = #Transpose_1
     \Data_Chords(#Chord_Chr, 2) = #Transpose_2
+    \Data_Chords(#Chord_Chr, 3) = #Chord_Chr
     
     AutofillChords()
     AutofillDerivedNotes()
