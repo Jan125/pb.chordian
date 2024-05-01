@@ -67,6 +67,12 @@ Procedure.i SynthHandler(*Void)
     Protected Harp1Volume.f
     Protected Harp2Volume.f
     
+    Protected Dim Sin3Lookup.f(359)
+    
+    For i = 0 To ArraySize(Sin3Lookup())
+      Sin3Lookup(i) = Pow(Abs(Sin(Radian(i + 125.0))), 0.33) * Sign(Sin(Radian(i + 125.0)))
+    Next
+    
     Protected Sin3Phase.f
     
     Protected *AudioPointer1
@@ -81,6 +87,8 @@ Procedure.i SynthHandler(*Void)
     Protected Result.f
     
     *Block = LocalAlloc_(#LMEM_ZEROINIT, BlockSize)
+    
+    
     
     Repeat
       WaitForMultipleObjects_(ArraySize(DirectSoundNotifyArray())+1, DirectSoundEventArray(), #False, -1)
@@ -174,14 +182,19 @@ Procedure.i SynthHandler(*Void)
             \Value_Internal_Phase + 0.0
         EndSelect
         
+        
+        While \Value_Internal_Phase > 360.0
+          \Value_Internal_Phase - 360.0
+        Wend
+        Sin3Phase = Sin3Lookup(Int(\Value_Internal_Phase) % 360)
+        
+        
         MSCounter + (1000.0 / WaveFormatExDescriptor\nSamplesPerSec)
         While MSCounter >= 1.0
           MSCounter - 1.0
           ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallMachineHandler, 1, 0)
         Wend
         
-        Sin3Phase = Sin(Radian(\Value_Internal_Phase + 125.0))
-        Sin3Phase = Pow(Abs(Sin3Phase), 0.33) * Sign(Sin3Phase)
         
         ;-Calc curves
         For i = #Snd_Bass_First To #Snd_Bass_Last
@@ -621,10 +634,6 @@ Procedure.i SynthHandler(*Void)
         PokeF(*Block + (a * WaveFormatExDescriptor\nBlockAlign), Result * DSGainMult)
         
       Next
-      
-      While \Value_Internal_Phase > 360.0
-        \Value_Internal_Phase - 360.0
-      Wend
       
       If DirectSoundBuffer\Lock(CurrentBlock * (DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray()) + 1)), DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray()) + 1), @*AudioPointer1, @AudioBytes1, @*AudioPointer2, @AudioBytes2, 0) = #DS_OK
         
