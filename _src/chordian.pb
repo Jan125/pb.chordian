@@ -248,6 +248,109 @@ Procedure.i GetUIGraphics()
 
 EndProcedure
 
+Procedure KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
+  Protected Event.i
+  
+  Protected ScaleX.f
+  Protected ScaleY.f
+  
+  With Chordian\Input_State
+    If (\Mouse_Position_X_Current - (271 + OffsetX)) % 31 <= 20
+      PauseThread(Chordian\RepaintHandler_Thread)
+      If StartDrawing(CanvasOutput(#Gad_Canvas))
+        ScaleX = OutputWidth() / 800.0
+        ScaleY = OutputHeight() / 600.0
+        DrawAlphaImage(ImageID(#Img_Button_Red_On), ((271 + OffsetX) + ((\Mouse_Position_X_Current - (271 + OffsetX)) / 31) * 31) * ScaleX, (240 + OffsetY) * ScaleY)
+        StopDrawing()
+      EndIf
+      ResumeThread(Chordian\RepaintHandler_Thread)
+      Repeat
+        Event = WaitWindowEvent()
+        If EventWindow() = #Win_Main
+          Select Event
+            Case #PB_Event_Gadget
+              Select EventGadget()
+                Case #Gad_Canvas
+                  Select EventType()
+                    Case #PB_EventType_KeyUp
+                      Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                        Case #VK_ESCAPE
+                          PauseThread(Chordian\RepaintHandler_Thread)
+                          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                          ResumeThread(Chordian\RepaintHandler_Thread)
+                          Break
+                        Default
+                          \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                          PauseThread(Chordian\RepaintHandler_Thread)
+                          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                          ResumeThread(Chordian\RepaintHandler_Thread)
+                          Break
+                      EndSelect
+                      
+                    Case #PB_EventType_LeftButtonDown
+                      \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                      \Mouse_Button_Left_Current = 1
+                      PauseThread(Chordian\RepaintHandler_Thread)
+                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                      ResumeThread(Chordian\RepaintHandler_Thread)
+                      Break
+                      
+                    Case #PB_EventType_LeftButtonUp
+                      \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                      \Mouse_Button_Left_Current = 0
+                      
+                    Case #PB_EventType_RightButtonDown
+                      \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
+                      \Mouse_Button_Right_Current = 1
+                      PauseThread(Chordian\RepaintHandler_Thread)
+                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                      ResumeThread(Chordian\RepaintHandler_Thread)
+                      Break
+                      
+                    Case #PB_EventType_RightButtonUp
+                      \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                      \Mouse_Button_Right_Current = 0
+                      
+                    Case #PB_EventType_MiddleButtonDown
+                      \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                      \Mouse_Button_Middle_Current = 1
+                      PauseThread(Chordian\RepaintHandler_Thread)
+                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                      ResumeThread(Chordian\RepaintHandler_Thread)
+                      Break
+                      
+                    Case #PB_EventType_MiddleButtonUp
+                      \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
+                      \Mouse_Button_Middle_Current = 0
+                      
+                  EndSelect
+              EndSelect
+              
+            Case #PB_Event_RestoreWindow
+              PostEvent(#PB_Event_RestoreWindow, #Win_Main, 0)
+              Break
+              
+            Case #PB_Event_SizeWindow
+              PostEvent(#PB_Event_SizeWindow, #Win_Main, 0)
+              Break
+              
+            Case #PB_Event_CloseWindow
+              PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
+              Break
+            Default
+          EndSelect
+        EndIf
+      ForEver
+    EndIf
+  EndWith
+EndProcedure
+
+
 ;-Macros
 Macro AddNoteItems(Gadget)
   AddGadgetItem(Gadget, -1, "0", ImageID(#Img_UI_Note_0))
@@ -478,6 +581,9 @@ Procedure Main()
   Protected PreviousSizeX.i
   Protected PreviousSizeY.i
   Protected WindowsMaximized.i
+  
+  Protected ScaleX.f
+  Protected ScaleY.f
   
   Init()
   
@@ -2340,84 +2446,7 @@ Procedure Main()
               EndIf
             ElseIf \Trigger_Chord_Button_Major = 2
               \Trigger_Chord_Button_Major = 0
-              If (\Mouse_Position_X_Current-271)%31 <= 20
-                PauseThread(Chordian\RepaintHandler_Thread)
-                StartDrawing(CanvasOutput(#Gad_Canvas))
-                DrawAlphaImage(ImageID(#Img_Button_Red_On), 271+((\Mouse_Position_X_Current-271)/31)*31, 240)
-                StopDrawing()
-                ResumeThread(Chordian\RepaintHandler_Thread)
-                Repeat
-                  Event = WaitWindowEvent()
-                  Select Event
-                    Case #PB_Event_Gadget
-                      Select EventGadget()
-                        Case #Gad_Canvas
-                          Select EventType()
-                            Case #PB_EventType_KeyUp
-                              Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                Case #VK_ESCAPE
-                                  PauseThread(Chordian\RepaintHandler_Thread)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                  ResumeThread(Chordian\RepaintHandler_Thread)
-                                  Break
-                                Default
-                                  \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                  PauseThread(Chordian\RepaintHandler_Thread)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                  ResumeThread(Chordian\RepaintHandler_Thread)
-                                  Break
-                              EndSelect
-                              
-                            Case #PB_EventType_LeftButtonDown
-                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                              \Mouse_Button_Left_Current = 1
-                              PauseThread(Chordian\RepaintHandler_Thread)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                              ResumeThread(Chordian\RepaintHandler_Thread)
-                              Break
-                              
-                            Case #PB_EventType_LeftButtonUp
-                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                              \Mouse_Button_Left_Current = 0
-                              
-                            Case #PB_EventType_RightButtonDown
-                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                              \Mouse_Button_Right_Current = 1
-                              PauseThread(Chordian\RepaintHandler_Thread)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                              ResumeThread(Chordian\RepaintHandler_Thread)
-                              Break
-                              
-                            Case #PB_EventType_RightButtonUp
-                              \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                              \Mouse_Button_Right_Current = 0
-                              
-                            Case #PB_EventType_MiddleButtonDown
-                              \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                              \Mouse_Button_Middle_Current = 1
-                              PauseThread(Chordian\RepaintHandler_Thread)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                              ResumeThread(Chordian\RepaintHandler_Thread)
-                              Break
-                              
-                            Case #PB_EventType_MiddleButtonUp
-                              \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
-                              \Mouse_Button_Middle_Current = 0
-                              
-                          EndSelect
-                      EndSelect
-                    Case #PB_Event_CloseWindow
-                      PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
-                      Break
-                    Default
-                  EndSelect
-                ForEver
-              EndIf
+              KeyReassign_Chord(#Chord_Maj, 0, 0)
             EndIf
             
             If \Trigger_Chord_Button_Minor = 1
@@ -2431,84 +2460,7 @@ Procedure Main()
               EndIf
             ElseIf \Trigger_Chord_Button_Minor = 2
               \Trigger_Chord_Button_Minor = 0
-              If (\Mouse_Position_X_Current-286)%31 <= 20
-                PauseThread(Chordian\RepaintHandler_Thread)
-                StartDrawing(CanvasOutput(#Gad_Canvas))
-                DrawAlphaImage(ImageID(#Img_Button_Red_On), 286+((\Mouse_Position_X_Current-286)/31)*31, 283)
-                StopDrawing()
-                ResumeThread(Chordian\RepaintHandler_Thread)
-                Repeat
-                  Event = WaitWindowEvent()
-                  Select Event
-                    Case #PB_Event_Gadget
-                      Select EventGadget()
-                        Case #Gad_Canvas
-                          Select EventType()
-                            Case #PB_EventType_KeyUp
-                              Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                Case #VK_ESCAPE
-                                  PauseThread(Chordian\RepaintHandler_Thread)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                  ResumeThread(Chordian\RepaintHandler_Thread)
-                                  Break
-                                Default
-                                  \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                  PauseThread(Chordian\RepaintHandler_Thread)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                  ResumeThread(Chordian\RepaintHandler_Thread)
-                                  Break
-                              EndSelect
-                              
-                            Case #PB_EventType_LeftButtonDown
-                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                              \Mouse_Button_Left_Current = 1
-                              PauseThread(Chordian\RepaintHandler_Thread)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                              ResumeThread(Chordian\RepaintHandler_Thread)
-                              Break
-                              
-                            Case #PB_EventType_LeftButtonUp
-                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                              \Mouse_Button_Left_Current = 0
-                              
-                            Case #PB_EventType_RightButtonDown
-                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                              \Mouse_Button_Right_Current = 1
-                              PauseThread(Chordian\RepaintHandler_Thread)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                              ResumeThread(Chordian\RepaintHandler_Thread)
-                              Break
-                              
-                            Case #PB_EventType_RightButtonUp
-                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                              \Mouse_Button_Right_Current = 0
-                              
-                            Case #PB_EventType_MiddleButtonDown
-                              \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                              \Mouse_Button_Middle_Current = 1
-                              PauseThread(Chordian\RepaintHandler_Thread)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                              ResumeThread(Chordian\RepaintHandler_Thread)
-                              Break
-                              
-                            Case #PB_EventType_MiddleButtonUp
-                              \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
-                              \Mouse_Button_Middle_Current = 0
-                              
-                          EndSelect
-                      EndSelect
-                    Case #PB_Event_CloseWindow
-                      PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
-                      Break
-                    Default
-                  EndSelect
-                ForEver
-              EndIf
+              KeyReassign_Chord(#Chord_Min, 15, 43)
             EndIf
             
             If \Trigger_Chord_Button_7th = 1
@@ -2522,84 +2474,7 @@ Procedure Main()
               EndIf
             ElseIf \Trigger_Chord_Button_7th = 2
               \Trigger_Chord_Button_7th = 0
-              If (\Mouse_Position_X_Current-301)%31 <= 20
-                PauseThread(Chordian\RepaintHandler_Thread)
-                StartDrawing(CanvasOutput(#Gad_Canvas))
-                DrawAlphaImage(ImageID(#Img_Button_Red_On), 301+((\Mouse_Position_X_Current-301)/31)*31, 326)
-                StopDrawing()
-                ResumeThread(Chordian\RepaintHandler_Thread)
-                Repeat
-                  Event = WaitWindowEvent()
-                  Select Event
-                    Case #PB_Event_Gadget
-                      Select EventGadget()
-                        Case #Gad_Canvas
-                          Select EventType()
-                            Case #PB_EventType_KeyUp
-                              Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                Case #VK_ESCAPE
-                                  PauseThread(Chordian\RepaintHandler_Thread)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                  ResumeThread(Chordian\RepaintHandler_Thread)
-                                  Break
-                                Default
-                                  \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                                  PauseThread(Chordian\RepaintHandler_Thread)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                                  ResumeThread(Chordian\RepaintHandler_Thread)
-                                  Break
-                              EndSelect
-                              
-                            Case #PB_EventType_LeftButtonDown
-                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                              \Mouse_Button_Left_Current = 1
-                              PauseThread(Chordian\RepaintHandler_Thread)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                              ResumeThread(Chordian\RepaintHandler_Thread)
-                              Break
-                              
-                            Case #PB_EventType_LeftButtonUp
-                              \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                              \Mouse_Button_Left_Current = 0
-                              
-                            Case #PB_EventType_RightButtonDown
-                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                              \Mouse_Button_Right_Current = 1
-                              PauseThread(Chordian\RepaintHandler_Thread)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                              ResumeThread(Chordian\RepaintHandler_Thread)
-                              Break
-                              
-                            Case #PB_EventType_RightButtonUp
-                              \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                              \Mouse_Button_Right_Current = 0
-                              
-                            Case #PB_EventType_MiddleButtonDown
-                              \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                              \Mouse_Button_Middle_Current = 1
-                              PauseThread(Chordian\RepaintHandler_Thread)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                              ResumeThread(Chordian\RepaintHandler_Thread)
-                              Break
-                              
-                            Case #PB_EventType_MiddleButtonUp
-                              \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
-                              \Mouse_Button_Middle_Current = 0
-                              
-                          EndSelect
-                      EndSelect
-                    Case #PB_Event_CloseWindow
-                      PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
-                      Break
-                    Default
-                  EndSelect
-                ForEver
-              EndIf
+              KeyReassign_Chord(#Chord_7th, 30, 86)
             EndIf
             
             If \Trigger_Chordiate
