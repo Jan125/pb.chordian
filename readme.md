@@ -18,12 +18,12 @@ Chord keys are by default assigned to the keyboard in the following configuratio
 Please note that this is a standard configuration made for a German ISO keyboard.\
 ASCII keyboards will not be able to assign standard small keys for every chord in a consistent manner.
 
-You can reassign chord keys by right-clicking them, then pressing the key that you want them to be.
+You can reassign chord and function keys by right-clicking them, then pressing the key that you want them to be.\
+Pressing Escape during that process will revert the key to the standard configuration.\
+Clicking anywhere or committing a window size event will not change the button.
 
-Chord keys can also be manually clicked, and will stay clicked until being clicked again, or receiving their assigned button being lifted.
-
-These last two points do NOT extend to the Space key.\
-The Space key is marked as a special Chordiate Mode key.
+Chord and function keys can also be manually clicked.\
+Chord keys will stay clicked until being clicked again, or receiving their assigned button being lifted.
 
 The chords you can play are as follows:
 
@@ -49,7 +49,6 @@ The following combinations are only available in Chordiate Mode:
 - Major + Minor + 7th + Chordiate = Chromatic
 
 The Playback|Enter button is bound to LCTRL.
-This can currently not be changed.
 
 
 ##

@@ -142,6 +142,19 @@ Procedure.i ResetInput()
     \Keymap_Harp(#Harp_12) = #VK_F11
     \Keymap_Harp(#Harp_13) = #VK_F12
     
+    \Keymap_Function(#Btn_Master_Power) = ArraySize(\Keymap())-#Btn_Master_Power
+    
+    \Keymap_Function(#Btn_Rhythm_Alternate) = ArraySize(\Keymap())-#Btn_Rhythm_Alternate
+    \Keymap_Function(#Btn_Rhythm_Rock1_March) = ArraySize(\Keymap())-#Btn_Rhythm_Rock1_March
+    \Keymap_Function(#Btn_Rhythm_Rock2_Tango) = ArraySize(\Keymap())-#Btn_Rhythm_Rock2_Tango
+    \Keymap_Function(#Btn_Rhythm_Disco_Blues) = ArraySize(\Keymap())-#Btn_Rhythm_Disco_Blues
+    \Keymap_Function(#Btn_Rhythm_Latin_Swing) = ArraySize(\Keymap())-#Btn_Rhythm_Latin_Swing
+    \Keymap_Function(#Btn_Rhythm_Country_Waltz) = ArraySize(\Keymap())-#Btn_Rhythm_Country_Waltz
+    \Keymap_Function(#Btn_Rhythm_AutoBassSync) = ArraySize(\Keymap())-#Btn_Rhythm_AutoBassSync
+    
+    \Keymap_Function(#Btn_Memory) = ArraySize(\Keymap())-#Btn_Memory
+    \Keymap_Function(#Btn_Memory_Playback_Record) = ArraySize(\Keymap())-#Btn_Memory_Playback_Record
+    \Keymap_Function(#Btn_Memory_Repeat_Delete) = ArraySize(\Keymap())-#Btn_Memory_Repeat_Delete
     \Keymap_Function(#Btn_Memory_Playback_Enter) = #VK_CONTROL
     \Keymap_Function(#Btn_Chordiate) = #VK_SPACE
     
@@ -245,11 +258,80 @@ Procedure.i GetUIGraphics()
   LocalCatchImage(#Img_UI_Note_9, ?Img_UI_Note_9, ".data\img\ui_note_9.png")
   LocalCatchImage(#Img_UI_Note_10, ?Img_UI_Note_10, ".data\img\ui_note_10.png")
   LocalCatchImage(#Img_UI_Note_11, ?Img_UI_Note_11, ".data\img\ui_note_11.png")
-
+  
 EndProcedure
 
-Procedure KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
+Procedure.i KeyReassign_GetKey()
   Protected Event.i
+  
+  With Chordian\Input_State
+    Repeat
+      Event = WaitWindowEvent()
+      If EventWindow() = #Win_Main
+        Select Event
+          Case #PB_Event_Gadget
+            Select EventGadget()
+              Case #Gad_Canvas
+                Select EventType()
+                  Case #PB_EventType_KeyUp
+                    Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                      Case #VK_ESCAPE
+                        ProcedureReturn -2
+                      Default
+                        ProcedureReturn GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                    EndSelect
+                    
+                  Case #PB_EventType_LeftButtonDown
+                    \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                    \Mouse_Button_Left_Current = 1
+                    ProcedureReturn -1
+                    
+                  Case #PB_EventType_LeftButtonUp
+                    \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
+                    \Mouse_Button_Left_Current = 0
+                    
+                  Case #PB_EventType_RightButtonDown
+                    \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
+                    \Mouse_Button_Right_Current = 1
+                    ProcedureReturn -1
+                    
+                  Case #PB_EventType_RightButtonUp
+                    \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                    \Mouse_Button_Right_Current = 0
+                    
+                  Case #PB_EventType_MiddleButtonDown
+                    \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
+                    \Mouse_Button_Middle_Current = 1
+                    ProcedureReturn -1
+                    
+                  Case #PB_EventType_MiddleButtonUp
+                    \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
+                    \Mouse_Button_Middle_Current = 0
+                    
+                EndSelect
+            EndSelect
+            
+          Case #PB_Event_RestoreWindow
+            PostEvent(#PB_Event_RestoreWindow, #Win_Main, 0)
+            ProcedureReturn -1
+            
+          Case #PB_Event_SizeWindow
+            PostEvent(#PB_Event_SizeWindow, #Win_Main, 0)
+            ProcedureReturn -1
+            
+          Case #PB_Event_CloseWindow
+            PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
+            ProcedureReturn -1
+          Default
+        EndSelect
+      EndIf
+    ForEver
+  EndWith
+EndProcedure
+
+
+Procedure.i KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
+  Protected KeyReturn.i
   
   Protected ScaleX.f
   Protected ScaleY.f
@@ -263,90 +345,182 @@ Procedure KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
         DrawAlphaImage(ImageID(#Img_Button_Red_On), ((271 + OffsetX) + ((\Mouse_Position_X_Current - (271 + OffsetX)) / 31) * 31) * ScaleX, (240 + OffsetY) * ScaleY)
         StopDrawing()
       EndIf
+      
+      KeyReturn = KeyReassign_GetKey()
+      If KeyReturn = -2
+        Select Type
+          Case #Chord_Maj
+            Select (\Mouse_Position_X_Current - (271 + OffsetX)) / 31
+              Case #Note_Db
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_1
+              Case #Note_Ab
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_2
+              Case #Note_Eb
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_3
+              Case #Note_Bb
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_4
+              Case #Note_F
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_5
+              Case #Note_C
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_6
+              Case #Note_G
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_7
+              Case #Note_D
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_8
+              Case #Note_A
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_9
+              Case #Note_E
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_0
+              Case #Note_B
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 219
+              Case #Note_Fc
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 221
+            EndSelect
+          Case #Chord_Min
+            Select (\Mouse_Position_X_Current - (271 + OffsetX)) / 31
+              Case #Note_Db
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_Q
+              Case #Note_Ab
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_W
+              Case #Note_Eb
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_E
+              Case #Note_Bb
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_R
+              Case #Note_F
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_T
+              Case #Note_C
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_Z
+              Case #Note_G
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_U
+              Case #Note_D
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_I
+              Case #Note_A
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_O
+              Case #Note_E
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_P
+              Case #Note_B
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 186
+              Case #Note_Fc
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 187
+            EndSelect
+          Case #Chord_7th
+            Select (\Mouse_Position_X_Current - (271 + OffsetX)) / 31
+              Case #Note_Db
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_A
+              Case #Note_Ab
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_S
+              Case #Note_Eb
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_D
+              Case #Note_Bb
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_F
+              Case #Note_F
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_G
+              Case #Note_C
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_H
+              Case #Note_G
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_J
+              Case #Note_D
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_K
+              Case #Note_A
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_L
+              Case #Note_E
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 192
+              Case #Note_B
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 222
+              Case #Note_Fc
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 191
+            EndSelect
+        EndSelect
+      ElseIf KeyReturn <> -1
+        \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = KeyReturn
+      EndIf
+      
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
       ResumeThread(Chordian\RepaintHandler_Thread)
-      Repeat
-        Event = WaitWindowEvent()
-        If EventWindow() = #Win_Main
-          Select Event
-            Case #PB_Event_Gadget
-              Select EventGadget()
-                Case #Gad_Canvas
-                  Select EventType()
-                    Case #PB_EventType_KeyUp
-                      Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                        Case #VK_ESCAPE
-                          PauseThread(Chordian\RepaintHandler_Thread)
-                          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                          ResumeThread(Chordian\RepaintHandler_Thread)
-                          Break
-                        Default
-                          \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
-                          PauseThread(Chordian\RepaintHandler_Thread)
-                          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                          ResumeThread(Chordian\RepaintHandler_Thread)
-                          Break
-                      EndSelect
-                      
-                    Case #PB_EventType_LeftButtonDown
-                      \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                      \Mouse_Button_Left_Current = 1
-                      PauseThread(Chordian\RepaintHandler_Thread)
-                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                      ResumeThread(Chordian\RepaintHandler_Thread)
-                      Break
-                      
-                    Case #PB_EventType_LeftButtonUp
-                      \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
-                      \Mouse_Button_Left_Current = 0
-                      
-                    Case #PB_EventType_RightButtonDown
-                      \Mouse_Button_Right_Previous = \Mouse_Button_Right_Current
-                      \Mouse_Button_Right_Current = 1
-                      PauseThread(Chordian\RepaintHandler_Thread)
-                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                      ResumeThread(Chordian\RepaintHandler_Thread)
-                      Break
-                      
-                    Case #PB_EventType_RightButtonUp
-                      \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                      \Mouse_Button_Right_Current = 0
-                      
-                    Case #PB_EventType_MiddleButtonDown
-                      \Mouse_Button_Middle_Previous = \Mouse_Button_Middle_Current
-                      \Mouse_Button_Middle_Current = 1
-                      PauseThread(Chordian\RepaintHandler_Thread)
-                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                      ResumeThread(Chordian\RepaintHandler_Thread)
-                      Break
-                      
-                    Case #PB_EventType_MiddleButtonUp
-                      \Mouse_Button_Right_Previous = \Mouse_Button_Middle_Current
-                      \Mouse_Button_Middle_Current = 0
-                      
-                  EndSelect
-              EndSelect
-              
-            Case #PB_Event_RestoreWindow
-              PostEvent(#PB_Event_RestoreWindow, #Win_Main, 0)
-              Break
-              
-            Case #PB_Event_SizeWindow
-              PostEvent(#PB_Event_SizeWindow, #Win_Main, 0)
-              Break
-              
-            Case #PB_Event_CloseWindow
-              PostEvent(#PB_Event_CloseWindow, #Win_Main, 0)
-              Break
-            Default
-          EndSelect
-        EndIf
-      ForEver
+      
     EndIf
+  EndWith
+EndProcedure
+
+Procedure.i KeyReassign_Function(Type.i)
+  Protected KeyReturn.i
+  
+  Protected ScaleX.f
+  Protected ScaleY.f
+  
+  With Chordian\Input_State
+    PauseThread(Chordian\RepaintHandler_Thread)
+    
+    If StartDrawing(CanvasOutput(#Gad_Canvas))
+      
+      ScaleX = OutputWidth() / 800.0
+      ScaleY = OutputHeight() / 600.0
+      
+      Select Type
+          
+        Case #Btn_Master_Power
+          DrawAlphaImage(ImageID(#Img_Button_Blue_On), 126 * ScaleX, 113 * ScaleY)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+          
+          
+        Case #Btn_Rhythm_Alternate
+          DrawAlphaImage(ImageID(#Img_Button_Red_On), 36 * ScaleX, 274 * ScaleY)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+          
+        Case #Btn_Rhythm_First To #Btn_Rhythm_Last
+          DrawAlphaImage(ImageID(#Img_Button_Red_On), (68 + (Type-#Btn_Rhythm_First) * 32) * ScaleX, 274 * ScaleY)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+          
+        Case #Btn_Rhythm_AutoBassSync
+          DrawAlphaImage(ImageID(#Img_Button_Red_On), 84 * ScaleX, 329 * ScaleY)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+          
+          
+        Case #Btn_Memory
+          DrawAlphaImage(ImageID(#Img_Button_Blue_On), 126 * ScaleX, 424 * ScaleY)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+          
+        Case #Btn_Memory_Playback_Record
+          DrawAlphaImage(ImageID(#Img_Button_Red_On), 159 * ScaleX, 424 * ScaleY)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+          
+        Case #Btn_Memory_Repeat_Delete
+          DrawAlphaImage(ImageID(#Img_Button_Red_On), 192 * ScaleX, 424 * ScaleY)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+          
+        Case #Btn_Memory_Playback_Enter
+          DrawAlphaImage(ImageID(#Img_Button_Wide_Red_On), 162 * ScaleX, 480 * ScaleY)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+          
+          
+        Case #Btn_Chordiate
+          DrawAlphaImage(ImageID(#Img_Button_Bar_Red_On), 361 * ScaleX, 369 * ScaleY)
+          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+          
+      EndSelect
+      
+      StopDrawing()
+      
+    EndIf
+    
+    KeyReturn = KeyReassign_GetKey()
+    If KeyReturn = -2
+      Select Type
+        Case #Btn_Memory_Playback_Enter
+          \Keymap_Function(Type) = #VK_CONTROL
+        Case #Btn_Chordiate
+          \Keymap_Function(Type) = #VK_SPACE
+        Default
+          \Keymap_Function(Type) = ArraySize(\Keymap())-Type
+      EndSelect
+    ElseIf KeyReturn <> -1
+      \Keymap_Function(Type) = KeyReturn
+    EndIf
+    
+    ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+    ResumeThread(Chordian\RepaintHandler_Thread)
+    
   EndWith
 EndProcedure
 
@@ -536,6 +710,7 @@ Procedure.i Init()
   Box(0, 0, OutputWidth(), OutputHeight(), $FFFFFFFF)
   DrawText(0, 00, "Loading... Please wait.")
   StopDrawing()
+  
   
   SetActiveGadget(#Gad_Canvas)
   
@@ -1874,7 +2049,7 @@ Procedure Main()
             
             
             ;Power Button
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 126, 113, 145, 137) And Not \Mouse_Button_Left_Previous
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 126, 113, 145, 137)
               \Trigger_Master_Button_Power_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
             EndIf
             
@@ -1909,7 +2084,7 @@ Procedure Main()
             
             
             ;Rhythm Alternate Button
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 36, 274, 55, 298) And Not \Mouse_Button_Left_Previous
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 36, 274, 55, 298)
               \Trigger_Rhythm_Button_Alternate_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
             EndIf
             
@@ -1921,7 +2096,7 @@ Procedure Main()
             
             ;Rhythm Auto Bass Sync Button
             
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 84, 329, 103, 353) And Not \Mouse_Button_Left_Previous
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 84, 329, 103, 353)
               \Trigger_Rhythm_Button_AutoBassSync_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
             EndIf
             
@@ -1936,22 +2111,22 @@ Procedure Main()
             EndIf
             
             ;Memory On Off Button
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 126, 424, 145, 448) And Not \Mouse_Button_Left_Previous
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 126, 424, 145, 448)
               \Trigger_Memory_Button_Memory_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
             EndIf
             
             ;Memory Playback Record Button
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 159, 424, 178, 448) And Not \Mouse_Button_Left_Previous
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 159, 424, 178, 448)
               \Trigger_Memory_Button_Playback_Record_OnOff = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
             EndIf
             
             ;Memory Repeat Delete Button
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 192, 424, 211, 448) And Not \Mouse_Button_Left_Previous
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 192, 424, 211, 448)
               \Trigger_Memory_Button_Repeat_Delete = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
             EndIf
             
             ;Memory Playback Enter Button
-            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 162, 480, 206, 505) And Not \Mouse_Button_Left_Previous
+            If IsInRect(\Mouse_Position_X_Current, \Mouse_Position_Y_Current, 162, 480, 206, 505)
               \Trigger_Memory_Button_Playback_Enter = \Mouse_Button_Left_Current | \Mouse_Button_Right_Current << 1 | \Mouse_Button_Middle_Current << 2
             EndIf
             
@@ -1989,27 +2164,13 @@ Procedure Main()
               Select \Trigger_Master_Button_Power_OnOff
                 Case 1
                   \Trigger_Master_Button_Power_OnOff = 0
-                  Chordian\Machine_State\Value_Master_Button_Power_OnOff = Bool(Not Chordian\Machine_State\Value_Master_Button_Power_OnOff)
-                  Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
-                  Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                  \Keymap(\Keymap_Function(#Btn_Master_Power)) = 1
+                  PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
                   
-                  For i = #Note_First To #Note_Last
-                    For n = #Chord_First To #Chord_Last
-                      \Keymap(\Keymap_Chord(n, i)) = 0
-                    Next
-                  Next
-                  
-                  PauseThread(Chordian\RepaintHandler_Thread)
-                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-                  ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-                  ResumeThread(Chordian\RepaintHandler_Thread)
-                  
-                Default
+                Case 2
                   \Trigger_Master_Button_Power_OnOff = 0
+                  KeyReassign_Function(#Btn_Master_Power)
+                  
               EndSelect
             EndIf
             
@@ -2154,84 +2315,41 @@ Procedure Main()
             EndIf
             
             
-            If \Trigger_Rhythm_Button_Alternate_OnOff
+            If \Trigger_Rhythm_Button_Alternate_OnOff = 1
               \Trigger_Rhythm_Button_Alternate_OnOff = 0
-              Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff)
+              \Keymap(\Keymap_Function(#Btn_Rhythm_Alternate)) = 1
+              PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
               
-              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-              PauseThread(Chordian\RepaintHandler_Thread)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-              ResumeThread(Chordian\RepaintHandler_Thread)
-              
+            ElseIf \Trigger_Rhythm_Button_Alternate_OnOff = 2
+              \Trigger_Rhythm_Button_Alternate_OnOff = 0
+              KeyReassign_Function(#Btn_Rhythm_Alternate)
             EndIf
             
             
-            If \Trigger_Rhythm_Button_Pattern ;FroggiFifi - Rhythm buttons do not pop out when pressed again, only by lightly pressing another rhythm button - Unemulatable, will stay as it is currently.
+            If \Trigger_Rhythm_Button_Pattern = 1 ;FroggiFifi - Rhythm buttons do not pop out when pressed again, only by lightly pressing another rhythm button - Unemulatable, will stay as it is currently.
               \Trigger_Rhythm_Button_Pattern = 0
               If (\Mouse_Position_X_Current-68)%32 <= 20
-                If (\Mouse_Position_X_Current-68)/32 = Chordian\Machine_State\Value_Rhythm_Button_Pattern
-                  Chordian\Machine_State\Value_Rhythm_Button_Pattern = #Rhythm_None
-                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-                Else
-                  If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                    If Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
-                      Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
-                      Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
-                      Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
-                      Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
-                    Else
-                      Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
-                      Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
-                      Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
-                      Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
-                    EndIf
-                  EndIf
-                  Chordian\Machine_State\Value_Rhythm_Button_Pattern = (\Mouse_Position_X_Current-68)/32
-                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-                EndIf
+                \Keymap(\Keymap_Function(#Btn_Rhythm_First + (\Mouse_Position_X_Current - 68) / 32)) = 1
+                PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
               EndIf
               
-              PauseThread(Chordian\RepaintHandler_Thread)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-              ResumeThread(Chordian\RepaintHandler_Thread)
+            ElseIf \Trigger_Rhythm_Button_Pattern = 2
+              \Trigger_Rhythm_Button_Pattern = 0
+              If (\Mouse_Position_X_Current-68) % 32 <= 20
+                KeyReassign_Function(#Btn_Rhythm_First + (\Mouse_Position_X_Current - 68) / 32)
+              EndIf
               
             EndIf
             
             
-            If \Trigger_Rhythm_Button_AutoBassSync_OnOff
+            If \Trigger_Rhythm_Button_AutoBassSync_OnOff = 1
               \Trigger_Rhythm_Button_AutoBassSync_OnOff = 0
-              If Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
-                If Chordian\Machine_State\Value_Internal_Chord_Chord <> #Chord_None And Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None
-                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
-                  Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
-                  Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
-                  Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
-                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                Else
-                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
-                  Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
-                  Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
-                  Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
-                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                EndIf
-              Else
-                Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
-                Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
-                Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
-                Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
-                ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-              EndIf
+              \Keymap(\Keymap_Function(#Btn_Rhythm_AutoBassSync)) = 1
+              PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
               
-              Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff)
-              
-              PauseThread(Chordian\RepaintHandler_Thread)
-              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-              ResumeThread(Chordian\RepaintHandler_Thread)
-              
+            ElseIf \Trigger_Rhythm_Button_AutoBassSync_OnOff = 2
+              \Trigger_Rhythm_Button_AutoBassSync_OnOff = 0
+              KeyReassign_Function(#Btn_Rhythm_AutoBassSync)
             EndIf
             
             
@@ -2305,122 +2423,40 @@ Procedure Main()
             EndIf
             
             
-            If \Trigger_Memory_Button_Memory_OnOff
+            If \Trigger_Memory_Button_Memory_OnOff = 1
               \Trigger_Memory_Button_Memory_OnOff = 0
-              Chordian\Machine_State\Value_Memory_Button_Memory_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff)
-              
-              If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
-                Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
-              EndIf
-              
-              Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
-              
-              PauseThread(Chordian\RepaintHandler_Thread)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-              ResumeThread(Chordian\RepaintHandler_Thread)
-              
+               \Keymap(\Keymap_Function(#Btn_Memory)) = 1
+               PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+               
+            ElseIf \Trigger_Memory_Button_Memory_OnOff = 2
+              \Trigger_Memory_Button_Memory_OnOff = 0
+              KeyReassign_Function(#Btn_Memory)
             EndIf
             
             
-            If \Trigger_Memory_Button_Playback_Record_OnOff
+            If \Trigger_Memory_Button_Playback_Record_OnOff = 1
               \Trigger_Memory_Button_Playback_Record_OnOff = 0
-              Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
-              
-              Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
-              
-              PostEvent(#Event_HandleChordKeys, #Win_Main, 0)
-              PostEvent(#Event_HandleHarpKeys, #Win_Main, 0)
-              
-              PauseThread(Chordian\RepaintHandler_Thread)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-              ResumeThread(Chordian\RepaintHandler_Thread)
-              
+               \Keymap(\Keymap_Function(#Btn_Memory_Playback_Record)) = 1
+               PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+               
+            ElseIf \Trigger_Memory_Button_Playback_Record_OnOff = 2
+              \Trigger_Memory_Button_Playback_Record_OnOff = 0
+              KeyReassign_Function(#Btn_Memory_Playback_Record)
             EndIf
             
             
-            If \Trigger_Memory_Button_Repeat_Delete
+            If \Trigger_Memory_Button_Repeat_Delete = 1
               \Trigger_Memory_Button_Repeat_Delete = 0
-              Chordian\Machine_State\Value_Memory_Button_Repeat_Delete = Bool(Not Chordian\Machine_State\Value_Memory_Button_Repeat_Delete)
-              If Chordian\Machine_State\Value_Memory_Button_Repeat_Delete
-                If Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
-                  Chordian\Machine_State\Value_Internal_Memory_Position_Current-1
-                  If Chordian\Machine_State\Value_Internal_Memory_Position_Current < 0
-                    Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
-                  EndIf
-                  If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                    Chordian\Machine_State\Value_Internal_Tick = 0
-                    SendNewTick = 1
-                  EndIf
-                  
-                  Chordian\Machine_State\Value_Internal_Chord_Chord = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0)
-                  Chordian\Machine_State\Value_Internal_Chord_Note = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1)
-                  
-                  If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                    For i = #Snd_Bass_First To #Snd_Bass_Last
-                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                    Next
-                    For i = #Snd_Chord_First To #Snd_Chord_Last
-                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                    Next
-                    For i = #Snd_Harp_First To #Snd_Harp_Last
-                      Chordian\Machine_State\Status_Sound(i) = #Curve_None
-                    Next
-                    
-                    Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
-                    Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
-                  EndIf
-                  
-                  SendNewChord = 1
-                  If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
-                    SendNewTick = 1
-                  EndIf
-                  
-                  If SendNewChord
-                    SendNewChord = 0
-                    If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
-                      Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
-                      For i = #Snd_Chord_First To #Snd_Chord_Last
-                        Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
-                      Next
-                    EndIf
-                    If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
-                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
-                    EndIf
-                    
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                  EndIf
-                  If SendNewTick
-                    SendNewTick = 0
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
-                    ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
-                  EndIf
-                  
-                  
-                Else
-                  Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
-                  
-                  Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
-                  
-                EndIf
-              EndIf
-              
-              
-              PauseThread(Chordian\RepaintHandler_Thread)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-              ResumeThread(Chordian\RepaintHandler_Thread)
-              
+               \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete)) = 1
+               PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+               
+            ElseIf \Trigger_Memory_Button_Repeat_Delete = 2
+              \Trigger_Memory_Button_Repeat_Delete = 0
+              KeyReassign_Function(#Btn_Memory_Repeat_Delete)
             EndIf
             
             
-            If \Trigger_Memory_Button_Playback_Enter
+            If \Trigger_Memory_Button_Playback_Enter = 1
               \Trigger_Memory_Button_Playback_Enter = 0
               If \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
                 PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Memory_Playback_Enter))
@@ -2432,6 +2468,9 @@ Procedure Main()
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
               ResumeThread(Chordian\RepaintHandler_Thread)
+            ElseIf \Trigger_Memory_Button_Playback_Enter = 2
+              \Trigger_Memory_Button_Playback_Enter = 0
+              KeyReassign_Function(#Btn_Memory_Playback_Enter)
             EndIf
             
             
@@ -2477,7 +2516,7 @@ Procedure Main()
               KeyReassign_Chord(#Chord_7th, 30, 86)
             EndIf
             
-            If \Trigger_Chordiate
+            If \Trigger_Chordiate = 1
               \Trigger_Chordiate = 0
               If \Keymap(\Keymap_Function(#Btn_Chordiate))
                 PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Chordiate))
@@ -2489,6 +2528,9 @@ Procedure Main()
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
               ResumeThread(Chordian\RepaintHandler_Thread)
+            ElseIf \Trigger_Chordiate = 2
+              \Trigger_Chordiate = 0
+              KeyReassign_Function(#Btn_Chordiate)
             EndIf
             
             If \Trigger_Harp
@@ -3274,6 +3316,229 @@ Procedure Main()
           ;--HandleFunctionKeys
         Case #Event_HandleFunctionKeys
           With Chordian\Input_State
+            If \Keymap(\Keymap_Function(#Btn_Master_Power))
+              \Keymap(\Keymap_Function(#Btn_Master_Power)) = 0
+              Chordian\Machine_State\Value_Master_Button_Power_OnOff = Bool(Not Chordian\Machine_State\Value_Master_Button_Power_OnOff)
+              Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
+              Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+              
+              For i = #Note_First To #Note_Last
+                For n = #Chord_First To #Chord_Last
+                  \Keymap(\Keymap_Chord(n, i)) = 0
+                Next
+              Next
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+            EndIf
+            
+            If \Keymap(\Keymap_Function(#Btn_Rhythm_Alternate))
+              \Keymap(\Keymap_Function(#Btn_Rhythm_Alternate)) = 0
+              
+              Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_Alternate_OnOff)
+              
+              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            For i = #Rhythm_First To #Rhythm_Last
+              
+              If \Keymap(\Keymap_Function(#Btn_Rhythm_First + i))
+                \Keymap(\Keymap_Function(#Btn_Rhythm_First + i)) = 0
+                
+                If #Rhythm_First + i = Chordian\Machine_State\Value_Rhythm_Button_Pattern
+                  Chordian\Machine_State\Value_Rhythm_Button_Pattern = #Rhythm_None
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                Else
+                  If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                    If Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                      Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
+                    Else
+                      Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
+                      Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
+                    EndIf
+                  EndIf
+                  Chordian\Machine_State\Value_Rhythm_Button_Pattern = #Rhythm_First + i
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                EndIf
+                
+                PauseThread(Chordian\RepaintHandler_Thread)
+                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+                ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+                ResumeThread(Chordian\RepaintHandler_Thread)
+              EndIf
+            Next
+            
+            
+            If \Keymap(\Keymap_Function(#Btn_Rhythm_AutoBassSync))
+              \Keymap(\Keymap_Function(#Btn_Rhythm_AutoBassSync)) = 0
+              
+              Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff = Bool(Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff)
+              
+              If Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current <> #Rhythm_None
+                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Release
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                EndIf
+              Else
+                If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current <> #Rhythm_None And
+                   Chordian\Machine_State\Value_Internal_Chord_Chord <> #Chord_None And Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None And
+                   Chordian\Machine_State\Value_Internal_Chord_Chord <> #Chord_Ignore And Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_Ignore
+                  Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
+                  Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Trigger
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                  ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                EndIf
+              EndIf
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            
+            If \Keymap(\Keymap_Function(#Btn_Memory))
+              \Keymap(\Keymap_Function(#Btn_Memory)) = 0
+              
+              Chordian\Machine_State\Value_Memory_Button_Memory_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Memory_OnOff)
+              
+              If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
+                Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+              EndIf
+              
+              Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+            EndIf
+            
+            
+            If \Keymap(\Keymap_Function(#Btn_Memory_Playback_Record))
+              \Keymap(\Keymap_Function(#Btn_Memory_Playback_Record)) = 0
+              
+              Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff = Bool(Not Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff)
+              
+              Chordian\Machine_State\Status_Sound(#Snd_Keyboard) = #Curve_None
+              
+              PostEvent(#Event_HandleChordKeys, #Win_Main, 0)
+              PostEvent(#Event_HandleHarpKeys, #Win_Main, 0)
+              
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            
+            If \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete))
+              \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete)) = 0
+              
+              Chordian\Machine_State\Value_Memory_Button_Repeat_Delete = Bool(Not Chordian\Machine_State\Value_Memory_Button_Repeat_Delete)
+              If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
+                If Chordian\Machine_State\Value_Memory_Button_Repeat_Delete
+                  If Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
+                    Chordian\Machine_State\Value_Internal_Memory_Position_Current-1
+                    If Chordian\Machine_State\Value_Internal_Memory_Position_Current < 0
+                      Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+                    EndIf
+                    If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                      Chordian\Machine_State\Value_Internal_Tick = 0
+                      SendNewTick = 1
+                    EndIf
+                    
+                    Chordian\Machine_State\Value_Internal_Chord_Chord = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 0)
+                    Chordian\Machine_State\Value_Internal_Chord_Note = Chordian\Machine_State\Internal_Memory_Chord_Note(Chordian\Machine_State\Value_Internal_Memory_Position_Current, 1)
+                    
+                    If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                      For i = #Snd_Bass_First To #Snd_Bass_Last
+                        Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                      Next
+                      For i = #Snd_Chord_First To #Snd_Chord_Last
+                        Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                      Next
+                      For i = #Snd_Harp_First To #Snd_Harp_Last
+                        Chordian\Machine_State\Status_Sound(i) = #Curve_None
+                      Next
+                      
+                      Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Ignore
+                      Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_Ignore
+                    EndIf
+                    
+                    SendNewChord = 1
+                    If Chordian\Machine_State\Value_Rhythm_Button_Pattern_Current = #Rhythm_None
+                      SendNewTick = 1
+                    EndIf
+                    
+                    If SendNewChord
+                      SendNewChord = 0
+                      If Not Chordian\Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+                        Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
+                        For i = #Snd_Chord_First To #Snd_Chord_Last
+                          Chordian\Machine_State\Status_Sound(i) = #Curve_Trigger
+                        Next
+                      EndIf
+                      If Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None Or Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+                        ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+                      EndIf
+                      
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                    EndIf
+                    If SendNewTick
+                      SendNewTick = 0
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+                      ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+                    EndIf
+                    
+                    
+                  Else
+                    Chordian\Machine_State\Value_Internal_Memory_Position_Current = 0
+                    
+                    Chordian\Machine_State\Status_Sound(#Snd_Beep) = #Curve_Oneshot
+                    
+                  EndIf
+                EndIf
+              EndIf
+            
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+              
+            EndIf
+            
+            
+            
             If Chordian\Machine_State\Value_Memory_Button_Playback_Enter <> \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
               Chordian\Machine_State\Value_Memory_Button_Playback_Enter = \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
               If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
@@ -3380,6 +3645,7 @@ Procedure Main()
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
               ResumeThread(Chordian\RepaintHandler_Thread)
             EndIf
+            
           EndWith
           
         Case #PB_Event_RestoreWindow

@@ -159,7 +159,7 @@
           EndSelect
         EndIf
         
-        ;Repaint Chord section
+        ;-Repaint Chord section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Chord, 0) = #WAIT_OBJECT_0
           ClipOutput(230 * ScaleX, 217 * ScaleY, 438 * ScaleX, 192 * ScaleY)
           DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)

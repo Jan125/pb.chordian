@@ -484,11 +484,13 @@ Enumeration -1
   #Btn_First
   #Btn_Master_Power = #Btn_First
   #Btn_Rhythm_Alternate
-  #Btn_Rhythm_Rock1_March
+  #Btn_Rhythm_First
+  #Btn_Rhythm_Rock1_March = #Btn_Rhythm_First
   #Btn_Rhythm_Rock2_Tango
   #Btn_Rhythm_Disco_Blues
   #Btn_Rhythm_Latin_Swing
   #Btn_Rhythm_Country_Waltz
+  #Btn_Rhythm_Last = #Btn_Rhythm_Country_Waltz
   #Btn_Rhythm_AutoBassSync
   #Btn_Memory
   #Btn_Memory_Playback_Record
