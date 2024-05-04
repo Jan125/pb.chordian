@@ -2425,9 +2425,9 @@ Procedure Main()
             
             If \Trigger_Memory_Button_Memory_OnOff = 1
               \Trigger_Memory_Button_Memory_OnOff = 0
-               \Keymap(\Keymap_Function(#Btn_Memory)) = 1
-               PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
-               
+              \Keymap(\Keymap_Function(#Btn_Memory)) = 1
+              PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+              
             ElseIf \Trigger_Memory_Button_Memory_OnOff = 2
               \Trigger_Memory_Button_Memory_OnOff = 0
               KeyReassign_Function(#Btn_Memory)
@@ -2436,9 +2436,9 @@ Procedure Main()
             
             If \Trigger_Memory_Button_Playback_Record_OnOff = 1
               \Trigger_Memory_Button_Playback_Record_OnOff = 0
-               \Keymap(\Keymap_Function(#Btn_Memory_Playback_Record)) = 1
-               PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
-               
+              \Keymap(\Keymap_Function(#Btn_Memory_Playback_Record)) = 1
+              PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+              
             ElseIf \Trigger_Memory_Button_Playback_Record_OnOff = 2
               \Trigger_Memory_Button_Playback_Record_OnOff = 0
               KeyReassign_Function(#Btn_Memory_Playback_Record)
@@ -2447,9 +2447,9 @@ Procedure Main()
             
             If \Trigger_Memory_Button_Repeat_Delete = 1
               \Trigger_Memory_Button_Repeat_Delete = 0
-               \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete)) = 1
-               PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
-               
+              \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete)) = 1
+              PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+              
             ElseIf \Trigger_Memory_Button_Repeat_Delete = 2
               \Trigger_Memory_Button_Repeat_Delete = 0
               KeyReassign_Function(#Btn_Memory_Repeat_Delete)
@@ -3366,7 +3366,8 @@ Procedure Main()
                       Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Release
                       Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Release
                       Chordian\Machine_State\Status_Sound(#Snd_Chord_3) = #Curve_Release
-                    Else
+                    ElseIf Chordian\Machine_State\Value_Internal_Chord_Chord <> #Chord_None And Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_None And
+                           Chordian\Machine_State\Value_Internal_Chord_Chord <> #Chord_Ignore And Chordian\Machine_State\Value_Internal_Chord_Note <> #Note_Ignore
                       Chordian\Machine_State\Status_Sound(#Snd_Bass) = #Curve_Trigger
                       Chordian\Machine_State\Status_Sound(#Snd_Chord_1) = #Curve_Trigger
                       Chordian\Machine_State\Status_Sound(#Snd_Chord_2) = #Curve_Trigger
@@ -3529,7 +3530,7 @@ Procedure Main()
                   EndIf
                 EndIf
               EndIf
-            
+              
               PauseThread(Chordian\RepaintHandler_Thread)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
