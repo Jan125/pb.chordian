@@ -96,8 +96,6 @@ The BPM range is from 70.5BPM to 300BPM.
 
 The power button works.
 
-This button, and everything that has not yet been named, cannot be reassigned as of now, and can only be accessed with a mouse.
-
 Please refer to an OM-84 manual for other functions.
 
 
@@ -218,18 +216,17 @@ These things are currently implemented:
 - Rhythm section
 - Pattern editor
 - Keyboard mode
-
+- Chord editor
 
 These things are currently partially implemented:
 
 - Midi output
-- Chord editor
-- Song creation mode
+- Song creation mode (Pending validation)
 
 
 These things are currently not implemented:
 
--This list is currently empty
+- This list is currently empty
 
 These things may be implemented:
 
