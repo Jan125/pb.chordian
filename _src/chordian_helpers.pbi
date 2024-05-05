@@ -10,6 +10,10 @@ Macro GetLinearInterpolatedSample(Memory, Position, Length, Size)
   LinearInterpolation(PeekF(Memory + ((Int(Position) + Length) % Length) * Size), PeekF(Memory + ((Int(Position) + Length + 1) % Length) * Size), Position - Int(Position))
 EndMacro
 
+Macro GetNearestSample(Memory, Position, Length, Size)
+  PeekF(Memory + ((Int(Position) + Length) % Length) * Size)
+EndMacro
+
 Macro KeepInRange(Value, Min, Max)
   If Value > Max
     Value = Max
@@ -22,7 +26,7 @@ Macro RollInRange(Value, Min, Max)
   If Min = Max
     Value = Min
   Else
-    While (Value-Min) > (Max-Min)
+    While (Value - Min) > (Max - Min)
       Value - ((Max - Min) + 1)
     Wend
     While (Value-Min) < 0

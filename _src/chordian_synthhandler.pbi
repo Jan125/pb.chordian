@@ -10,7 +10,7 @@ Global InitDS_Loop.i
 
 Global DSGainMult.f
 
-OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+".data\chordian.ini")
+OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension) + ".data\chordian.ini")
 PreferenceGroup("Sound")
 Global WaveFormatExDescriptor.WAVEFORMATEX
 With WaveFormatExDescriptor
@@ -48,7 +48,6 @@ Procedure.i SynthHandler(*Void)
     
     Protected a.i
     Protected i.i
-    Protected u.i
     
     Protected MSCounter.f
     
@@ -397,7 +396,7 @@ Procedure.i SynthHandler(*Void)
           
           \Status_Position(i) + \Status_Frequency(i) * (44100.0 / WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0
-            \Status_Position(i) - 100
+            \Status_Position(i) - 100.0
           Wend
         Next
         

@@ -7,8 +7,6 @@
   Protected CurrentChord.i
   Protected CurrentNote.i
   
-  Protected Retrigger.i
-  
   With Chordian\Machine_State
     Repeat
       WaitForSingleObject_(Chordian\Machine_Event\Semaphore_IsNewTick, -1)
@@ -49,8 +47,8 @@
             EndIf
             
             For i = 0 To #Snd_Drum_Last-#Snd_Drum_First
-              If \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_First+i) <> #Curve_Ignore
-                \Status_Sound(#Snd_Drum_First+i) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_First+i)
+              If \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_First + i) <> #Curve_Ignore
+                \Status_Sound(#Snd_Drum_First + i) = \Data_Patterns(CurrentAlternate, CurrentRhythm, CurrentNote, CurrentTick, #Pattern_Drum_First + i)
               EndIf
             Next
             

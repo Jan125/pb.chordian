@@ -855,12 +855,12 @@ Procedure.i ResetMachine()
       \Data_Patterns(1, #Rhythm_Blues, i, 1, #Pattern_Bass) = #Curve_Release
       \Data_Patterns(1, #Rhythm_Blues, i, 10, #Pattern_Bass) = #Curve_Trigger
       \Data_Patterns(1, #Rhythm_Blues, i, 11, #Pattern_Bass) = #Curve_Release
-      \Data_Patterns(1, #Rhythm_Blues, i, 0+12, #Pattern_Bass) = #Curve_Trigger
-      \Data_Patterns(1, #Rhythm_Blues, i, 1+12, #Pattern_Bass) = #Curve_Release
-      \Data_Patterns(1, #Rhythm_Blues, i, 6+12, #Pattern_Bass) = #Curve_Trigger
-      \Data_Patterns(1, #Rhythm_Blues, i, 7+12, #Pattern_Bass) = #Curve_Release
-      \Data_Patterns(1, #Rhythm_Blues, i, 10+12, #Pattern_Bass) = #Curve_Trigger
-      \Data_Patterns(1, #Rhythm_Blues, i, 11+12, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(1, #Rhythm_Blues, i, 0 + 12, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(1, #Rhythm_Blues, i, 1 + 12, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(1, #Rhythm_Blues, i, 6 + 12, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(1, #Rhythm_Blues, i, 7 + 12, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(1, #Rhythm_Blues, i, 10 + 12, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(1, #Rhythm_Blues, i, 11 + 12, #Pattern_Bass) = #Curve_Release
       
       \Data_Patterns(1, #Rhythm_Blues, i, 0, #Pattern_Chords) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Blues, i, 2, #Pattern_Chords) = #Curve_Oneshot
@@ -868,19 +868,19 @@ Procedure.i ResetMachine()
       \Data_Patterns(1, #Rhythm_Blues, i, 6, #Pattern_Chords) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Blues, i, 8, #Pattern_Chords) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Blues, i, 10, #Pattern_Chords) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 0+12, #Pattern_Chords) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 2+12, #Pattern_Chords) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 4+12, #Pattern_Chords) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 6+12, #Pattern_Chords) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 8+12, #Pattern_Chords) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 10+12, #Pattern_Chords) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 0 + 12, #Pattern_Chords) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 2 + 12, #Pattern_Chords) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 4 + 12, #Pattern_Chords) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 6 + 12, #Pattern_Chords) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 8 + 12, #Pattern_Chords) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 10 + 12, #Pattern_Chords) = #Curve_Oneshot
       
       \Data_Patterns(1, #Rhythm_Blues, i, 0, #Pattern_Drum_BD) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Blues, i, 10, #Pattern_Drum_BD) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 0+12, #Pattern_Drum_BD) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 0 + 12, #Pattern_Drum_BD) = #Curve_Oneshot
       
       \Data_Patterns(1, #Rhythm_Blues, i, 6, #Pattern_Drum_Snare) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 6+12, #Pattern_Drum_Snare) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 6 + 12, #Pattern_Drum_Snare) = #Curve_Oneshot
       
       \Data_Patterns(1, #Rhythm_Blues, i, 0, #Pattern_Drum_HiHat) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Blues, i, 2, #Pattern_Drum_HiHat) = #Curve_Oneshot
@@ -888,20 +888,20 @@ Procedure.i ResetMachine()
       \Data_Patterns(1, #Rhythm_Blues, i, 4, #Pattern_Drum_HiHat) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Blues, i, 8, #Pattern_Drum_HiHat) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Blues, i, 10, #Pattern_Drum_HiHat) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 0+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 2+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 3+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 4+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 8+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Blues, i, 10+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 0 + 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 2 + 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 3 + 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 4 + 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 8 + 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Blues, i, 10 + 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
     Next
     
     For n = #Note_First To #Note_Last
       For i = 0 To 31
         Select i
-          Case 0+12 To 5+12, 10+12 To 11+12
+          Case 0 + 12 To 5 + 12, 10 + 12 To 11 + 12
             \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Frequency) = 2
-          Case 10 To 11, 6+12 To 9+12
+          Case 10 To 11, 6 + 12 To 9 + 12
             \Data_Patterns(1, #Rhythm_Blues, n, i, #Pattern_Frequency) = 3
           Case 24 To 31
             Select n
@@ -998,41 +998,41 @@ Procedure.i ResetMachine()
     For i = #Note_First To #Note_Last
       \Data_Patterns(1, #Rhythm_Waltz, i, 0, #Pattern_Bass) = #Curve_Trigger
       \Data_Patterns(1, #Rhythm_Waltz, i, 1, #Pattern_Bass) = #Curve_Release
-      \Data_Patterns(1, #Rhythm_Waltz, i, 0+12, #Pattern_Bass) = #Curve_Trigger
-      \Data_Patterns(1, #Rhythm_Waltz, i, 1+12, #Pattern_Bass) = #Curve_Release
-      \Data_Patterns(1, #Rhythm_Waltz, i, 8+12, #Pattern_Bass) = #Curve_Trigger
-      \Data_Patterns(1, #Rhythm_Waltz, i, 9+12, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(1, #Rhythm_Waltz, i, 0 + 12, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(1, #Rhythm_Waltz, i, 1 + 12, #Pattern_Bass) = #Curve_Release
+      \Data_Patterns(1, #Rhythm_Waltz, i, 8 + 12, #Pattern_Bass) = #Curve_Trigger
+      \Data_Patterns(1, #Rhythm_Waltz, i, 9 + 12, #Pattern_Bass) = #Curve_Release
       
       \Data_Patterns(1, #Rhythm_Waltz, i, 4, #Pattern_Chords) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Waltz, i, 8, #Pattern_Chords) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 4+12, #Pattern_Chords) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 8+12, #Pattern_Chords) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 4 + 12, #Pattern_Chords) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 8 + 12, #Pattern_Chords) = #Curve_Oneshot
       
       \Data_Patterns(1, #Rhythm_Waltz, i, 0, #Pattern_Drum_BD) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 0+12, #Pattern_Drum_BD) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 0 + 12, #Pattern_Drum_BD) = #Curve_Oneshot
       
       \Data_Patterns(1, #Rhythm_Waltz, i, 0, #Pattern_Drum_Ride) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 0+12, #Pattern_Drum_Ride) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 0 + 12, #Pattern_Drum_Ride) = #Curve_Oneshot
       
       \Data_Patterns(1, #Rhythm_Waltz, i, 4, #Pattern_Drum_Snare) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Waltz, i, 8, #Pattern_Drum_Snare) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 3+12, #Pattern_Drum_Snare) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 4+12, #Pattern_Drum_Snare) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 8+12, #Pattern_Drum_Snare) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 3 + 12, #Pattern_Drum_Snare) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 4 + 12, #Pattern_Drum_Snare) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 8 + 12, #Pattern_Drum_Snare) = #Curve_Oneshot
       
       \Data_Patterns(1, #Rhythm_Waltz, i, 4, #Pattern_Drum_HiHat) = #Curve_Oneshot
       \Data_Patterns(1, #Rhythm_Waltz, i, 8, #Pattern_Drum_HiHat) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 3+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 4+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
-      \Data_Patterns(1, #Rhythm_Waltz, i, 8+12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 3 + 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 4 + 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
+      \Data_Patterns(1, #Rhythm_Waltz, i, 8 + 12, #Pattern_Drum_HiHat) = #Curve_Oneshot
     Next
     
     For n = #Note_First To #Note_Last
       For i = 0 To 31
         Select i
-          Case 0+12 To 7+12
+          Case 0 + 12 To 7 + 12
             \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 2
-          Case 8+12 To 11+12
+          Case 8 + 12 To 11 + 12
             \Data_Patterns(1, #Rhythm_Waltz, n, i, #Pattern_Frequency) = 3
           Case 24 To 31
             Select n
