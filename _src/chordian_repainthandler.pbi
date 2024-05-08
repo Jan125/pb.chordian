@@ -127,7 +127,12 @@
           ;Memory Button
           Select \Machine_State\Value_Memory_Button_Memory_OnOff
             Case 1
-              DrawAlphaImage(ImageID(#Img_LED_On), 94 * ScaleX, 396 * ScaleY)
+              Select \Machine_State\Value_Master_Button_Power_OnOff
+                Case 1
+                  DrawAlphaImage(ImageID(#Img_LED_On), 94 * ScaleX, 396 * ScaleY)
+                Case 0
+                  DrawAlphaImage(ImageID(#Img_LED_Off), 94 * ScaleX, 396 * ScaleY)
+              EndSelect
               DrawAlphaImage(ImageID(#Img_Button_Red_On), 126 * ScaleX, 424 * ScaleY)
             Case 0
               DrawAlphaImage(ImageID(#Img_LED_Off), 94 * ScaleX, 396 * ScaleY)

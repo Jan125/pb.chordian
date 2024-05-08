@@ -1980,9 +1980,27 @@ Procedure Main()
           ;--GeneralKeyDown
           With Chordian\Input_State
             If Not \Keymap(EventData())
-              PostEvent(#Event_HandleChordKeys, #Win_Main, 0)
-              PostEvent(#Event_HandleHarpKeys, #Win_Main, 0)
+              Select EventData()
+                Case \Keymap_Chord(#Chord_Maj, #Note_Db), \Keymap_Chord(#Chord_Min, #Note_Db), \Keymap_Chord(#Chord_7th, #Note_Db),
+                     \Keymap_Chord(#Chord_Maj, #Note_Ab), \Keymap_Chord(#Chord_Min, #Note_Ab), \Keymap_Chord(#Chord_7th, #Note_Ab),
+                     \Keymap_Chord(#Chord_Maj, #Note_Eb), \Keymap_Chord(#Chord_Min, #Note_Eb), \Keymap_Chord(#Chord_7th, #Note_Eb),
+                     \Keymap_Chord(#Chord_Maj, #Note_Bb), \Keymap_Chord(#Chord_Min, #Note_Bb), \Keymap_Chord(#Chord_7th, #Note_Bb),
+                     \Keymap_Chord(#Chord_Maj, #Note_F), \Keymap_Chord(#Chord_Min, #Note_F), \Keymap_Chord(#Chord_7th, #Note_F),
+                     \Keymap_Chord(#Chord_Maj, #Note_C), \Keymap_Chord(#Chord_Min, #Note_C), \Keymap_Chord(#Chord_7th, #Note_C),
+                     \Keymap_Chord(#Chord_Maj, #Note_G), \Keymap_Chord(#Chord_Min, #Note_G), \Keymap_Chord(#Chord_7th, #Note_G),
+                     \Keymap_Chord(#Chord_Maj, #Note_D), \Keymap_Chord(#Chord_Min, #Note_D), \Keymap_Chord(#Chord_7th, #Note_D),
+                     \Keymap_Chord(#Chord_Maj, #Note_A), \Keymap_Chord(#Chord_Min, #Note_A), \Keymap_Chord(#Chord_7th, #Note_A),
+                     \Keymap_Chord(#Chord_Maj, #Note_E), \Keymap_Chord(#Chord_Min, #Note_E), \Keymap_Chord(#Chord_7th, #Note_E),
+                     \Keymap_Chord(#Chord_Maj, #Note_B), \Keymap_Chord(#Chord_Min, #Note_B), \Keymap_Chord(#Chord_7th, #Note_B),
+                     \Keymap_Chord(#Chord_Maj, #Note_Fc), \Keymap_Chord(#Chord_Min, #Note_Fc), \Keymap_Chord(#Chord_7th, #Note_Fc),
+                     \Keymap_Function(#Btn_Chordiate)
+                  PostEvent(#Event_HandleChordKeys, #Win_Main, 0)
+              EndSelect
+              
               PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+              
+              PostEvent(#Event_HandleHarpKeys, #Win_Main, 0)
+              
               PauseThread(Chordian\RepaintHandler_Thread)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
               ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
@@ -2447,8 +2465,14 @@ Procedure Main()
             
             If \Trigger_Memory_Button_Repeat_Delete = 1
               \Trigger_Memory_Button_Repeat_Delete = 0
-              \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete)) = 1
-              PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+              If \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete))
+                \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete)) = 0
+                PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+              Else
+                \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete)) = 1
+                PostEvent(#Event_HandleFunctionKeys, #Win_Main, 0)
+              EndIf
+              
               
             ElseIf \Trigger_Memory_Button_Repeat_Delete = 2
               \Trigger_Memory_Button_Repeat_Delete = 0
@@ -2464,10 +2488,6 @@ Procedure Main()
                 PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Memory_Playback_Enter))
               EndIf
               
-              PauseThread(Chordian\RepaintHandler_Thread)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-              ResumeThread(Chordian\RepaintHandler_Thread)
             ElseIf \Trigger_Memory_Button_Playback_Enter = 2
               \Trigger_Memory_Button_Playback_Enter = 0
               KeyReassign_Function(#Btn_Memory_Playback_Enter)
@@ -3464,10 +3484,9 @@ Procedure Main()
             EndIf
             
             
-            If \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete))
-              \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete)) = 0
+            If Chordian\Machine_State\Value_Memory_Button_Repeat_Delete <> \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete))
+              Chordian\Machine_State\Value_Memory_Button_Repeat_Delete = \Keymap(\Keymap_Function(#Btn_Memory_Repeat_Delete))
               
-              Chordian\Machine_State\Value_Memory_Button_Repeat_Delete = Bool(Not Chordian\Machine_State\Value_Memory_Button_Repeat_Delete)
               If Chordian\Machine_State\Value_Memory_Button_Memory_OnOff
                 If Chordian\Machine_State\Value_Memory_Button_Repeat_Delete
                   If Chordian\Machine_State\Value_Memory_Button_Playback_Record_OnOff
