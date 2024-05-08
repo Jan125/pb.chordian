@@ -72,6 +72,11 @@ Procedure.i SynthHandler(*Void)
       Sin3Lookup(i) = Pow(Abs(Sin(Radian(i + 125.0))), 0.33) * Sign(Sin(Radian(i + 125.0)))
     Next
     
+    Protected Dim HarpFilterLookup.f(#Snd_Last)
+    For i = #Snd_Harp_First To #Snd_Harp_Last
+      HarpFilterLookup(i) = Sqr(Sqr(Sqr(0.25 + 0.7 * ((13 - (i - #Snd_Harp_First)) / 13.0)))) * (44100.0 / WaveFormatExDescriptor\nSamplesPerSec)
+    Next
+    
     Protected Sin3Phase.i
     
     Protected *AudioPointer1
@@ -350,6 +355,8 @@ Procedure.i SynthHandler(*Void)
             Case #Curve_None
               \Status_Volume(i) = 0.0
               \Status_Position(i) = 0.0
+              \Status_PreviousSample(i) = 0.0
+              \Status_PreviousSample2(i) = 0.0
               Continue
             Case #Curve_Trigger
               If MIDIHandle
@@ -397,8 +404,12 @@ Procedure.i SynthHandler(*Void)
               EndIf
           EndSelect
           
-          Result + (GetLinearInterpolatedSample(?Snd_Harp_Base, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) + (GetLinearInterpolatedSample(?Snd_Harp_Mod, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * LinearInterpolation(0.6 + (Sin3Lookup((Sin3Phase + ((i - #Snd_Harp_First) * (i - #Snd_Harp_First) % 2 + (i - #Snd_Harp_First)) * 13) % 360) * 0.6), 0.0, (i - #Snd_Harp_First) / 18.0))) * \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_1 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_2 / 2.0)) * (1.0 - (i - #Snd_Harp_First) * 0.033) * Bool(CurrentNote <> #Note_None And CurrentChord <> #Chord_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore)
-          Result + GetLinearInterpolatedSample(?Snd_Harp, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_2 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_1 / 2.0)) * 0.85 * (1.0 - (i - #Snd_Harp_First) * 0.033) * Bool(CurrentNote <> #Note_None And CurrentChord <> #Chord_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore)
+          \Status_PreviousSample(i) = LinearInterpolation(\Status_PreviousSample(i), (GetLinearInterpolatedSample(?Snd_Harp_Base, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) + (GetLinearInterpolatedSample(?Snd_Harp_Mod, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * LinearInterpolation(0.6 + (Sin3Lookup((Sin3Phase + ((i - #Snd_Harp_First) * Bool((i - #Snd_Harp_First) % 2) + (i - #Snd_Harp_First)) * 13 + (i - #Snd_Harp_First) * 3) % 360) * 0.6), 0.0, (i - #Snd_Harp_First) / 18.0))), HarpFilterLookup(i))
+          \Status_PreviousSample2(i) = LinearInterpolation(\Status_PreviousSample2(i), GetLinearInterpolatedSample(?Snd_Harp, \Status_Position(i) , 100, WaveFormatExDescriptor\nBlockAlign), HarpFilterLookup(i))
+          
+          Result +
+\Status_PreviousSample(i) * \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_1 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_2 / 2.0)) * (1.0 - (i - #Snd_Harp_First) * 0.033) * Bool(CurrentNote <> #Note_None And CurrentChord <> #Chord_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore) +
+\Status_PreviousSample2(i)* \Status_Volume(i) * \Value_Level_Knob_Volume_Harp_2 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_1 / 2.0)) * 0.85 * (1.0 - (i - #Snd_Harp_First) * 0.033) * Bool(CurrentNote <> #Note_None And CurrentChord <> #Chord_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore)
           
           \Status_Position(i) + \Status_Frequency(i) * (44100.0 / WaveFormatExDescriptor\nSamplesPerSec)
           While \Status_Position(i) > 100.0

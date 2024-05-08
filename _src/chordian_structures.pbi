@@ -127,7 +127,8 @@ Structure Machine_State Extends Machine_State_Save
   Value_Internal_TransposeMode.l
   
   Array Data_MIDI.l(#Note_Last, #Chord_Last, #Dat_Last)
-  
+  Array Status_PreviousSample.f(#Snd_Last)
+  Array Status_PreviousSample2.f(#Snd_Last)
   Array Status_Sound.l(#Snd_Last)
   Array Status_Volume.f(#Snd_Last)
   Array Status_Position.f(#Snd_Last)
