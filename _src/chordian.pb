@@ -737,6 +737,13 @@ Procedure.i Init()
   
   DirectSoundBuffer\Play(0, 0, #DSBPLAY_LOOPING)
   
+  ;Post these to hopefully fix some issues in Wine
+  While WindowEvent()
+  Wend
+  
+  PostEvent(#PB_Event_SizeWindow, #Win_Main, 0)
+  PostEvent(#PB_Event_Repaint, #Win_Main, 0)
+  
 EndProcedure
 
 Procedure Main()

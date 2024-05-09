@@ -78,10 +78,9 @@ It can also be played with:
 
     Esc F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12
 
-Please note that F10 will by default be intercepted by Windows, and not play.\
-Wine does not have this restriction as of currently.
+Please note that F10 will by default be intercepted by Windows, and not play.
 
-The buttons currently cannot be reassigned.
+These buttons currently cannot be reassigned.
 
 
 ##
