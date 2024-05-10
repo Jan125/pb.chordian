@@ -74,11 +74,9 @@ The behaviour of the patterns is like follows:
 - Mirror: Reverse plus Single.
 - Segment: Alternating pattern: In each octave, first note will trigger the last note in said octave, middle note is unaffected.
 
-It can also be played with:
-
-    Esc F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12
-
-Please note that F10 will by default be intercepted by Windows, and not play.
+It can also be played with the numpad.\
+From lowest harp note to highest harp note:
+        1 2 3 4 5 6 7 8 9 / * - 
 
 These buttons currently cannot be reassigned.
 

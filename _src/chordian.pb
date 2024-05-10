@@ -128,19 +128,19 @@ Procedure.i ResetInput()
     \Keymap_Chord(#Chord_Min, #Note_Fc) = 187
     \Keymap_Chord(#Chord_7th, #Note_Fc) = 191
     
-    \Keymap_Harp(#Harp_1) = #VK_ESCAPE
-    \Keymap_Harp(#Harp_2) = #VK_F1
-    \Keymap_Harp(#Harp_3) = #VK_F2
-    \Keymap_Harp(#Harp_4) = #VK_F3
-    \Keymap_Harp(#Harp_5) = #VK_F4
-    \Keymap_Harp(#Harp_6) = #VK_F5
-    \Keymap_Harp(#Harp_7) = #VK_F6
-    \Keymap_Harp(#Harp_8) = #VK_F7
-    \Keymap_Harp(#Harp_9) = #VK_F8
-    \Keymap_Harp(#Harp_10) = #VK_F9
-    \Keymap_Harp(#Harp_11) = #VK_F10
-    \Keymap_Harp(#Harp_12) = #VK_F11
-    \Keymap_Harp(#Harp_13) = #VK_F12
+    \Keymap_Harp(#Harp_1) = #VK_NUMPAD1
+    \Keymap_Harp(#Harp_2) = #VK_NUMPAD2
+    \Keymap_Harp(#Harp_3) = #VK_NUMPAD3
+    \Keymap_Harp(#Harp_4) = #VK_NUMPAD4
+    \Keymap_Harp(#Harp_5) = #VK_NUMPAD5
+    \Keymap_Harp(#Harp_6) = #VK_NUMPAD6
+    \Keymap_Harp(#Harp_7) = #VK_NUMPAD7
+    \Keymap_Harp(#Harp_8) = #VK_NUMPAD8
+    \Keymap_Harp(#Harp_9) = #VK_NUMPAD9
+    \Keymap_Harp(#Harp_10) = #VK_DIVIDE
+    \Keymap_Harp(#Harp_11) = #VK_MULTIPLY
+    \Keymap_Harp(#Harp_12) = #VK_SUBTRACT
+    \Keymap_Harp(#Harp_13) = #VK_NUMPAD0
     
     \Keymap_Function(#Btn_Master_Power) = ArraySize(\Keymap())-#Btn_Master_Power
     
