@@ -216,8 +216,9 @@ Procedure.i GetGraphics()
   LocalCatchImage(#Img_LED_On, ?Img_LED_On, ".data\img\led_on.png")
   
   For i = #Img_GUI_First To #Img_GUI_Last
-    ResizeImage(i, ImageWidth(i) * (WindowWidth(#Win_Main) / 800.0) * 0.5, ImageHeight(i) * ((WindowHeight(#Win_Main) - 20) / 600.0) * 0.5)
-  Next  
+    Repeat
+    Until ResizeImage(i, ImageWidth(i) * (WindowWidth(#Win_Main) / 800.0) * 0.5, ImageHeight(i) * ((WindowHeight(#Win_Main) - 20) / 600.0) * 0.5)
+  Next
 EndProcedure
 
 Procedure.i GetUIGraphics()
@@ -566,11 +567,11 @@ Procedure.i Init()
   ;-Initialization
   SetPriorityClass_(GetCurrentProcess_(), #HIGH_PRIORITY_CLASS)
   
-  If Not OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 600+20, "Chordian", #PB_Window_SystemMenu|#PB_Window_MinimizeGadget|#PB_Window_MaximizeGadget|#PB_Window_SizeGadget)
+  If Not OpenWindow(#Win_Main, #PB_Ignore, #PB_Ignore, 800, 600 + 20, "Chordian", #PB_Window_SystemMenu | #PB_Window_MinimizeGadget | #PB_Window_MaximizeGadget | #PB_Window_SizeGadget | #PB_Window_TitleBar)
     MessageRequester("Chordian>Error", "Window could not be initialized.")
     End
   EndIf
-  WindowBounds(#Win_Main, 400, 300+20, 4000, 3000+20)
+  WindowBounds(#Win_Main, 400, 300 + 20, 4000, 3000 + 20)
   
   If Not (DirectSoundCreate_(0, @DirectSound, 0) = #DS_OK And
           DirectSound\SetCooperativeLevel(GetDesktopWindow_(), #DSSCL_PRIORITY) = #DS_OK And
@@ -582,7 +583,7 @@ Procedure.i Init()
     End
   EndIf
   
-  OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension)+".data\chordian.ini")
+  OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension) + ".data\chordian.ini")
   PreferenceGroup("Midi")
   If ReadPreferenceInteger("OutputDevice", -1) <> -1
     midiOutOpen_(@MIDIHandle, ReadPreferenceInteger("OutputDevice", -1), #Null, #Null, #CALLBACK_NULL)
@@ -701,14 +702,14 @@ Procedure.i Init()
   MenuItem(#Itm_About, "About...")
   
   ;-Create Canvas
-  CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main)-20, #PB_Canvas_Keyboard)
+  CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main) - 20, #PB_Canvas_Keyboard)
   
   StartDrawing(CanvasOutput(#Gad_Canvas))
   DrawingMode(#PB_2DDrawing_AlphaBlend)
   FrontColor($FF000000)
   BackColor($00000000)
   Box(0, 0, OutputWidth(), OutputHeight(), $FFFFFFFF)
-  DrawText(0, 00, "Loading... Please wait.")
+  DrawText(0, 0, "Loading... Please wait.")
   StopDrawing()
   
   
@@ -742,7 +743,6 @@ Procedure.i Init()
   Wend
   
   PostEvent(#PB_Event_SizeWindow, #Win_Main, 0)
-  PostEvent(#PB_Event_Repaint, #Win_Main, 0)
   
 EndProcedure
 
@@ -1257,7 +1257,7 @@ Procedure Main()
                           Case #Gad_ChordEdit_Button_Import
                             TempString = InputRequester("Chordian>Chord Editor>Import", "Input the BASE64 to apply to the current chord selection.", "")
                             If TempString
-                              *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, Len(TempString)+1)
+                              *TempPointer = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, Len(TempString)+1)
                               PokeS(*TempPointer, TempString, Len(TempString), #PB_Ascii)
                               CompilerIf #PB_Compiler_Version >= 600
                                 Base64DecoderBuffer(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4)
@@ -1270,7 +1270,7 @@ Procedure Main()
                             PostEvent(#PB_Event_Gadget, #Win_ChordEdit, #Gad_ChordEdit_Button_Refresh)
                             
                           Case #Gad_ChordEdit_Button_Export
-                            *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, SizeOf(Byte)*(#Chord_Last+1)*3*2)
+                            *TempPointer = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, SizeOf(Byte)*(#Chord_Last+1)*3*2)
                             CompilerIf #PB_Compiler_Version >= 600
                               Base64EncoderBuffer(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4, *TempPointer, SizeOf(Byte)*(#Chord_Last+1)*4*2)
                             CompilerElse
@@ -1719,7 +1719,7 @@ Procedure Main()
                           Case #Gad_PatEdit_Button_Import
                             TempString = InputRequester("Chordian>Pattern Editor>Import", "Input the BASE64 to apply to the current pattern.", "")
                             If TempString
-                              *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, Len(TempString)+1)
+                              *TempPointer = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, Len(TempString)+1)
                               PokeS(*TempPointer, TempString, Len(TempString), #PB_Ascii)
                               CompilerIf #PB_Compiler_Version >= 600
                                 Base64DecoderBuffer(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
@@ -1732,7 +1732,7 @@ Procedure Main()
                             PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Button_Refresh)
                             
                           Case #Gad_PatEdit_Button_Export
-                            *TempPointer = LocalAlloc_(#LMEM_ZEROINIT, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
+                            *TempPointer = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
                             CompilerIf #PB_Compiler_Version >= 600
                               Base64EncoderBuffer(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
                             CompilerElse
@@ -3721,15 +3721,35 @@ Procedure Main()
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+          
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Resume, 1, 0)
           
         Case #PB_Event_CloseWindow
-          KillThread(Chordian\SynthHandler_Thread)
-          KillThread(Chordian\FrequencyHandler_Thread)
-          KillThread(Chordian\MachineHandler_Thread)
-          KillThread(Chordian\PatternHandler_Thread)
-          KillThread(Chordian\RepaintHandler_Thread)
+          Repeat
+            ReleaseSemaphore_(Chordian\Semaphore_EndPatternHandler, 1, 0)
+            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+          Until WaitThread(Chordian\PatternHandler_Thread, 10)
+          
+          Repeat
+            ReleaseSemaphore_(Chordian\Semaphore_EndFrequencyHandler, 1, 0)
+            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+          Until WaitThread(Chordian\FrequencyHandler_Thread, 10)
+          
+          Repeat
+            ReleaseSemaphore_(Chordian\Semaphore_EndMachineHandler, 1, 0)
+            ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallMachineHandler, 1, 0)
+          Until WaitThread(Chordian\MachineHandler_Thread, 10)
+          
+          Repeat
+            ReleaseSemaphore_(Chordian\Semaphore_EndSynthHandler, 1, 0)
+          Until WaitThread(Chordian\SynthHandler_Thread, 10)
           DirectSound\Release()
+          
+          Repeat
+            ReleaseSemaphore_(Chordian\Semaphore_EndRepaintHandler, 1, 0)
+            ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+          Until WaitThread(Chordian\RepaintHandler_Thread, 10)
+          
           If MIDIHandle
             midiOutClose_(MIDIHandle)
           EndIf

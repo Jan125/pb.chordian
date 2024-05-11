@@ -1100,7 +1100,7 @@ Procedure.i ResetMachine()
   
 EndProcedure
 
-Procedure MachineHandler(*Void)
+Procedure.i MachineHandler(*Void)
   With Chordian\Machine_State
     
     Protected i.i
@@ -1110,6 +1110,10 @@ Procedure MachineHandler(*Void)
     
     Repeat
       WaitForSingleObject_(Chordian\Machine_Event\Semaphore_CallMachineHandler, -1)
+      
+      If WaitForSingleObject_(Chordian\Semaphore_EndMachineHandler, 0) = #WAIT_OBJECT_0
+        ProcedureReturn
+      EndIf
       
       Select \Value_Rhythm_Button_Pattern_Current
         Case #Rhythm_None

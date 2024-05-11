@@ -1,8 +1,8 @@
 ﻿#WAVE_FORMAT_IEEE_FLOAT = $0003
 
-Global DirectSound.IDirectSound
+Global DirectSound.IDirectSound8
 Global DirectSoundNotify.IDirectSoundNotify
-Global DirectSoundBuffer.IDirectSoundBuffer
+Global DirectSoundBuffer.IDirectSoundBuffer8
 
 Global Dim DirectSoundNotifyArray.DSBPOSITIONNOTIFY(3)
 Global Dim DirectSoundEventArray.i(ArraySize(DirectSoundNotifyArray()))
@@ -27,7 +27,7 @@ EndWith
 Global DirectSoundBufferDescription.DSBUFFERDESC
 With DirectSoundBufferDescription
   \dwSize = SizeOf(DSBUFFERDESC)
-  \dwFlags = #DSBCAPS_CTRLPOSITIONNOTIFY|#DSBCAPS_GLOBALFOCUS
+  \dwFlags = #DSBCAPS_CTRLPOSITIONNOTIFY | #DSBCAPS_GLOBALFOCUS | #DSBCAPS_LOCSOFTWARE
   \dwBufferBytes = Int(ReadPreferenceLong("BufferSize", 768) * (WaveFormatExDescriptor\nSamplesPerSec / 44100.0)) * (ArraySize(DirectSoundNotifyArray()) + 1) * WaveFormatExDescriptor\nBlockAlign
   \dwReserved = 0
   \lpwfxFormat = @WaveFormatExDescriptor
@@ -84,22 +84,19 @@ Procedure.i SynthHandler(*Void)
     Protected *AudioPointer2
     Protected AudioBytes2.i
     
-    Protected CurrentBlock.i = ArraySize(DirectSoundNotifyArray()) - 1
+    Protected CurrentBlock.i
     Protected *Block
     Protected BlockSize.i = DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray()) + 1)
     
     Protected Result.f
     
-    *Block = LocalAlloc_(#LMEM_ZEROINIT, BlockSize)
-    
-    
+    *Block = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, BlockSize)
     
     Repeat
-      WaitForMultipleObjects_(ArraySize(DirectSoundNotifyArray())+1, DirectSoundEventArray(), #False, -1)
-      CurrentBlock + 1
-      If CurrentBlock > ArraySize(DirectSoundNotifyArray())
-        CurrentBlock = 0
-      EndIf
+      CurrentBlock = WaitForMultipleObjects_(ArraySize(DirectSoundNotifyArray())+1, DirectSoundEventArray(), #False, -1) - #WAIT_OBJECT_0 + ArraySize(DirectSoundNotifyArray())
+      While CurrentBlock >= (ArraySize(DirectSoundNotifyArray()) + 1)
+        CurrentBlock - (ArraySize(DirectSoundNotifyArray()) + 1)
+      Wend
       
       ;-Check for Interrupt
       If WaitForSingleObject_(Chordian\Semaphore_EndSynthHandler, 0) = #WAIT_OBJECT_0
@@ -120,16 +117,17 @@ Procedure.i SynthHandler(*Void)
         SendMIDIStop(MIDIHandle, 9)
       EndIf
       
-      Select \Value_Master_Button_Power_OnOff
-        Case 0
-          For i = #Snd_First To #Snd_Last
-            \Status_Volume(i) = 0.0
-            \Status_Sound(i) = #Curve_None
-          Next
-      EndSelect
       
       ;-Write memory
       For a = 0 To BlockSize / WaveFormatExDescriptor\nBlockAlign
+        
+        Select \Value_Master_Button_Power_OnOff
+          Case 0
+            For i = #Snd_First To #Snd_Last
+              \Status_Volume(i) = 0.0
+              \Status_Sound(i) = #Curve_None
+            Next
+        EndSelect
         
         If MIDIHandle
           If CurrentChord <> \Value_Internal_Chord_Chord Or CurrentNote <>  \Value_Internal_Chord_Note

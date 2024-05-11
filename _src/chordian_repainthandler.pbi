@@ -7,6 +7,10 @@
     Repeat
       WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Commit, -1)
       
+      If WaitForSingleObject_(\Semaphore_EndRepaintHandler, 0) = #WAIT_OBJECT_0
+        ProcedureReturn
+      EndIf
+      
       If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Stop, 0) = #WAIT_OBJECT_0
         
         WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Base, 0)

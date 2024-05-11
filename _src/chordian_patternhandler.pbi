@@ -1,4 +1,4 @@
-﻿Procedure PatternHandler(*Void)
+﻿Procedure.i PatternHandler(*Void)
   Protected i.i
   
   Protected CurrentTick.i
@@ -10,6 +10,11 @@
   With Chordian\Machine_State
     Repeat
       WaitForSingleObject_(Chordian\Machine_Event\Semaphore_IsNewTick, -1)
+      
+      If WaitForSingleObject_(Chordian\Semaphore_EndPatternHandler, 0) = #WAIT_OBJECT_0
+        ProcedureReturn
+      EndIf
+      
       CurrentTick = Int(\Value_Internal_Tick)
       If CurrentTick >= 32
         CurrentTick = 0
