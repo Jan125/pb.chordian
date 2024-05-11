@@ -27,6 +27,7 @@ XIncludeFile "chordian_frequencyhandler.pbi"
 
 XIncludeFile "chordian_machinehandler.pbi"
 
+;-Procedures
 Procedure.i ResetInput()
   Protected i.i
   
@@ -162,7 +163,6 @@ Procedure.i ResetInput()
   
 EndProcedure
 
-;-Procedures
 Procedure.i GetGraphics()
   Protected i.i
   
@@ -746,7 +746,7 @@ Procedure.i Init()
   
 EndProcedure
 
-Procedure Main()
+Procedure.i Main()
   Protected Event.i
   
   Protected TempFloat.f
@@ -3725,35 +3725,67 @@ Procedure Main()
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Resume, 1, 0)
           
         Case #PB_Event_CloseWindow
+          
+          i = 0
           Repeat
+            i + 1
             ReleaseSemaphore_(Chordian\Semaphore_EndPatternHandler, 1, 0)
             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewTick, 1, 0)
+            If i > 10
+              KillThread(Chordian\PatternHandler_Thread)
+              Break
+            EndIf
           Until WaitThread(Chordian\PatternHandler_Thread, 10)
           
+          i = 0
           Repeat
+            i + 1
             ReleaseSemaphore_(Chordian\Semaphore_EndFrequencyHandler, 1, 0)
             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallFrequencyHandler, 1, 0)
+            If i > 10
+              KillThread(Chordian\FrequencyHandler_Thread)
+              Break
+            EndIf
           Until WaitThread(Chordian\FrequencyHandler_Thread, 10)
           
+          i = 0
           Repeat
+            i + 1
             ReleaseSemaphore_(Chordian\Semaphore_EndMachineHandler, 1, 0)
             ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_CallMachineHandler, 1, 0)
+            If i > 10
+              KillThread(Chordian\MachineHandler_Thread)
+              Break
+            EndIf
           Until WaitThread(Chordian\MachineHandler_Thread, 10)
           
+          i = 0
           Repeat
+            i + 1
             ReleaseSemaphore_(Chordian\Semaphore_EndSynthHandler, 1, 0)
+            If i > 10
+              KillThread(Chordian\SynthHandler_Thread)
+              Break
+            EndIf
           Until WaitThread(Chordian\SynthHandler_Thread, 10)
           DirectSound\Release()
           
+          i = 0
           Repeat
+            i + 1
             ReleaseSemaphore_(Chordian\Semaphore_EndRepaintHandler, 1, 0)
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+            If i > 10
+              KillThread(Chordian\RepaintHandler_Thread)
+              Break
+            EndIf
           Until WaitThread(Chordian\RepaintHandler_Thread, 10)
           
           If MIDIHandle
             midiOutClose_(MIDIHandle)
           EndIf
-          End
+          
+          ProcedureReturn
           
       EndSelect
     EndIf
@@ -3763,3 +3795,4 @@ EndProcedure
 
 
 Main()
+End
