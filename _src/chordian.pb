@@ -2877,7 +2877,6 @@ Procedure.i Main()
                     Chordian\Machine_State\Value_Internal_Chord_Note = #Note_B
                   Case \Keymap_Chord(#Chord_Maj, #Note_Fc), \Keymap_Chord(#Chord_Min, #Note_Fc), \Keymap_Chord(#Chord_7th, #Note_Fc)
                     Chordian\Machine_State\Value_Internal_Chord_Note = #Note_Fc
-                  Case \Keymap_Function(#Btn_Chordiate)
                   Default
                     Select Chordian\Machine_State\Value_Internal_Chord_Note
                       Case #Note_First_Melodic To #Note_Last_Melodic
