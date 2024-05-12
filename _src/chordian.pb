@@ -1257,27 +1257,31 @@ Procedure.i Main()
                           Case #Gad_ChordEdit_Button_Import
                             TempString = InputRequester("Chordian>Chord Editor>Import", "Input the BASE64 to apply to the current chord selection.", "")
                             If TempString
-                              *TempPointer = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, Len(TempString)+1)
-                              PokeS(*TempPointer, TempString, Len(TempString), #PB_Ascii)
-                              CompilerIf #PB_Compiler_Version >= 600
-                                Base64DecoderBuffer(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4)
-                              CompilerElse
-                                Base64Decoder(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4)
-                              CompilerEndIf
-                              LocalFree_(*TempPointer)
+                              *TempPointer = AllocateMemory(StringByteLength(TempString, #PB_Ascii) + 1)
+                              If *TempPointer
+                                PokeS(*TempPointer, TempString, StringByteLength(TempString, #PB_Ascii), #PB_Ascii)
+                                CompilerIf #PB_Compiler_Version >= 600
+                                  Base64DecoderBuffer(*TempPointer, MemorySize(*TempPointer), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4)
+                                CompilerElse
+                                  Base64Decoder(*TempPointer, MemorySize(*TempPointer), @Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4)
+                                CompilerEndIf
+                                FreeMemory(*TempPointer)
+                              EndIf
                             EndIf
                             
                             PostEvent(#PB_Event_Gadget, #Win_ChordEdit, #Gad_ChordEdit_Button_Refresh)
                             
                           Case #Gad_ChordEdit_Button_Export
-                            *TempPointer = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, SizeOf(Byte)*(#Chord_Last+1)*3*2)
-                            CompilerIf #PB_Compiler_Version >= 600
-                              Base64EncoderBuffer(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4, *TempPointer, SizeOf(Byte)*(#Chord_Last+1)*4*2)
-                            CompilerElse
-                              Base64Encoder(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4, *TempPointer, SizeOf(Byte)*(#Chord_Last+1)*4*2)
-                            CompilerEndIf
-                            InputRequester("Chordian>Chord Editor>Export", "This is the BASE64 string for the current chord selection:", PeekS(*TempPointer, -1, #PB_Ascii))
-                            LocalFree_(*TempPointer)
+                            *TempPointer = AllocateMemory(SizeOf(Byte)*(#Chord_Last+1)*4*2)
+                            If *TempPointer
+                              CompilerIf #PB_Compiler_Version >= 600
+                                Base64EncoderBuffer(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4, *TempPointer, MemorySize(*TempPointer))
+                              CompilerElse
+                                Base64Encoder(@Chordian\Machine_State\Data_Chords(), SizeOf(Byte)*(#Chord_Last+1)*4, *TempPointer, MemorySize(*TempPointer))
+                              CompilerEndIf
+                              InputRequester("Chordian>Chord Editor>Export", "This is the BASE64 string for the current chord selection:", PeekS(*TempPointer, -1, #PB_Ascii))
+                              FreeMemory(*TempPointer)
+                            EndIf
                             
                           Case #Gad_ChordEdit_Row_Maj To #Gad_ChordEdit_Row_Maj+3
                             For i = 0 To 3
@@ -1719,27 +1723,31 @@ Procedure.i Main()
                           Case #Gad_PatEdit_Button_Import
                             TempString = InputRequester("Chordian>Pattern Editor>Import", "Input the BASE64 to apply to the current pattern.", "")
                             If TempString
-                              *TempPointer = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, Len(TempString)+1)
-                              PokeS(*TempPointer, TempString, Len(TempString), #PB_Ascii)
-                              CompilerIf #PB_Compiler_Version >= 600
-                                Base64DecoderBuffer(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
-                              CompilerElse
-                                Base64Decoder(*TempPointer, Len(TempString), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
-                              CompilerEndIf
-                              LocalFree_(*TempPointer)
+                              *TempPointer = AllocateMemory(StringByteLength(TempString, #PB_Ascii)+1)
+                              If *TempPointer
+                                PokeS(*TempPointer, TempString, StringByteLength(TempString, #PB_Ascii), #PB_Ascii)
+                                CompilerIf #PB_Compiler_Version >= 600
+                                  Base64DecoderBuffer(*TempPointer, MemorySize(*TempPointer), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
+                                CompilerElse
+                                  Base64Decoder(*TempPointer, MemorySize(*TempPointer), @Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1))
+                                CompilerEndIf
+                                FreeMemory(*TempPointer)
+                              EndIf
                             EndIf
                             
                             PostEvent(#PB_Event_Gadget, #Win_PatEdit, #Gad_PatEdit_Button_Refresh)
                             
                           Case #Gad_PatEdit_Button_Export
-                            *TempPointer = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
-                            CompilerIf #PB_Compiler_Version >= 600
-                              Base64EncoderBuffer(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
-                            CompilerElse
-                              Base64Encoder(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
-                            CompilerEndIf
-                            InputRequester("Chordian>Pattern Editor>Export", "This is the BASE64 string for the current pattern:", PeekS(*TempPointer, -1, #PB_Ascii))
-                            LocalFree_(*TempPointer)
+                            *TempPointer = AllocateMemory(SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1)*2)
+                            If *TempPointer
+                              CompilerIf #PB_Compiler_Version >= 600
+                                Base64EncoderBuffer(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, MemorySize(*TempPointer))
+                              CompilerElse
+                                Base64Encoder(@Chordian\Machine_State\Data_Patterns(GetGadgetState(#Gad_PatEdit_Select_Alternate), GetGadgetState(#Gad_PatEdit_Select_Pattern), 0, 0, 0), SizeOf(Byte)*(#Note_Last+1)*32*(#Pattern_Last+1), *TempPointer, MemorySize(*TempPointer))
+                              CompilerEndIf
+                              InputRequester("Chordian>Pattern Editor>Export", "This is the BASE64 string for the current pattern:", PeekS(*TempPointer, -1, #PB_Ascii))
+                              FreeMemory(*TempPointer)
+                            EndIf
                             
                           Case #Gad_PatEdit_Row_Frequency To #Gad_PatEdit_Row_Frequency+31
                             Select GetGadgetState(#Gad_PatEdit_Select_Note)

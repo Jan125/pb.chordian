@@ -87,7 +87,7 @@ Procedure.i SynthHandler(*Void)
     
     Protected Result.f
     
-    *Block = LocalAlloc_(#LMEM_FIXED | #LMEM_ZEROINIT, BlockSize)
+    *Block = AllocateMemory(BlockSize)
     
     Repeat
       CurrentBlock = WaitForMultipleObjects_(ArraySize(DirectSoundNotifyArray())+1, DirectSoundEventArray(), #False, -1) - #WAIT_OBJECT_0 + ArraySize(DirectSoundNotifyArray())
@@ -97,7 +97,7 @@ Procedure.i SynthHandler(*Void)
       
       ;-Check for Interrupt
       If WaitForSingleObject_(Chordian\Semaphore_EndSynthHandler, 0) = #WAIT_OBJECT_0
-        LocalFree_(*Block)
+        FreeMemory(*Block)
         ProcedureReturn
       EndIf
       
@@ -657,7 +657,7 @@ Procedure.i SynthHandler(*Void)
         
       Next
       
-      If DirectSoundBuffer\Lock(CurrentBlock * (DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray()) + 1)), DirectSoundBufferDescription\dwBufferBytes / (ArraySize(DirectSoundNotifyArray()) + 1), @*AudioPointer1, @AudioBytes1, @*AudioPointer2, @AudioBytes2, 0) = #DS_OK
+      If DirectSoundBuffer\Lock(CurrentBlock * BlockSize, BlockSize, @*AudioPointer1, @AudioBytes1, @*AudioPointer2, @AudioBytes2, 0) = #DS_OK
         
         If *AudioPointer1
           CopyMemory(*Block, *AudioPointer1, AudioBytes1)
