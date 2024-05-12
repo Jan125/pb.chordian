@@ -409,8 +409,8 @@ Procedure.i SynthHandler(*Void)
           \Status_PreviousSample(i) = LinearInterpolation(\Status_PreviousSample(i), (GetLinearInterpolatedSample(?Snd_Harp_Base, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) + (GetLinearInterpolatedSample(?Snd_Harp_Mod, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign) * LinearInterpolation(0.61 + (Sin3Lookup((Sin3Phase + ((i - #Snd_Harp_First) * Bool((i - #Snd_Harp_First) % 2) + (i - #Snd_Harp_First)) * 13 + (i - #Snd_Harp_First) * 1) % 360) * 0.61), 0.0, (i - #Snd_Harp_First) / 17.0))), LinearInterpolation(1.0, \Status_Volume(i), 0.85) * Pow(((18.0 - (\Status_Frequency(i))) / 18.0) * 0.31 + 0.34, 2.85))
           \Status_PreviousSample2(i) = LinearInterpolation(\Status_PreviousSample2(i), GetLinearInterpolatedSample(?Snd_Harp, \Status_Position(i), 100, WaveFormatExDescriptor\nBlockAlign), LinearInterpolation(1.0, \Status_Volume(i), 0.85) * Pow(((18.0 - (\Status_Frequency(i))) / 18.0) * 0.31 + 0.34, 2.85))
           
-          \Status_PreviousSample(i) = Int(48.0 * \Status_PreviousSample(i)) / 48.0 + (CurrentRandom * ((18.0 - (\Status_Frequency(i))) / 18.0) * 0.00008)
-          \Status_PreviousSample2(i) = Int(48.0 * \Status_PreviousSample2(i)) / 48.0 + (CurrentRandom * ((18.0 - (\Status_Frequency(i))) / 18.0) * 0.00008)
+          \Status_PreviousSample(i) = Int(64.0 * \Status_PreviousSample(i)) / 64.0 + (CurrentRandom * (1.0 - (\Status_Frequency(i) / 18.0)) * 0.000055)
+          \Status_PreviousSample2(i) = Int(64.0 * \Status_PreviousSample2(i)) / 64.0 + (CurrentRandom * (1.0 - (\Status_Frequency(i) / 18.0)) * 0.000055)
           
           Result +
 \Status_PreviousSample(i) * \Status_Volume(i) * 1.2 * \Value_Level_Knob_Volume_Harp_1 * \Value_Master_Knob_Volume * (1.0 - (\Value_Level_Knob_Volume_Harp_2 * 0.5)) * Bool(CurrentNote <> #Note_None And CurrentChord <> #Chord_None And CurrentChord <> #Chord_Ignore And CurrentNote <> #Chord_Ignore) +
