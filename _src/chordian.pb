@@ -971,7 +971,7 @@ Procedure.i Main()
               
               Select Chordian\Machine_State\Value_External_ChordiateMode
                 Case 1
-                  KeepInRange(Chordian\Machine_State\Value_Circuit_Knob_Tuning, -2.0, 2.0)
+                  KeepInRange(Chordian\Machine_State\Value_Circuit_Knob_Tuning, -1.0, 2.0)
                 Default
                   KeepInRange(Chordian\Machine_State\Value_Circuit_Knob_Tuning, 0.0, 1.0)
               EndSelect
