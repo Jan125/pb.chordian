@@ -56,6 +56,8 @@ Structure Input_State
   ;   Function Section
   Trigger_Chordiate.i
   
+  UnlockControls.i
+  
   LastKey.i
   LastKeyEventWasDown.i
   
@@ -63,7 +65,7 @@ Structure Input_State
   SecondaryStrumMode.i
   TertiaryStrumMode.i
   
-  Array Keymap.i(262143)
+  Array Keymap.i(511)
   Array Keymap_Chord.i(#Chord_Last, #Note_Last)
   Array Keymap_Harp.i(#Harp_Last)
   Array Keymap_Function.i(#Btn_Last)

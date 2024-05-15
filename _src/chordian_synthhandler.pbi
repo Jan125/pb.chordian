@@ -10,7 +10,6 @@ Global InitDS_Loop.i
 
 Global DSGainMult.f
 
-OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension) + ".data\chordian.ini")
 PreferenceGroup("Sound")
 Global WaveFormatExDescriptor.WAVEFORMATEX
 With WaveFormatExDescriptor
@@ -34,8 +33,6 @@ With DirectSoundBufferDescription
 EndWith
 
 DSGainMult = ReadPreferenceFloat("GainMult", 0.5)
-
-ClosePreferences()
 
 For InitDS_Loop = 0 To ArraySize(DirectSoundNotifyArray())
   DirectSoundEventArray(InitDS_Loop) = CreateEvent_(#Null, #False, #False, #Null)

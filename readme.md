@@ -20,7 +20,8 @@ ASCII keyboards will not be able to assign standard small keys for every chord i
 
 You can reassign chord and function keys by right-clicking them, then pressing the key that you want them to be.\
 Pressing Escape during that process will revert the key to the standard configuration.\
-Clicking anywhere or committing a window size event will not change the button.
+Clicking anywhere or committing a window size event will not change the button.\
+If File -> Unlock controls is set to on, the changes will be written to the .ini file.
 
 Chord and function keys can also be manually clicked.\
 Chord keys will stay clicked until being clicked again, or receiving their assigned button being lifted.
@@ -48,7 +49,7 @@ The following combinations are only available in Chordiate Mode:
 - Minor + 7th + Chordiate = Addm4
 - Major + Minor + 7th + Chordiate = Chromatic
 
-The Playback|Enter button is bound to LCTRL.
+The Playback|Enter button is bound to CTRL by default.
 
 
 ##
@@ -78,7 +79,8 @@ It can also be played with the numpad.\
 From lowest harp note to highest harp note:
         1 2 3 4 5 6 7 8 9 / * - 
 
-These buttons currently cannot be reassigned.
+These buttons currently cannot be reassigned through the UI.\
+Use the .ini file to reassign them.
 
 
 ##

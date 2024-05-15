@@ -15,8 +15,6 @@ Enumeration -1
   ;Custom Chords
   #Chord_Ad9
   #Chord_Su4
-  
-  ;Reserved Chords for future use
   #Chord_Ad2
   #Chord_As2
   #Chord_Ac4
@@ -404,6 +402,7 @@ EndEnumeration
 Enumeration 1
   #Itm_ResetSize
   #Itm_Aspect
+  #Itm_UnlockControls
   #Itm_Load
   #Itm_Save
   #Itm_ResetState

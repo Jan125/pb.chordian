@@ -1,5 +1,7 @@
 ﻿EnableExplicit
 
+OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension) + ".data\chordian.ini")
+
 ;-DSound
 XIncludeFile "dsound.pbi"
 
@@ -81,83 +83,331 @@ Procedure.i ResetInput()
       \Keymap(i) = 0
     Next
     
-    \Keymap_Chord(#Chord_Maj, #Note_Db) = #VK_1
-    \Keymap_Chord(#Chord_Min, #Note_Db) = #VK_Q
-    \Keymap_Chord(#Chord_7th, #Note_Db) = #VK_A
+    i = ReadPreferenceInteger("KeyDbMaj", -1)
+    If i = -1
+      i = #VK_1
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_Db) = i
+    i = ReadPreferenceInteger("KeyDbMin", -1)
+    If i = -1
+      i = #VK_Q
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_Db) = i
+    i = ReadPreferenceInteger("KeyDb7th", -1)
+    If i = -1
+      i = #VK_A
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_Db) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_Ab) = #VK_2
-    \Keymap_Chord(#Chord_Min, #Note_Ab) = #VK_W
-    \Keymap_Chord(#Chord_7th, #Note_Ab) = #VK_S
+    i = ReadPreferenceInteger("KeyAbMaj", -1)
+    If i = -1
+      i = #VK_2
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_Ab) = i
+    i = ReadPreferenceInteger("KeyAbMin", -1)
+    If i = -1
+      i = #VK_W
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_Ab) = i
+    i = ReadPreferenceInteger("KeyAb7th", -1)
+    If i = -1
+      i = #VK_S
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_Ab) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_Eb) = #VK_3
-    \Keymap_Chord(#Chord_Min, #Note_Eb) = #VK_E
-    \Keymap_Chord(#Chord_7th, #Note_Eb) = #VK_D
+    i = ReadPreferenceInteger("KeyEbMaj", -1)
+    If i = -1
+      i = #VK_3
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_Eb) = i
+    i = ReadPreferenceInteger("KeyEbMin", -1)
+    If i = -1
+      i = #VK_E
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_Eb) = i
+    i = ReadPreferenceInteger("KeyEb7th", -1)
+    If i = -1
+      i = #VK_D
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_Eb) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_Bb) = #VK_4
-    \Keymap_Chord(#Chord_Min, #Note_Bb) = #VK_R
-    \Keymap_Chord(#Chord_7th, #Note_Bb) = #VK_F
+    i = ReadPreferenceInteger("KeyBbMaj", -1)
+    If i = -1
+      i = #VK_4
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_Bb) = i
+    i = ReadPreferenceInteger("KeyBbMin", -1)
+    If i = -1
+      i = #VK_R
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_Bb) = i
+    i = ReadPreferenceInteger("KeyBb7th", -1)
+    If i = -1
+      i = #VK_F
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_Bb) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_F) = #VK_5
-    \Keymap_Chord(#Chord_Min, #Note_F) = #VK_T
-    \Keymap_Chord(#Chord_7th, #Note_F) = #VK_G
+    i = ReadPreferenceInteger("KeyFMaj", -1)
+    If i = -1
+      i = #VK_5
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_F) = i
+    i = ReadPreferenceInteger("KeyFMin", -1)
+    If i = -1
+      i = #VK_T
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_F) = i
+    i = ReadPreferenceInteger("KeyF7th", -1)
+    If i = -1
+      i = #VK_G
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_F) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_C) = #VK_6
-    \Keymap_Chord(#Chord_Min, #Note_C) = #VK_Z
-    \Keymap_Chord(#Chord_7th, #Note_C) = #VK_H
+    i = ReadPreferenceInteger("KeyCMaj", -1)
+    If i = -1
+      i = #VK_6
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_C) = i
+    i = ReadPreferenceInteger("KeyCMin", -1)
+    If i = -1
+      i = #VK_Z
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_C) = i
+    i = ReadPreferenceInteger("KeyC7th", -1)
+    If i = -1
+      i = #VK_H
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_C) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_G) = #VK_7
-    \Keymap_Chord(#Chord_Min, #Note_G) = #VK_U
-    \Keymap_Chord(#Chord_7th, #Note_G) = #VK_J
+    i = ReadPreferenceInteger("KeyGMaj", -1)
+    If i = -1
+      i = #VK_7
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_G) = i
+    i = ReadPreferenceInteger("KeyGMin", -1)
+    If i = -1
+      i = #VK_U
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_G) = i
+    i = ReadPreferenceInteger("KeyG7th", -1)
+    If i = -1
+      i = #VK_J
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_G) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_D) = #VK_8
-    \Keymap_Chord(#Chord_Min, #Note_D) = #VK_I
-    \Keymap_Chord(#Chord_7th, #Note_D) = #VK_K
+    i = ReadPreferenceInteger("KeyDMaj", -1)
+    If i = -1
+      i = #VK_8
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_D) = i
+    i = ReadPreferenceInteger("KeyDMin", -1)
+    If i = -1
+      i = #VK_I
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_D) = i
+    i = ReadPreferenceInteger("KeyD7th", -1)
+    If i = -1
+      i = #VK_K
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_D) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_A) = #VK_9
-    \Keymap_Chord(#Chord_Min, #Note_A) = #VK_O
-    \Keymap_Chord(#Chord_7th, #Note_A) = #VK_L
+    i = ReadPreferenceInteger("KeyAMaj", -1)
+    If i = -1
+      i = #VK_9
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_A) = i
+    i = ReadPreferenceInteger("KeyAMin", -1)
+    If i = -1
+      i = #VK_O
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_A) = i
+    i = ReadPreferenceInteger("KeyA7th", -1)
+    If i = -1
+      i = #VK_L
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_A) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_E) = #VK_0
-    \Keymap_Chord(#Chord_Min, #Note_E) = #VK_P
-    \Keymap_Chord(#Chord_7th, #Note_E) = 192
+    i = ReadPreferenceInteger("KeyEMaj", -1)
+    If i = -1
+      i = #VK_0
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_E) = i
+    i = ReadPreferenceInteger("KeyEMin", -1)
+    If i = -1
+      i = #VK_P
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_E) = i
+    i = ReadPreferenceInteger("KeyE7th", -1)
+    If i = -1
+      i = 192
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_E) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_B) = 219
-    \Keymap_Chord(#Chord_Min, #Note_B) = 186
-    \Keymap_Chord(#Chord_7th, #Note_B) = 222
+    i = ReadPreferenceInteger("KeyBMaj", -1)
+    If i = -1
+      i = 219
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_B) = i
+    i = ReadPreferenceInteger("KeyBMin", -1)
+    If i = -1
+      i = 186
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_B) = i
+    i = ReadPreferenceInteger("KeyB7th", -1)
+    If i = -1
+      i = 222
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_B) = i
     
-    \Keymap_Chord(#Chord_Maj, #Note_Fc) = 221
-    \Keymap_Chord(#Chord_Min, #Note_Fc) = 187
-    \Keymap_Chord(#Chord_7th, #Note_Fc) = 191
+    i = ReadPreferenceInteger("KeyF#Maj", -1)
+    If i = -1
+      i = 221
+    EndIf
+    \Keymap_Chord(#Chord_Maj, #Note_Fc) = i
+    i = ReadPreferenceInteger("KeyF#Min", -1)
+    If i = -1
+      i = 187
+    EndIf
+    \Keymap_Chord(#Chord_Min, #Note_Fc) = i
+    i = ReadPreferenceInteger("KeyF#7th", -1)
+    If i = -1
+      i = 191
+    EndIf
+    \Keymap_Chord(#Chord_7th, #Note_Fc) = i
     
-    \Keymap_Harp(#Harp_1) = #VK_NUMPAD1
-    \Keymap_Harp(#Harp_2) = #VK_NUMPAD2
-    \Keymap_Harp(#Harp_3) = #VK_NUMPAD3
-    \Keymap_Harp(#Harp_4) = #VK_NUMPAD4
-    \Keymap_Harp(#Harp_5) = #VK_NUMPAD5
-    \Keymap_Harp(#Harp_6) = #VK_NUMPAD6
-    \Keymap_Harp(#Harp_7) = #VK_NUMPAD7
-    \Keymap_Harp(#Harp_8) = #VK_NUMPAD8
-    \Keymap_Harp(#Harp_9) = #VK_NUMPAD9
-    \Keymap_Harp(#Harp_10) = #VK_DIVIDE
-    \Keymap_Harp(#Harp_11) = #VK_MULTIPLY
-    \Keymap_Harp(#Harp_12) = #VK_SUBTRACT
-    \Keymap_Harp(#Harp_13) = #VK_NUMPAD0
+    i = ReadPreferenceInteger("KeyHarp1", -1)
+    If i = -1
+      i = #VK_NUMPAD1
+    EndIf
+    \Keymap_Harp(#Harp_1) = i
+    i = ReadPreferenceInteger("KeyHarp2", -1)
+    If i = -1
+      i = #VK_NUMPAD2
+    EndIf
+    \Keymap_Harp(#Harp_2) = i
+    i = ReadPreferenceInteger("KeyHarp3", -1)
+    If i = -1
+      i = #VK_NUMPAD3
+    EndIf
+    \Keymap_Harp(#Harp_3) = i
+    i = ReadPreferenceInteger("KeyHarp4", -1)
+    If i = -1
+      i = #VK_NUMPAD4
+    EndIf
+    \Keymap_Harp(#Harp_4) = i
+    i = ReadPreferenceInteger("KeyHarp5", -1)
+    If i = -1
+      i = #VK_NUMPAD5
+    EndIf
+    \Keymap_Harp(#Harp_5) = i
+    i = ReadPreferenceInteger("KeyHarp6", -1)
+    If i = -1
+      i = #VK_NUMPAD6
+    EndIf
+    \Keymap_Harp(#Harp_6) = i
+    i = ReadPreferenceInteger("KeyHarp7", -1)
+    If i = -1
+      i = #VK_NUMPAD7
+    EndIf
+    \Keymap_Harp(#Harp_7) = i
+    i = ReadPreferenceInteger("KeyHarp8", -1)
+    If i = -1
+      i = #VK_NUMPAD8
+    EndIf
+    \Keymap_Harp(#Harp_8) = i
+    i = ReadPreferenceInteger("KeyHarp9", -1)
+    If i = -1
+      i = #VK_NUMPAD9
+    EndIf
+    \Keymap_Harp(#Harp_9) = i
+    i = ReadPreferenceInteger("KeyHarp10", -1)
+    If i = -1
+      i = #VK_DIVIDE
+    EndIf
+    \Keymap_Harp(#Harp_10) = i
+    i = ReadPreferenceInteger("KeyHarp11", -1)
+    If i = -1
+      i = #VK_MULTIPLY
+    EndIf
+    \Keymap_Harp(#Harp_11) = i
+    i = ReadPreferenceInteger("KeyHarp12", -1)
+    If i = -1
+      i = #VK_SUBTRACT
+    EndIf
+    \Keymap_Harp(#Harp_12) = i
+    i = ReadPreferenceInteger("KeyHarp13", -1)
+    If i = -1
+      i = #VK_NUMPAD0
+    EndIf
+    \Keymap_Harp(#Harp_13) = i
     
-    \Keymap_Function(#Btn_Master_Power) = ArraySize(\Keymap())-#Btn_Master_Power
+    i = ReadPreferenceInteger("KeyMasterPower", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Master_Power
+    EndIf
+    \Keymap_Function(#Btn_Master_Power) = i
     
-    \Keymap_Function(#Btn_Rhythm_Alternate) = ArraySize(\Keymap())-#Btn_Rhythm_Alternate
-    \Keymap_Function(#Btn_Rhythm_Rock1_March) = ArraySize(\Keymap())-#Btn_Rhythm_Rock1_March
-    \Keymap_Function(#Btn_Rhythm_Rock2_Tango) = ArraySize(\Keymap())-#Btn_Rhythm_Rock2_Tango
-    \Keymap_Function(#Btn_Rhythm_Disco_Blues) = ArraySize(\Keymap())-#Btn_Rhythm_Disco_Blues
-    \Keymap_Function(#Btn_Rhythm_Latin_Swing) = ArraySize(\Keymap())-#Btn_Rhythm_Latin_Swing
-    \Keymap_Function(#Btn_Rhythm_Country_Waltz) = ArraySize(\Keymap())-#Btn_Rhythm_Country_Waltz
-    \Keymap_Function(#Btn_Rhythm_AutoBassSync) = ArraySize(\Keymap())-#Btn_Rhythm_AutoBassSync
+    i = ReadPreferenceInteger("KeyRhythmAlternate", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Rhythm_Alternate
+    EndIf
+    \Keymap_Function(#Btn_Rhythm_Alternate) = i
+    i = ReadPreferenceInteger("KeyRhythmRock1March", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Rhythm_Rock1_March
+    EndIf
+    \Keymap_Function(#Btn_Rhythm_Rock1_March) = i
+    i = ReadPreferenceInteger("KeyRhythmRock2Tango", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Rhythm_Rock2_Tango
+    EndIf
+    \Keymap_Function(#Btn_Rhythm_Rock2_Tango) = i
+    i = ReadPreferenceInteger("KeyRhythmDiscoBlues", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Rhythm_Disco_Blues
+    EndIf
+    \Keymap_Function(#Btn_Rhythm_Disco_Blues) = i
+    i = ReadPreferenceInteger("KeyRhythmLatinSwing", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Rhythm_Latin_Swing
+    EndIf
+    \Keymap_Function(#Btn_Rhythm_Latin_Swing) = i
+    i = ReadPreferenceInteger("KeyRhythmCountryWaltz", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Rhythm_Country_Waltz
+    EndIf
+    \Keymap_Function(#Btn_Rhythm_Country_Waltz) = i
+    i = ReadPreferenceInteger("KeyRhythmAutoBassSync", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Rhythm_AutoBassSync
+    EndIf
+    \Keymap_Function(#Btn_Rhythm_AutoBassSync) = i
+    i = ReadPreferenceInteger("KeyMemory", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Memory
+    EndIf
+    \Keymap_Function(#Btn_Memory) = i
+    i = ReadPreferenceInteger("KeyMemoryPlaybackRecord", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Memory_Playback_Record
+    EndIf
+    \Keymap_Function(#Btn_Memory_Playback_Record) = i
+    i = ReadPreferenceInteger("KeyMemoryRepeatDelete", -1)
+    If i = -1
+      i = ArraySize(\Keymap())-#Btn_Memory_Repeat_Delete
+    EndIf
+    \Keymap_Function(#Btn_Memory_Repeat_Delete) = i
+    i = ReadPreferenceInteger("KeyMemoryPlaybackEnter", -1)
+    If i = -1
+      i = #VK_CONTROL
+    EndIf
+    \Keymap_Function(#Btn_Memory_Playback_Enter) = i
     
-    \Keymap_Function(#Btn_Memory) = ArraySize(\Keymap())-#Btn_Memory
-    \Keymap_Function(#Btn_Memory_Playback_Record) = ArraySize(\Keymap())-#Btn_Memory_Playback_Record
-    \Keymap_Function(#Btn_Memory_Repeat_Delete) = ArraySize(\Keymap())-#Btn_Memory_Repeat_Delete
-    \Keymap_Function(#Btn_Memory_Playback_Enter) = #VK_CONTROL
-    \Keymap_Function(#Btn_Chordiate) = #VK_SPACE
+    i = ReadPreferenceInteger("KeyChordiate", -1)
+    If i = -1
+      i = #VK_SPACE
+    EndIf
+    \Keymap_Function(#Btn_Chordiate) = i
     
   EndWith
   
@@ -332,6 +582,8 @@ EndProcedure
 
 
 Procedure.i KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
+  Protected i.i
+  
   Protected KeyReturn.i
   
   Protected ScaleX.f
@@ -347,93 +599,326 @@ Procedure.i KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
         StopDrawing()
       EndIf
       
+      PreferenceGroup("Controls")
+      
       KeyReturn = KeyReassign_GetKey()
       If KeyReturn = -2
         Select Type
           Case #Chord_Maj
             Select (\Mouse_Position_X_Current - (271 + OffsetX)) / 31
               Case #Note_Db
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_1
+                i = ReadPreferenceInteger("KeyDbMaj", -1)
+                If i = -1
+                  i = #VK_1
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Ab
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_2
+                i = ReadPreferenceInteger("KeyAbMaj", -1)
+                If i = -1
+                  i = #VK_2
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Eb
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_3
+                i = ReadPreferenceInteger("KeyEbMaj", -1)
+                If i = -1
+                  i = #VK_3
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Bb
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_4
+                i = ReadPreferenceInteger("KeyBbMaj", -1)
+                If i = -1
+                  i = #VK_4
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_F
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_5
+                i = ReadPreferenceInteger("KeyFMaj", -1)
+                If i = -1
+                  i = #VK_5
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_C
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_6
+                i = ReadPreferenceInteger("KeyCMaj", -1)
+                If i = -1
+                  i = #VK_6
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_G
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_7
+                i = ReadPreferenceInteger("KeyGMaj", -1)
+                If i = -1
+                  i = #VK_7
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_D
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_8
+                i = ReadPreferenceInteger("KeyDMaj", -1)
+                If i = -1
+                  i = #VK_8
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_A
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_9
+                i = ReadPreferenceInteger("KeyAMaj", -1)
+                If i = -1
+                  i = #VK_9
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_E
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_0
+                i = ReadPreferenceInteger("KeyEMaj", -1)
+                If i = -1
+                  i = #VK_0
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_B
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 219
+                i = ReadPreferenceInteger("KeyBMaj", -1)
+                If i = -1
+                  i = 219
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Fc
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 221
+                i = ReadPreferenceInteger("KeyF#Maj", -1)
+                If i = -1
+                  i = 221
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
             EndSelect
           Case #Chord_Min
             Select (\Mouse_Position_X_Current - (271 + OffsetX)) / 31
               Case #Note_Db
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_Q
+                i = ReadPreferenceInteger("KeyDbMin", -1)
+                If i = -1
+                  i = #VK_Q
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Ab
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_W
+                i = ReadPreferenceInteger("KeyAbMin", -1)
+                If i = -1
+                  i = #VK_W
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Eb
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_E
+                i = ReadPreferenceInteger("KeyEbMin", -1)
+                If i = -1
+                  i = #VK_E
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Bb
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_R
+                i = ReadPreferenceInteger("KeyBbMin", -1)
+                If i = -1
+                  i = #VK_R
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_F
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_T
+                i = ReadPreferenceInteger("KeyFMin", -1)
+                If i = -1
+                  i = #VK_T
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_C
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_Z
+                i = ReadPreferenceInteger("KeyCMin", -1)
+                If i = -1
+                  i = #VK_Z
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_G
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_U
+                i = ReadPreferenceInteger("KeyGMin", -1)
+                If i = -1
+                  i = #VK_U
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_D
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_I
+                i = ReadPreferenceInteger("KeyDMin", -1)
+                If i = -1
+                  i = #VK_I
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_A
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_O
+                i = ReadPreferenceInteger("KeyAMin", -1)
+                If i = -1
+                  i = #VK_O
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_E
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_P
+                i = ReadPreferenceInteger("KeyEMin", -1)
+                If i = -1
+                  i = #VK_P
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_B
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 186
+                i = ReadPreferenceInteger("KeyBMin", -1)
+                If i = -1
+                  i = 186
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Fc
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 187
+                i = ReadPreferenceInteger("KeyF#Min", -1)
+                If i = -1
+                  i = 187
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
             EndSelect
           Case #Chord_7th
             Select (\Mouse_Position_X_Current - (271 + OffsetX)) / 31
               Case #Note_Db
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_A
+                i = ReadPreferenceInteger("KeyDb7th", -1)
+                If i = -1
+                  i = #VK_A
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Ab
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_S
+                i = ReadPreferenceInteger("KeyAb7th", -1)
+                If i = -1
+                  i = #VK_S
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Eb
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_D
+                i = ReadPreferenceInteger("KeyEb7th", -1)
+                If i = -1
+                  i = #VK_D
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Bb
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_F
+                i = ReadPreferenceInteger("KeyBb7th", -1)
+                If i = -1
+                  i = #VK_F
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_F
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_G
+                i = ReadPreferenceInteger("KeyF7th", -1)
+                If i = -1
+                  i = #VK_G
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_C
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_H
+                i = ReadPreferenceInteger("KeyC7th", -1)
+                If i = -1
+                  i = #VK_H
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_G
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_J
+                i = ReadPreferenceInteger("KeyG7th", -1)
+                If i = -1
+                  i = #VK_J
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_D
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_K
+                i = ReadPreferenceInteger("KeyD7th", -1)
+                If i = -1
+                  i = #VK_K
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_A
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = #VK_L
+                i = ReadPreferenceInteger("KeyA7th", -1)
+                If i = -1
+                  i = #VK_L
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_E
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 192
+                i = ReadPreferenceInteger("KeyE7th", -1)
+                If i = -1
+                  i = 192
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_B
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 222
+                i = ReadPreferenceInteger("KeyB7th", -1)
+                If i = -1
+                  i = 222
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
               Case #Note_Fc
-                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = 191
+                i = ReadPreferenceInteger("KeyF#7th", -1)
+                If i = -1
+                  i = 191
+                EndIf
+                \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = i
             EndSelect
         EndSelect
       ElseIf KeyReturn <> -1
         \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31) = KeyReturn
+      EndIf
+      
+      If \UnlockControls
+        Select Type
+          Case #Chord_Maj
+            Select (\Mouse_Position_X_Current - (271 + OffsetX)) / 31
+              Case #Note_Db
+                WritePreferenceInteger("KeyDbMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Ab
+                WritePreferenceInteger("KeyAbMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Eb
+                WritePreferenceInteger("KeyEbMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Bb
+                WritePreferenceInteger("KeyBbMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_F
+                WritePreferenceInteger("KeyFMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_C
+                WritePreferenceInteger("KeyCMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_G
+                WritePreferenceInteger("KeyGMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_D
+                WritePreferenceInteger("KeyDMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_A
+                WritePreferenceInteger("KeyAMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_E
+                WritePreferenceInteger("KeyEMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_B
+                WritePreferenceInteger("KeyBMaj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Fc
+                WritePreferenceInteger("KeyF#Maj", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+            EndSelect
+          Case #Chord_Min
+            Select (\Mouse_Position_X_Current - (271 + OffsetX)) / 31
+              Case #Note_Db
+                WritePreferenceInteger("KeyDbMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Ab
+                WritePreferenceInteger("KeyAbMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Eb
+                WritePreferenceInteger("KeyEbMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Bb
+                WritePreferenceInteger("KeyBbMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_F
+                WritePreferenceInteger("KeyFMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_C
+                WritePreferenceInteger("KeyCMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_G
+                WritePreferenceInteger("KeyGMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_D
+                WritePreferenceInteger("KeyDMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_A
+                WritePreferenceInteger("KeyAMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_E
+                WritePreferenceInteger("KeyEMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_B
+                WritePreferenceInteger("KeyBMin", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Fc
+                WritePreferenceInteger("KeyF#Min", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+            EndSelect
+          Case #Chord_7th
+            Select (\Mouse_Position_X_Current - (271 + OffsetX)) / 31
+              Case #Note_Db
+                WritePreferenceInteger("KeyDb7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Ab
+                WritePreferenceInteger("KeyAb7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Eb
+                WritePreferenceInteger("KeyEb7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Bb
+                WritePreferenceInteger("KeyBb7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_F
+                WritePreferenceInteger("KeyF7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_C
+                WritePreferenceInteger("KeyC7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_G
+                WritePreferenceInteger("KeyG7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_D
+                WritePreferenceInteger("KeyD7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_A
+                WritePreferenceInteger("KeyA7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_E
+                WritePreferenceInteger("KeyE7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_B
+                WritePreferenceInteger("KeyB7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+              Case #Note_Fc
+                WritePreferenceInteger("KeyF#7th", \Keymap_Chord(Type, (\Mouse_Position_X_Current - (271 + OffsetX)) / 31))
+            EndSelect
+        EndSelect
+        
       EndIf
       
       ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
@@ -445,6 +930,8 @@ Procedure.i KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
 EndProcedure
 
 Procedure.i KeyReassign_Function(Type.i)
+  Protected i.i
+  
   Protected KeyReturn.i
   
   Protected ScaleX.f
@@ -505,18 +992,131 @@ Procedure.i KeyReassign_Function(Type.i)
       
     EndIf
     
+    PreferenceGroup("Controls")
+    
     KeyReturn = KeyReassign_GetKey()
     If KeyReturn = -2
       Select Type
+        Case #Btn_Master_Power
+          i = ReadPreferenceInteger("KeyMasterPower", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Master_Power
+          EndIf
+          \Keymap_Function(Type) = i
+          
+        Case #Btn_Rhythm_Alternate
+          i = ReadPreferenceInteger("KeyRhythmAlternate", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Rhythm_Alternate
+          EndIf
+          \Keymap_Function(Type) = i
+        Case #Btn_Rhythm_Rock1_March
+          i = ReadPreferenceInteger("KeyRhythmRock1March", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Rhythm_Rock1_March
+          EndIf
+          \Keymap_Function(Type) = i
+        Case #Btn_Rhythm_Rock2_Tango
+          i = ReadPreferenceInteger("KeyRhythmRock2Tango", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Rhythm_Rock2_Tango
+          EndIf
+          \Keymap_Function(Type) = i
+          
+        Case #Btn_Rhythm_Disco_Blues
+          i = ReadPreferenceInteger("KeyRhythmDiscoBlues", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Rhythm_Disco_Blues
+          EndIf
+          \Keymap_Function(Type) = i
+        Case #Btn_Rhythm_Latin_Swing
+          i = ReadPreferenceInteger("KeyRhythmLatinSwing", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Rhythm_Latin_Swing
+          EndIf
+          \Keymap_Function(Type) = i
+        Case #Btn_Rhythm_Country_Waltz
+          i = ReadPreferenceInteger("KeyRhythmCountryWaltz", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Rhythm_Country_Waltz
+          EndIf
+          \Keymap_Function(Type) = i
+        Case #Btn_Rhythm_AutoBassSync
+          i = ReadPreferenceInteger("KeyRhythmAutoBassSync", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Rhythm_AutoBassSync
+          EndIf
+          \Keymap_Function(Type) = i
+          
+        Case #Btn_Memory
+          i = ReadPreferenceInteger("KeyMemory", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Memory
+          EndIf
+          \Keymap_Function(Type) = i
+        Case #Btn_Memory_Playback_Record
+          i = ReadPreferenceInteger("KeyMemory", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Memory_Playback_Record
+          EndIf
+          \Keymap_Function(Type) = i
+        Case #Btn_Memory_Repeat_Delete
+          i = ReadPreferenceInteger("KeyMemory", -1)
+          If i = -1
+            i = ArraySize(\Keymap())-#Btn_Memory_Repeat_Delete
+          EndIf
+          \Keymap_Function(Type) = i
         Case #Btn_Memory_Playback_Enter
-          \Keymap_Function(Type) = #VK_CONTROL
+          i = ReadPreferenceInteger("KeyMemoryPlaybackEnter", -1)
+          If i = -1
+            i = #VK_CONTROL
+          EndIf
+          \Keymap_Function(Type) = i
+          
         Case #Btn_Chordiate
-          \Keymap_Function(Type) = #VK_SPACE
-        Default
-          \Keymap_Function(Type) = ArraySize(\Keymap())-Type
+          i = ReadPreferenceInteger("KeyChordiate", -1)
+          If i = -1
+            i = #VK_SPACE
+          EndIf
+          \Keymap_Function(Type) = i
       EndSelect
+      
     ElseIf KeyReturn <> -1
       \Keymap_Function(Type) = KeyReturn
+    EndIf
+    
+    If \UnlockControls
+      Select Type
+        Case #Btn_Master_Power
+          WritePreferenceInteger("KeyMasterPower", \Keymap_Function(Type))
+          
+        Case #Btn_Rhythm_Alternate
+          WritePreferenceInteger("KeyRhythmAlternate", \Keymap_Function(Type))
+        Case #Btn_Rhythm_Rock1_March
+          WritePreferenceInteger("KeyRhythmRock1March", \Keymap_Function(Type))
+        Case #Btn_Rhythm_Rock2_Tango
+          WritePreferenceInteger("KeyRhythmRock2Tango", \Keymap_Function(Type))
+        Case #Btn_Rhythm_Disco_Blues
+          WritePreferenceInteger("KeyRhythmDiscoBlues", \Keymap_Function(Type))
+        Case #Btn_Rhythm_Latin_Swing
+          WritePreferenceInteger("KeyRhythmLatinSwing", \Keymap_Function(Type))
+        Case #Btn_Rhythm_Country_Waltz
+          WritePreferenceInteger("KeyRhythmCountryWaltz", \Keymap_Function(Type))
+        Case #Btn_Rhythm_AutoBassSync
+          WritePreferenceInteger("KeyRhythmAutoBassSync", \Keymap_Function(Type))
+          
+        Case #Btn_Memory
+          WritePreferenceInteger("KeyMemory", \Keymap_Function(Type))
+        Case #Btn_Memory_Playback_Record
+          WritePreferenceInteger("KeyMemoryPlaybackRecord", \Keymap_Function(Type))
+        Case #Btn_Memory_Repeat_Delete
+          WritePreferenceInteger("KeyMemoryRepeatDelete", \Keymap_Function(Type))
+        Case #Btn_Memory_Playback_Enter
+          WritePreferenceInteger("KeyMemoryPlaybackEnter", \Keymap_Function(Type))
+          
+        Case #Btn_Chordiate
+          WritePreferenceInteger("KeyChordiate", \Keymap_Function(Type))
+      EndSelect
     EndIf
     
     ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
@@ -583,7 +1183,6 @@ Procedure.i Init()
     End
   EndIf
   
-  OpenPreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension) + ".data\chordian.ini")
   PreferenceGroup("Midi")
   If ReadPreferenceInteger("OutputDevice", -1) <> -1
     midiOutOpen_(@MIDIHandle, ReadPreferenceInteger("OutputDevice", -1), #Null, #Null, #CALLBACK_NULL)
@@ -595,7 +1194,6 @@ Procedure.i Init()
     SendMIDIProgram(MIDIHandle, 3, ReadPreferenceInteger("KeyboardProgram", 90))
     SendMIDIProgram(MIDIHandle, 9, ReadPreferenceInteger("DrumProgram", 0))
   EndIf
-  ClosePreferences()
   
   ;-Create Menu
   CreateMenu(#Men_Main, WindowID(#Win_Main))
@@ -605,6 +1203,8 @@ Procedure.i Init()
   MenuItem(#Itm_ResetSize, "Reset window size")
   MenuItem(#Itm_Aspect, "Keep aspect ratio")
   MenuBar()
+  MenuItem(#Itm_UnlockControls, "Unlock controls")
+  MenuBar()
   MenuItem(#Itm_Load, "Load state...")
   MenuItem(#Itm_Save, "Save state...")
   MenuBar()
@@ -613,6 +1213,10 @@ Procedure.i Init()
   MenuItem(#Itm_Exit, "Exit")
   
   SetMenuItemState(#Men_Main, #Itm_Aspect, 1)
+  
+  PreferenceGroup("Controls")
+  Chordian\Input_State\UnlockControls = ReadPreferenceInteger("UnlockControls", 0)
+  SetMenuItemState(#Men_Main, #Itm_UnlockControls, Chordian\Input_State\UnlockControls)
   
   MenuTitle("Edit")
   MenuItem(#Itm_Tuning, "Set Tuning...")
@@ -792,6 +1396,19 @@ Procedure.i Main()
                 PreviousSizeX = WindowWidth(#Win_Main)
                 PreviousSizeY = WindowHeight(#Win_Main)
               EndIf
+              
+            Case #Itm_UnlockControls
+              SetMenuItemState(#Men_Main, #Itm_UnlockControls, Bool(Not GetMenuItemState(#Men_Main, #Itm_UnlockControls)))
+              Chordian\Input_State\UnlockControls = GetMenuItemState(#Men_Main, #Itm_UnlockControls)
+              If Chordian\Input_State\UnlockControls And FileSize(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension) + ".data\chordian.ini") = -1
+                If FileSize(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension) + ".data") = -1
+                  CreateDirectory(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension) + ".data")
+                EndIf
+                CreatePreferences(GetFilePart(ProgramFilename(), #PB_FileSystem_NoExtension) + ".data\chordian.ini")
+              EndIf
+              PreferenceGroup("Controls")
+              WritePreferenceInteger("UnlockControls", Chordian\Input_State\UnlockControls)
+              FlushPreferenceBuffers()
               
             Case #Itm_Load
               TempString = OpenFileRequester("Chordian>Load machine state...", "", "JSON (*.json)|*.json|All Files (*.*)|*.*", 0)
@@ -3732,6 +4349,8 @@ Procedure.i Main()
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Resume, 1, 0)
           
         Case #PB_Event_CloseWindow
+          FlushPreferenceBuffers()
+          ClosePreferences()
           
           i = 0
           Repeat
