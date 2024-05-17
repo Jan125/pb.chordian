@@ -41,6 +41,25 @@ Macro LocalCatchImage(ImgID, ImgAddress, ImgFile)
   EndIf
 EndMacro
 
-Macro KnobLine(X, Y, SizeX, SizeY, Value)
-  LineXY(X, Y, X + Sin(Radian(-Value * 270 - 45)) * (SizeX - 1), Y + Cos(Radian(-Value * 270 - 45)) * (SizeY - 1))
+Macro DrawVectorImageEx(Image, X, Y)
+  MovePathCursor(X, Y)
+  SaveVectorState()
+  ScaleCoordinates(0.5, 0.5)
+  DrawVectorImage(ImageID(Image))
+  RestoreVectorState()
+EndMacro
+
+Macro KnobLine(X, Y, Size, Value)
+  SaveVectorState()
+  TranslateCoordinates(X, Y)
+  RotateCoordinates(0.0, 0.0, Value * 270.0 - 135.0)
+  MovePathCursor(0.0, 0.0)
+  AddPathLine(0.5, -0.5)
+  AddPathLine(0.5, -Size)
+  AddPathLine(-0.5, -Size)
+  AddPathLine(-0.5, -0.5)
+  ClosePath()
+  VectorSourceColor($FFFFFFFF)
+  FillPath()
+  RestoreVectorState()
 EndMacro

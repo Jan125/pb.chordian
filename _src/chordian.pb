@@ -464,11 +464,6 @@ Procedure.i GetGraphics()
   
   LocalCatchImage(#Img_LED_Off, ?Img_LED_Off, ".data\img\led_off.png")
   LocalCatchImage(#Img_LED_On, ?Img_LED_On, ".data\img\led_on.png")
-  
-  For i = #Img_GUI_First To #Img_GUI_Last
-    Repeat
-    Until ResizeImage(i, ImageWidth(i) * (WindowWidth(#Win_Main) / 800.0) * 0.5, ImageHeight(i) * ((WindowHeight(#Win_Main) - 20) / 600.0) * 0.5)
-  Next
 EndProcedure
 
 Procedure.i GetUIGraphics()
@@ -586,17 +581,20 @@ Procedure.i KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
   
   Protected KeyReturn.i
   
-  Protected ScaleX.f
-  Protected ScaleY.f
-  
   With Chordian\Input_State
     If (\Mouse_Position_X_Current - (271 + OffsetX)) % 31 <= 20
-      PauseThread(Chordian\RepaintHandler_Thread)
-      If StartDrawing(CanvasOutput(#Gad_Canvas))
-        ScaleX = OutputWidth() / 800.0
-        ScaleY = OutputHeight() / 600.0
-        DrawAlphaImage(ImageID(#Img_Button_Red_On), ((271 + OffsetX) + ((\Mouse_Position_X_Current - (271 + OffsetX)) / 31) * 31) * ScaleX, (240 + OffsetY) * ScaleY)
-        StopDrawing()
+      While Not WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 0) = #WAIT_OBJECT_0
+        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
+        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+      Wend
+      
+      If StartVectorDrawing(CanvasVectorOutput(#Gad_Canvas))
+        ScaleCoordinates(VectorOutputWidth() / 800.0, VectorOutputHeight() / 600.0)
+        
+        i = ((\Mouse_Position_X_Current - (271 + OffsetX)) / 31)
+        DrawVectorImageEx(#Img_Button_Red_On, (271 + OffsetX) + i * 31, 240.0 + OffsetY)
+        
+        StopVectorDrawing()
       EndIf
       
       PreferenceGroup("Controls")
@@ -921,9 +919,17 @@ Procedure.i KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
         
       EndIf
       
+      WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 0)
+      
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
       ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
       ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-      ResumeThread(Chordian\RepaintHandler_Thread)
+      
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Resume, 1, 0)
       
     EndIf
   EndWith
@@ -938,57 +944,59 @@ Procedure.i KeyReassign_Function(Type.i)
   Protected ScaleY.f
   
   With Chordian\Input_State
-    PauseThread(Chordian\RepaintHandler_Thread)
+    While Not WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 0) = #WAIT_OBJECT_0
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+    Wend
     
-    If StartDrawing(CanvasOutput(#Gad_Canvas))
+    If StartVectorDrawing(CanvasVectorOutput(#Gad_Canvas))
       
-      ScaleX = OutputWidth() / 800.0
-      ScaleY = OutputHeight() / 600.0
+      ScaleCoordinates(VectorOutputWidth() / 800.0, VectorOutputHeight() / 600.0)
       
       Select Type
           
         Case #Btn_Master_Power
-          DrawAlphaImage(ImageID(#Img_Button_Blue_On), 126 * ScaleX, 113 * ScaleY)
+          DrawVectorImageEx(#Img_Button_Blue_On, 126.0, 113.0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
           
           
         Case #Btn_Rhythm_Alternate
-          DrawAlphaImage(ImageID(#Img_Button_Red_On), 36 * ScaleX, 274 * ScaleY)
+          DrawVectorImageEx(#Img_Button_Red_On, 36.0, 274.0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
           
         Case #Btn_Rhythm_First To #Btn_Rhythm_Last
-          DrawAlphaImage(ImageID(#Img_Button_Red_On), (68 + (Type-#Btn_Rhythm_First) * 32) * ScaleX, 274 * ScaleY)
+          DrawVectorImageEx(#Img_Button_Red_On, (68.0 + (Type - #Btn_Rhythm_First) * 32.0), 274.0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
           
         Case #Btn_Rhythm_AutoBassSync
-          DrawAlphaImage(ImageID(#Img_Button_Red_On), 84 * ScaleX, 329 * ScaleY)
+          DrawVectorImageEx(#Img_Button_Red_On, 84.0, 329.0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
           
           
         Case #Btn_Memory
-          DrawAlphaImage(ImageID(#Img_Button_Blue_On), 126 * ScaleX, 424 * ScaleY)
+          DrawVectorImageEx(#Img_Button_Blue_On, 126.0, 424.0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
           
         Case #Btn_Memory_Playback_Record
-          DrawAlphaImage(ImageID(#Img_Button_Red_On), 159 * ScaleX, 424 * ScaleY)
+          DrawVectorImageEx(#Img_Button_Red_On, 159.0, 424.0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
           
         Case #Btn_Memory_Repeat_Delete
-          DrawAlphaImage(ImageID(#Img_Button_Red_On), 192 * ScaleX, 424 * ScaleY)
+          DrawVectorImageEx(#Img_Button_Red_On, 192.0, 424.0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
           
         Case #Btn_Memory_Playback_Enter
-          DrawAlphaImage(ImageID(#Img_Button_Wide_Red_On), 162 * ScaleX, 480 * ScaleY)
+          DrawVectorImageEx(#Img_Button_Wide_Red_On, 162.0, 480.0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
           
           
         Case #Btn_Chordiate
-          DrawAlphaImage(ImageID(#Img_Button_Bar_Red_On), 361 * ScaleX, 369 * ScaleY)
+          DrawVectorImageEx(#Img_Button_Bar_Red_On, 361.0, 369.0)
           ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
           
       EndSelect
       
-      StopDrawing()
+      StopVectorDrawing()
       
     EndIf
     
@@ -1119,9 +1127,18 @@ Procedure.i KeyReassign_Function(Type.i)
       EndSelect
     EndIf
     
-    ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-    ResumeThread(Chordian\RepaintHandler_Thread)
-    
+      WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 0)
+      
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+      
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Resume, 1, 0)
+      
   EndWith
 EndProcedure
 
@@ -4305,17 +4322,6 @@ Procedure.i Main()
         Case #PB_Event_RestoreWindow
           SetActiveGadget(#Gad_Canvas)
           
-        Case #PB_Event_Repaint
-          PauseThread(Chordian\RepaintHandler_Thread)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-          ResumeThread(Chordian\RepaintHandler_Thread)
-          
         Case #PB_Event_SizeWindow
           ;--Resize window
           If GetWindowState(#Win_Main) = #PB_Window_Normal And GetMenuItemState(#Men_Main, #Itm_Aspect)
@@ -4333,7 +4339,6 @@ Procedure.i Main()
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
           Wend
           
-          GetGraphics()
           ResizeGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main)-20)
           
           WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 0)
