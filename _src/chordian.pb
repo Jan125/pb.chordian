@@ -416,52 +416,53 @@ EndProcedure
 Procedure.i GetGraphics()
   Protected i.i
   
-  LocalCatchImage(#Img_Background, ?Img_Background, ".data\img\background.png")
-  LocalCatchImage(#Img_Base, ?Img_Base, ".data\img\base.png")
+  LocalCatchGLImage(#Img_Background, ?Img_Background, ".data\img\background.png")
+  LocalCatchGLImage(#Img_Base, ?Img_Base, ".data\img\base.png")
   
-  LocalCatchImage(#Img_Button_Black_Off, ?Img_Button_Black_Off, ".data\img\button_black_off.png")
-  LocalCatchImage(#Img_Button_Black_On, ?Img_Button_Black_On, ".data\img\button_black_on.png")
+  LocalCatchGLImage(#Img_Button_Black_Off, ?Img_Button_Black_Off, ".data\img\button_black_off.png")
+  LocalCatchGLImage(#Img_Button_Black_On, ?Img_Button_Black_On, ".data\img\button_black_on.png")
   
-  LocalCatchImage(#Img_Button_Blue_Off, ?Img_Button_Blue_Off, ".data\img\button_blue_off.png")
-  LocalCatchImage(#Img_Button_Blue_On, ?Img_Button_Blue_On, ".data\img\button_blue_on.png")
+  LocalCatchGLImage(#Img_Button_Blue_Off, ?Img_Button_Blue_Off, ".data\img\button_blue_off.png")
+  LocalCatchGLImage(#Img_Button_Blue_On, ?Img_Button_Blue_On, ".data\img\button_blue_on.png")
   
-  LocalCatchImage(#Img_Button_Dark_Off, ?Img_Button_Dark_Off, ".data\img\button_dark_off.png")
-  LocalCatchImage(#Img_Button_Dark_On, ?Img_Button_Dark_On, ".data\img\button_dark_on.png")
-  LocalCatchImage(#Img_Button_Dark_C_Off, ?Img_Button_Dark_C_Off, ".data\img\button_dark_c_off.png")
-  LocalCatchImage(#Img_Button_Dark_C_On, ?Img_Button_Dark_C_On, ".data\img\button_dark_c_on.png")
-  LocalCatchImage(#Img_Button_Dark_X_Off, ?Img_Button_Dark_X_Off, ".data\img\button_dark_x_off.png")
-  LocalCatchImage(#Img_Button_Dark_X_On, ?Img_Button_Dark_X_On, ".data\img\button_dark_x_on.png")
-  LocalCatchImage(#Img_Button_Dark_Tri_Off, ?Img_Button_Dark_Tri_Off, ".data\img\button_dark_tri_off.png")
-  LocalCatchImage(#Img_Button_Dark_Tri_On, ?Img_Button_Dark_Tri_On, ".data\img\button_dark_tri_on.png")
+  LocalCatchGLImage(#Img_Button_Dark_Off, ?Img_Button_Dark_Off, ".data\img\button_dark_off.png")
+  LocalCatchGLImage(#Img_Button_Dark_On, ?Img_Button_Dark_On, ".data\img\button_dark_on.png")
+  LocalCatchGLImage(#Img_Button_Dark_C_Off, ?Img_Button_Dark_C_Off, ".data\img\button_dark_c_off.png")
+  LocalCatchGLImage(#Img_Button_Dark_C_On, ?Img_Button_Dark_C_On, ".data\img\button_dark_c_on.png")
+  LocalCatchGLImage(#Img_Button_Dark_X_Off, ?Img_Button_Dark_X_Off, ".data\img\button_dark_x_off.png")
+  LocalCatchGLImage(#Img_Button_Dark_X_On, ?Img_Button_Dark_X_On, ".data\img\button_dark_x_on.png")
+  LocalCatchGLImage(#Img_Button_Dark_Tri_Off, ?Img_Button_Dark_Tri_Off, ".data\img\button_dark_tri_off.png")
+  LocalCatchGLImage(#Img_Button_Dark_Tri_On, ?Img_Button_Dark_Tri_On, ".data\img\button_dark_tri_on.png")
   
-  LocalCatchImage(#Img_Button_Red_Off, ?Img_Button_Red_Off, ".data\img\button_red_off.png")
-  LocalCatchImage(#Img_Button_Red_On, ?Img_Button_Red_On, ".data\img\button_red_on.png")
+  LocalCatchGLImage(#Img_Button_Red_Off, ?Img_Button_Red_Off, ".data\img\button_red_off.png")
+  LocalCatchGLImage(#Img_Button_Red_On, ?Img_Button_Red_On, ".data\img\button_red_on.png")
   
-  LocalCatchImage(#Img_Button_Light_Off, ?Img_Button_Light_Off, ".data\img\button_light_off.png")
-  LocalCatchImage(#Img_Button_Light_On, ?Img_Button_Light_On, ".data\img\button_light_on.png")
-  LocalCatchImage(#Img_Button_Light_Up_Off, ?Img_Button_Light_Up_Off, ".data\img\button_light_up_off.png")
-  LocalCatchImage(#Img_Button_Light_Up_On, ?Img_Button_Light_Up_On, ".data\img\button_light_up_on.png")
-  LocalCatchImage(#Img_Button_Light_Down_Off, ?Img_Button_Light_Down_Off, ".data\img\button_light_down_off.png")
-  LocalCatchImage(#Img_Button_Light_Down_On, ?Img_Button_Light_Down_On, ".data\img\button_light_down_on.png")
-  LocalCatchImage(#Img_Button_Light_O_Off, ?Img_Button_Light_O_Off, ".data\img\button_light_o_off.png")
-  LocalCatchImage(#Img_Button_Light_O_On, ?Img_Button_Light_O_On, ".data\img\button_light_o_on.png")
-  LocalCatchImage(#Img_Button_Light_C_Off, ?Img_Button_Light_C_Off, ".data\img\button_light_c_off.png")
-  LocalCatchImage(#Img_Button_Light_C_On, ?Img_Button_Light_C_On, ".data\img\button_light_c_on.png")
+  LocalCatchGLImage(#Img_Button_Light_Off, ?Img_Button_Light_Off, ".data\img\button_light_off.png")
+  LocalCatchGLImage(#Img_Button_Light_On, ?Img_Button_Light_On, ".data\img\button_light_on.png")
+  LocalCatchGLImage(#Img_Button_Light_Up_Off, ?Img_Button_Light_Up_Off, ".data\img\button_light_up_off.png")
+  LocalCatchGLImage(#Img_Button_Light_Up_On, ?Img_Button_Light_Up_On, ".data\img\button_light_up_on.png")
+  LocalCatchGLImage(#Img_Button_Light_Down_Off, ?Img_Button_Light_Down_Off, ".data\img\button_light_down_off.png")
+  LocalCatchGLImage(#Img_Button_Light_Down_On, ?Img_Button_Light_Down_On, ".data\img\button_light_down_on.png")
+  LocalCatchGLImage(#Img_Button_Light_O_Off, ?Img_Button_Light_O_Off, ".data\img\button_light_o_off.png")
+  LocalCatchGLImage(#Img_Button_Light_O_On, ?Img_Button_Light_O_On, ".data\img\button_light_o_on.png")
+  LocalCatchGLImage(#Img_Button_Light_C_Off, ?Img_Button_Light_C_Off, ".data\img\button_light_c_off.png")
+  LocalCatchGLImage(#Img_Button_Light_C_On, ?Img_Button_Light_C_On, ".data\img\button_light_c_on.png")
   
-  LocalCatchImage(#Img_Button_Bar_Light_Off, ?Img_Button_Bar_Light_Off, ".data\img\button_bar_light_off.png")
-  LocalCatchImage(#Img_Button_Bar_Light_On, ?Img_Button_Bar_Light_On, ".data\img\button_bar_light_on.png")
-  LocalCatchImage(#Img_Button_Bar_Red_Off, ?Img_Button_Bar_Red_Off, ".data\img\button_bar_red_off.png")
-  LocalCatchImage(#Img_Button_Bar_Red_On, ?Img_Button_Bar_Red_On, ".data\img\button_bar_red_on.png")
+  LocalCatchGLImage(#Img_Button_Bar_Light_Off, ?Img_Button_Bar_Light_Off, ".data\img\button_bar_light_off.png")
+  LocalCatchGLImage(#Img_Button_Bar_Light_On, ?Img_Button_Bar_Light_On, ".data\img\button_bar_light_on.png")
+  LocalCatchGLImage(#Img_Button_Bar_Red_Off, ?Img_Button_Bar_Red_Off, ".data\img\button_bar_red_off.png")
+  LocalCatchGLImage(#Img_Button_Bar_Red_On, ?Img_Button_Bar_Red_On, ".data\img\button_bar_red_on.png")
   
-  LocalCatchImage(#Img_Button_Wide_Black_Off, ?Img_Button_Wide_Black_Off, ".data\img\button_wide_black_off.png")
-  LocalCatchImage(#Img_Button_Wide_Black_On, ?Img_Button_Wide_Black_On, ".data\img\button_wide_black_on.png")
-  LocalCatchImage(#Img_Button_Wide_Red_Off, ?Img_Button_Wide_Red_Off, ".data\img\button_wide_red_off.png")
-  LocalCatchImage(#Img_Button_Wide_Red_On, ?Img_Button_Wide_Red_On, ".data\img\button_wide_red_on.png")
+  LocalCatchGLImage(#Img_Button_Wide_Black_Off, ?Img_Button_Wide_Black_Off, ".data\img\button_wide_black_off.png")
+  LocalCatchGLImage(#Img_Button_Wide_Black_On, ?Img_Button_Wide_Black_On, ".data\img\button_wide_black_on.png")
+  LocalCatchGLImage(#Img_Button_Wide_Red_Off, ?Img_Button_Wide_Red_Off, ".data\img\button_wide_red_off.png")
+  LocalCatchGLImage(#Img_Button_Wide_Red_On, ?Img_Button_Wide_Red_On, ".data\img\button_wide_red_on.png")
   
-  LocalCatchImage(#Img_Knob_Big, ?Img_Knob_Big, ".data\img\knob_big.png")
-  LocalCatchImage(#Img_Knob_Ring, ?Img_Knob_Ring, ".data\img\knob_ring.png")
-  LocalCatchImage(#Img_Knob_Small, ?Img_Knob_Small, ".data\img\knob_small.png")
+  LocalCatchGLImage(#Img_Knob_Big, ?Img_Knob_Big, ".data\img\knob_big.png")
+  LocalCatchGLImage(#Img_Knob_Ring, ?Img_Knob_Ring, ".data\img\knob_ring.png")
+  LocalCatchGLImage(#Img_Knob_Small, ?Img_Knob_Small, ".data\img\knob_small.png")
   
+<<<<<<< Updated upstream
   LocalCatchImage(#Img_LED_Off, ?Img_LED_Off, ".data\img\led_off.png")
   LocalCatchImage(#Img_LED_On, ?Img_LED_On, ".data\img\led_on.png")
   
@@ -469,6 +470,10 @@ Procedure.i GetGraphics()
     Repeat
     Until ResizeImage(i, ImageWidth(i) * (WindowWidth(#Win_Main) / 800.0) * 0.5, ImageHeight(i) * ((WindowHeight(#Win_Main) - 20) / 600.0) * 0.5)
   Next
+=======
+  LocalCatchGLImage(#Img_LED_Off, ?Img_LED_Off, ".data\img\led_off.png")
+  LocalCatchGLImage(#Img_LED_On, ?Img_LED_On, ".data\img\led_on.png")
+>>>>>>> Stashed changes
 EndProcedure
 
 Procedure.i GetUIGraphics()
@@ -522,14 +527,14 @@ Procedure.i KeyReassign_GetKey()
         Select Event
           Case #PB_Event_Gadget
             Select EventGadget()
-              Case #Gad_Canvas
+              Case #Gad_OpenGL
                 Select EventType()
                   Case #PB_EventType_KeyUp
-                    Select GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                    Select GetGadgetAttribute(#Gad_OpenGL, #PB_OpenGL_Key)
                       Case #VK_ESCAPE
                         ProcedureReturn -2
                       Default
-                        ProcedureReturn GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key)
+                        ProcedureReturn GetGadgetAttribute(#Gad_OpenGL, #PB_OpenGL_Key)
                     EndSelect
                     
                   Case #PB_EventType_LeftButtonDown
@@ -591,12 +596,27 @@ Procedure.i KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
   
   With Chordian\Input_State
     If (\Mouse_Position_X_Current - (271 + OffsetX)) % 31 <= 20
+<<<<<<< Updated upstream
       PauseThread(Chordian\RepaintHandler_Thread)
       If StartDrawing(CanvasOutput(#Gad_Canvas))
         ScaleX = OutputWidth() / 800.0
         ScaleY = OutputHeight() / 600.0
         DrawAlphaImage(ImageID(#Img_Button_Red_On), ((271 + OffsetX) + ((\Mouse_Position_X_Current - (271 + OffsetX)) / 31) * 31) * ScaleX, (240 + OffsetY) * ScaleY)
         StopDrawing()
+=======
+      While Not WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 0) = #WAIT_OBJECT_0
+        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
+        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+      Wend
+      
+      If StartVectorDrawing(OpenGLVectorOutput(#Gad_OpenGL))
+        ScaleCoordinates(VectorOutputWidth() / 800.0, VectorOutputHeight() / 600.0)
+        
+        i = ((\Mouse_Position_X_Current - (271 + OffsetX)) / 31)
+        DrawVectorImageEx(#Img_Button_Red_On, (271 + OffsetX) + i * 31, 240.0 + OffsetY)
+        
+        StopVectorDrawing()
+>>>>>>> Stashed changes
       EndIf
       
       PreferenceGroup("Controls")
@@ -940,7 +960,11 @@ Procedure.i KeyReassign_Function(Type.i)
   With Chordian\Input_State
     PauseThread(Chordian\RepaintHandler_Thread)
     
+<<<<<<< Updated upstream
     If StartDrawing(CanvasOutput(#Gad_Canvas))
+=======
+    If StartVectorDrawing(OpenGLVectorOutput(#Gad_OpenGL))
+>>>>>>> Stashed changes
       
       ScaleX = OutputWidth() / 800.0
       ScaleY = OutputHeight() / 600.0
@@ -1305,10 +1329,10 @@ Procedure.i Init()
   MenuItem(#Itm_Manual, "Open manual...")
   MenuItem(#Itm_About, "About...")
   
-  ;-Create Canvas
-  CanvasGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main) - 20, #PB_Canvas_Keyboard)
+  ;-Create OpenGL
+  OpenGLGadget(#Gad_OpenGL, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main) - 20, #PB_OpenGL_Keyboard | #PB_OpenGL_NoFlipSynchronization | #PB_OpenGL_NoDepthBuffer | #PB_OpenGL_NoStencilBuffer | #PB_OpenGL_NoAccumulationBuffer)
   
-  StartDrawing(CanvasOutput(#Gad_Canvas))
+  StartDrawing(OpenGLOutput(#Gad_OpenGL))
   DrawingMode(#PB_2DDrawing_AlphaBlend)
   FrontColor($FF000000)
   BackColor($00000000)
@@ -1317,7 +1341,7 @@ Procedure.i Init()
   StopDrawing()
   
   
-  SetActiveGadget(#Gad_Canvas)
+  SetActiveGadget(#Gad_OpenGL)
   
   ResetMachine()
   ResetInput()
@@ -1716,7 +1740,7 @@ Procedure.i Main()
                   If Not OpenWindow(#Win_ChordEdit, 0, 0, 628, 300, "Chordian>Chord Editor", #PB_Window_SystemMenu | #PB_Window_WindowCentered, WindowID(#Win_Main))
                     MessageRequester("Chordian>Error", "Chord Editor could not be initialized.")
                     DisableWindow(#Win_Main, 0)
-                    SetActiveGadget(#Gad_Canvas)
+                    SetActiveGadget(#Gad_OpenGL)
                     Continue
                   EndIf
                   
@@ -2053,7 +2077,7 @@ Procedure.i Main()
               EndIf
               
               DisableWindow(#Win_Main, 0)
-              SetActiveGadget(#Gad_Canvas)
+              SetActiveGadget(#Gad_OpenGL)
               
             Case #Itm_PatEdit
               ;---PatEdit
@@ -2065,7 +2089,7 @@ Procedure.i Main()
                   If Not OpenWindow(#Win_PatEdit, 0, 0, 680, 580, "Chordian>Pattern Editor", #PB_Window_SystemMenu | #PB_Window_WindowCentered, WindowID(#Win_Main))
                     MessageRequester("Chordian>Error", "Pattern Editor could not be initialized.")
                     DisableWindow(#Win_Main, 0)
-                    SetActiveGadget(#Gad_Canvas)
+                    SetActiveGadget(#Gad_OpenGL)
                     Continue
                   EndIf
                   
@@ -2512,7 +2536,7 @@ Procedure.i Main()
               EndIf
               
               DisableWindow(#Win_Main, 0)
-              SetActiveGadget(#Gad_Canvas)
+              SetActiveGadget(#Gad_OpenGL)
               
               
             Case #Itm_Manual
@@ -2549,22 +2573,22 @@ Procedure.i Main()
               MessageRequester("Chordian>About", TempString, #PB_MessageRequester_Ok)
               
               DisableWindow(#Win_Main, 0)
-              SetActiveGadget(#Gad_Canvas)
+              SetActiveGadget(#Gad_OpenGL)
               
           EndSelect
         Case #PB_Event_Gadget
           
           ;--Gadget Actions
           Select EventGadget()
-            Case #Gad_Canvas
-              ;---Canvas Actions
+            Case #Gad_OpenGL
+              ;---OpenGL Actions
               With Chordian\Input_State
                 Select EventType()
                   Case #PB_EventType_KeyDown
-                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key))
+                    PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyDown, GetGadgetAttribute(#Gad_OpenGL, #PB_OpenGL_Key))
                     
                   Case #PB_EventType_KeyUp
-                    PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_Key))
+                    PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyUp, GetGadgetAttribute(#Gad_OpenGL, #PB_OpenGL_Key))
                     
                   Case #PB_EventType_LeftButtonDown
                     \Mouse_Button_Left_Previous = \Mouse_Button_Left_Current
@@ -2599,8 +2623,8 @@ Procedure.i Main()
                   Case #PB_EventType_MouseMove
                     \Mouse_Position_X_Previous = \Mouse_Position_X_Current
                     \Mouse_Position_Y_Previous = \Mouse_Position_Y_Current
-                    \Mouse_Position_X_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseX) * (800.0 / WindowWidth(#Win_Main))
-                    \Mouse_Position_Y_Current = GetGadgetAttribute(#Gad_Canvas, #PB_Canvas_MouseY) * (600.0 / (WindowHeight(#Win_Main) - 20))
+                    \Mouse_Position_X_Current = GetGadgetAttribute(#Gad_OpenGL, #PB_OpenGL_MouseX) * (800.0 / WindowWidth(#Win_Main))
+                    \Mouse_Position_Y_Current = GetGadgetAttribute(#Gad_OpenGL, #PB_OpenGL_MouseY) * (600.0 / (WindowHeight(#Win_Main) - 20))
                     PostEvent(#Event_HandleTriggers, #Win_Main, 0)
                     
                 EndSelect
@@ -3115,9 +3139,9 @@ Procedure.i Main()
             If \Trigger_Memory_Button_Playback_Enter = 1
               \Trigger_Memory_Button_Playback_Enter = 0
               If \Keymap(\Keymap_Function(#Btn_Memory_Playback_Enter))
-                PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Memory_Playback_Enter))
+                PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Memory_Playback_Enter))
               Else
-                PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Memory_Playback_Enter))
+                PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Memory_Playback_Enter))
               EndIf
               
             ElseIf \Trigger_Memory_Button_Playback_Enter = 2
@@ -3130,9 +3154,9 @@ Procedure.i Main()
               \Trigger_Chord_Button_Major = 0
               If (\Mouse_Position_X_Current-271)%31 <= 20
                 If Not \Keymap(\Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
-                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
+                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
                 Else
-                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
+                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Maj, (\Mouse_Position_X_Current-271)/31))
                 EndIf
               EndIf
             ElseIf \Trigger_Chord_Button_Major = 2
@@ -3144,9 +3168,9 @@ Procedure.i Main()
               \Trigger_Chord_Button_Minor = 0
               If (\Mouse_Position_X_Current-286)%31 <= 20
                 If Not \Keymap(\Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
-                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
+                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
                 Else
-                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
+                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_Min, (\Mouse_Position_X_Current-286)/31))
                 EndIf
               EndIf
             ElseIf \Trigger_Chord_Button_Minor = 2
@@ -3158,9 +3182,9 @@ Procedure.i Main()
               \Trigger_Chord_Button_7th = 0
               If (\Mouse_Position_X_Current-301)%31 <= 20
                 If Not \Keymap(\Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
-                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
+                  PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyDown, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
                 Else
-                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
+                  PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyUp, \Keymap_Chord(#Chord_7th, (\Mouse_Position_X_Current-301)/31))
                 EndIf
               EndIf
             ElseIf \Trigger_Chord_Button_7th = 2
@@ -3171,9 +3195,9 @@ Procedure.i Main()
             If \Trigger_Chordiate = 1
               \Trigger_Chordiate = 0
               If \Keymap(\Keymap_Function(#Btn_Chordiate))
-                PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_Canvas, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Chordiate))
+                PostEvent(#Event_GeneralKeyUp, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyUp, \Keymap_Function(#Btn_Chordiate))
               Else
-                PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_Canvas, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Chordiate))
+                PostEvent(#Event_GeneralKeyDown, #Win_Main, #Gad_OpenGL, #Event_GeneralKeyDown, \Keymap_Function(#Btn_Chordiate))
               EndIf
               
               PauseThread(Chordian\RepaintHandler_Thread)
@@ -4303,7 +4327,7 @@ Procedure.i Main()
           EndWith
           
         Case #PB_Event_RestoreWindow
-          SetActiveGadget(#Gad_Canvas)
+          SetActiveGadget(#Gad_OpenGL)
           
         Case #PB_Event_Repaint
           PauseThread(Chordian\RepaintHandler_Thread)
@@ -4333,8 +4357,12 @@ Procedure.i Main()
             ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
           Wend
           
+<<<<<<< Updated upstream
           GetGraphics()
           ResizeGadget(#Gad_Canvas, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main)-20)
+=======
+          ResizeGadget(#Gad_OpenGL, 0, 0, WindowWidth(#Win_Main), WindowHeight(#Win_Main)-20)
+>>>>>>> Stashed changes
           
           WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 0)
           

@@ -1,7 +1,10 @@
 ﻿Procedure.i RepaintHandler(*Void)
   Protected i.i
+<<<<<<< Updated upstream
   Protected ScaleX.f
   Protected ScaleY.f
+=======
+>>>>>>> Stashed changes
   
   With Chordian
     Repeat
@@ -27,7 +30,11 @@
         Continue
       EndIf
       
+      ;-Repaint Base
+      OpenGLDrawImage(#Img_Background, 0, 0)
+      OpenGLDrawImage(#Img_Base, 0, 0)
       
+<<<<<<< Updated upstream
       If StartDrawing(CanvasOutput(#Gad_Canvas))
         
         ScaleX = OutputWidth() / 800.0
@@ -262,7 +269,203 @@
         UnclipOutput()
         
         StopDrawing()
+=======
+      ;-Repaint Master section
+      ;Power Button and LED
+      Select \Machine_State\Value_Master_Button_Power_OnOff
+        Case 1
+          OpenGLDrawImage(#Img_LED_On, 133, 97)
+          OpenGLDrawImage(#Img_Button_Red_On, 126, 113)
+        Case 0
+          OpenGLDrawImage(#Img_LED_Off, 133, 97)
+          OpenGLDrawImage(#Img_Button_Red_Off, 126, 113)
+      EndSelect
+      
+      ;Master Volume Knob
+      OpenGLDrawImage(#Img_Knob_Big, 169, 95)
+      KnobLine(190, 116, 21, \Machine_State\Value_Master_Knob_Volume)
+      
+      
+      ;-Repaint Level/Mode section
+      ;Harp Voice 2 Volume Knob
+      OpenGLDrawImage(#Img_Knob_Ring, 73, 170)
+      KnobLine(94, 191, 21, \Machine_State\Value_Level_Knob_Volume_Harp_1)
+      ;Harp Voice 1 Volume Knob
+      OpenGLDrawImage(#Img_Knob_Small, 81, 178)
+      KnobLine(94, 191, 13, \Machine_State\Value_Level_Knob_Volume_Harp_2)
+      
+      ;Harp Sustain Knob
+      OpenGLDrawImage(#Img_Knob_Big, 121, 170)
+      KnobLine(142, 191, 21, \Machine_State\Value_Level_Knob_Sustain)
+      
+      ;Keyboard Volume Knob
+      OpenGLDrawImage(#Img_Knob_Ring, 169, 170)
+      KnobLine(190, 191, 21, \Machine_State\Value_Level_Knob_Volume_Keyboard)
+      ;Chords Volume Knob
+      OpenGLDrawImage(#Img_Knob_Small, 177, 178)
+      KnobLine(190, 191, 13, \Machine_State\Value_Level_Knob_Volume_Chords)
+      
+      
+      ;-Repaint Rhythm section
+      ;Rhythm Alternate Selection Button
+      Select \Machine_State\Value_Rhythm_Button_Alternate_OnOff
+        Case 1
+          OpenGLDrawImage(#Img_Button_Blue_On, 36, 274)
+        Case 0
+          OpenGLDrawImage(#Img_Button_Blue_Off, 36, 274)
+      EndSelect
+      
+      ;Rhythm Button
+      For i = #Rhythm_First To #Rhythm_Last
+        If i = \Machine_State\Value_Rhythm_Button_Pattern
+          OpenGLDrawImage(#Img_Button_Dark_On, (68 + i * 32), 274)
+        Else
+          OpenGLDrawImage(#Img_Button_Dark_Off, (68 + i * 32), 274)
+        EndIf
+      Next
+      
+      ;Auto-Bass-Sync Button
+      If \Machine_State\Value_Rhythm_Button_AutoBassSync_OnOff
+        OpenGLDrawImage(#Img_Button_Black_On, 84, 329)
+      Else
+        OpenGLDrawImage(#Img_Button_Black_Off, 84, 329)
       EndIf
+      
+      OpenGLDrawImage(#Img_Knob_Big, 121, 318)
+      KnobLine(142, 339, 21, \Machine_State\Value_Rhythm_Knob_Tempo)
+      
+      OpenGLDrawImage(#Img_Knob_Big, 169, 318)
+      KnobLine(190, 339, 21, \Machine_State\Value_Rhythm_Knob_Volume)
+      
+      
+      ;-Repaint Memory section
+      ;Memory Button
+      Select \Machine_State\Value_Memory_Button_Memory_OnOff
+        Case 1
+          Select \Machine_State\Value_Master_Button_Power_OnOff
+            Case 1
+              OpenGLDrawImage(#Img_LED_On, 94, 396)
+            Case 0
+              OpenGLDrawImage(#Img_LED_Off, 94, 396)
+          EndSelect
+          OpenGLDrawImage(#Img_Button_Red_On, 126, 424)
+        Case 0
+          OpenGLDrawImage(#Img_LED_Off, 94, 396)
+          OpenGLDrawImage(#Img_Button_Red_Off, 126, 424)
+      EndSelect
+      
+      ;Playback-Record Button
+      Select \Machine_State\Value_Memory_Button_Playback_Record_OnOff
+        Case 1
+          OpenGLDrawImage(#Img_Button_Dark_On, 159, 424)
+        Case 0
+          OpenGLDrawImage(#Img_Button_Dark_Off, 159, 424)
+      EndSelect
+      
+      ;Repeat-Delete Button
+      Select \Machine_State\Value_Memory_Button_Repeat_Delete
+        Case 1
+          OpenGLDrawImage(#Img_Button_Dark_On, 192, 424)
+        Case 0
+          OpenGLDrawImage(#Img_Button_Dark_Off, 192, 424)
+      EndSelect
+      
+      ;Playback-Enter Button
+      Select \Machine_State\Value_Memory_Button_Playback_Enter
+        Case 1
+          OpenGLDrawImage(#Img_Button_Wide_Black_On, 162, 480)
+        Case 0
+          OpenGLDrawImage(#Img_Button_Wide_Black_Off, 162, 480)
+      EndSelect
+      
+      
+      ;-Repaint Chord section
+      ;Chord Buttons
+      For i = #Note_First To #Note_Fc
+        Select i
+          Case #Note_Eb
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Maj, i))
+              OpenGLDrawImage(#Img_Button_Light_Down_On, (271 + i * 31), 240)
+            Else
+              OpenGLDrawImage(#Img_Button_Light_Down_Off, (271 + i * 31), 240)
+            EndIf
+          Case #Note_Bb
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Maj, i))
+              OpenGLDrawImage(#Img_Button_Light_Up_On, (271 + i * 31), 240)
+            Else
+              OpenGLDrawImage(#Img_Button_Light_Up_Off, (271 + i * 31), 240)
+            EndIf
+          Case #Note_A, #Note_E, #Note_B
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Maj, i))
+              OpenGLDrawImage(#Img_Button_Light_O_On, (271 + i * 31), 240)
+            Else
+              OpenGLDrawImage(#Img_Button_Light_O_Off, (271 + i * 31), 240)
+            EndIf
+          Default
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Maj, i))
+              OpenGLDrawImage(#Img_Button_Light_On, (271 + i * 31), 240)
+            Else
+              OpenGLDrawImage(#Img_Button_Light_Off, (271 + i * 31), 240)
+            EndIf
+        EndSelect
+        
+        Select i
+          Case #Note_Db, #Note_Bb, #Note_D
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Min, i))
+              OpenGLDrawImage(#Img_Button_Light_On, (286 + i * 31), 283)
+            Else
+              OpenGLDrawImage(#Img_Button_Light_Off, (286 + i * 31), 283)
+            EndIf
+          Case #Note_A, #Note_E
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Min, i))
+              OpenGLDrawImage(#Img_Button_Dark_C_On, (286 + i * 31), 283)
+            Else
+              OpenGLDrawImage(#Img_Button_Dark_C_Off, (286 + i * 31), 283)
+            EndIf
+          Case #Note_B
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Min, i))
+              OpenGLDrawImage(#Img_Button_Light_C_On, (286 + i * 31), 283)
+            Else
+              OpenGLDrawImage(#Img_Button_Light_C_Off, (286 + i * 31), 283)
+            EndIf
+          Default
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_Min, i))
+              OpenGLDrawImage(#Img_Button_Dark_On, (286 + i * 31), 283)
+            Else
+              OpenGLDrawImage(#Img_Button_Dark_Off, (286 + i * 31), 283)
+            EndIf
+        EndSelect
+        
+        Select i
+          Case #Note_F, #Note_C, #Note_G
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_7th, i))
+              OpenGLDrawImage(#Img_Button_Dark_Tri_On, (301 + i * 31), 326)
+            Else
+              OpenGLDrawImage(#Img_Button_Dark_Tri_Off, (301 + i * 31), 326)
+            EndIf
+          Case #Note_A, #Note_E, #Note_B
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_7th, i))
+              OpenGLDrawImage(#Img_Button_Dark_X_On, (301 + i * 31), 326)
+            Else
+              OpenGLDrawImage(#Img_Button_Dark_X_Off, (301 + i * 31), 326)
+            EndIf
+          Default
+            If \Input_State\Keymap(\Input_State\Keymap_Chord(#Chord_7th, i))
+              OpenGLDrawImage(#Img_Button_Dark_On, (301 + i * 31), 326)
+            Else
+              OpenGLDrawImage(#Img_Button_Dark_Off, (301 + i * 31), 326)
+            EndIf
+        EndSelect
+      Next
+      
+      If \Input_State\Keymap(\Input_State\Keymap_Function(#Btn_Chordiate))
+        OpenGLDrawImage(#Img_Button_Bar_Light_On, 361, 369)
+      Else
+        OpenGLDrawImage(#Img_Button_Bar_Light_Off, 361, 369)
+>>>>>>> Stashed changes
+      EndIf
+      
+      
       Delay(10)
     ForEver
   EndWith

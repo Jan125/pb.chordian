@@ -19,12 +19,20 @@
   <section name="data">
     <explorer view="" pattern="0"/>
     <log show="1"/>
+<<<<<<< Updated upstream
     <lastopen date="2024-05-15 21:46" user="dino" host="DESKTOP-C5DN0BR"/>
+=======
+    <lastopen date="2024-05-18 08:56" user="dino" host="DESKTOP-C5DN0BR"/>
+>>>>>>> Stashed changes
   </section>
   <section name="files">
     <file name="chordian.pb">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="1" panelstate="+"/>
+<<<<<<< Updated upstream
       <fingerprint md5="c0b5aa7632e7e469d94285fcfc92b3e1"/>
+=======
+      <fingerprint md5="4848f26901baabfdbdff11a7168c42e7"/>
+>>>>>>> Stashed changes
     </file>
     <file name="chordian_datasections.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="2" panelstate="+"/>
@@ -32,7 +40,7 @@
     </file>
     <file name="chordian_enumerations.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="3" panelstate="+"/>
-      <fingerprint md5="1503ea4b1cf1856b0dce3b0eed046026"/>
+      <fingerprint md5="556ee6ffdf009268293bd50e95c829aa"/>
     </file>
     <file name="chordian_frequencyhandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="4" panelstate="+"/>
@@ -40,7 +48,11 @@
     </file>
     <file name="chordian_helpers.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="5" panelstate="+"/>
+<<<<<<< Updated upstream
       <fingerprint md5="f56f079a0ed02511b7324cdd0ba55107"/>
+=======
+      <fingerprint md5="634eafa0158a7e89db2e3de7150bf1e0"/>
+>>>>>>> Stashed changes
     </file>
     <file name="chordian_machinehandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="6" panelstate="+"/>
@@ -52,7 +64,11 @@
     </file>
     <file name="chordian_repainthandler.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="8" panelstate="+"/>
+<<<<<<< Updated upstream
       <fingerprint md5="85f0d6637317b19c241a8aec66c80689"/>
+=======
+      <fingerprint md5="6ef9103bd9fdf4edde38e473033ecbe6"/>
+>>>>>>> Stashed changes
     </file>
     <file name="chordian_structures.pbi">
       <config load="0" scan="1" panel="1" warn="1" lastopen="1" sortindex="9" panelstate="+"/>
@@ -107,7 +123,11 @@
       <options unicode="1" thread="1" xpskin="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
+<<<<<<< Updated upstream
       <buildcount enable="1" value="503"/>
+=======
+      <buildcount enable="1" value="509"/>
+>>>>>>> Stashed changes
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -135,7 +155,11 @@
       <options unicode="1" thread="1" xpskin="1" optimizer="1"/>
       <icon enable="1">chordian.ico</icon>
       <format exe="default" cpu="1"/>
+<<<<<<< Updated upstream
       <buildcount enable="1" value="503"/>
+=======
+      <buildcount enable="1" value="509"/>
+>>>>>>> Stashed changes
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>
@@ -162,7 +186,11 @@
       <executable value="..\chordian_legacy.exe"/>
       <options thread="1" optimizer="0"/>
       <icon enable="1">chordian.ico</icon>
+<<<<<<< Updated upstream
       <buildcount enable="1" value="503"/>
+=======
+      <buildcount enable="1" value="509"/>
+>>>>>>> Stashed changes
       <execonstant enable="1"/>
       <versioninfo enable="1">
         <field0 value="%yyyy,%mm,%dd,%BUILDCOUNT"/>

@@ -325,7 +325,7 @@ Enumeration 1
 EndEnumeration
 
 Enumeration 1
-  #Gad_Canvas
+  #Gad_OpenGL
   
   #Gad_ChordEdit_Button_Refresh
   #Gad_ChordEdit_Button_Import
