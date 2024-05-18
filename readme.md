@@ -77,7 +77,9 @@ The behaviour of the patterns is like follows:
 
 It can also be played with the numpad.\
 From lowest harp note to highest harp note:
-        1 2 3 4 5 6 7 8 9 / * - 
+        1 2 3 4 5 6 7 8 9 / * -
+
+The StopAllSounds button is by default assigned to the Numpad's Decimal key.
 
 These buttons currently cannot be reassigned through the UI.\
 Use the .ini file to reassign them.

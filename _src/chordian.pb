@@ -409,6 +409,12 @@ Procedure.i ResetInput()
     EndIf
     \Keymap_Function(#Btn_Chordiate) = i
     
+    i = ReadPreferenceInteger("KeyStop", -1)
+    If i = -1
+      i = #VK_DECIMAL
+    EndIf
+    \Keymap_Function(#Btn_Stop) = i
+    
   EndWith
   
 EndProcedure
@@ -4319,6 +4325,24 @@ Procedure.i Main()
               ResumeThread(Chordian\RepaintHandler_Thread)
             EndIf
             
+            If \Keymap(\Keymap_Function(#Btn_Stop))
+              Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
+              Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+              For i = #Note_First To #Note_Last
+                For n = #Chord_First To #Chord_Last
+                  \Keymap(\Keymap_Chord(n, i)) = 0
+                Next
+              Next
+              Chordian\Machine_State\Value_Internal_Tick = 0
+              Chordian\Machine_State\Value_Internal_Chord_Chord = #Chord_None
+              Chordian\Machine_State\Value_Internal_Chord_Note = #Note_None
+              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_IsNewChord, 1, 0)
+              ReleaseSemaphore_(Chordian\Machine_Event\Semaphore_StopAllSounds, 1, 0)
+              PauseThread(Chordian\RepaintHandler_Thread)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
+              ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+              ResumeThread(Chordian\RepaintHandler_Thread)
+            EndIf
           EndWith
           
         Case #PB_Event_RestoreWindow

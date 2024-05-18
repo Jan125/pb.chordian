@@ -496,6 +496,7 @@ Enumeration -1
   #Btn_Memory_Repeat_Delete
   #Btn_Memory_Playback_Enter
   #Btn_Chordiate
-  #Btn_Last = #Btn_Chordiate
+  #Btn_Stop
+  #Btn_Last = #Btn_Stop
 EndEnumeration
 
