@@ -3,6 +3,8 @@
   Protected ScaleX.f
   Protected ScaleY.f
   
+  Protected BaseRepainted.i
+  
   With Chordian
     Repeat
       WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Commit, -1)
@@ -37,14 +39,17 @@
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Base, 0) = #WAIT_OBJECT_0
           DrawImage(ImageID(#Img_Background), 0, 0)
           DrawAlphaImage(ImageID(#Img_Base), 0, 0)
+          BaseRepainted = 1
         EndIf
         
         
         ;-Repaint Master section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Master, 0) = #WAIT_OBJECT_0
           ClipOutput(63 * ScaleX, 29 * ScaleY, 162 * ScaleX, 121 * ScaleY)
-          DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
-          DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          If Not BaseRepainted
+            DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
+            DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          EndIf
           ;Power Button and LED
           Select \Machine_State\Value_Master_Button_Power_OnOff
             Case 1
@@ -64,8 +69,10 @@
         ;-Repaint Level/Mode section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Level, 0) = #WAIT_OBJECT_0
           ClipOutput(24 * ScaleX, 154 * ScaleY, 201 * ScaleX, 96 * ScaleY)
-          DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
-          DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          If Not BaseRepainted
+            DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
+            DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          EndIf
           ;Harp Voice 2 Volume Knob
           DrawAlphaImage(ImageID(#Img_Knob_Ring), 73 * ScaleX, 170 * ScaleY)
           KnobLine(94 * ScaleX, 191 * ScaleY, 21 * ScaleX, 21 * ScaleY, \Machine_State\Value_Level_Knob_Volume_Harp_1)
@@ -89,8 +96,10 @@
         ;-Repaint Rhythm section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Rhythm, 0) = #WAIT_OBJECT_0
           ClipOutput(23 * ScaleX, 254 * ScaleY, 202 * ScaleX, 126 * ScaleY)
-          DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
-          DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          If Not BaseRepainted
+            DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
+            DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          EndIf
           ;Rhythm Alternate Selection Button
           Select \Machine_State\Value_Rhythm_Button_Alternate_OnOff
             Case 1
@@ -126,8 +135,10 @@
         ;-Repaint Memory section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Memory, 0) = #WAIT_OBJECT_0
           ClipOutput(32 * ScaleX, 384 * ScaleY, 193 * ScaleX, 186 * ScaleY)
-          DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
-          DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          If Not BaseRepainted
+            DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
+            DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          EndIf
           ;Memory Button
           Select \Machine_State\Value_Memory_Button_Memory_OnOff
             Case 1
@@ -171,8 +182,10 @@
         ;-Repaint Chord section
         If WaitForSingleObject_(\Repaint_Event\Semaphore_Repaint_Chord, 0) = #WAIT_OBJECT_0
           ClipOutput(230 * ScaleX, 217 * ScaleY, 438 * ScaleX, 192 * ScaleY)
-          DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
-          DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          If Not BaseRepainted
+            DrawImage(ImageID(#Img_Background), 0 * ScaleX, 0 * ScaleY)
+            DrawAlphaImage(ImageID(#Img_Base), 0 * ScaleX, 0 * ScaleY)
+          EndIf
           ;Chord Buttons
           For i = #Note_First To #Note_Fc
             Select i
@@ -262,6 +275,8 @@
         UnclipOutput()
         
         StopDrawing()
+        
+        BaseRepainted = 0
       EndIf
       Delay(10)
     ForEver

@@ -591,7 +591,11 @@ Procedure.i KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
   
   With Chordian\Input_State
     If (\Mouse_Position_X_Current - (271 + OffsetX)) % 31 <= 20
-      PauseThread(Chordian\RepaintHandler_Thread)
+      While Not WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 0) = #WAIT_OBJECT_0
+        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
+        ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+      Wend
+      
       If StartDrawing(CanvasOutput(#Gad_Canvas))
         ScaleX = OutputWidth() / 800.0
         ScaleY = OutputHeight() / 600.0
@@ -921,9 +925,12 @@ Procedure.i KeyReassign_Chord(Type.i, OffsetX.i, OffsetY.i)
         
       EndIf
       
+      WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 0)
+      
       ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
       ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-      ResumeThread(Chordian\RepaintHandler_Thread)
+      
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Resume, 1, 0)
       
     EndIf
   EndWith
@@ -938,7 +945,10 @@ Procedure.i KeyReassign_Function(Type.i)
   Protected ScaleY.f
   
   With Chordian\Input_State
-    PauseThread(Chordian\RepaintHandler_Thread)
+    While Not WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Done, 0) = #WAIT_OBJECT_0
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 1, 0)
+      ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
+    Wend
     
     If StartDrawing(CanvasOutput(#Gad_Canvas))
       
@@ -1119,8 +1129,17 @@ Procedure.i KeyReassign_Function(Type.i)
       EndSelect
     EndIf
     
+    WaitForSingleObject_(Chordian\Repaint_Event\Semaphore_Repaint_Stop, 0)
+    
+    ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
+    ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
+    ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
+    ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
+    ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
+    ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
     ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-    ResumeThread(Chordian\RepaintHandler_Thread)
+    
+    ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Resume, 1, 0)
     
   EndWith
 EndProcedure
@@ -4304,17 +4323,6 @@ Procedure.i Main()
           
         Case #PB_Event_RestoreWindow
           SetActiveGadget(#Gad_Canvas)
-          
-        Case #PB_Event_Repaint
-          PauseThread(Chordian\RepaintHandler_Thread)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Base, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Master, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Level, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Rhythm, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Memory, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Chord, 1, 0)
-          ReleaseSemaphore_(Chordian\Repaint_Event\Semaphore_Repaint_Commit, 1, 0)
-          ResumeThread(Chordian\RepaintHandler_Thread)
           
         Case #PB_Event_SizeWindow
           ;--Resize window
