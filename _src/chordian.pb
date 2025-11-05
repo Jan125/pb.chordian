@@ -1222,6 +1222,9 @@ Procedure.i Init()
   If ReadPreferenceInteger("UseTrueOff", 0) <> 0
     MIDI_UseTrueOff = 1
   EndIf
+  If ReadPreferenceInteger("UseTrueStop", 0) <> 0
+    MIDI_UseTrueStop = 1
+  EndIf
   
   ;-Create Menu
   CreateMenu(#Men_Main, WindowID(#Win_Main))
