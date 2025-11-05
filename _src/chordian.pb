@@ -1219,6 +1219,9 @@ Procedure.i Init()
     SendMIDIProgram(MIDIHandle, 3, ReadPreferenceInteger("KeyboardProgram", 90))
     SendMIDIProgram(MIDIHandle, 9, ReadPreferenceInteger("DrumProgram", 0))
   EndIf
+  If ReadPreferenceInteger("UseTrueOff", 0) <> 0
+    MIDI_UseTrueOff = 1
+  EndIf
   
   ;-Create Menu
   CreateMenu(#Men_Main, WindowID(#Win_Main))
